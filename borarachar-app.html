@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bora Rachar: MVP App</title>
+<meta name="description" content="Demonstração interativa do Bora Rachar, MVP para divisão simples e transparente de despesas.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/borarachar-app.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Bora Rachar: MVP App">
+<meta property="og:description" content="Demonstração interativa do Bora Rachar, MVP para divisão simples e transparente de despesas.">
+<meta property="og:url" content="https://datajen.com.br/borarachar-app.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bora Rachar: MVP App">
+<meta name="twitter:description" content="Demonstração interativa do Bora Rachar, MVP para divisão simples e transparente de despesas.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#009B3A;--green-d:#006B27;--green-l:#e8f5ec;--green-ll:#f0faf3;
+  --yellow:#F5A623;--yellow-l:#fff8ec;
+  --bg:#f7f7f2;--white:#ffffff;--dark:#1a1a1a;--muted:#888;--border:#e8e8e0;
+  --red:#e53935;--blue:#1a73e8;
+}
+body{
+  background:#f4f2ec;
+  min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+.app-stage{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:3rem;padding:2rem 1rem}
+
+/* ── PORTFOLIO NAV ── */
+.porto-nav{position:sticky;top:0;z-index:50;width:100%;flex:0 0 100%;background:rgba(244,242,236,.92);backdrop-filter:blur(12px);border-bottom:1px solid #e8e4dc;font-family:'Inter',sans-serif}
+.porto-nav .in{max-width:1360px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:16px}
+.porto-wordmark{text-decoration:none;color:#1a1a1a;display:flex;align-items:baseline;gap:6px;white-space:nowrap}
+.porto-wordmark .the{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:15px}
+.porto-wordmark .name{font-weight:800;font-size:17px;letter-spacing:.04em}
+.porto-breadcrumb{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#888;display:flex;align-items:center;gap:8px;margin-left:20px}
+.porto-breadcrumb a{color:#888;text-decoration:none;transition:.2s}
+.porto-breadcrumb a:hover{color:#1a1a1a}
+.porto-breadcrumb .sep{color:#ccc}
+.porto-back{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#888;text-decoration:none;padding:8px 16px;border-radius:99px;border:1.5px solid #e8e4dc;font-family:'Inter',sans-serif;transition:.2s}
+.porto-back:hover{color:#1a1a1a;border-color:#1a1a1a}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff!important;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:4px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+
+/* ── PHONE ── */
+.phone-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem;transform:scale(.8);transform-origin:top center;margin-bottom:-136px}
+.phone-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#3a6a3a}
+
+.phone{
+  width:375px;height:680px;
+  background:var(--bg);border-radius:44px;
+  border:10px solid #111;
+  box-shadow:0 0 0 1px #222,0 0 0 3px #111,0 32px 80px rgba(0,0,0,0.8),inset 0 0 0 1px #333;
+  overflow:hidden;position:relative;
+  display:flex;flex-direction:column;
+}
+
+/* notch */
+.notch{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:130px;height:30px;background:#111;border-radius:0 0 20px 20px;z-index:50;
+}
+.notch-cam{
+  position:absolute;top:8px;right:22px;
+  width:10px;height:10px;border-radius:50%;background:#222;
+  box-shadow:inset 0 0 3px rgba(0,180,255,0.3);
+}
+
+/* status bar */
+.status-bar{
+  height:44px;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 24px 6px;flex-shrink:0;font-size:12px;font-weight:600;
+  color:var(--dark);position:relative;z-index:10;background:var(--white);
+}
+.status-bar.green{background:var(--green);color:white}
+.sb-time{font-size:15px;font-weight:700}
+.sb-icons{display:flex;gap:5px;align-items:center;font-size:11px}
+
+/* screens container */
+.screens{
+  flex:1;overflow:hidden;position:relative;
+}
+.screen{
+  position:absolute;inset:0;background:var(--bg);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+}
+.screen.active{transform:translateX(0)}
+.screen.prev{transform:translateX(-100%)}
+.screen.next{transform:translateX(100%)}
+
+/* ── NAV BAR (top) ── */
+.nav-bar{
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:12px 20px;display:flex;align-items:center;gap:12px;
+  flex-shrink:0;
+}
+.nav-bar.green{background:var(--green);border-bottom:none}
+.nav-back{font-size:20px;cursor:pointer;color:var(--green);padding:0 4px;background:none;border:none}
+.nav-back.white{color:white}
+.nav-title{font-size:17px;font-weight:700;color:var(--dark)}
+.nav-title.white{color:white}
+.nav-pts{margin-left:auto;font-size:13px;font-weight:700;color:var(--green);
+  background:var(--green-l);padding:4px 10px;border-radius:20px}
+
+/* ── SCREEN CONTENT ── */
+.content{flex:1;overflow-y:auto;padding:0}
+.content::-webkit-scrollbar{width:3px}
+.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* Map screen */
+.map-area{
+  height:200px;background:linear-gradient(160deg,#d4e9da,#c8e0cc);
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+.map-grid{position:absolute;inset:0;opacity:.3}
+.map-dot{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--green);
+  border:2px solid white;box-shadow:0 2px 6px rgba(0,155,58,.4)}
+.map-dot.you{background:var(--blue);border-color:white;box-shadow:0 0 0 6px rgba(26,115,232,.15)}
+.map-pin{position:absolute;font-size:28px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))}
+.map-badge{
+  position:absolute;bottom:12px;left:12px;right:12px;
+  background:white;border-radius:12px;padding:10px 14px;
+  box-shadow:0 4px 16px rgba(0,0,0,.12);display:flex;align-items:center;gap:10px;
+}
+.badge-icon{font-size:24px}
+.badge-info{flex:1}
+.badge-name{font-size:13px;font-weight:700;color:var(--dark)}
+.badge-sub{font-size:11px;color:var(--muted)}
+.badge-dist{font-size:12px;font-weight:700;color:var(--green)}
+
+.section{padding:16px 20px 0}
+.section-title{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px}
+
+.card-block{
+  background:var(--white);border-radius:12px;border:1px solid var(--border);
+  padding:14px 16px;margin:0 20px 12px;
+}
+.cb-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.cb-title{font-size:14px;font-weight:600;color:var(--dark)}
+.cb-sub{font-size:12px;color:var(--muted)}
+.cb-value{font-size:20px;font-weight:800;color:var(--green)}
+.cb-tag{font-size:11px;padding:3px 8px;border-radius:20px;font-weight:600}
+.cb-tag.g{background:var(--green-l);color:var(--green-d)}
+.cb-tag.y{background:var(--yellow-l);color:#b06000}
+
+.pts-card{
+  background:linear-gradient(135deg,var(--green),var(--green-d));
+  border-radius:12px;margin:0 20px 12px;padding:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.pts-icon{font-size:32px}
+.pts-num{font-size:28px;font-weight:800;color:white}
+.pts-lab{font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.5px}
+
+/* Bottom nav */
+.bottom-nav{
+  background:var(--white);border-top:1px solid var(--border);
+  display:flex;padding:8px 0 20px;flex-shrink:0;
+}
+.bn-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:9.5px;color:var(--muted);cursor:pointer;
+}
+.bn-item.active{color:var(--green)}
+.bn-icon{font-size:22px}
+.bn-item.active .bn-icon{filter:drop-shadow(0 0 4px rgba(0,155,58,.3))}
+
+/* ── SCREEN 2: CAR DETECTED ── */
+.detect-hero{
+  background:linear-gradient(160deg,var(--green),var(--green-d));
+  padding:32px 24px 24px;display:flex;flex-direction:column;align-items:center;gap:12px;
+  flex-shrink:0;
+}
+.detect-badge{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);
+  display:flex;align-items:center;justify-content:center;font-size:40px;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.3)}50%{box-shadow:0 0 0 12px rgba(255,255,255,0)}}
+.detect-title{font-size:18px;font-weight:800;color:white;text-align:center}
+.detect-sub{font-size:13px;color:rgba(255,255,255,.75);text-align:center}
+.detect-chip{
+  background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);
+  border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:white;
+  letter-spacing:1px;
+}
+.info-list{padding:16px 20px}
+.info-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 0;border-bottom:1px solid var(--border);
+}
+.info-row:last-child{border-bottom:none}
+.ir-key{font-size:13px;color:var(--muted)}
+.ir-val{font-size:13px;font-weight:600;color:var(--dark)}
+.ir-val.g{color:var(--green)}
+
+/* ── SCREEN 3: FUELING ── */
+.fuel-hero{
+  background:var(--green-l);padding:24px;display:flex;flex-direction:column;align-items:center;gap:8px;
+  border-bottom:1px solid rgba(0,155,58,.15);flex-shrink:0;
+}
+.fuel-pump{font-size:52px;animation:bounce .8s ease-in-out infinite alternate}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+.fuel-status{font-size:12px;color:var(--green-d);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.fuel-bar-wrap{width:100%;background:rgba(0,155,58,.12);border-radius:8px;height:8px;overflow:hidden}
+.fuel-bar{height:100%;background:linear-gradient(90deg,var(--green),#00c44a);border-radius:8px;
+  width:63%;animation:fillup 3s ease-out forwards}
+@keyframes fillup{from{width:0}to{width:63%}}
+
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 20px 0}
+.metric{
+  background:var(--white);border-radius:10px;border:1px solid var(--border);padding:12px 14px;
+}
+.m-val{font-size:22px;font-weight:800;color:var(--dark)}
+.m-val.g{color:var(--green)}
+.m-val.y{color:var(--yellow)}
+.m-unit{font-size:12px;color:var(--muted)}
+.m-lab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-top:2px}
+
+.live-pts{
+  background:linear-gradient(90deg,var(--green),var(--green-d));
+  margin:14px 20px 0;border-radius:10px;padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.lp-label{font-size:12px;color:rgba(255,255,255,.8)}
+.lp-val{font-size:20px;font-weight:800;color:white}
+.lp-anim{font-size:11px;color:rgba(255,255,255,.6);animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ── SCREEN 4: COMPLETE ── */
+.complete-hero{
+  background:linear-gradient(160deg,var(--green),var(--green-d));
+  padding:28px 24px 20px;display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;
+}
+.check-circle{
+  width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.2);
+  border:2.5px solid rgba(255,255,255,.5);
+  display:flex;align-items:center;justify-content:center;font-size:36px;
+}
+.comp-title{font-size:20px;font-weight:800;color:white}
+.comp-sub{font-size:13px;color:rgba(255,255,255,.75)}
+.pts-badge-big{
+  background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);
+  border-radius:24px;padding:6px 18px;font-size:16px;font-weight:800;color:white;
+}
+
+.offer-card{
+  margin:14px 20px 10px;background:var(--yellow-l);border:1.5px solid rgba(245,166,35,.3);
+  border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;
+}
+.offer-icon{font-size:36px}
+.offer-text .ot-title{font-size:14px;font-weight:700;color:var(--dark)}
+.offer-text .ot-sub{font-size:12px;color:#b06000;margin-top:2px}
+
+.action-btns{display:flex;flex-direction:column;gap:8px;padding:0 20px}
+.btn{
+  width:100%;padding:14px;border-radius:12px;border:none;
+  font-size:15px;font-weight:700;cursor:pointer;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s,opacity .15s;
+  position:relative;overflow:hidden;
+}
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at var(--rx,50%) var(--ry,50%),rgba(255,255,255,.35) 0%,transparent 65%);
+  opacity:0;transition:opacity .4s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96);opacity:.9}
+.btn:active::after{opacity:1;transition:opacity 0s}
+.btn.primary{
+  background:linear-gradient(160deg,var(--green),var(--green-d));
+  color:white;
+  box-shadow:0 4px 14px rgba(0,155,58,.35),0 1px 3px rgba(0,0,0,.1);
+}
+.btn.primary:hover{box-shadow:0 8px 22px rgba(0,155,58,.45),0 2px 6px rgba(0,0,0,.12)}
+.btn.secondary{
+  background:var(--white);color:var(--green);
+  border:1.5px solid var(--green);
+  box-shadow:0 2px 8px rgba(0,155,58,.12);
+}
+.btn.secondary:hover{background:var(--green-l);box-shadow:0 4px 14px rgba(0,155,58,.2)}
+.btn.ghost{background:transparent;color:var(--muted);font-size:13px;padding:10px}
+
+/* ── SCREEN 5: RACHAR ── */
+.rachar-hero{
+  background:linear-gradient(135deg,#1a3a6a,#0d1f3d);
+  padding:24px;display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;
+}
+.rachar-total{font-size:36px;font-weight:800;color:white}
+.rachar-lab{font-size:12px;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase}
+
+.passengers{padding:16px 20px}
+.pass-title{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px}
+.pass-list{display:flex;flex-direction:column;gap:8px}
+.pass-row{
+  background:var(--white);border:1px solid var(--border);border-radius:10px;
+  padding:12px 14px;display:flex;align-items:center;gap:12px;
+}
+.pass-avatar{
+  width:40px;height:40px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-weight:800;font-size:15px;color:white;flex-shrink:0;
+}
+.pass-name{font-size:14px;font-weight:600;color:var(--dark)}
+.pass-sub{font-size:11px;color:var(--muted)}
+.pass-value{margin-left:auto;font-size:16px;font-weight:800;color:var(--dark)}
+.pass-you{font-size:10px;color:var(--green);font-weight:600}
+
+.divider-line{
+  height:1px;background:var(--border);margin:4px 20px;
+}
+.total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 20px 4px;
+}
+.tr-lab{font-size:12px;color:var(--muted)}
+.tr-val{font-size:14px;font-weight:700;color:var(--dark)}
+
+.share-btns{display:flex;gap:8px;padding:0 20px;margin-top:4px}
+.sbtn{
+  flex:1;padding:12px 8px;border-radius:10px;border:none;
+  font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.sbtn.pix{background:#00bdae;color:white}
+.sbtn.whats{background:#25D366;color:white}
+
+/* ── SCREEN 6: LOJA ── */
+.loja-header{
+  background:var(--green);padding:16px 20px;
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.lh-bal{font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.5px}
+.lh-pts{font-size:26px;font-weight:800;color:white}
+.lh-icon{font-size:32px}
+
+.menu-list{padding:12px 20px;display:flex;flex-direction:column;gap:8px}
+.menu-item{
+  background:var(--white);border:1px solid var(--border);border-radius:12px;
+  padding:12px 14px;display:flex;align-items:center;gap:12px;
+}
+.mi-icon{font-size:30px;flex-shrink:0}
+.mi-info{flex:1}
+.mi-name{font-size:14px;font-weight:600;color:var(--dark)}
+.mi-pts{font-size:11px;color:var(--muted);margin-top:2px}
+.mi-pts span{font-weight:700;color:var(--green)}
+.mi-btn{
+  padding:7px 14px;border-radius:8px;border:1.5px solid var(--green);
+  background:transparent;color:var(--green);font-size:12px;font-weight:700;cursor:pointer;
+  white-space:nowrap;transition:all .15s;
+}
+.mi-btn.canRedeem{background:var(--green);color:white;border-color:var(--green)}
+.mi-btn.canRedeem:active{background:var(--green-d)}
+.mi-btn.cant{border-color:var(--border);color:var(--muted);cursor:not-allowed}
+
+.redeemed-toast{
+  position:fixed;bottom:100px;left:50%;transform:translateX(-50%);
+  background:#333;color:white;padding:10px 20px;border-radius:20px;
+  font-size:13px;font-weight:600;opacity:0;pointer-events:none;
+  transition:opacity .3s;white-space:nowrap;z-index:200;
+}
+.redeemed-toast.show{opacity:1}
+html.in-iframe .gn{display:none!important}
+html.in-iframe .phone-wrap{margin-top:0!important}
+html.embed-mode,html.embed-mode body{width:100%;height:100%;min-height:100%;overflow:hidden}
+html.embed-mode body{display:grid;place-items:center;padding:0;gap:0}
+html.embed-mode .gn,
+html.embed-mode .demo-integrity-banner,
+html.embed-mode .everyday-translation,
+html.embed-mode .tech-disclaimer,
+html.embed-mode .mob-veil{display:none!important}
+html.embed-mode .phone-wrap{
+  width:375px;max-width:100%;margin:0!important;transform:none;place-self:center
+}
+
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:768px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .porto-back,.gn-cta,.porto-breadcrumb{display:none!important}
+  .porto-nav .in{position:relative!important;justify-content:flex-start}
+  .porto-wordmark{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+<style id="context-info-css">
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+.context-live-badge{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.05em;color:#006B27;background:#e8f5ec;border:1px solid rgba(0,155,58,.3);border-radius:99px;padding:6px 12px;white-space:nowrap}
+.context-live-badge .context-live-dot{width:6px;height:6px;border-radius:50%;background:#009B3A;animation:contextPulse 2s infinite}
+@keyframes contextPulse{0%,100%{opacity:1}50%{opacity:.35}}
+.demo-subbar{position:sticky;top:57px;z-index:49;width:100%;flex:0 0 100%;background:#faf9f5;border-bottom:1px solid #e8e4dc;display:flex;align-items:center;gap:10px;padding:9px 24px;flex-wrap:wrap}
+.demo-subbar .porto-back{margin-left:auto;padding:6px 14px;font-size:12px}
+html.in-iframe .demo-subbar,html.embed-mode .demo-subbar{display:none!important}
+@media(max-width:640px){.demo-subbar{top:53px;padding:8px 14px}}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="nav-drop-fix">.nav-traj-drop a,.nav-cases-drop a,.nav-tree-drop a{color:#1a1a1a!important}.nav-traj-drop a:hover,.nav-cases-drop a:hover{color:#000!important}</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="global-nav-css">
+/* Mesma barra usada em todos os apps do portfolio. */
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+/* A barra .gn e fixed: reserva o espaco dela e some no modo embed. */
+body{padding-top:44px}
+html.in-iframe body,html.embed-mode body{padding-top:0}
+html.in-iframe .gn,html.embed-mode .gn{display:none!important}
+@media(max-width:640px){.gn-back{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<link rel="stylesheet" href="embedded-preview.css?v=20261027-fit">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Bora Rachar: MVP App</h1>
+<script>
+if(new URLSearchParams(window.location.search).get('embed')==='1')document.documentElement.classList.add('embed-mode');
+if(window.self!==window.top)document.documentElement.classList.add('in-iframe');
+</script>
+
+<nav class="gn" id="globalNav" aria-label="Navega&ccedil;&atilde;o do portf&oacute;lio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="cases-petrobras.html">Case Petrobras &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+<div class="demo-subbar">
+  <span class="context-live-badge"><span class="context-live-dot"></span> DEMO AO VIVO · DADOS SINTÉTICOS</span>
+  <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+  <a class="porto-back" href="cases-petrobras.html">← Voltar ao case</a>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>O Bora Rachar é um MVP de abastecimento conectado: identifica o veículo, acompanha o consumo, aplica a regra de fidelidade e organiza a divisão do pagamento por PIX. A jornada evidencia como integrações entre veículo, posto e pagamento podem reduzir atrito para o cliente e abrir novos serviços digitais para a operação.</p>
+  <span class="context-action"><b>O que faz:</b> Conecta veículo, abastecimento e pagamento em uma jornada única. <b>Experimente:</b> clique em "Iniciar", simule abastecimento, teste fidelidade e PIX. <b>O que a demo mostra:</b> uma jornada simulada de abastecimento, pagamento e fidelidade, sem transação financeira.</span>
+</aside>
+
+<div class="app-stage">
+<div class="phone-wrap" style="margin-top:32px">
+  <div class="phone-label">★ Bora Rachar: MVP App ★</div>
+  <div class="phone">
+    <div class="notch"><div class="notch-cam"></div></div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar" id="statusBar">
+      <span class="sb-time">9:41</span>
+      <div class="sb-icons">
+        <span>●●●</span><span>WiFi</span><span>🔋</span>
+      </div>
+    </div>
+
+    <div class="screens" id="screens">
+
+      <!-- SCREEN 0: HOME -->
+      <div class="screen active" id="s0">
+        <div class="nav-bar">
+          <span class="nav-title" style="font-size:20px;color:var(--green)">⛽ Bora Rachar</span>
+          <div class="nav-pts">1.900 pts</div>
+        </div>
+        <div class="content">
+          <div class="map-area">
+            <svg class="map-grid" viewBox="0 0 355 200" xmlns="http://www.w3.org/2000/svg">
+              <defs><pattern id="g" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="#009B3A" stroke-width=".5"/></pattern></defs>
+              <rect fill="url(#g)" width="355" height="200"/>
+            </svg>
+            <div class="map-pin" style="top:30px;left:160px">📍</div>
+            <div class="map-dot" style="top:52px;left:168px;width:16px;height:16px"></div>
+            <div class="map-dot you" style="top:100px;left:200px;width:14px;height:14px"></div>
+            <div class="map-pin" style="top:110px;left:100px;font-size:22px">⛽</div>
+            <div class="map-badge">
+              <div class="badge-icon">⛽</div>
+              <div class="badge-info">
+                <div class="badge-name">Posto Petrobras Beira-Mar</div>
+                <div class="badge-sub">Rua Santos Dumont, 1200</div>
+              </div>
+              <div class="badge-dist">0,3 km</div>
+            </div>
+          </div>
+
+          <div style="padding:14px 20px 8px">
+            <div class="section-title">sua conta</div>
+          </div>
+
+          <div class="pts-card">
+            <div class="pts-icon">⭐</div>
+            <div>
+              <div class="pts-num">1.900</div>
+              <div class="pts-lab">pontos acumulados</div>
+            </div>
+            <div style="margin-left:auto;text-align:right">
+              <div style="font-size:12px;color:rgba(255,255,255,.7)">próximo prêmio</div>
+              <div style="font-size:14px;font-weight:700;color:#ffd060">☕ Café</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.5)">faltam 100 pts</div>
+            </div>
+          </div>
+
+          <div class="card-block">
+            <div class="cb-row">
+              <span class="cb-title">Última visita</span>
+              <span class="cb-tag g">✓ Ford conectado</span>
+            </div>
+            <div class="cb-sub">há 3 dias · 42L · +420 pontos</div>
+          </div>
+
+          <div class="card-block" style="cursor:pointer" onclick="go(1)">
+            <div class="cb-row">
+              <span class="cb-title">🚗 Carro detectado!</span>
+              <span style="font-size:20px">→</span>
+            </div>
+            <div class="cb-sub">Ford Fiesta · Placa ABC-1D23 · aproximando-se</div>
+          </div>
+        </div>
+        <div class="bottom-nav">
+          <div class="bn-item active"><span class="bn-icon">🏠</span>início</div>
+          <div class="bn-item" onclick="go(5)"><span class="bn-icon">🛒</span>loja</div>
+          <div class="bn-item"><span class="bn-icon">📋</span>histórico</div>
+          <div class="bn-item"><span class="bn-icon">👤</span>perfil</div>
+        </div>
+      </div>
+
+      <!-- SCREEN 1: CAR DETECTED -->
+      <div class="screen next" id="s1">
+        <div class="nav-bar green">
+          <button class="nav-back white" onclick="go(0)">‹</button>
+          <span class="nav-title white">Veículo identificado</span>
+        </div>
+        <div class="content">
+          <div class="detect-hero">
+            <div class="detect-badge">🚗</div>
+            <div class="detect-title">Ford Fiesta identificado!</div>
+            <div class="detect-sub">via Ford Connected Services</div>
+            <div class="detect-chip">ABC-1D23</div>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><span class="ir-key">Modelo</span><span class="ir-val">Ford Fiesta 1.6 Flex</span></div>
+            <div class="info-row"><span class="ir-key">Ano</span><span class="ir-val">2022</span></div>
+            <div class="info-row"><span class="ir-key">Visitas neste posto</span><span class="ir-val g">32 visitas</span></div>
+            <div class="info-row"><span class="ir-key">Combustível usual</span><span class="ir-val">Etanol</span></div>
+            <div class="info-row"><span class="ir-key">Média de litros</span><span class="ir-val">43L / visita</span></div>
+            <div class="info-row"><span class="ir-key">Seus pontos</span><span class="ir-val g">1.900 ⭐</span></div>
+          </div>
+          <div style="padding:0 20px">
+            <div class="btn primary" onclick="go(2)">Iniciar abastecimento →</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 2: FUELING -->
+      <div class="screen next" id="s2">
+        <div class="nav-bar">
+          <button class="nav-back" onclick="go(1)">‹</button>
+          <span class="nav-title">Abastecendo...</span>
+        </div>
+        <div class="content">
+          <div class="fuel-hero">
+            <div class="fuel-pump">⛽</div>
+            <div class="fuel-status">● abastecimento em andamento</div>
+            <div class="fuel-bar-wrap"><div class="fuel-bar"></div></div>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="m-val" id="liters">43,2</div>
+              <div class="m-unit">litros</div>
+              <div class="m-lab">etanol</div>
+            </div>
+            <div class="metric">
+              <div class="m-val">R$ 268<span style="font-size:14px">,92</span></div>
+              <div class="m-unit"></div>
+              <div class="m-lab">valor total</div>
+            </div>
+            <div class="metric">
+              <div class="m-val g">R$ 6,23</div>
+              <div class="m-unit"></div>
+              <div class="m-lab">preço / litro</div>
+            </div>
+            <div class="metric">
+              <div class="m-val" style="color:var(--blue)">🚗 3</div>
+              <div class="m-unit"></div>
+              <div class="m-lab">no carro</div>
+            </div>
+          </div>
+          <div class="live-pts">
+            <div>
+              <div class="lp-label">Pontos ganhando agora</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.5)">10 pontos por litro abastecido</div>
+            </div>
+            <div style="text-align:right">
+              <div class="lp-val">+432</div>
+              <div class="lp-anim">contando...</div>
+            </div>
+          </div>
+          <div style="padding:14px 20px 0">
+            <div class="card-block">
+              <div class="cb-row">
+                <span style="font-size:13px;color:var(--muted)">Watson recomenda 🤖</span>
+              </div>
+              <div style="font-size:13px;font-weight:600;color:var(--dark);margin-top:2px">Com seus 2.332 pts poderá resgatar um sanduíche!</div>
+            </div>
+          </div>
+          <div style="padding:0 20px 16px">
+            <div class="btn primary" onclick="go(3)">Simular conclusão →</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 3: COMPLETE -->
+      <div class="screen next" id="s3">
+        <div class="nav-bar green">
+          <span class="nav-title white" style="margin:auto">Abastecimento concluído</span>
+        </div>
+        <div class="content">
+          <div class="complete-hero">
+            <div class="check-circle">✓</div>
+            <div class="comp-title">Pronto!</div>
+            <div class="comp-sub">43,2 L · R$ 268,92</div>
+            <div class="pts-badge-big">+432 pontos ⭐</div>
+          </div>
+          <div class="info-list" style="padding:12px 20px">
+            <div class="info-row"><span class="ir-key">Pontos ganhos hoje</span><span class="ir-val g">+432 ⭐</span></div>
+            <div class="info-row"><span class="ir-key">Saldo total</span><span class="ir-val g">2.332 ⭐</span></div>
+            <div class="info-row"><span class="ir-key">Passageiros no carro</span><span class="ir-val">3 pessoas</span></div>
+            <div class="info-row"><span class="ir-key">Cada um deve</span><span class="ir-val">R$ 89,64</span></div>
+          </div>
+          <div class="offer-card">
+            <div class="offer-icon">🥪</div>
+            <div class="offer-text">
+              <div class="ot-title">Sanduíche disponível!</div>
+              <div class="ot-sub">Você tem 2.332 pts · custa 500 pts</div>
+            </div>
+          </div>
+          <div class="action-btns">
+            <div class="btn primary" onclick="go(4)">🤝 Bora Rachar!</div>
+            <div class="btn secondary" onclick="go(5)">🛒 Ver loja de conveniência</div>
+            <div class="btn ghost">Pagar sozinho</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 4: RACHAR -->
+      <div class="screen next" id="s4">
+        <div class="nav-bar">
+          <button class="nav-back" onclick="go(3)">‹</button>
+          <span class="nav-title">Bora Rachar! 🤝</span>
+        </div>
+        <div class="content">
+          <div class="rachar-hero">
+            <div class="rachar-lab">dividindo</div>
+            <div class="rachar-total">R$ 268,92</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.6)">3 pessoas no carro</div>
+          </div>
+          <div class="passengers">
+            <div class="pass-title">quem estava no carro</div>
+            <div class="pass-list">
+              <div class="pass-row">
+                <div class="pass-avatar" style="background:var(--blue)">J</div>
+                <div>
+                  <div class="pass-name">Você (Jennifer)</div>
+                  <div class="pass-you">você está pagando</div>
+                </div>
+                <div class="pass-value">R$ 89,64</div>
+              </div>
+              <div class="pass-row">
+                <div class="pass-avatar" style="background:#e53935">M</div>
+                <div>
+                  <div class="pass-name">Marco</div>
+                  <div class="pass-sub">última divisão: há 2 dias</div>
+                </div>
+                <div class="pass-value">R$ 89,64</div>
+              </div>
+              <div class="pass-row">
+                <div class="pass-avatar" style="background:#ff9800">A</div>
+                <div>
+                  <div class="pass-name">Ana</div>
+                  <div class="pass-sub">3ª vez neste mês</div>
+                </div>
+                <div class="pass-value">R$ 89,64</div>
+              </div>
+            </div>
+          </div>
+          <div class="divider-line"></div>
+          <div class="total-row">
+            <span class="tr-lab">Você recebe de volta</span>
+            <span class="tr-val" style="color:var(--green);font-size:18px">R$ 179,28</span>
+          </div>
+          <div class="share-btns">
+            <button class="sbtn pix">⚡ Cobrar via PIX</button>
+            <button class="sbtn whats">📲 WhatsApp</button>
+          </div>
+          <div style="padding:12px 20px 0">
+            <div class="btn primary" onclick="go(5)">Ver loja de conveniência →</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 5: LOJA -->
+      <div class="screen next" id="s5">
+        <div class="nav-bar green">
+          <button class="nav-back white" onclick="go(3)">‹</button>
+          <span class="nav-title white">Loja de conveniência</span>
+        </div>
+        <div class="content">
+          <div class="loja-header">
+            <div>
+              <div class="lh-bal">seus pontos</div>
+              <div class="lh-pts">2.332 ⭐</div>
+            </div>
+            <div class="lh-icon">🏪</div>
+          </div>
+          <div class="menu-list">
+            <div class="menu-item">
+              <div class="mi-icon">☕</div>
+              <div class="mi-info">
+                <div class="mi-name">Café Expresso</div>
+                <div class="mi-pts"><span>200 pts</span> · você tem ✓</div>
+              </div>
+              <button class="mi-btn canRedeem" onclick="redeem(this,'Café resgatado! ☕')">Resgatar</button>
+            </div>
+            <div class="menu-item">
+              <div class="mi-icon">🥤</div>
+              <div class="mi-info">
+                <div class="mi-name">Suco Natural</div>
+                <div class="mi-pts"><span>350 pts</span> · você tem ✓</div>
+              </div>
+              <button class="mi-btn canRedeem" onclick="redeem(this,'Suco resgatado! 🥤')">Resgatar</button>
+            </div>
+            <div class="menu-item" style="background:#fffbe8;border-color:rgba(245,166,35,.3)">
+              <div class="mi-icon">🥪</div>
+              <div class="mi-info">
+                <div class="mi-name">Sanduíche Natural</div>
+                <div class="mi-pts"><span>500 pts</span> · você tem ✓</div>
+              </div>
+              <button class="mi-btn canRedeem" onclick="redeem(this,'Sanduíche resgatado! 🥪')">Resgatar</button>
+            </div>
+            <div class="menu-item">
+              <div class="mi-icon">🍕</div>
+              <div class="mi-info">
+                <div class="mi-name">Pizza Fatia</div>
+                <div class="mi-pts"><span>800 pts</span> · você tem ✓</div>
+              </div>
+              <button class="mi-btn canRedeem" onclick="redeem(this,'Pizza resgatada! 🍕')">Resgatar</button>
+            </div>
+            <div class="menu-item">
+              <div class="mi-icon">🍱</div>
+              <div class="mi-info">
+                <div class="mi-name">Combo Executivo</div>
+                <div class="mi-pts"><span>1.200 pts</span> · você tem ✓</div>
+              </div>
+              <button class="mi-btn canRedeem" onclick="redeem(this,'Combo resgatado! 🍱')">Resgatar</button>
+            </div>
+            <div class="menu-item">
+              <div class="mi-icon">🍺</div>
+              <div class="mi-info">
+                <div class="mi-name">Cerveja Premium (6-pack)</div>
+                <div class="mi-pts"><span>3.000 pts</span> · faltam 668 pts</div>
+              </div>
+              <button class="mi-btn cant" disabled>Resgatar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /screens -->
+  </div><!-- /phone -->
+
+  <!-- SCREEN DOTS -->
+  <div style="display:flex;gap:6px;margin-top:2px" id="dots"></div>
+
+  <!-- NAV ARROWS -->
+  <div style="display:flex;gap:12px">
+    <button onclick="go(cur-1)" style="background:rgba(0,155,58,.1);border:1px solid rgba(0,155,58,.3);color:#009B3A;border-radius:8px;padding:8px 20px;font-size:14px;cursor:pointer">‹ Anterior</button>
+    <button onclick="go(cur+1)" style="background:#009B3A;border:none;color:white;border-radius:8px;padding:8px 20px;font-size:14px;cursor:pointer">Próximo ›</button>
+  </div>
+</div>
+</div>
+
+<!-- TOAST -->
+<div class="redeemed-toast" id="toast"></div>
+
+<script>
+const TOTAL = 6;
+let cur = 0;
+// handled below
+
+
+const scrEls = Array.from({length:TOTAL}, (_,i) => document.getElementById('s'+i));
+
+function go(n){
+  if(n < 0 || n >= TOTAL) return;
+  const prev = cur; cur = n;
+  scrEls.forEach((s,i) => {
+    s.className = 'screen ' + (i === cur ? 'active' : i < cur ? 'prev' : 'next');
+  });
+  updateDots();
+  const sb = document.getElementById('statusBar');
+  sb.className = 'status-bar' + ([1,3].includes(cur) ? ' green' : '');
+}
+
+function updateDots(){
+  document.getElementById('dots').innerHTML = Array.from({length:TOTAL}, (_,i) =>
+    `<div style="width:${i===cur?20:7}px;height:7px;border-radius:4px;background:${i===cur?'#009B3A':'rgba(0,155,58,0.25)'};transition:all .3s"></div>`
+  ).join('');
+}
+
+function redeem(btn, msg){
+  btn.textContent = '✓ Resgatado';
+  btn.className = 'mi-btn';
+  btn.style.background = '#e8f5ec';
+  btn.style.color = '#009B3A';
+  btn.style.borderColor = '#009B3A';
+  btn.disabled = true;
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+updateDots();
+</script>
+<script>
+(function(){
+  const sw=document.getElementById('langSw');
+  if(!sw)return;
+  const saved=localStorage.getItem('jen_lang');
+  function setActive(l){sw.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));}
+  sw.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      setActive(btn.dataset.lang);
+      try{localStorage.setItem('jen_lang',btn.dataset.lang);}catch(e){}
+    });
+  });
+  if(saved)setActive(saved);
+})();
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+<script>(function(){['.nav-cases-toggle','.nav-traj-toggle'].forEach(function(sel){var t=document.querySelector(sel);if(t){t.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var li=this.parentElement;li.classList.toggle('open');document.querySelectorAll('.nav-cases-li,.nav-traj-li').forEach(function(el){if(el!==li)el.classList.remove('open');});});}});document.addEventListener('click',function(){document.querySelectorAll('.nav-cases-li,.nav-traj-li').forEach(function(el){el.classList.remove('open');});});})();</script>
+<script>
+/* ripple origin for .btn */
+document.addEventListener('pointerdown',function(e){
+  var btn=e.target.closest('.btn');
+  if(!btn)return;
+  var r=btn.getBoundingClientRect();
+  btn.style.setProperty('--rx',((e.clientX-r.left)/r.width*100)+'%');
+  btn.style.setProperty('--ry',((e.clientY-r.top)/r.height*100)+'%');
+});
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

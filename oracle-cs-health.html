@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oracle · Customer Success Health Score</title>
+<meta name="description" content="Demonstração de Customer Success Health Score no contexto Oracle.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/oracle-cs-health.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Oracle · Customer Success Health Score">
+<meta property="og:description" content="Demonstração de Customer Success Health Score no contexto Oracle.">
+<meta property="og:url" content="https://datajen.com.br/oracle-cs-health.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Oracle · Customer Success Health Score">
+<meta name="twitter:description" content="Demonstração de Customer Success Health Score no contexto Oracle.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+:root{
+  --bg:#060508;--panel:#0c0910;--card:#120d18;--card2:#180e20;
+  --acc:#c74634;--acc2:#a33829;--orange:#f46800;--green:#00a651;--warn:#ffa500;--blue:#003580;--purple:#6441a5;
+  --text:#f0ebf5;--sub:#8877a0;--border:#1e1530;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;font-size:13px;overflow-x:hidden;padding-top:44px}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.oracle-logo{width:24px;height:24px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff}
+.pill{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;border:1px solid}
+.pill-live{background:rgba(199,70,52,.12);color:var(--orange);border-color:rgba(199,70,52,.3)}
+.pill-case{background:rgba(255,255,255,.04);color:var(--sub);border-color:var(--border);text-decoration:none}
+.pill-case:hover{color:var(--text)}
+
+/* MAIN */
+.main{display:grid;grid-template-columns:340px 1fr;gap:10px;padding:12px 20px;height:calc(100vh - 49px)}
+
+/* HEALTH CALCULATOR */
+.calc-panel{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.calc-head{padding:12px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.calc-title{font-size:12px;font-weight:700;margin-bottom:2px}
+.calc-sub{font-size:10px;color:var(--sub)}
+
+.calc-body{flex:1;overflow-y:auto;padding:14px}
+.input-group{margin-bottom:14px}
+.ig-label{display:flex;justify-content:space-between;align-items:center;font-size:11px;margin-bottom:5px}
+.ig-name{color:var(--sub);font-weight:600}
+.ig-val{font-weight:800;font-size:13px}
+.ig-slider{width:100%;-webkit-appearance:none;appearance:none;height:5px;border-radius:3px;background:#332522;outline:none;cursor:pointer}
+.ig-slider::-webkit-slider-runnable-track{height:5px;background:#332522;border:1px solid #1d1513;border-radius:999px}
+.ig-slider::-moz-range-track{height:5px;background:#332522;border:1px solid #1d1513;border-radius:999px}
+.ig-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;margin-top:-6px;border:3px solid #fff;border-radius:50%;background:var(--acc);cursor:pointer;box-shadow:0 0 0 1px #1d1513,0 3px 9px rgba(0,0,0,.2)}
+.ig-slider::-moz-range-thumb{width:12px;height:12px;border:3px solid #fff;border-radius:50%;background:var(--acc);box-shadow:0 0 0 1px #1d1513}
+.ig-desc{font-size:11px;color:var(--company-muted,#676760);margin-top:3px}
+
+.expansion-toggle{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.exp-check{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border);cursor:pointer;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .18s}
+.exp-check.on{background:var(--green);border-color:var(--green)}
+.exp-label{font-size:11px;color:var(--sub)}
+
+.calc-action{padding:14px;border-top:1px solid var(--border);flex-shrink:0}
+.calc-btn{width:100%;padding:9px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:background .2s}
+.calc-btn:hover{background:var(--acc2)}
+
+/* RIGHT PANEL */
+.right{display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+
+/* SCORE CARD */
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;flex-shrink:0}
+.sc-top{display:flex;align-items:center;gap:16px}
+.score-ring{position:relative;flex-shrink:0}
+.score-ring svg{transform:rotate(-90deg)}
+.sr-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.sr-num{font-size:28px;font-weight:900}
+.sr-label{font-size:9px;font-weight:700;color:var(--sub)}
+.sc-details{flex:1}
+.sc-risk{font-size:20px;font-weight:900;margin-bottom:4px}
+.sc-action{font-size:12px;padding:5px 12px;border-radius:8px;display:inline-block;font-weight:700;margin-bottom:8px}
+.risk-low{color:var(--green)}.risk-med{color:var(--warn)}.risk-hi{color:var(--acc)}
+.act-low{background:rgba(0,166,81,.1);color:var(--green);border:1px solid rgba(0,166,81,.25)}
+.act-med{background:rgba(255,165,0,.08);color:var(--warn);border:1px solid rgba(255,165,0,.25)}
+.act-hi{background:rgba(199,70,52,.1);color:var(--acc);border:1px solid rgba(199,70,52,.25)}
+
+.breakdown{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}
+.bd-item{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.bd-label{font-size:10px;color:var(--sub);margin-bottom:3px}
+.bd-val{font-size:14px;font-weight:800}
+.bd-impact{font-size:9px;margin-top:2px}
+
+/* CLIENT PORTFOLIO */
+.portfolio-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;flex-shrink:0}
+.port-head{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.port-title{font-size:12px;font-weight:700}
+.port-refresh{padding:4px 10px;background:var(--card2);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--sub);cursor:pointer;transition:all .2s}
+.port-refresh:hover{color:var(--text)}
+.port-table{width:100%}
+.port-th{display:grid;grid-template-columns:2fr 80px 90px 100px;gap:4px;padding:7px 12px;background:var(--card2);font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.3px}
+.port-row{display:grid;grid-template-columns:2fr 80px 90px 100px;gap:4px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.04);align-items:center;transition:background .15s;cursor:pointer}
+.port-row:hover{background:rgba(255,255,255,.03)}
+.port-row:last-child{border:none}
+.client-name{font-size:12px;font-weight:600}
+.client-seg{font-size:9px;color:var(--sub)}
+.health-bar-bg{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.health-bar-fill{height:100%;border-radius:3px;transition:width .8s ease}
+.health-num{font-size:12px;font-weight:800;text-align:right}
+.risk-badge{padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700;text-align:center}
+.rb-ok{background:rgba(0,166,81,.1);color:var(--green);border:1px solid rgba(0,166,81,.25)}
+.rb-med{background:rgba(255,165,0,.08);color:var(--warn);border:1px solid rgba(255,165,0,.25)}
+.rb-hi{background:rgba(199,70,52,.1);color:var(--acc);border:1px solid rgba(199,70,52,.25)}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+@media(max-width:680px){.main{grid-template-columns:1fr}}
+
+/* RESP-oracle-cs-health.html */
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 14px}
+  .main{padding:8px 10px;gap:8px;height:auto}
+  .left,.right{overflow-y:visible;max-height:none}
+  .left{border-right:none;border-bottom:1px solid var(--border)}
+  .stats-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="topbar-contrast-fix">
+/* O tema compartilhado clareia o fundo da topbar; o texto desta pagina era claro e sumia. */
+html[data-company-theme] .topbar .topbar-left{color:#1a1a1a!important}
+html[data-company-theme] .topbar .pill-live{color:#9a3412!important;background:rgba(199,70,52,.14)!important}
+html[data-company-theme] .topbar .pill-case{color:#334155!important}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="context-info-css">
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<style>@media(max-width:680px){.main{grid-template-columns:minmax(0,1fr)!important;height:auto}.main>*{min-width:0;max-width:100%}.calc-panel{width:100%}.calc-head,.calc-body,.calc-action,.right-col{min-width:0}.calc-sub{overflow-wrap:anywhere}.port-table{max-width:100%;overflow-x:auto}.port-row,.port-th{min-width:450px}.port-head{flex-wrap:wrap}.port-head>div{flex-wrap:wrap;min-width:0}}</style>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Oracle · Customer Success Health Score</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#oracle">Experi&ecirc;ncia Oracle &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="oracle-logo">O</div>
+    Oracle · Customer Success Health Score
+  </div>
+  <div style="display:flex;gap:8px">
+    <span class="pill pill-live">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+    <a href="experiencia.html#oracle" class="pill pill-case">← case completo</a>
+  </div>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este health score organiza sinais de adoção, uso, tickets e capacitação de uma conta Oracle em uma leitura acionável. O cálculo aponta fatores de risco e oportunidade e sugere a próxima conversa técnica ou executiva; para o negócio, evidencia onde proteger renovação, acelerar adoção e avaliar uma oferta complementar aderente.</p>
+  <span class="context-action"><b>O que faz:</b> Health score de uma conta Oracle: uso, adoção, suporte, capacitação = risco/oportunidade + recomendação acionável. <b>Experimente:</b> ajuste sinais, calcule score, abra recomendação. <b>O que a demo mostra:</b> uma interpretação ilustrativa de sinais de adoção, risco e próximos passos, sem previsão garantida de renovação.</span>
+</aside>
+
+<div class="main">
+  <!-- CALCULATOR -->
+  <div class="calc-panel">
+    <div class="calc-head">
+      <div class="calc-title">🔢 Health Score Calculator</div>
+      <div class="calc-sub">Score = Adoção×35% + Estabilidade×25% + Consumo×20% + Suporte×10% + Evolução×10%</div>
+    </div>
+    <div class="calc-body">
+      <div style="font-size:11px;color:var(--sub);margin-bottom:16px;line-height:1.7;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
+        Carregado com os valores da <strong style="color:#f46800">Conta A</strong>, um cenário inteiramente sintético. Adoção = 75% deriva da matriz de soluções: 4 adotadas + 1 parcial (×0,5) + 1 não implantada (×0) de 6 contratadas = 450/600 = 75%.
+      </div>
+      <div class="input-group">
+        <div class="ig-label"><span class="ig-name">📦 Adoção</span><span class="ig-val" id="vAdocao">75</span><span style="font-size:10px;color:var(--sub);margin-left:4px">× 35%</span></div>
+        <input type="range" class="ig-slider" id="sAdocao" min="0" max="100" value="75" oninput="onSlide()">
+        <div class="ig-desc">O banco está usando de fato o que comprou? Soluções adotadas vs contratadas.</div>
+      </div>
+      <div class="input-group">
+        <div class="ig-label"><span class="ig-name">🛡️ Estabilidade</span><span class="ig-val" id="vEstab">80</span><span style="font-size:10px;color:var(--sub);margin-left:4px">× 25%</span></div>
+        <input type="range" class="ig-slider" id="sEstab" min="0" max="100" value="80" oninput="onSlide()">
+        <div class="ig-desc">Quantos incidentes recorrentes? Mesmo erro repetido?</div>
+      </div>
+      <div class="input-group">
+        <div class="ig-label"><span class="ig-name">📈 Consumo</span><span class="ig-val" id="vConsumo">70</span><span style="font-size:10px;color:var(--sub);margin-left:4px">× 20%</span></div>
+        <input type="range" class="ig-slider" id="sConsumo" min="0" max="100" value="70" oninput="onSlide()">
+        <div class="ig-desc">Usando na medida certa? Muito abaixo = risco de não renovar.</div>
+      </div>
+      <div class="input-group">
+        <div class="ig-label"><span class="ig-name">🎫 Suporte</span><span class="ig-val" id="vSuporte">80</span><span style="font-size:10px;color:var(--sub);margin-left:4px">× 10%</span></div>
+        <input type="range" class="ig-slider" id="sSuporte" min="0" max="100" value="80" oninput="onSlide()">
+        <div class="ig-desc">Tickets abertos, gravidade, tempo sem resolução.</div>
+      </div>
+      <div class="input-group">
+        <div class="ig-label"><span class="ig-name">⚡ Evolução</span><span class="ig-val" id="vEvolucao">35</span><span style="font-size:10px;color:var(--sub);margin-left:4px">× 10%</span></div>
+        <input type="range" class="ig-slider" id="sEvolucao" min="0" max="100" value="35" oninput="onSlide()">
+        <div class="ig-desc">Avançando e modernizando? Ou parado há meses?</div>
+      </div>
+    </div>
+    <div class="calc-action">
+      <button class="calc-btn" onclick="computeScore()">Calcular health score →</button>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <!-- SCORE RESULT -->
+    <div class="score-card">
+      <div class="sc-top">
+        <div class="score-ring">
+          <svg width="100" height="100">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#1e1530" stroke-width="9"/>
+            <circle id="scoreArc" cx="50" cy="50" r="42" fill="none" stroke="#c74634" stroke-width="9"
+              stroke-linecap="round" stroke-dasharray="263.9 263.9" stroke-dashoffset="263.9"
+              style="transition:stroke-dashoffset 1s ease,stroke .4s"/>
+          </svg>
+          <div class="sr-center">
+            <div class="sr-num" id="scoreNum" style="color:var(--acc)">: </div>
+            <div class="sr-label">HEALTH</div>
+          </div>
+        </div>
+        <div class="sc-details">
+          <div class="sc-risk" id="riskLabel">Calcule →</div>
+          <div class="sc-action" id="actionBadge" style="display:none"></div>
+          <div style="font-size:11px;color:var(--sub);line-height:1.6" id="riskDesc"></div>
+        </div>
+      </div>
+      <div class="breakdown" id="breakdown" style="display:none;grid-template-columns:1fr 1fr 1fr">
+        <div class="bd-item">
+          <div class="bd-label">📦 Adoção ×35%</div>
+          <div class="bd-val" id="bdAdocao">: </div>
+          <div class="bd-impact" id="bdAdocaoImp">: </div>
+        </div>
+        <div class="bd-item">
+          <div class="bd-label">🛡️ Estabilidade ×25%</div>
+          <div class="bd-val" id="bdEstab">: </div>
+          <div class="bd-impact" id="bdEstabImp">: </div>
+        </div>
+        <div class="bd-item">
+          <div class="bd-label">📈 Consumo ×20%</div>
+          <div class="bd-val" id="bdConsumo">: </div>
+          <div class="bd-impact" id="bdConsumoImp">: </div>
+        </div>
+        <div class="bd-item">
+          <div class="bd-label">🎫 Suporte ×10%</div>
+          <div class="bd-val" id="bdSuporte">: </div>
+          <div class="bd-impact" id="bdSuporteImp">: </div>
+        </div>
+        <div class="bd-item" style="grid-column:span 2">
+          <div class="bd-label">⚡ Evolução ×10%</div>
+          <div class="bd-val" id="bdEvolucao">: </div>
+          <div class="bd-impact" id="bdEvolucaoImp">: </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PORTFOLIO -->
+    <div class="portfolio-card">
+      <div class="port-head">
+        <div class="port-title">📋 Portfolio de clientes · Oracle Cloud</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:10px;color:#f5c400;background:rgba(245,196,0,.12);border:1px solid rgba(245,196,0,.4);border-radius:5px;padding:4px 10px;font-weight:700;letter-spacing:.02em">⚠️ CENÁRIO SINTÉTICO: todas as contas, scores e indicadores desta tela são fictícios.</span>
+          <button class="port-refresh" onclick="refreshPortfolio()">↻ Atualizar scores</button>
+        </div>
+      </div>
+      <div class="port-th">
+        <div>Cliente</div><div style="text-align:right">Health</div><div>Score visual</div><div style="text-align:right">Risco</div>
+      </div>
+      <div id="portBody"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Carteira sintética: 8 contas fictícias do setor financeiro.
+// Adoção da Conta A (75) é derivável da matriz de soluções:
+// 4 adotadas ×100 + 1 parcial ×50 + 1 não implantada ×0 / 6 contratadas = 75%
+const CLIENTS=[
+  {name:'Conta A',seg:'Estratégico',adocao:75,estab:80,consumo:70,suporte:80,evolucao:35},
+  {name:'Conta B',seg:'Financeiro', adocao:90,estab:90,consumo:84,suporte:88,evolucao:84},
+  {name:'Conta C',seg:'Financeiro', adocao:52,estab:62,consumo:55,suporte:58,evolucao:42},
+  {name:'Conta D',seg:'Financeiro', adocao:83,estab:85,consumo:78,suporte:80,evolucao:72},
+  {name:'Conta E',seg:'Financeiro', adocao:62,estab:65,consumo:62,suporte:72,evolucao:52},
+  {name:'Conta F',seg:'Financeiro', adocao:76,estab:82,consumo:75,suporte:80,evolucao:72},
+  {name:'Conta G',seg:'Estratégico',adocao:92,estab:92,consumo:90,suporte:90,evolucao:88},
+  {name:'Conta H',seg:'Financeiro', adocao:42,estab:56,consumo:46,suporte:60,evolucao:40},
+];
+
+function v(id){return parseInt(document.getElementById(id).value);}
+
+function onSlide(){
+  document.getElementById('vAdocao').textContent=v('sAdocao');
+  document.getElementById('vEstab').textContent=v('sEstab');
+  document.getElementById('vConsumo').textContent=v('sConsumo');
+  document.getElementById('vSuporte').textContent=v('sSuporte');
+  document.getElementById('vEvolucao').textContent=v('sEvolucao');
+}
+
+function calcScore(c){
+  return Math.round(c.adocao*0.35 + c.estab*0.25 + c.consumo*0.20 + c.suporte*0.10 + c.evolucao*0.10);
+}
+
+function scoreColor(s){return s<50?'var(--acc)':s<70?'var(--warn)':'var(--green)';}
+
+function riskInfo(score){
+  if(score<50) return {risk:'Alto risco',cls:'risk-hi',actCls:'act-hi',action:'EBR urgente · risco de não renovação',desc:'Adoção crítica ou suporte recorrente sem solução. Acionar executivo de conta para revisão imediata.'};
+  if(score<70) return {risk:'Atenção',cls:'risk-med',actCls:'act-med',action:'Check-in proativo esta semana',desc:'Adoção parcial. Identificar bloqueios técnicos e construir plano de evolução antes da renovação.'};
+  return {risk:'Saudável',cls:'risk-low',actCls:'act-low',action:'Mapear oportunidade de expansão',desc:'Cliente engajado com boa adoção e estabilidade. Momento ideal para propor expansão ou modernização.'};
+}
+
+function dimColor(v){return v>=75?'var(--green)':v>=55?'var(--warn)':'var(--acc)';}
+
+function computeScore(){
+  const c={adocao:v('sAdocao'),estab:v('sEstab'),consumo:v('sConsumo'),suporte:v('sSuporte'),evolucao:v('sEvolucao')};
+  const score=calcScore(c);
+  showScore(score,c);
+}
+
+function showScore(score,c){
+  const circ=2*Math.PI*42;
+  const arc=document.getElementById('scoreArc');
+  const ri=riskInfo(score);
+  const color=scoreColor(score);
+  arc.setAttribute('stroke',color);
+  setTimeout(()=>{arc.style.strokeDashoffset=circ*(1-score/100);},50);
+  document.getElementById('scoreNum').textContent=score;
+  document.getElementById('scoreNum').style.color=color;
+  document.getElementById('riskLabel').textContent=ri.risk;
+  document.getElementById('riskLabel').className='sc-risk '+ri.cls;
+  const ab=document.getElementById('actionBadge');
+  ab.textContent=ri.action; ab.className='sc-action '+ri.actCls; ab.style.display='inline-block';
+  document.getElementById('riskDesc').textContent=ri.desc;
+  document.getElementById('breakdown').style.display='grid';
+
+  const dims=[
+    {id:'Adocao',val:c.adocao,w:35,contrib:(c.adocao*0.35).toFixed(1)},
+    {id:'Estab', val:c.estab, w:25,contrib:(c.estab*0.25).toFixed(1)},
+    {id:'Consumo',val:c.consumo,w:20,contrib:(c.consumo*0.20).toFixed(1)},
+    {id:'Suporte',val:c.suporte,w:10,contrib:(c.suporte*0.10).toFixed(1)},
+    {id:'Evolucao',val:c.evolucao,w:10,contrib:(c.evolucao*0.10).toFixed(1)},
+  ];
+  dims.forEach(d=>{
+    document.getElementById('bd'+d.id).textContent=d.val;
+    document.getElementById('bd'+d.id).style.color=dimColor(d.val);
+    document.getElementById('bd'+d.id+'Imp').textContent='+'+d.contrib+' pts';
+    document.getElementById('bd'+d.id+'Imp').style.color=dimColor(d.val);
+  });
+}
+
+function refreshPortfolio(){
+  const body=document.getElementById('portBody');
+  body.innerHTML='';
+  CLIENTS.forEach(c=>{
+    const s=calcScore(c);
+    const color=scoreColor(s);
+    const badgeCls=s<50?'rb-hi':s<70?'rb-med':'rb-ok';
+    body.innerHTML+=`<div class="port-row" onclick="loadClient(${JSON.stringify(c).replace(/"/g,'&quot;')})">
+      <div><div class="client-name">${c.name}</div><div class="client-seg">${c.seg}</div></div>
+      <div class="health-num" style="color:${color}">${s}</div>
+      <div><div class="health-bar-bg"><div class="health-bar-fill" style="width:${s}%;background:${color}"></div></div></div>
+      <div style="text-align:right"><div class="risk-badge ${badgeCls}">${s<50?'⚠ Alto':s<70?'~ Atenção':'✓ Saudável'}</div></div>
+    </div>`;
+  });
+}
+
+function loadClient(c){
+  document.getElementById('sAdocao').value=c.adocao;
+  document.getElementById('sEstab').value=c.estab;
+  document.getElementById('sConsumo').value=c.consumo;
+  document.getElementById('sSuporte').value=c.suporte;
+  document.getElementById('sEvolucao').value=c.evolucao;
+  onSlide();
+  showScore(calcScore(c),c);
+}
+
+// Inicia com a Conta A sintética carregada
+refreshPortfolio();
+computeScore();
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Santander · Big Data Pipeline</title>
+<meta name="description" content="Demonstração de um pipeline de Big Data no contexto Santander.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/santander-big-data-pipeline.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Santander · Big Data Pipeline">
+<meta property="og:description" content="Demonstração de um pipeline de Big Data no contexto Santander.">
+<meta property="og:url" content="https://datajen.com.br/santander-big-data-pipeline.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Santander · Big Data Pipeline">
+<meta name="twitter:description" content="Demonstração de um pipeline de Big Data no contexto Santander.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+:root{
+  --bg:#050810;--panel:#080c18;--card:#0d1220;--card2:#111828;
+  --acc:#2563eb;--acc2:#1d4ed8;--cyan:#06b6d4;--green:#10b981;--red:#ef4444;--warn:#f59e0b;--purple:#8b5cf6;
+  --text:#dbeafe;--sub:#5b7faa;--border:#132040;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;font-size:13px;overflow-x:hidden;padding-top:44px}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.ev-dot{width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,var(--acc),var(--purple));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff}
+.pill{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;border:1px solid}
+.pill-live{background:rgba(37,99,235,.12);color:var(--cyan);border-color:rgba(37,99,235,.3)}
+.pill-case{background:rgba(255,255,255,.04);color:var(--sub);border-color:var(--border);text-decoration:none}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--border);background:var(--panel)}
+.hs{padding:11px 16px;border-right:1px solid var(--border)}
+.hs:last-child{border:none}
+.hs-val{font-size:20px;font-weight:900;margin-bottom:2px}
+.hs-lbl{font-size:10px;color:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+
+/* MAIN */
+.main{display:grid;grid-template-columns:300px 1fr;gap:10px;padding:10px 20px;height:calc(100vh - 135px)}
+
+/* TABLE LIST */
+.tables-panel{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.tp-head{padding:11px 14px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;justify-content:space-between;align-items:center}
+.tp-title{font-size:12px;font-weight:700}
+.run-all{padding:5px 12px;background:var(--acc);border:none;border-radius:7px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;transition:background .2s}
+.run-all:hover{background:var(--acc2)}
+.run-all:disabled{opacity:.4;cursor:not-allowed}
+.tables-list{flex:1;overflow-y:auto;padding:8px}
+.tbl-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;border:1px solid var(--border);background:var(--card2);margin-bottom:6px;cursor:pointer;transition:all .18s}
+.tbl-item:hover{border-color:var(--acc)}
+.tbl-item.selected{border-color:var(--acc);background:rgba(37,99,235,.08)}
+.tbl-item.running{border-color:var(--cyan);animation:pulse .8s ease-in-out infinite}
+.tbl-item.done{border-color:var(--green)}
+.tbl-item.failed{border-color:var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.tbl-icon{font-size:16px;flex-shrink:0}
+.tbl-info{flex:1;min-width:0}
+.tbl-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbl-meta{font-size:9px;color:var(--sub)}
+.tbl-badge{padding:2px 7px;border-radius:5px;font-size:9px;font-weight:700;flex-shrink:0}
+.tb-idle{background:rgba(255,255,255,.06);color:var(--sub);border:1px solid var(--border)}
+.tb-run{background:rgba(6,182,212,.1);color:var(--cyan);border:1px solid rgba(6,182,212,.25)}
+.tb-done{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.tb-fail{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+
+/* RIGHT */
+.right-panel{display:flex;flex-direction:column;gap:10px}
+
+.pipeline-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;flex-shrink:0}
+.pc-head{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.pc-title{font-size:12px;font-weight:700}
+
+.stages{display:flex;align-items:center;padding:14px;gap:0}
+.stage{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:10px 8px;text-align:center}
+.stage.active{border-color:var(--cyan);background:rgba(6,182,212,.08);box-shadow:0 0 8px rgba(6,182,212,.15)}
+.stage.done-s{border-color:var(--green);background:rgba(16,185,129,.06)}
+.stage-icon{font-size:18px;margin-bottom:4px}
+.stage-name{font-size:10px;font-weight:700;margin-bottom:2px}
+.stage-sub{font-size:9px;color:var(--sub)}
+.stage-arrow{padding:0 6px;color:var(--border);font-size:20px;flex-shrink:0}
+.stage-arrow.lit{color:var(--acc)}
+.stage-prog{height:3px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden}
+.stage-prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--cyan));width:0;transition:width .5s ease}
+
+.log-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;flex:1}
+.log-body{font-family:'Fira Code',monospace;font-size:10.5px;padding:10px 12px;background:var(--bg);line-height:1.75;height:100%;overflow-y:auto}
+.ll-ok{color:var(--green)}.ll-info{color:var(--cyan)}.ll-warn{color:var(--warn)}.ll-err{color:var(--red)}.ll-meta{color:var(--sub)}.ll-line{display:block}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* RESP-santander-big-data-pipeline.html */
+@media(max-width:900px){
+  .main{grid-template-columns:1fr;height:auto}
+  .right-panel{overflow-y:visible}
+}
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:flex-start;gap:8px;padding:10px 14px}
+  .main{padding:10px 12px;gap:8px}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="topbar-contrast-fix">
+/* O tema compartilhado clareia o fundo da topbar; o texto herdado desta página é claro e sumia. */
+html[data-company-theme] .topbar .topbar-left{color:#1a1a1a!important}
+</style>
+<style id="context-info-css">
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+</style>
+<style id="responsive-audit-fix">
+html,body{max-width:100%;overflow-x:hidden}.main>*{min-width:0}
+@media(max-width:640px){
+  .topbar{height:auto;min-height:48px;padding:9px 12px;gap:7px;flex-wrap:wrap}.topbar-right{margin-left:auto}
+  .hero{grid-template-columns:repeat(2,minmax(0,1fr))}.hs{padding:10px 9px;min-width:0}.hs:last-child{grid-column:1/-1;border-top:1px solid var(--border)}
+  .hs-val{font-size:18px}.hs-lbl{font-size:8.5px;overflow-wrap:anywhere}
+  .tables-panel,.right-panel,.pipeline-card,.log-card{min-width:0;max-width:100%}.stages{max-width:100%;overflow-x:auto}.stage{min-width:120px}.log-body{min-height:220px}
+}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<link rel="stylesheet" href="flow-explorer.css?v=20261029-route-safe">
+<script src="flow-explorer.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Santander · Big Data Pipeline</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+.batch-lab{max-width:1180px;margin:14px auto 0;padding:14px 16px;border:1px solid #f0a9ad;border-radius:15px;background:linear-gradient(100deg,#fff 0%,#fff0f1 100%);display:grid;grid-template-columns:minmax(240px,1fr) auto;gap:18px;align-items:center;box-shadow:0 14px 38px rgba(236,0,0,.09)}
+.batch-lab strong{display:block;font-size:15px;margin-bottom:4px;color:#1a1a1a!important}.batch-lab p{margin:0;color:#4a4a4a!important;font-size:12px;line-height:1.45}.batch-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.batch-choice{border:1px solid #e8878d;background:#fff;color:#8f0008;border-radius:11px;padding:10px 13px;font:700 11px var(--sans);cursor:pointer;transition:.2s}.batch-choice:hover,.batch-choice:focus-visible{background:var(--red);color:#fff;transform:translateY(-2px);box-shadow:0 8px 18px rgba(236,0,0,.20)}
+@media(max-width:760px){.batch-lab{grid-template-columns:1fr;margin:10px 12px}.batch-actions{justify-content:stretch}.batch-choice{flex:1;min-width:125px}}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#santander">Experi&ecirc;ncia Santander &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="ev-dot">E</div>
+    Santander · Big Data Pipeline
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <span class="pill pill-live">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+    <a href="experiencia.html#santander" class="pill pill-case">← case completo</a>
+  </div>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este pipeline recria entregas analíticas do Santander: dados Oracle são extraídos, seguem para o ecossistema Hadoop, passam por Spark e Hive e são reconciliados antes da publicação. O produto evidencia se fechamento, transferências ou câmbio chegaram completos e íntegros para consumo, reduzindo risco de decisão sobre dados incompletos.</p>
+  <span class="context-action"><b>O que faz:</b> Batch de dados: Oracle → Hadoop → Spark → Reconciliação → Publicação. Valida integridade antes de chegar em Power BI. <b>Experimente:</b> escolha tipo (fechamento/câmbio), acompanhe tabelas e logs. <b>O que a demo mostra:</b> reconciliação, bloqueio de inconsistências e reprocessamento no cenário demonstrativo.</span>
+</aside>
+
+<section class="batch-lab" aria-label="Cenários do pipeline">
+  <div><strong>Escolha uma entrega para acompanhar</strong><p>Execute o lote completo ou foque um fluxo de negócio. Tabelas, etapas, reconciliação e publicação mudam de estado.</p></div>
+  <div class="batch-actions">
+    <button class="batch-choice" onclick="runAll([0,1,2,5])">📒 Fechamento</button>
+    <button class="batch-choice" onclick="runAll([3])">⇄ Transferências</button>
+    <button class="batch-choice" onclick="runAll([4])">💱 Câmbio</button>
+  </div>
+</section>
+
+<div class="hero">
+  <div class="hs"><div class="hs-val" style="color:var(--cyan)" id="hTablesOk">0</div><div class="hs-lbl">Tabelas ingeridas</div></div>
+  <div class="hs"><div class="hs-val" style="color:var(--green)" id="hRows">0</div><div class="hs-lbl">Registros totais</div></div>
+  <div class="hs"><div class="hs-val" style="color:var(--warn)" id="hRuntime">: </div><div class="hs-lbl">Tempo total</div></div>
+  <div class="hs"><div class="hs-val" style="color:var(--acc)">Hive</div><div class="hs-lbl">Consumo · Impala</div></div>
+  <div class="hs"><div class="hs-val" style="color:var(--purple)">Cloudera / Hadoop</div><div class="hs-lbl">Plataforma</div></div>
+</div>
+
+<div class="main">
+  <!-- TABLE LIST -->
+  <div class="tables-panel">
+    <div class="tp-head">
+      <div class="tp-title">📋 Tabelas · Oracle → HDFS</div>
+      <button class="run-all" id="runAllBtn" onclick="runAll()">▶ Iniciar batch</button>
+    </div>
+    <div class="tables-list" id="tablesList"></div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-panel">
+    <!-- PIPELINE STAGES -->
+    <div class="pipeline-card">
+      <div class="pc-head">
+        <div class="pc-title">⚙️ Pipeline · Sqoop → Spark → Hive → Impala</div>
+        <div style="font-size:10px;color:var(--sub)" id="stageStatus">aguardando batch…</div>
+      </div>
+      <div class="stages">
+        <div class="stage" id="st0"><div class="stage-icon">🗄️</div><div class="stage-name">Oracle JDBC</div><div class="stage-sub">extração incremental</div><div class="stage-prog"><div class="stage-prog-fill" id="sp0"></div></div></div>
+        <div class="stage-arrow" id="sa0">→</div>
+        <div class="stage" id="st1"><div class="stage-icon">⚙️</div><div class="stage-name">Sqoop</div><div class="stage-sub">8 mappers paralelos</div><div class="stage-prog"><div class="stage-prog-fill" id="sp1"></div></div></div>
+        <div class="stage-arrow" id="sa1">→</div>
+        <div class="stage" id="st2"><div class="stage-icon">📁</div><div class="stage-name">HDFS</div><div class="stage-sub">parquet + snappy</div><div class="stage-prog"><div class="stage-prog-fill" id="sp2"></div></div></div>
+        <div class="stage-arrow" id="sa2">→</div>
+        <div class="stage" id="st3"><div class="stage-icon">⚡</div><div class="stage-name">Spark</div><div class="stage-sub">transform + validate</div><div class="stage-prog"><div class="stage-prog-fill" id="sp3"></div></div></div>
+        <div class="stage-arrow" id="sa3">→</div>
+        <div class="stage" id="st4"><div class="stage-icon">📊</div><div class="stage-name">Hive</div><div class="stage-sub">refined.table</div><div class="stage-prog"><div class="stage-prog-fill" id="sp4"></div></div></div>
+      </div>
+    </div>
+
+    <!-- LOG -->
+    <details class="compact-event-log"><summary>Registros técnicos do lote</summary><div class="log-card">
+      <div class="log-body" id="logBody">
+        <span class="ll-line ll-meta">══════════════════════════════════════════════</span>
+        <span class="ll-line ll-meta">  Santander · Big Data Pipeline</span>
+        <span class="ll-line ll-meta">  Sqoop + Spark + Cloudera / Hadoop · Hadoop</span>
+        <span class="ll-line ll-meta">══════════════════════════════════════════════</span>
+        <span class="ll-line ll-meta" style="margin-top:8px">Clique em ▶ Iniciar batch para executar a ingestão.</span>
+      </div>
+    </div></details>
+  </div>
+</div>
+
+<script>
+const TABLES=[
+  {name:'LANCAMENTOS',schema:'santander',rows:'4.2M',inc:'UPDATED_AT',mappers:8,size:'1.8GB',sparkMs:9200},
+  {name:'CONTAS_CONTABEIS',schema:'santander',rows:'182K',inc:'UPDATED_AT',mappers:4,size:'94MB',sparkMs:2100},
+  {name:'CENTROS_CUSTO',schema:'santander',rows:'48K',inc:'MODIFIED_DT',mappers:2,size:'28MB',sparkMs:800},
+  {name:'TRANSFERENCIAS',schema:'santander',rows:'1.1M',inc:'UPDATED_AT',mappers:8,size:'520MB',sparkMs:4400},
+  {name:'CAMBIO_RATES',schema:'santander',rows:'22K',inc:'RATE_DATE',mappers:2,size:'12MB',sparkMs:400},
+  {name:'BUDGET_PLAN',schema:'santander',rows:'310K',inc:'UPDATED_AT',mappers:4,size:'160MB',sparkMs:2800},
+];
+
+function renderTables(){
+  const list=document.getElementById('tablesList');
+  list.innerHTML='';
+  TABLES.forEach((t,i)=>{
+    const st=t._status||'idle';
+    const badgeCls=st==='idle'?'tb-idle':st==='running'?'tb-run':st==='done'?'tb-done':'tb-fail';
+    const badgeTxt=st==='idle'?'IDLE':st==='running'?'● RUN':st==='done'?'✓ OK':'✗ ERR';
+    const rowCls=`tbl-item ${st==='running'?'running':st==='done'?'done':st==='failed'?'failed':''}`;
+    list.innerHTML+=`<div class="${rowCls}">
+      <div class="tbl-icon">🗄️</div>
+      <div class="tbl-info">
+        <div class="tbl-name">${t.schema}.${t.name}</div>
+        <div class="tbl-meta">${t.rows} rows · ${t.size} · ${t.mappers} mappers</div>
+      </div>
+      <div class="tbl-badge ${badgeCls}">${badgeTxt}</div>
+    </div>`;
+  });
+}
+
+function delay(ms){return new Promise(r=>setTimeout(r,ms))}
+
+function setStage(idx,active,done){
+  for(let i=0;i<5;i++){
+    const s=document.getElementById('st'+i);
+    s.classList.remove('active','done-s');
+    const arr=document.getElementById('sa'+i);
+    if(arr) arr.classList.remove('lit');
+  }
+  if(done){ document.getElementById('st'+idx).classList.add('done-s'); }
+  else if(active!==null){ document.getElementById('st'+active).classList.add('active'); }
+  if(active!==null && active>0){ document.getElementById('sa'+(active-1)).classList.add('lit'); }
+}
+
+function fillStage(idx,pct){
+  const el=document.getElementById('sp'+idx);
+  if(el) el.style.width=pct+'%';
+}
+
+function appendLog(cls,text){
+  const lb=document.getElementById('logBody');
+  const s=document.createElement('span');
+  s.className='ll-line '+cls; s.textContent=text;
+  lb.appendChild(s); lb.scrollTop=9999;
+}
+
+function updateHero(){
+  const done=TABLES.filter(t=>t._status==='done');
+  document.getElementById('hTablesOk').textContent=done.length;
+  const totalRows=done.reduce((a,t)=>a+parseFloat(t.rows.replace(/[KM]/,c=>c==='K'?'000':'000000')||0),0);
+  document.getElementById('hRows').textContent=totalRows>=1e6?(totalRows/1e6).toFixed(1)+'M':totalRows>=1e3?(totalRows/1e3).toFixed(0)+'K':totalRows;
+}
+
+let running=false;
+async function runAll(indexes){
+  if(running) return;
+  running=true;
+  document.getElementById('runAllBtn').disabled=true;
+  document.getElementById('logBody').innerHTML='';
+  TABLES.forEach(t=>{ t._status='idle'; });
+  renderTables();
+  document.getElementById('hTablesOk').textContent='0';
+  document.getElementById('hRows').textContent='0';
+
+  const t0=Date.now();
+  appendLog('ll-meta','═══════════════════════════════════════════════════');
+  appendLog('ll-meta','[Santander] Big Data Pipeline iniciado · '+new Date().toLocaleTimeString('pt-BR'));
+  appendLog('ll-meta','Plataforma: Cloudera · HDFS target: /data/santander/');
+
+  const queue=Array.isArray(indexes)?indexes.map(i=>TABLES[i]).filter(Boolean):TABLES;
+  for(let i=0;i<queue.length;i++){
+    const t=queue[i];
+    t._status='running';
+    renderTables();
+    document.getElementById('stageStatus').textContent='Ingerindo: '+t.schema+'.'+t.name;
+
+    // Stage 0: Oracle
+    setStage(0,0,false); fillStage(0,0);
+    appendLog('ll-meta','─────────────────────────────────────────────────');
+    appendLog('ll-info',`[Sqoop] Conectando ao Oracle JDBC · tabela: ${t.schema}.${t.name}`);
+    for(let p=0;p<=100;p+=25){ fillStage(0,p); await delay(100); }
+
+    // Stage 1: Sqoop
+    setStage(1,1,false); fillStage(1,0);
+    const sqoopMs=Math.round(t.rows.includes('M')?parseFloat(t.rows)*4200:parseFloat(t.rows)*200);
+    appendLog('ll-info',`[Sqoop] import --num-mappers ${t.mappers} --incremental lastmodified --check-column ${t.inc}`);
+    appendLog('ll-info',`[Sqoop] Lançando ${t.mappers} mapper(s) paralelos...`);
+    for(let p=0;p<=100;p+=20){ fillStage(1,p); await delay(120); }
+    appendLog('ll-ok',`[Sqoop] ✓ ${t.rows} registros → HDFS /data/santander/${t.name}/${new Date().toISOString().slice(0,10)}/`);
+
+    // Stage 2: HDFS
+    setStage(2,2,false); fillStage(2,0);
+    appendLog('ll-info',`[HDFS] Comprimindo parquet + snappy · ${t.size}`);
+    for(let p=0;p<=100;p+=33){ fillStage(2,p); await delay(80); }
+
+    // Stage 3: Spark
+    setStage(3,3,false); fillStage(3,0);
+    appendLog('ll-info',`[Spark] Job iniciado: santander-transform.${t.name.toLowerCase()}`);
+    appendLog('ll-info',`[Spark] Aplicando padronização: filtros + VALOR_BRL + COMPETENCIA`);
+    for(let p=0;p<=100;p+=10){ fillStage(3,p); await delay(100); }
+    appendLog('ll-ok',`[Spark] ✓ Processados: ${t.rows} registros em ${(t.sparkMs/1000).toFixed(1)}s`);
+
+    // Stage 4: Hive
+    setStage(4,4,false); fillStage(4,0);
+    appendLog('ll-info',`[Hive] MSCK REPAIR TABLE refined.${t.name.toLowerCase()}`);
+    for(let p=0;p<=100;p+=50){ fillStage(4,p); await delay(100); }
+    setStage(4,null,true); fillStage(4,100);
+    appendLog('ll-ok',`[Hive] ✓ refined.${t.name.toLowerCase()} atualizada`);
+
+    t._status='done';
+    renderTables();
+    updateHero();
+    await delay(200);
+  }
+
+  const elapsed=((Date.now()-t0)/1000).toFixed(1);
+  document.getElementById('hRuntime').textContent=elapsed+'s';
+  appendLog('ll-meta','═══════════════════════════════════════════════════');
+  appendLog('ll-ok',`✅ Batch concluído: ${queue.length} ${queue.length===1?'tabela':'tabelas'} · ${elapsed}s`);
+  appendLog('ll-ok','✅ BACEN · relatórios com dados atualizados');
+  document.getElementById('stageStatus').textContent='Batch concluído ✓';
+
+  running=false;
+  document.getElementById('runAllBtn').disabled=false;
+  document.getElementById('runAllBtn').textContent='▶ Re-executar';
+}
+
+renderTables();
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

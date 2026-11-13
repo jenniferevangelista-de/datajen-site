@@ -1,0 +1,6 @@
+
+html.embed-mode body{display:flex!important;flex-direction:column;align-items:center;justify-content:flex-start;padding:12px!important;gap:8px!important;box-sizing:border-box!important;min-width:0!important}
+html.embed-mode .app-stage{display:flex!important;align-items:flex-start!important;justify-content:center!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:12px 0!important;gap:0!important}
+html.embed-mode .phone-wrap{margin:0 auto!important;min-width:0!important;max-width:100%!important}
+html.embed-mode .metric-legend{box-sizing:border-box;max-width:100%!important;flex:none;margin:0 0 8px!important}
+html.embed-mode .phone{max-width:100%!important;flex:none}

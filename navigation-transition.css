@@ -1,0 +1,9 @@
+.jen-page-transition{display:none}
+html.jen-navigation-enabled .jen-page-transition{position:fixed;inset:0;z-index:2147483647;display:grid;place-content:center;justify-items:start;background:#151515;color:#fff;transform:translateY(0);transition:transform .38s cubic-bezier(.77,0,.18,1);pointer-events:auto;contain:layout paint;}
+.jen-page-transition strong{font:800 clamp(64px,11vw,150px)/.73 Inter,Arial,sans-serif;letter-spacing:-.08em}
+.jen-page-transition-line{width:100%;height:9px;margin-top:24px;background:#d8ff16;transform-origin:left;animation:jen-navigation-line .8s ease both}
+html.jen-page-ready .jen-page-transition{transform:translateY(-105%);pointer-events:none}
+html.jen-page-leaving .jen-page-transition{transform:translateY(0);transition-duration:.24s;pointer-events:auto}
+html.jen-navigation-enabled .v3-intro{display:none!important}
+@keyframes jen-navigation-line{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){html.jen-navigation-enabled .jen-page-transition{transition:none}.jen-page-transition-line{animation:none}}

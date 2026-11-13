@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+  
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QuintoAndar | Plantão SRE interativo</title>
+<meta name="description" content="Demonstração móvel de confiabilidade, incidentes e observabilidade no contexto QuintoAndar.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/quintoandar-mobile.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="QuintoAndar | Plantão SRE interativo">
+<meta property="og:description" content="Demonstração móvel de confiabilidade, incidentes e observabilidade no contexto QuintoAndar.">
+<meta property="og:url" content="https://datajen.com.br/quintoandar-mobile.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QuintoAndar | Plantão SRE interativo">
+<meta name="twitter:description" content="Demonstração móvel de confiabilidade, incidentes e observabilidade no contexto QuintoAndar.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<style>
+    :root{--ink:#17151d;--muted:#68646f;--paper:#f7f3ea;--card:#fffdf8;--purple:#6d43ff;--purple2:#9a75ff;--lime:#c9ff39;--green:#0c9b6f;--red:#e44755;--line:#ddd4c8;--shadow:0 28px 70px rgba(43,29,79,.18);--mono:"SFMono-Regular",Consolas,monospace;--serif:Georgia,"Times New Roman",serif;--sans:Inter,Arial,sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 88% 5%,rgba(109,67,255,.14),transparent 28%),linear-gradient(140deg,#f9f6ef,#eee8fa);color:var(--ink);font-family:var(--sans);min-height:100vh}
+    button,a{font:inherit}.top{height:58px;background:#17151d;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,calc((100vw - 1240px)/2));position:sticky;top:0;z-index:30;box-shadow:0 8px 30px rgba(0,0,0,.16)}
+    .brand{font-weight:900;letter-spacing:-.04em}.brand i{font:italic 14px var(--serif);font-weight:400;margin-right:4px}.back{color:#d9d4df;text-decoration:none;font:700 12px var(--mono);border:1px solid #47434d;border-radius:999px;padding:9px 13px}.back:hover,.back:focus-visible{background:#fff;color:#17151d;outline:none}
+    .notice{max-width:1240px;margin:24px auto 0;padding:14px 18px;border:1px solid #cfc3e9;background:rgba(255,255,255,.76);border-radius:16px;display:flex;gap:12px;line-height:1.5;font-size:13px}.notice b{display:block;color:var(--purple);font:800 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+    main{max-width:1240px;margin:24px auto 48px;padding:0 20px;display:grid;grid-template-columns:minmax(340px,480px) minmax(0,1fr);gap:clamp(30px,6vw,86px);align-items:center}
+    .device-wrap{display:grid;justify-items:center;position:relative}.device-wrap:before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:linear-gradient(135deg,var(--purple),#c9b8ff);filter:blur(0);top:80px;z-index:0;box-shadow:0 0 0 22px rgba(109,67,255,.07)}
+    .phone{width:min(100%,390px);height:760px;border:10px solid #151419;border-radius:48px;background:#f8f7fb;box-shadow:var(--shadow);overflow:hidden;position:relative;z-index:1}.phone:before{content:"";position:absolute;z-index:20;width:126px;height:25px;border-radius:0 0 18px 18px;background:#151419;left:50%;top:0;transform:translateX(-50%)}
+    .status{height:38px;padding:14px 22px 0;display:flex;justify-content:space-between;font-size:11px;font-weight:800}.appbar{height:61px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #e5e0eb}.appbrand{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:900}.appbrand span{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:var(--purple);color:#fff}.live{font:800 9px var(--mono);color:var(--green);background:#e4faf2;padding:6px 8px;border-radius:999px}
+    .screen{height:calc(100% - 99px);overflow:auto;padding:18px 16px 94px;scrollbar-width:none}.screen::-webkit-scrollbar{display:none}.hello{font:700 11px var(--mono);letter-spacing:.08em;color:var(--purple);text-transform:uppercase}.headline{font:700 31px/1.02 var(--serif);margin:8px 0 8px}.lead{font-size:13px;line-height:1.5;color:var(--muted);margin:0 0 16px}
+    .health{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}.metric{background:#fff;border:1px solid #e3ddea;border-radius:15px;padding:13px}.metric span{font:700 9px var(--mono);letter-spacing:.08em;color:var(--muted);text-transform:uppercase}.metric strong{display:block;font-size:22px;margin-top:6px}.metric strong.ok{color:var(--green)}
+    .alert{background:#fff;border:1px solid #e3ddea;border-radius:18px;padding:15px;box-shadow:0 10px 28px rgba(36,25,63,.07);margin-bottom:12px;transition:.25s}.alert.danger{border-color:#f0a7ae;background:#fff7f7}.alert-top{display:flex;align-items:center;gap:9px;margin-bottom:9px}.sev{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(12,155,111,.12)}.danger .sev{background:var(--red);box-shadow:0 0 0 5px rgba(228,71,85,.12);animation:pulse 1s infinite}.alert h3{font-size:15px;margin:0}.alert p{font-size:12px;line-height:1.45;color:var(--muted);margin:0}.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}.tag{font:700 9px var(--mono);border:1px solid #d9d1e3;border-radius:999px;padding:5px 7px;background:#faf8ff}
+    .atlas-preview{background:#fff;border:1px solid #ddd4ef;border-radius:18px;margin-bottom:12px;overflow:hidden;box-shadow:0 10px 28px rgba(36,25,63,.06)}.atlas-head{display:flex;align-items:center;gap:9px;padding:12px 13px;border-bottom:1px solid #eee8f5}.atlas-logo{width:31px;height:31px;border-radius:10px;background:linear-gradient(145deg,#7b4cff,#4e25cd);color:#fff;display:grid;place-items:center;font-weight:950}.atlas-head b{display:block;font-size:13px}.atlas-head small{display:block;color:var(--muted);font-size:9px;margin-top:2px}.atlas-search{margin:10px 12px 8px;width:calc(100% - 24px);border:1px solid #ddd4eb;border-radius:10px;padding:9px 10px;background:#faf9fd;font-size:11px;color:var(--ink);outline:none}.atlas-search:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(109,67,255,.1)}.atlas-assets{padding:0 12px 10px;display:grid;gap:6px}.atlas-asset{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;background:#f8f6fc;border:1px solid #eee9f5;border-radius:11px;padding:8px}.atlas-asset .ico{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#eee7ff}.atlas-asset b{font-size:10.5px;display:block}.atlas-asset small{font-size:8.5px;color:var(--muted)}.atlas-pill{font:800 8px var(--mono);color:var(--green);background:#e8faf3;border-radius:999px;padding:4px 6px}.runbook-help{font-size:10.5px;line-height:1.45;color:var(--muted);background:#f4f0fb;border-left:3px solid var(--purple);padding:9px 10px;border-radius:0 10px 10px 0;margin:-2px 0 9px}
+    .primary,.secondary,.step-btn{width:100%;border:0;border-radius:14px;cursor:pointer;font-weight:900;transition:.2s}.primary{background:linear-gradient(110deg,var(--purple),#9c5cff);color:#fff;padding:15px;box-shadow:0 12px 25px rgba(109,67,255,.27)}.primary:hover,.primary:focus-visible{transform:translateY(-2px);box-shadow:0 15px 30px rgba(109,67,255,.36);outline:3px solid rgba(109,67,255,.2)}.primary:disabled{opacity:.55;cursor:not-allowed;transform:none}.secondary{background:#fff;color:var(--ink);border:1px solid #d9d1e3;padding:12px;margin-top:8px}.section-label{font:800 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin:18px 0 9px;color:var(--muted)}
+    .timeline{display:grid;gap:8px}.run-step{display:grid;grid-template-columns:32px 1fr auto;gap:9px;align-items:center;background:#fff;border:1px solid #e3ddea;border-radius:14px;padding:10px;transition:.28s}.run-step .num{width:30px;height:30px;border-radius:10px;background:#eee9f9;display:grid;place-items:center;font:800 10px var(--mono);color:var(--purple)}.run-step b{font-size:12px;display:block}.run-step small{font-size:10px;color:var(--muted)}.run-step .state{font:800 9px var(--mono);color:#888}.run-step.running{border-color:var(--purple);box-shadow:0 0 0 3px rgba(109,67,255,.1)}.run-step.running .num{background:var(--purple);color:#fff;animation:pulse 1s infinite}.run-step.done{border-color:#91d7bd;background:#f2fcf8}.run-step.done .num{background:var(--green);color:#fff}.run-step.done .state{color:var(--green)}
+    .result{display:none;background:linear-gradient(135deg,#17151d,#2b2143);color:#fff;border-radius:19px;padding:17px;margin-top:12px}.result.show{display:block;animation:rise .4s ease}.result small{font:800 9px var(--mono);letter-spacing:.12em;color:var(--lime)}.result h3{font:700 24px/1.1 var(--serif);margin:8px 0}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:13px}.result-grid div{background:rgba(255,255,255,.08);border-radius:10px;padding:9px}.result-grid b{display:block;font-size:16px;color:var(--lime)}.result-grid span{font-size:8px;color:#cfc8db}
+    .bottomnav{position:absolute;bottom:0;left:0;right:0;height:77px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-top:1px solid #e4dfea;display:grid;grid-template-columns:repeat(4,1fr);z-index:10;padding:8px 8px 10px}.navitem{border:0;background:transparent;color:#888;font-size:9px;font-weight:800;cursor:pointer;border-radius:11px}.navitem b{display:block;font-size:18px;margin-bottom:2px}.navitem.active{color:var(--purple);background:#f1edff}
+    .copy .eyebrow{font:800 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--purple);display:flex;align-items:center;gap:10px}.copy .eyebrow:before{content:"";width:34px;height:2px;background:var(--purple)}.copy h1{font:700 clamp(46px,6vw,76px)/.94 var(--serif);letter-spacing:-.05em;margin:18px 0 20px;max-width:720px}.copy h1 em{color:var(--purple);font-weight:400}.copy>p{font-size:18px;line-height:1.6;color:var(--muted);max-width:680px}.plain{margin-top:26px;background:rgba(255,255,255,.75);border:1px solid #d8cde9;border-left:5px solid var(--purple);border-radius:0 18px 18px 0;padding:20px}.plain b{font:900 11px var(--mono);letter-spacing:.12em;color:var(--purple);text-transform:uppercase}.plain p{font-size:15px;line-height:1.6;margin:9px 0 0;color:#403b46}.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.proof div{background:#17151d;color:#fff;border-radius:14px;padding:15px}.proof strong{display:block;color:var(--lime);font-size:17px}.proof span{font:700 9px/1.4 var(--mono);color:#c9c2d0;text-transform:uppercase}
+    @keyframes pulse{50%{opacity:.45;transform:scale(.92)}}@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+    @media(max-width:900px){.notice{margin:16px 14px 0}main{grid-template-columns:1fr;padding:0 14px}.copy{order:-1}.copy h1{font-size:48px}.phone{height:720px}.proof{grid-template-columns:1fr 1fr}.device-wrap:before{width:330px;height:330px}}
+    @media(max-width:600px){body{display:block;padding:0;background:#17151d}.top,.notice,.copy{display:none}main{display:block;margin:0;padding:0;max-width:none}.device-wrap{display:block}.device-wrap:before{display:none}.phone{width:100vw;height:100vh;border:0;border-radius:0;box-shadow:none}.phone:before{display:none}.result-grid{grid-template-columns:1fr 1fr}.headline{font-size:27px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  </style>
+
+<style id="mob-standalone-chrome">
+/* Estas paginas rodam dentro do mockup de celular em experiencia-app.html.
+   Quando abertas direto, ganham uma barra de retorno; dentro do iframe ela some. */
+.mob-standalone-bar{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:9px 16px;background:#12100b;border-bottom:1px solid rgba(255,255,255,.1);
+  font-family:Inter,system-ui,sans-serif}
+.mob-standalone-bar .msb-wm{font-weight:800;font-size:13px;letter-spacing:.03em;color:#f4f2ec;text-decoration:none;white-space:nowrap}
+.mob-standalone-bar .msb-wm i{font-style:italic;font-weight:400;font-size:10px;opacity:.5;margin-right:3px}
+.mob-standalone-bar .msb-live{display:inline-flex;align-items:center;gap:6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:9.5px;font-weight:700;letter-spacing:.05em;color:#34d399;background:rgba(16,185,129,.14);
+  border:1px solid rgba(16,185,129,.32);border-radius:99px;padding:5px 11px;white-space:nowrap}
+.mob-standalone-bar .msb-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#34d399;animation:msbPulse 1.8s ease-in-out infinite}
+@keyframes msbPulse{0%,100%{opacity:1}50%{opacity:.35}}
+.mob-standalone-bar .msb-back{margin-left:auto;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.62);text-decoration:none;
+  padding:6px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.2);white-space:nowrap;transition:.2s}
+.mob-standalone-bar .msb-back:hover{color:#fff;border-color:rgba(255,255,255,.45)}
+html.in-iframe .mob-standalone-bar,html.embed-mode .mob-standalone-bar{display:none!important}
+@media(max-width:600px){.mob-standalone-bar{padding:8px 12px;gap:7px}.mob-standalone-bar .msb-live{font-size:8.5px;padding:4px 9px}.mob-standalone-bar .msb-back{flex:1 0 100%;margin-left:0;text-align:center}}
+</style>
+<script>
+if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('embed-mode');
+if(window.self!==window.top)document.documentElement.classList.add('in-iframe');
+</script>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<div class="mob-standalone-bar"><a class="msb-wm" href="index.html"><i>the</i>JEN NOTES</a><span class="msb-live">DEMO AO VIVO &middot; DADOS SINT&Eacute;TICOS</span><a class="msb-back" href="experiencia.html#quintoandar">&larr; Experi&ecirc;ncia QuintoAndar</a></div>
+  <nav class="top"><div class="brand"><i>the</i> JEN NOTES</div><a class="back" href="experiencia.html#quintoandar">Experiência QuintoAndar</a></nav>
+  <aside class="notice"><span>🔒</span><div><b>Reconstrução técnica independente</b>Fluxo didático criado com dados, nomes operacionais e resultados sintéticos. Nenhuma informação confidencial da organização foi utilizada.</div></aside>
+  <main>
+    <section class="device-wrap" aria-label="Aplicativo de plantão SRE">
+      <div class="phone">
+        <div class="status"><span>9:41</span><span>●●● 5G ▰</span></div>
+        <header class="appbar"><div class="appbrand"><span>⌂</span> SRE Companion</div><div class="live" id="liveBadge">● SAUDÁVEL</div></header>
+        <div class="screen" id="screen">
+          <div class="hello">Plantão de dados</div>
+          <h2 class="headline" id="phoneTitle">Tudo está operacional.</h2>
+          <p class="lead" id="phoneLead">Monitore o ambiente e simule um incidente para percorrer o fluxo de resposta.</p>
+          <div class="health">
+            <div class="metric"><span>SLA</span><strong class="ok" id="sla">99,7%</strong></div>
+            <div class="metric"><span>Pods ativos</span><strong class="ok" id="pods">20/20</strong></div>
+            <div class="metric"><span>Error budget</span><strong id="budget">87%</strong></div>
+            <div class="metric"><span>Atlas</span><strong class="ok" id="atlas">Online</strong></div>
+          </div>
+          <section class="atlas-preview" id="atlasPreview" aria-label="Prévia ilustrativa do Apache Atlas">
+            <div class="atlas-head"><span class="atlas-logo">A</span><div><b>Apache Atlas · catálogo</b><small>Componente executado na plataforma Kubernetes</small></div></div>
+            <input class="atlas-search" id="atlasSearch" type="search" placeholder="Buscar dataset, owner ou domínio…" aria-label="Buscar no catálogo ilustrativo">
+            <div class="atlas-assets" id="atlasAssets">
+              <div class="atlas-asset" data-search="imoveis ativos produto owner marketplace"><span class="ico">⌂</span><div><b>imoveis_ativos</b><small>produto · owner marketplace</small></div><span class="atlas-pill">ATIVO</span></div>
+              <div class="atlas-asset" data-search="behavior events eventos produto owner dados"><span class="ico">⌁</span><div><b>behavior_events</b><small>eventos · owner dados</small></div><span class="atlas-pill">LINHAGEM</span></div>
+              <div class="atlas-asset" data-search="visitas agendadas operações owner jornadas"><span class="ico">▦</span><div><b>visitas_agendadas</b><small>operações · owner jornadas</small></div><span class="atlas-pill">GOLD</span></div>
+            </div>
+          </section>
+          <article class="alert" id="alertCard">
+            <div class="alert-top"><span class="sev"></span><h3 id="alertTitle">Nenhum alerta crítico</h3></div>
+            <p id="alertCopy">GKE, Helm releases, pipelines de observabilidade e catálogo Atlas dentro dos limites esperados.</p>
+            <div class="tags"><span class="tag">GKE</span><span class="tag">Helm</span><span class="tag">Atlas</span><span class="tag">Cloud Monitoring</span></div>
+          </article>
+          <button class="primary" id="startBtn" type="button">⚡ Simular alerta de produção</button>
+          <div id="runbook" hidden>
+            <div class="section-label">Runbook de recuperação</div>
+            <div class="runbook-help"><b>O que é um runbook?</b> É um procedimento operacional documentado: descreve quais sinais verificar, quais decisões são seguras, como recuperar o serviço e quais evidências validar antes de encerrar o incidente.</div>
+            <div class="timeline">
+              <div class="run-step" data-step="0"><span class="num">01</span><div><b>Confirmar telemetria</b><small>Logs, métricas e eventos do pod</small></div><span class="state">AGUARDA</span></div>
+              <div class="run-step" data-step="1"><span class="num">02</span><div><b>Validar Helm release</b><small>Configuração, imagem e rollback seguro</small></div><span class="state">AGUARDA</span></div>
+              <div class="run-step" data-step="2"><span class="num">03</span><div><b>Restaurar workload</b><small>Escala, health check e tráfego</small></div><span class="state">AGUARDA</span></div>
+              <div class="run-step" data-step="3"><span class="num">04</span><div><b>Verificar linhagem</b><small>Catálogo Atlas e consumidores</small></div><span class="state">AGUARDA</span></div>
+            </div>
+            <button class="primary" id="runBtn" type="button" style="margin-top:12px">▶ Executar runbook guiado</button>
+          </div>
+          <div class="result" id="result">
+            <small>INCIDENTE RESOLVIDO</small><h3>Serviço restaurado com rastreabilidade.</h3>
+            <p style="font-size:11px;line-height:1.5;color:#d8d2e2;margin:0">O aplicativo conecta ação técnica, recuperação e validação dos dados antes de encerrar o plantão.</p>
+            <div class="result-grid"><div><b>08m 42s</b><span>MTTR SINTÉTICO</span></div><div><b>20/20</b><span>PODS ATIVOS</span></div><div><b>100%</b><span>LINHAGEM VALIDADA</span></div></div>
+            <button class="secondary" id="resetBtn" type="button">↻ Rodar novo cenário</button>
+          </div>
+        </div>
+        <nav class="bottomnav" aria-label="Navegação do aplicativo"><button class="navitem active" type="button" data-view="home"><b>⌂</b>Visão geral</button><button class="navitem" type="button" data-view="atlas"><b>A</b>Atlas</button><button class="navitem" type="button" data-view="alerts"><b>⚠</b>Alertas</button><button class="navitem" type="button" data-view="runbooks"><b>✓</b>Runbooks</button></nav>
+      </div>
+    </section>
+    <section class="copy">
+      <div class="eyebrow">SRE, plataforma e dados</div>
+      <h1>Do alerta à recuperação, <em>sem perder o contexto.</em></h1>
+      <p>Uma experiência mobile exclusiva para demonstrar o lado operacional do trabalho: implantação com Helm e Kubernetes, monitoramento, sustentação e construção do Apache Atlas desde a base.</p>
+      <div class="plain"><b>Traduzindo para o dia a dia</b><p>Quando algo falha, a pessoa de plantão precisa saber o que mudou, quem foi afetado e qual ação é segura. O runbook é o procedimento operacional documentado que orienta diagnóstico, recuperação e validação. Aqui você provoca um incidente, executa esse passo a passo e consulta o Apache Atlas, o catálogo que organiza ativos, owners, classificações e linhagem. O Atlas rodava sobre a infraestrutura Kubernetes, mas não era uma etapa da automação de deploy.</p></div>
+      <div class="proof"><div><strong>Helm + GKE</strong><span>Entrega e operação</span></div><div><strong>Atlas</strong><span>Catálogo e linhagem</span></div><div><strong>GCP + AWS</strong><span>Observabilidade multicloud</span></div></div>
+    </section>
+  </main>
+  <script>
+    const $=id=>document.getElementById(id);let running=false;
+    const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+    function setHealthy(){running=false;$('liveBadge').textContent='● SAUDÁVEL';$('liveBadge').style.color='';$('phoneTitle').textContent='Tudo está operacional.';$('phoneLead').textContent='Monitore o ambiente e simule um incidente para percorrer o fluxo de resposta.';$('sla').textContent='99,7%';$('sla').className='ok';$('pods').textContent='20/20';$('pods').className='ok';$('budget').textContent='87%';$('atlas').textContent='Online';$('atlas').className='ok';$('alertCard').className='alert';$('alertTitle').textContent='Nenhum alerta crítico';$('alertCopy').textContent='GKE, Helm releases, pipelines de observabilidade e catálogo Atlas dentro dos limites esperados.';$('runbook').hidden=true;$('result').className='result';$('startBtn').hidden=false;document.querySelectorAll('.run-step').forEach(s=>{s.className='run-step';s.querySelector('.state').textContent='AGUARDA'});$('screen').scrollTo({top:0,behavior:'smooth'})}
+    function startIncident(){if(running)return;running=true;$('liveBadge').textContent='● INCIDENTE P1';$('liveBadge').style.color='var(--red)';$('phoneTitle').textContent='Falha detectada no workload.';$('phoneLead').textContent='O serviço behavior-api perdeu réplicas após uma atualização de Helm.';$('sla').textContent='98,9%';$('sla').className='';$('pods').textContent='17/20';$('pods').className='';$('budget').textContent='71%';$('alertCard').className='alert danger';$('alertTitle').textContent='CrashLoopBackOff em produção';$('alertCopy').textContent='Três pods indisponíveis. Consumidores do conjunto behavior_events podem sofrer atraso.';$('startBtn').hidden=true;$('runbook').hidden=false;$('result').className='result';setTimeout(()=>$('runbook').scrollIntoView({behavior:'smooth',block:'nearest'}),80)}
+    async function runbook(){const btn=$('runBtn');btn.disabled=true;const steps=[...document.querySelectorAll('.run-step')];for(const step of steps){step.classList.add('running');step.querySelector('.state').textContent='EXECUTA';await sleep(680);step.classList.remove('running');step.classList.add('done');step.querySelector('.state').textContent='OK'}$('liveBadge').textContent='● RECUPERADO';$('liveBadge').style.color='var(--green)';$('sla').textContent='99,7%';$('sla').className='ok';$('pods').textContent='20/20';$('pods').className='ok';$('budget').textContent='82%';$('atlas').textContent='Validado';$('atlas').className='ok';$('alertCard').className='alert';$('alertTitle').textContent='Incidente encerrado';$('alertCopy').textContent='Workload restaurado, métricas estabilizadas e linhagem Atlas validada.';$('result').className='result show';btn.disabled=false;setTimeout(()=>$('result').scrollIntoView({behavior:'smooth',block:'nearest'}),80)}
+    $('startBtn').addEventListener('click',startIncident);$('runBtn').addEventListener('click',runbook);$('resetBtn').addEventListener('click',setHealthy);
+    $('atlasSearch').addEventListener('input',event=>{const q=event.target.value.trim().toLowerCase();document.querySelectorAll('.atlas-asset').forEach(item=>{item.hidden=q&&!item.dataset.search.includes(q)&&!item.textContent.toLowerCase().includes(q)})});
+    document.querySelectorAll('.navitem').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.navitem').forEach(x=>x.classList.remove('active'));btn.classList.add('active');if(btn.dataset.view==='alerts'){if(!running)startIncident();$('alertCard').scrollIntoView({behavior:'smooth',block:'center'})}else if(btn.dataset.view==='runbooks'){if(!running)startIncident();$('runbook').scrollIntoView({behavior:'smooth',block:'start'})}else if(btn.dataset.view==='atlas'){$('atlasPreview').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>$('atlasSearch').focus(),350)}else{$('screen').scrollTo({top:0,behavior:'smooth'})}}));
+  </script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

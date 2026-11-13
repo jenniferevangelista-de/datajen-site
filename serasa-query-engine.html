@@ -1,0 +1,1100 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Serasa · Query Engine Analítico</title>
+<meta name="description" content="Demonstração de motor analítico de consultas no contexto Serasa Experian.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/serasa-query-engine.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Serasa · Query Engine Analítico">
+<meta property="og:description" content="Demonstração de motor analítico de consultas no contexto Serasa Experian.">
+<meta property="og:url" content="https://datajen.com.br/serasa-query-engine.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Serasa · Query Engine Analítico">
+<meta name="twitter:description" content="Demonstração de motor analítico de consultas no contexto Serasa Experian.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+:root{
+  --bg:#f4f2ec;--panel:#ffffff;--card:#ffffff;--card2:#f3eeff;
+  --acc:#6a3df0;--acc2:#5126c7;--green:#087f5b;--amber:#a76505;--red:#c92a45;--purple:#6a3df0;
+  --text:#171714;--sub:#6d6675;--border:#ddd4ec;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;font-size:14px;overflow-x:hidden;padding-top:44px}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.topbar-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.brand-s{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,var(--red),#ff6b6b);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff}
+.pill{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.5px}
+.pill-live{background:rgba(6,214,160,.15);color:var(--green);border:1px solid rgba(6,214,160,.3)}
+.pill-case{background:rgba(0,180,216,.1);color:var(--acc);border:1px solid rgba(0,180,216,.25);text-decoration:none;cursor:pointer}
+.pill-case:hover{background:rgba(0,180,216,.2)}
+.pills{display:flex;gap:8px}
+
+.main{display:grid;grid-template-columns:330px minmax(0,1fr);gap:16px;width:min(1760px,calc(100% - 36px));margin:16px auto 42px;min-height:0}
+
+.serasa-explainer{width:min(1760px,calc(100% - 36px));margin:18px auto 4px;padding:clamp(22px,3vw,34px);display:grid;grid-template-columns:minmax(0,1.35fr) minmax(340px,.65fr);gap:32px;align-items:center;border:1px solid var(--border);border-radius:22px;background:linear-gradient(135deg,#fff 0 68%,var(--card2));box-shadow:0 18px 48px rgba(50,25,100,.1)}
+.serasa-kicker{display:flex;align-items:center;gap:10px;color:var(--acc);font:800 10px/1.2 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase}
+.serasa-kicker::before{content:'';width:34px;height:2px;background:currentColor}
+.serasa-explainer h1{margin:13px 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:clamp(34px,4vw,55px);line-height:1;letter-spacing:-.035em;color:var(--text)}
+.serasa-explainer h1 em{font-weight:400;color:var(--acc)}
+.serasa-explainer p{max-width:720px;color:var(--sub);font-size:15px;line-height:1.65}
+.serasa-everyday{margin-top:16px;padding:15px 17px;border-left:4px solid var(--acc);border-radius:0 13px 13px 0;background:var(--card2)}
+.serasa-everyday strong{display:block;margin-bottom:4px;color:var(--acc);font:800 10px/1.2 'IBM Plex Mono',monospace;letter-spacing:.13em;text-transform:uppercase}
+.serasa-everyday p{font-size:13px;color:var(--text);line-height:1.55}
+.serasa-tour{display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:18px;background:#17131d;color:#fff}
+.serasa-tour-title{margin-bottom:3px;color:#cdbbff;font:800 9px/1.2 'IBM Plex Mono',monospace;letter-spacing:.15em;text-transform:uppercase}
+.serasa-tour-step{display:grid;grid-template-columns:29px 1fr;gap:10px;align-items:center;padding:9px;border:1px solid rgba(255,255,255,.13);border-radius:11px;background:rgba(255,255,255,.055);font-size:12px;line-height:1.35}
+.serasa-tour-step b{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:var(--acc);font:800 9px/1 'IBM Plex Mono',monospace}
+.serasa-start{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:5px;padding:13px 16px;border:0;border-radius:11px;background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;font-size:13px;font-weight:800;cursor:pointer}
+
+/* LEFT */
+.left{padding:18px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.76);display:flex;flex-direction:column;gap:14px;overflow:visible;max-height:none;box-shadow:0 12px 36px rgba(50,25,100,.07)}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sub);text-transform:uppercase;margin-bottom:6px}
+
+.entity-box{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.entity-header{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.entity-icon{font-size:20px}
+.entity-name{font-size:14px;font-weight:700}
+.entity-cnpj{font-size:11px;color:var(--sub);font-family:monospace}
+.entity-meta{padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.entity-row{display:flex;justify-content:space-between;font-size:11px}
+.entity-key{color:var(--sub)}
+.entity-val{font-weight:600;color:var(--text)}
+
+.sample-list{display:flex;flex-direction:column;gap:4px}
+.sample-btn{padding:9px 12px;background:var(--card);border:1px solid var(--border);border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .2s;text-align:left}
+.sample-btn:hover{border-color:var(--acc);background:rgba(0,180,216,.06)}
+.sample-btn.active{border-color:var(--acc);background:rgba(0,180,216,.1)}
+.sample-flag{font-size:16px}
+.sample-info{flex:1}
+.sample-name{font-size:12px;font-weight:600}
+.sample-btn{width:100%;text-align:left;font:inherit;color:inherit}
+.sample-seg{font-size:10px;color:var(--sub)}
+
+.query-type{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.qtype-btn{padding:8px;background:var(--card);border:1px solid var(--border);border-radius:8px;cursor:pointer;text-align:center;transition:all .2s}
+.qtype-btn:hover{border-color:var(--acc)}
+.qtype-btn.active{border-color:var(--acc);background:rgba(0,180,216,.08)}
+.qtype-label{font-size:11px;font-weight:700;color:var(--text)}
+.qtype-sub{font-size:10px;color:var(--sub)}
+
+.run-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--acc2),var(--acc));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.run-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,180,216,.35)}
+.run-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+.speed-cmp{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.speed-pair{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.speed-before{display:flex;flex-direction:column;align-items:center}
+.speed-arrow{color:var(--green);font-size:22px;font-weight:900}
+.speed-after{display:flex;flex-direction:column;align-items:center}
+.speed-v{font-size:22px;font-weight:900}
+.speed-v.old{color:var(--red)}
+.speed-v.new{color:var(--green)}
+.speed-l{font-size:10px;color:var(--sub)}
+.speed-badge{margin-top:6px;background:rgba(6,214,160,.12);border:1px solid rgba(6,214,160,.25);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--green);font-weight:700;text-align:center}
+
+/* RIGHT */
+.right{padding:18px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.6);display:flex;flex-direction:column;gap:16px;overflow:visible;max-height:none;box-shadow:0 12px 36px rgba(50,25,100,.07)}
+
+.right-header{display:flex;align-items:center;justify-content:space-between}
+.pipeline-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sub);text-transform:uppercase}
+.timer-wrap{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--sub)}
+.timer-val{background:rgba(0,180,216,.15);color:var(--acc);border:1px solid rgba(0,180,216,.3);border-radius:12px;padding:3px 10px;font-weight:700;font-family:monospace;min-width:58px;text-align:center}
+
+.progress-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--acc2),var(--acc),var(--green));width:0;transition:width .4s ease}
+
+/* SOURCES GRID */
+.sources-section{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;flex-shrink:0}
+.sources-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)}
+.sources-title{font-size:13px;font-weight:600}
+.src-counter{font-size:12px;color:var(--sub)}
+
+.groups-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.src-group{background:var(--card);padding:10px 12px}
+.src-group-name{font-size:9px;font-weight:700;letter-spacing:.8px;color:var(--sub);text-transform:uppercase;margin-bottom:6px}
+.src-items{display:flex;flex-direction:column;gap:3px}
+.src-item{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:11px;color:var(--sub);transition:color .2s}
+.src-item.done{color:var(--text)}
+.src-item.active{color:var(--acc)}
+.src-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:all .25s}
+.src-item.done .src-dot{background:var(--green)}
+.src-item.active .src-dot{background:var(--acc);box-shadow:0 0 6px var(--acc);animation:blink .7s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* PIPELINE STEPS */
+.pipe-steps{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.pipe-step{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.pipe-step-head{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.pipe-step-icon{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+.pipe-step-info{flex:1}
+.pipe-step-name{font-size:13px;font-weight:600}
+.pipe-step-desc{font-size:11px;color:var(--sub);margin-top:1px}
+.pipe-badge{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.3px;flex-shrink:0}
+.pipe-badge.idle{background:var(--card2);color:var(--sub)}
+.pipe-badge.run{background:rgba(255,209,102,.12);color:var(--amber);border:1px solid rgba(255,209,102,.25);animation:pulse .9s ease-in-out infinite}
+.pipe-badge.done{background:rgba(6,214,160,.1);color:var(--green);border:1px solid rgba(6,214,160,.2)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.pipe-step-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;padding:0 14px}
+.pipe-step.open .pipe-step-body{max-height:200px;padding:8px 14px}
+.pipe-log{font-family:monospace;font-size:11px;display:flex;flex-direction:column;gap:2px}
+.pl{display:flex;gap:8px;line-height:1.7}
+.pl-ts{color:rgba(0,180,216,.5);flex-shrink:0;min-width:48px}
+.ok{color:var(--green)}.info{color:var(--acc)}.warn{color:var(--amber)}
+
+/* IDLE / RESULT */
+.idle{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:50px 20px;color:var(--sub);text-align:center}
+.idle-icon{font-size:48px;opacity:.25}
+
+.result{display:none;border:1px solid var(--border);border-radius:12px;overflow:hidden;flex-shrink:0}
+.result.show{display:block}
+.result-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--card);border-bottom:1px solid var(--border)}
+.result-title{font-size:14px;font-weight:700}
+.score-badge{padding:6px 16px;border-radius:8px;font-size:13px;font-weight:800;letter-spacing:.5px}
+.score-badge.alto{background:rgba(6,214,160,.15);color:var(--green);border:1px solid rgba(6,214,160,.3)}
+.score-badge.medio{background:rgba(255,209,102,.12);color:var(--amber);border:1px solid rgba(255,209,102,.25)}
+.score-badge.baixo{background:rgba(239,35,60,.1);color:var(--red);border:1px solid rgba(239,35,60,.2)}
+
+.result-body{display:grid;grid-template-columns:160px 1fr;gap:0}
+.result-score-col{padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;border-right:1px solid var(--border)}
+.result-data-col{padding:16px}
+
+.score-ring-area{position:relative;width:110px;height:110px}
+.score-ring-area svg{position:absolute;top:0;left:0;transform:rotate(-90deg)}
+.score-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-num{font-size:26px;font-weight:900}
+.score-lbl{font-size:9px;font-weight:700;letter-spacing:.8px;color:var(--sub)}
+
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rcard{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.rcard-label{font-size:10px;color:var(--sub);margin-bottom:4px}
+.rcard-val{font-size:14px;font-weight:700}
+.rcard-val.g{color:var(--green)}.rcard-val.r{color:var(--red)}.rcard-val.a{color:var(--amber)}
+
+.data-sources-bar{margin-top:10px}
+.dsb-label{font-size:10px;color:var(--sub);margin-bottom:4px}
+.dsb-chips{display:flex;flex-wrap:wrap;gap:4px}
+.dsb-chip{padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600}
+.dsb-chip.g{background:rgba(6,214,160,.1);color:var(--green);border:1px solid rgba(6,214,160,.2)}
+.dsb-chip.a{background:rgba(255,209,102,.08);color:var(--amber);border:1px solid rgba(255,209,102,.2)}
+.dsb-chip.r{background:rgba(239,35,60,.08);color:var(--red);border:1px solid rgba(239,35,60,.15)}
+
+.es-query-box{margin-top:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:monospace;font-size:11px;color:var(--sub);line-height:1.6}
+.es-query-box .kw{color:var(--acc)}.es-query-box .st{color:var(--amber)}.es-query-box .nb{color:var(--green)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--panel)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+@media(max-width:700px){
+  .main{grid-template-columns:1fr}
+  .left,.right{max-height:none}
+  .left{border-right:none;border-bottom:1px solid var(--border)}
+  .groups-grid{grid-template-columns:1fr 1fr}
+  .result-body{grid-template-columns:1fr}
+  .report-grid{grid-template-columns:1fr}
+}
+@media(max-width:900px){.serasa-explainer{grid-template-columns:1fr}.main{grid-template-columns:1fr}.left,.right{max-height:none}}
+
+/* RESP-serasa-query-engine.html */
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 14px}
+  .main{height:auto}
+  .left,.right{max-height:none;overflow-y:visible}
+  .left{border-right:none;border-bottom:1px solid var(--border)}
+  .right-header{flex-wrap:wrap;gap:8px}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="context-info-css">
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<link rel="stylesheet" href="flow-explorer.css?v=20261029-route-safe">
+<script src="flow-explorer.js?v=20261029-route-safe" defer></script>
+<link rel="stylesheet" href="flow-explorer.css?v=20261029-route-safe">
+<script src="flow-explorer.js?v=20261029-route-safe" defer></script>
+<link rel="stylesheet" href="flow-explorer.css?v=20261029-route-safe">
+<script src="flow-explorer.js?v=20261029-route-safe" defer></script>
+<script>(function(){const copy={"Escolha uma empresa fictícia no seletor de empresas.":["Select a fictional company from the company selector.","Elige una empresa ficticia en el selector de empresas.","企業セレクターから架空の企業を選択します。"],"ERROR BUDGET · SERVIÇO":["SERVICE ERROR BUDGET","ERROR BUDGET · SERVICIO","サービスのエラーバジェット"],"SLO e error budget":["SLO and error budget","SLO y error budget","SLOとエラーバジェット"]};['en','es','ja'].forEach((lang,i)=>{const all=window.JEN_TRANSLATIONS||(window.JEN_TRANSLATIONS={});const dict=all[lang]||(all[lang]={});Object.entries(copy).forEach(([key,values])=>dict[key]=values[i]);});})();</script><script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Serasa · Query Engine Analítico</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#serasa-experian">Experi&ecirc;ncia Serasa &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="brand-s">S</div>
+    Serasa Experian &nbsp;/&nbsp; Query Engine Analítico
+  </div>
+  <div class="pills">
+    <span class="pill pill-live">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+    <a href="experiencia.html#serasa-experian" class="pill pill-case">← case completo</a>
+  </div>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este motor recria uma consulta empresarial no Data Lab da Serasa: fontes distintas são coordenadas, enriquecidas com processamento distribuído e consolidadas em uma resposta analítica rastreável. Para o negócio, evidencia como entregar contexto de forma mais rápida e consistente, mostrando a contribuição e o estado de cada fonte sem usar dados reais.</p>
+  <span class="context-action"><b>O que faz:</b> Coordena mais de cinco fontes de dados, executa transformação distribuída e consolida uma resposta analítica rastreável. <b>Experimente:</b> explore uma empresa fictícia, escolha o nível de profundidade e execute a consulta. <b>O que a demo mostra:</b> consulta analítica com rastreabilidade e comparação de latência simulada.</span>
+</aside>
+
+<section class="serasa-explainer" aria-labelledby="serasaGuideTitle">
+  <div>
+    <div class="serasa-kicker">Arquitetura analítica · passo a passo</div>
+    <h2 id="serasaGuideTitle">De várias fontes a uma resposta <em>clara e rastreável.</em></h2>
+    <p>Esta demonstração mostra como uma consulta empresarial pode coordenar fontes diferentes, executar enriquecimento distribuído e consolidar os sinais em um relatório analítico. Empresas, fontes, tempos e resultados são inteiramente fictícios.</p>
+    <div class="serasa-everyday">
+      <strong>Traduzindo para o dia a dia</strong>
+      <p>Em vez de procurar informações separadamente e montar o resultado à mão, o motor organiza a consulta, acompanha cada etapa e entrega uma visão única para apoiar a análise.</p>
+    </div>
+  </div>
+  <div class="serasa-tour" aria-label="Como usar esta demonstração">
+    <div class="serasa-tour-title">Faça este percurso</div>
+    <div class="serasa-tour-step"><b>01</b><span>Escolha uma empresa fictícia no seletor de empresas.</span></div>
+    <div class="serasa-tour-step"><b>02</b><span>Selecione consulta completa ou somente score.</span></div>
+    <div class="serasa-tour-step"><b>03</b><span>Execute e acompanhe as fontes e o pipeline mudando de estado.</span></div>
+    <button class="serasa-start" type="button" data-primary-action onclick="document.querySelector('.left').scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('runBtn').focus()">↓ Começar a exploração</button>
+  </div>
+</section>
+
+<div class="main">
+
+<!-- LEFT -->
+<div class="left">
+
+  <div>
+    <div class="sec-label">Entidade consultada</div>
+    <div class="entity-box">
+      <div class="entity-header">
+        <div class="entity-icon" id="eIcon">🏢</div>
+        <div>
+          <div class="entity-name" id="eName">Empresa Aurora</div>
+          <div class="entity-cnpj" id="eCNPJ">ID sintético: DEMO-AURORA-001</div>
+        </div>
+      </div>
+      <div class="entity-meta">
+        <div class="entity-row"><span class="entity-key">Segmento</span><span class="entity-val" id="eSeg">Energia · Oil &amp; Gas</span></div>
+        <div class="entity-row"><span class="entity-key">Porte</span><span class="entity-val" id="ePorte">Grande empresa</span></div>
+        <div class="entity-row"><span class="entity-key">Cenário</span><span class="entity-val" id="eFund">Empresa fictícia</span></div>
+        <div class="entity-row"><span class="entity-key">Região</span><span class="entity-val" id="eUF">Sudeste</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="sec-label">Selecionar empresa</div>
+    <div class="sample-list">
+      <button type="button" class="sample-btn active" onclick="selectSample(this,0)">
+        <span class="sample-flag">⛽</span>
+        <div class="sample-info"><div class="sample-name">Empresa Aurora</div><div class="sample-seg">Energia · Grande empresa fictícia</div></div>
+      </button>
+      <button type="button" class="sample-btn" onclick="selectSample(this,1)">
+        <span class="sample-flag">🏦</span>
+        <div class="sample-info"><div class="sample-name">Conta Alpha</div><div class="sample-seg">Financeiro · Grande empresa fictícia</div></div>
+      </button>
+      <button type="button" class="sample-btn" onclick="selectSample(this,2)">
+        <span class="sample-flag">🛒</span>
+        <div class="sample-info"><div class="sample-name">Empresa Horizonte</div><div class="sample-seg">Varejo · Grande empresa fictícia</div></div>
+      </button>
+      <button type="button" class="sample-btn" onclick="selectSample(this,3)">
+        <span class="sample-flag">📦</span>
+        <div class="sample-info"><div class="sample-name">Empresa Prisma</div><div class="sample-seg">E-commerce · Média empresa fictícia</div></div>
+      </button>
+      <button type="button" class="sample-btn" onclick="selectSample(this,4)">
+        <span class="sample-flag">🏗️</span>
+        <div class="sample-info"><div class="sample-name">Empresa Vértice</div><div class="sample-seg">Construção · Pequena empresa fictícia</div></div>
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <div class="sec-label">Tipo de consulta</div>
+    <div class="query-type">
+      <div class="qtype-btn active" onclick="selectType(this,'full')">
+        <div class="qtype-label">Completo</div>
+        <div class="qtype-sub">31 fontes</div>
+      </div>
+      <div class="qtype-btn" onclick="selectType(this,'score')">
+        <div class="qtype-label">Score Only</div>
+        <div class="qtype-sub">8 fontes</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="run-btn" id="runBtn" onclick="runQuery()">🔍 Executar consulta</button>
+
+  <div class="speed-cmp">
+    <div class="sec-label" style="margin-bottom:8px">Performance · antes vs depois</div>
+    <div class="speed-pair">
+      <div class="speed-before">
+        <div class="speed-v old">30min</div>
+        <div class="speed-l">antes (Hadoop raw)</div>
+      </div>
+      <div class="speed-arrow">→</div>
+      <div class="speed-after">
+        <div class="speed-v new">&lt; 2min</div>
+        <div class="speed-l">depois (ES index)</div>
+      </div>
+    </div>
+    <div class="speed-badge">15× mais rápido · 30+ fontes</div>
+  </div>
+
+</div><!-- /left -->
+
+<!-- RIGHT -->
+<div class="right">
+
+  <div class="right-header">
+    <div>
+      <div class="pipeline-label">Pipeline de enriquecimento · Spark → Elasticsearch</div>
+      <div style="font-size:11px;color:var(--sub);margin-top:2px">HDFS · AWS Lambda · CloudFormation</div>
+    </div>
+    <div class="timer-wrap">Tempo: <span class="timer-val" id="timerVal">: </span></div>
+  </div>
+
+  <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+
+  <!-- SOURCE WATERFALL -->
+  <div class="sources-section" id="sourcesSection">
+    <div class="sources-header">
+      <div class="sources-title">Fontes de dados</div>
+      <div class="src-counter">Consultadas: <span id="srcCount" style="color:var(--acc);font-weight:700">0</span> / <span id="srcTotal">31</span></div>
+    </div>
+    <div class="groups-grid">
+      <div class="src-group">
+        <div class="src-group-name">Bureaus de Crédito · cenário</div>
+        <div class="src-items" id="g0">
+          <div class="src-item" id="s0"><div class="src-dot"></div>Bureau sintético A</div>
+          <div class="src-item" id="s1"><div class="src-dot"></div>Bureau sintético B</div>
+          <div class="src-item" id="s2"><div class="src-dot"></div>Bureau sintético C</div>
+        </div>
+      </div>
+      <div class="src-group">
+        <div class="src-group-name">Receita Federal</div>
+        <div class="src-items">
+          <div class="src-item" id="s3"><div class="src-dot"></div>Dados Cadastrais</div>
+          <div class="src-item" id="s4"><div class="src-dot"></div>Situação Fiscal</div>
+          <div class="src-item" id="s5"><div class="src-dot"></div>CNPJ / Quadro QSA</div>
+        </div>
+      </div>
+      <div class="src-group">
+        <div class="src-group-name">BACEN</div>
+        <div class="src-items">
+          <div class="src-item" id="s6"><div class="src-dot"></div>SCR (crédito)</div>
+          <div class="src-item" id="s7"><div class="src-dot"></div>CADIN Federal</div>
+          <div class="src-item" id="s8"><div class="src-dot"></div>Câmbio / SISBACEN</div>
+        </div>
+      </div>
+      <div class="src-group">
+        <div class="src-group-name">Instituições financeiras · cenário</div>
+        <div class="src-items">
+          <div class="src-item" id="s9"><div class="src-dot"></div>Instituição parceira A</div>
+          <div class="src-item" id="s10"><div class="src-dot"></div>Instituição parceira B</div>
+          <div class="src-item" id="s11"><div class="src-dot"></div>Instituição parceira C</div>
+          <div class="src-item" id="s12"><div class="src-dot"></div>Instituição parceira D</div>
+        </div>
+      </div>
+      <div class="src-group">
+        <div class="src-group-name">Judiciais</div>
+        <div class="src-items">
+          <div class="src-item" id="s13"><div class="src-dot"></div>TJ-SP / TJ-RJ</div>
+          <div class="src-item" id="s14"><div class="src-dot"></div>TRF 1ª a 5ª Região</div>
+          <div class="src-item" id="s15"><div class="src-dot"></div>TST (trabalhista)</div>
+          <div class="src-item" id="s16"><div class="src-dot"></div>STJ / STF</div>
+        </div>
+      </div>
+      <div class="src-group">
+        <div class="src-group-name">CVM / B3</div>
+        <div class="src-items">
+          <div class="src-item" id="s17"><div class="src-dot"></div>Dados de mercado</div>
+          <div class="src-item" id="s18"><div class="src-dot"></div>Ações judiciais CVM</div>
+          <div class="src-item" id="s19"><div class="src-dot"></div>Insider · DFP</div>
+        </div>
+      </div>
+      <div class="src-group">
+        <div class="src-group-name">Protestos</div>
+        <div class="src-items">
+          <div class="src-item" id="s20"><div class="src-dot"></div>IEPTB Nacional</div>
+          <div class="src-item" id="s21"><div class="src-dot"></div>Cartórios SP</div>
+          <div class="src-item" id="s22"><div class="src-dot"></div>Cartórios RJ/MG</div>
+        </div>
+      </div>
+      <div class="src-group">
+        <div class="src-group-name">Dados Positivos</div>
+        <div class="src-items">
+          <div class="src-item" id="s23"><div class="src-dot"></div>Histórico pagamentos</div>
+          <div class="src-item" id="s24"><div class="src-dot"></div>Comportamento</div>
+          <div class="src-item" id="s25"><div class="src-dot"></div>Open Finance</div>
+        </div>
+      </div>
+      <div class="src-group">
+        <div class="src-group-name">Outros Registros</div>
+        <div class="src-items">
+          <div class="src-item" id="s26"><div class="src-dot"></div>DETRAN / RENAVAM</div>
+          <div class="src-item" id="s27"><div class="src-dot"></div>RGI Imóveis</div>
+          <div class="src-item" id="s28"><div class="src-dot"></div>CAGED / RAIS</div>
+          <div class="src-item" id="s29"><div class="src-dot"></div>CHC / CCF cheques</div>
+          <div class="src-item" id="s30"><div class="src-dot"></div>IBAMA ambiental</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIPELINE STEPS -->
+  <div class="pipe-steps">
+    <div class="pipe-step" id="ps0">
+      <div class="pipe-step-head">
+        <div class="pipe-step-icon">📥</div>
+        <div class="pipe-step-info">
+          <div class="pipe-step-name">Ingestão · HDFS + AWS Lambda</div>
+          <div class="pipe-step-desc">Coleta batch (HDFS) + eventos real-time (Lambda)</div>
+        </div>
+        <div class="pipe-badge idle" id="pb0">IDLE</div>
+      </div>
+      <div class="pipe-step-body"><div class="pipe-log" id="pl0"></div></div>
+    </div>
+    <div class="pipe-step" id="ps1">
+      <div class="pipe-step-head">
+        <div class="pipe-step-icon">⚡</div>
+        <div class="pipe-step-info">
+          <div class="pipe-step-name">Agregação · Apache Spark</div>
+          <div class="pipe-step-desc">Pré-computa scores e totais por produto/segmento</div>
+        </div>
+        <div class="pipe-badge idle" id="pb1">IDLE</div>
+      </div>
+      <div class="pipe-step-body"><div class="pipe-log" id="pl1"></div></div>
+    </div>
+    <div class="pipe-step" id="ps2">
+      <div class="pipe-step-head">
+        <div class="pipe-step-icon">🔍</div>
+        <div class="pipe-step-info">
+          <div class="pipe-step-name">Indexação · Elasticsearch</div>
+          <div class="pipe-step-desc">Índice analítico com latência &lt; 100ms por query</div>
+        </div>
+        <div class="pipe-badge idle" id="pb2">IDLE</div>
+      </div>
+      <div class="pipe-step-body"><div class="pipe-log" id="pl2"></div></div>
+    </div>
+  </div>
+
+  <!-- IDLE -->
+  <div class="idle" id="idleMsg">
+    <div class="idle-icon">🔍</div>
+    <div style="font-size:13px">Selecione uma empresa e clique em<br><strong>"Executar consulta"</strong></div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="resultPanel">
+    <div class="result-head">
+    <div class="result-title" id="rTitle">Relatório sintético: Empresa Aurora</div>
+      <div id="rBadge" class="score-badge alto">BAIXO RISCO</div>
+    </div>
+    <div class="result-body">
+      <div class="result-score-col">
+        <div class="score-ring-area">
+          <svg width="110" height="110">
+            <circle cx="55" cy="55" r="44" fill="none" stroke="#1e2a42" stroke-width="9"/>
+            <circle id="scoreArc" cx="55" cy="55" r="44" fill="none" stroke="#06d6a0" stroke-width="9"
+              stroke-linecap="round" stroke-dasharray="276.5 276.5" stroke-dashoffset="276.5"
+              style="transition:stroke-dashoffset 1.2s ease,stroke .4s ease"/>
+          </svg>
+          <div class="score-ring-center">
+            <div class="score-num" id="scoreNum" style="color:var(--green)">: </div>
+            <div class="score-lbl">SCORE</div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:var(--sub);text-align:center">de 1.000</div>
+        <div style="font-size:11px;font-weight:700;color:var(--sub);margin-top:4px">Fontes</div>
+        <div style="font-size:20px;font-weight:900;color:var(--acc)" id="rSrc">31</div>
+        <div style="font-size:10px;color:var(--sub)">consultadas</div>
+        <div style="font-size:11px;font-weight:700;color:var(--sub);margin-top:4px">Tempo</div>
+        <div style="font-size:20px;font-weight:900;color:var(--green)">1m47s</div>
+        <div style="font-size:10px;color:var(--sub)">vs 30+ min antes</div>
+      </div>
+      <div class="result-data-col">
+        <div class="report-grid">
+          <div class="rcard">
+            <div class="rcard-label">Situação fiscal</div>
+            <div class="rcard-val g" id="rFiscal">ATIVA REGULAR</div>
+          </div>
+          <div class="rcard">
+            <div class="rcard-label">Pendências financeiras</div>
+            <div class="rcard-val" id="rPend">: </div>
+          </div>
+          <div class="rcard">
+            <div class="rcard-label">Protestos</div>
+            <div class="rcard-val" id="rProt">: </div>
+          </div>
+          <div class="rcard">
+            <div class="rcard-label">Ações judiciais</div>
+            <div class="rcard-val" id="rJud">: </div>
+          </div>
+          <div class="rcard">
+            <div class="rcard-label">Histórico pgto (12m)</div>
+            <div class="rcard-val g" id="rHist">: </div>
+          </div>
+          <div class="rcard">
+            <div class="rcard-label">Capital social</div>
+            <div class="rcard-val" id="rCap">: </div>
+          </div>
+        </div>
+        <div class="data-sources-bar">
+          <div class="dsb-label">Fontes por resultado</div>
+          <div class="dsb-chips" id="rChips"></div>
+        </div>
+        <div class="es-query-box" id="esBox"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /right -->
+</div>
+
+<script>
+const SAMPLES = [
+  {icon:'⛽',name:'Empresa Aurora',cnpj:'DEMO-AURORA-001',seg:'Energia · cenário sintético',porte:'Grande empresa fictícia',fund:'Empresa fictícia',uf:'Sudeste',
+   score:892,risk:'BAIXO RISCO',rclass:'alto',fiscal:'ATIVA REGULAR',fclass:'g',
+   pend:'Nenhuma',pclass:'g',prot:'0 protestos',proclass:'g',jud:'12 ações (trabalhistas)',jclass:'a',
+   hist:'100% em dia',cap:'R$ 205,4 bi',
+   chips:[{l:'Bureau ✓',c:'g'},{l:'SCR ✓',c:'g'},{l:'Judicial ✓',c:'a'},{l:'Fiscal ✓',c:'g'},{l:'B3 ✓',c:'g'},{l:'BACEN ✓',c:'g'}]},
+  {icon:'🏦',name:'Conta Alpha',cnpj:'DEMO-ALPHA-002',seg:'Financeiro · cenário sintético',porte:'Grande empresa fictícia',fund:'Empresa fictícia',uf:'Sudeste',
+   score:958,risk:'BAIXO RISCO',rclass:'alto',fiscal:'ATIVA REGULAR',fclass:'g',
+   pend:'Nenhuma',pclass:'g',prot:'0 protestos',proclass:'g',jud:'34 ações (regulatórias)',jclass:'a',
+   hist:'100% em dia',cap:'R$ 97,1 bi',
+   chips:[{l:'Bureau ✓',c:'g'},{l:'SCR ✓',c:'g'},{l:'Judicial ✓',c:'a'},{l:'Fiscal ✓',c:'g'},{l:'CVM ✓',c:'g'},{l:'BACEN ✓',c:'g'}]},
+  {icon:'🛒',name:'Empresa Horizonte',cnpj:'DEMO-HORIZONTE-003',seg:'Varejo · cenário sintético',porte:'Grande empresa fictícia',fund:'Empresa fictícia',uf:'Sudeste',
+   score:841,risk:'BAIXO RISCO',rclass:'alto',fiscal:'ATIVA REGULAR',fclass:'g',
+   pend:'2 parcelamentos',pclass:'a',prot:'0 protestos',proclass:'g',jud:'89 ações (consumidor)',jclass:'a',
+   hist:'98% em dia',cap:'R$ 4,8 bi',
+   chips:[{l:'Bureau ✓',c:'g'},{l:'Judicial ✓',c:'a'},{l:'Fiscal ✓',c:'g'},{l:'B3 ✓',c:'g'},{l:'Dados+ ✓',c:'g'},{l:'BACEN ✓',c:'g'}]},
+  {icon:'📦',name:'Empresa Prisma',cnpj:'DEMO-PRISMA-004',seg:'E-commerce · cenário sintético',porte:'Média empresa fictícia',fund:'Empresa fictícia',uf:'Sul',
+   score:763,risk:'RISCO MÉDIO',rclass:'medio',fiscal:'ATIVA REGULAR',fclass:'g',
+   pend:'3 pendências',pclass:'a',prot:'0 protestos',proclass:'g',jud:'201 ações (consumidor)',jclass:'a',
+   hist:'94% em dia',cap:'R$ 7,4 bi',
+   chips:[{l:'Bureau ✓',c:'a'},{l:'Judicial ✓',c:'a'},{l:'Fiscal ✓',c:'g'},{l:'B3 ✓',c:'a'},{l:'Dados+ ✓',c:'g'},{l:'CHC ✓',c:'g'}]},
+  {icon:'🏗️',name:'Empresa Vértice',cnpj:'DEMO-VERTICE-005',seg:'Construção · cenário sintético',porte:'Pequena empresa fictícia',fund:'Empresa fictícia',uf:'Sudeste',
+   score:412,risk:'ALTO RISCO',rclass:'baixo',fiscal:'IRREGULAR',fclass:'r',
+   pend:'R$ 340k em aberto',pclass:'r',prot:'2 protestos (R$ 180k)',proclass:'r',jud:'5 execuções fiscais',jclass:'r',
+   hist:'61% em dia',cap:'R$ 1,2 mi',
+   chips:[{l:'Bureau ✗',c:'r'},{l:'Judicial ✗',c:'r'},{l:'Fiscal ✗',c:'r'},{l:'Protesto ✗',c:'r'},{l:'Dados+',c:'a'},{l:'CADIN ✗',c:'r'}]}
+];
+
+let currentSample = 0;
+let currentType = 'full';
+let running = false;
+let srcDoneCount = 0;
+
+function selectSample(el, idx){
+  document.querySelectorAll('.sample-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  currentSample = idx;
+  const s = SAMPLES[idx];
+  document.getElementById('eIcon').textContent = s.icon;
+  document.getElementById('eName').textContent = s.name;
+  document.getElementById('eCNPJ').textContent = 'ID sintético: ' + s.cnpj;
+  document.getElementById('eSeg').textContent = s.seg;
+  document.getElementById('ePorte').textContent = s.porte;
+  document.getElementById('eFund').textContent = s.fund;
+  document.getElementById('eUF').textContent = s.uf;
+}
+
+function selectType(el, type){
+  document.querySelectorAll('.qtype-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  currentType = type;
+  const total = type === 'full' ? 31 : 8;
+  document.getElementById('srcTotal').textContent = total;
+}
+
+function delay(ms){ return new Promise(r=>setTimeout(r,ms)) }
+
+let timerInterval = null;
+function startTimer(){
+  let ms = 0;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{
+    ms += 50;
+    const s = Math.floor(ms/1000);
+    const m = Math.floor(s/60);
+    const sec = s % 60;
+    document.getElementById('timerVal').textContent = m > 0 ? `${m}m${String(sec).padStart(2,'0')}s` : `${sec}s`;
+  }, 50);
+}
+function stopTimer(){ clearInterval(timerInterval) }
+
+async function animateSources(total){
+  const order = Array.from({length:31},(_,i)=>i);
+  // Shuffle slightly to look organic
+  for(let i=order.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [order[i],order[j]]=[order[j],order[i]];
+  }
+  const active = order.slice(0, total);
+  srcDoneCount = 0;
+  document.getElementById('srcCount').textContent = '0';
+
+  for(let i=0; i<active.length; i++){
+    const id = active[i];
+    const el = document.getElementById('s'+id);
+    if(!el) continue;
+    if(i>0){ const prev = active[i-1]; const pe=document.getElementById('s'+prev); if(pe){pe.classList.remove('active');pe.classList.add('done');} }
+    el.classList.add('active');
+    srcDoneCount++;
+    document.getElementById('srcCount').textContent = srcDoneCount;
+    document.getElementById('progFill').style.width = (srcDoneCount / total * 60) + '%';
+    await delay(total === 31 ? 45 : 30);
+  }
+  // Mark last as done
+  const lastId = active[active.length-1];
+  const lastEl = document.getElementById('s'+lastId);
+  if(lastEl){lastEl.classList.remove('active');lastEl.classList.add('done');}
+}
+
+async function runPipeStep(idx, logs, progStart, progEnd){
+  const stepEl = document.getElementById('ps'+idx);
+  const badge = document.getElementById('pb'+idx);
+  const logEl = document.getElementById('pl'+idx);
+  stepEl.classList.add('open');
+  badge.className='pipe-badge run';
+  badge.textContent='RUNNING';
+  logEl.innerHTML='';
+  for(let i=0;i<logs.length;i++){
+    await delay(400 + i*180);
+    const d=document.createElement('div');
+    d.className='pl';
+    d.innerHTML=`<span class="pl-ts">${logs[i].ts}</span><span class="${logs[i].c||''}">${logs[i].t}</span>`;
+    logEl.appendChild(d);
+    const p = progStart + (progEnd-progStart)*(i+1)/logs.length;
+    document.getElementById('progFill').style.width = p+'%';
+  }
+  badge.className='pipe-badge done';
+  badge.textContent='DONE';
+}
+
+async function runQuery(){
+  if(running) return;
+  running = true;
+  const s = SAMPLES[currentSample];
+  const total = currentType === 'full' ? 31 : 8;
+
+  document.getElementById('runBtn').disabled = true;
+  document.getElementById('runBtn').textContent = '⏳ Consultando...';
+  document.getElementById('idleMsg').style.display = 'none';
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('progFill').style.width = '0%';
+  document.getElementById('timerVal').textContent = ': ';
+
+  // Reset sources
+  for(let i=0;i<31;i++){
+    const el=document.getElementById('s'+i);
+    if(el){ el.classList.remove('active','done'); }
+  }
+  // Reset steps
+  for(let i=0;i<3;i++){
+    const ps=document.getElementById('ps'+i);
+    ps.classList.remove('open');
+    document.getElementById('pb'+i).className='pipe-badge idle';
+    document.getElementById('pb'+i).textContent='IDLE';
+    document.getElementById('pl'+i).innerHTML='';
+  }
+
+  startTimer();
+
+  // Source waterfall
+  await animateSources(total);
+  await delay(200);
+
+  // Pipeline steps
+  await runPipeStep(0, [
+    {ts:'0:14',c:'info',t:`Lambda: evento recebido, ${s.cnpj}`},
+    {ts:'0:22',t:`HDFS: hdfs:///serasa/credit-events/${s.cnpj.slice(0,8)}/`},
+    {ts:'0:31',c:'ok',t:`✓ ${total} fontes ingeridas, schema canônico aplicado`}
+  ], 60, 75);
+
+  await runPipeStep(1, [
+    {ts:'0:58',c:'info',t:`spark.read.parquet("hdfs:///serasa/enriched/").filter(cnpj="${s.cnpj.slice(0,12)}")`},
+    {ts:'1:12',t:`groupBy(product, segment, month) → agg(count, sum_value, avg_score, p95_score)`},
+    {ts:'1:29',c:'ok',t:`✓ Score calculado: ${s.score}, ${total} fontes integradas`}
+  ], 75, 88);
+
+  await runPipeStep(2, [
+    {ts:'1:38',c:'info',t:`ES: POST serasa-aggs/_doc/${s.cnpj.replace(/\D/g,'')}`},
+    {ts:'1:44',t:`{"score":${s.score},"cnpj":"${s.cnpj}","fontes":${total},"risco":"${s.risk}"}`},
+    {ts:'1:47',c:'ok',t:`✓ Indexado, latência query ES: 87ms`}
+  ], 88, 100);
+
+  stopTimer();
+  document.getElementById('timerVal').textContent = '1m47s ⚡';
+  document.getElementById('progFill').style.width = '100%';
+
+  showResult(s, total);
+  document.getElementById('runBtn').disabled = false;
+  document.getElementById('runBtn').textContent = '🔍 Executar consulta';
+  running = false;
+}
+
+function showResult(s, total){
+  const p = document.getElementById('resultPanel');
+  p.classList.add('show');
+
+  document.getElementById('rTitle').textContent = `Relatório sintético: ${s.name}`;
+  const rBadge = document.getElementById('rBadge');
+  rBadge.className = 'score-badge ' + s.rclass;
+  rBadge.textContent = s.risk;
+
+  // Score ring
+  const circ = 2*Math.PI*44;
+  const arc = document.getElementById('scoreArc');
+  const col = s.score>=800 ? '#06d6a0' : s.score>=600 ? '#ffd166' : '#ef233c';
+  arc.setAttribute('stroke', col);
+  setTimeout(()=>{ arc.style.strokeDashoffset = circ*(1 - s.score/1000); }, 100);
+  document.getElementById('scoreNum').textContent = s.score;
+  document.getElementById('scoreNum').style.color = col;
+  document.getElementById('rSrc').textContent = total;
+
+  // Report cards
+  const set = (id, val, cls) => {
+    document.getElementById(id).textContent = val;
+    document.getElementById(id).className = 'rcard-val ' + (cls||'');
+  };
+  set('rFiscal', s.fiscal, s.fclass);
+  set('rPend',   s.pend,   s.pclass);
+  set('rProt',   s.prot,   s.proclass);
+  set('rJud',    s.jud,    s.jclass);
+  set('rHist',   s.hist,   'g');
+  set('rCap',    s.cap,    '');
+
+  // Source chips
+  const chips = document.getElementById('rChips');
+  chips.innerHTML = s.chips.map(c=>`<span class="dsb-chip ${c.c}">${c.l}</span>`).join('');
+
+  // ES query preview
+  document.getElementById('esBox').innerHTML =
+    `<span class="kw">GET</span> serasa-aggs/_search\n` +
+    `{ <span class="kw">"query"</span>: { <span class="kw">"term"</span>: { <span class="st">"cnpj"</span>: <span class="nb">"${s.cnpj}"</span> }},\n` +
+    `  <span class="kw">"_source"</span>: [<span class="st">"score"</span>, <span class="st">"risco"</span>, <span class="st">"pendencias"</span>] }\n` +
+    `<span class="nb">→ 1 hit · latência: 87ms</span>`;
+
+  p.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

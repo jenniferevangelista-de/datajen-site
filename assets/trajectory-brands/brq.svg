@@ -1,0 +1,21 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BRQ">
+  <!--
+    Ícone do site: quadrado branco de arredondamento mínimo, borda neutra e o
+    "b" do logotipo dentro. É a MESMA arte do favicon.ico — o browser prefere
+    o SVG (sizes="any"), então os dois têm de bater. Era o wordmark inteiro
+    "brq®", que a 16px virava borrão.
+
+    Geometria: o traço do SVG é centrado no caminho, então o retângulo entra
+    2px para a borda de 4px cair inteira dentro do quadro, e o rx é 12
+    (14 - 2) para o raio EXTERNO fechar em 14.
+
+    O "b" é mais alto que largo e tem haste ascendente: fica centrado pela
+    caixa de TINTA (34px de cada lado) e um pouco ACIMA do centro geométrico
+    (21px em cima contra 25 embaixo), que é onde o olho lê o meio.
+  -->
+  <rect x="2" y="2" width="124" height="124" rx="12" fill="#ffffff" stroke="#cecece" stroke-width="4"/>
+  <g transform="translate(9.9 6.452) scale(0.1469534)" fill="#121212">
+    <path d="M381.16 345.79C380.76 345.79 380.36 345.76 379.95 345.76H377.71L381.16 345.79Z"/>
+    <path d="M373.63 242.41H268.15V106.43C268.15 102.23 264.75 98.83 260.55 98.83H172.06C167.86 98.83 164.46 102.23 164.46 106.43V146.42C164.46 259.21 255.57 345.15 368.21 345.77L408.15 345.79H418.53C450.03 345.79 475.56 371.33 475.56 402.82V494.76C475.56 526.26 450.02 551.79 418.53 551.79H326.66C295.16 551.79 269.63 526.25 269.63 494.76V379.29C269.63 375.09 266.23 371.69 262.03 371.69H172.08C167.88 371.69 164.48 375.09 164.48 379.29V451.58C164.48 569.53 267.7 664.26 387.34 656.51C486.76 650.07 566.27 571.07 577.63 472.09C591.9 347.79 495.09 242.4 373.66 242.4L373.63 242.41Z"/>
+  </g>
+</svg>

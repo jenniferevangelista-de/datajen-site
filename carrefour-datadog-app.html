@@ -1,0 +1,730 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Carrefour, Observabilidade · Datadog + GCP · Jennifer Evangelista</title>
+<meta name="description" content="Demonstração de observabilidade de dados com Datadog e Google Cloud no contexto Carrefour.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/carrefour-datadog-app.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Carrefour, Observabilidade · Datadog + GCP · Jennifer Evangelista">
+<meta property="og:description" content="Demonstração de observabilidade de dados com Datadog e Google Cloud no contexto Carrefour.">
+<meta property="og:url" content="https://datajen.com.br/carrefour-datadog-app.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carrefour, Observabilidade · Datadog + GCP · Jennifer Evangelista">
+<meta name="twitter:description" content="Demonstração de observabilidade de dados com Datadog e Google Cloud no contexto Carrefour.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,700;1,8..60,400&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== PORTFOLIO NAV ===== */
+.porto-nav{position:sticky;top:0;z-index:200;background:rgba(7,8,16,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,80,200,.15)}
+.porto-nav .in{max-width:1280px;margin:0 auto;padding:13px 32px;display:flex;align-items:center;gap:16px}
+.porto-wordmark{font-family:'Source Serif 4',serif;font-size:18px;font-weight:700;text-decoration:none;white-space:nowrap;color:#d0d8f0}
+.porto-wordmark .the{font-style:italic;font-weight:400;margin-right:4px}
+.nav-links{display:flex;gap:16px;list-style:none;flex:1}
+.nav-links a{font-size:13px;font-weight:600;color:#5060a0;text-decoration:none;white-space:nowrap;transition:.2s}
+.nav-links a:hover{color:#d0d8f0}
+.btn-nav{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;text-decoration:none;border-radius:99px;padding:8px 15px;white-space:nowrap;transition:.25s}
+.btn-nav.dark{background:#003087;color:#fff}
+.btn-nav.dark:hover{opacity:.85}
+.porto-back{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-decoration:none;color:#d0d8f0;border:1px solid rgba(0,80,200,.3);background:rgba(0,48,135,.15);border-radius:99px;padding:8px 13px;white-space:nowrap;transition:.25s}
+.porto-back:hover{border-color:#6688ff}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ===== RESET ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dd-bg:#eef3fb;--dd-bg2:#ffffff;--dd-bg3:#dde8fb;
+  --dd-panel:#ffffff;--dd-border:rgba(0,48,135,.14);
+  --dd-tx:#15213c;--dd-muted:#5c6b8a;
+  --dd-green:#12902f;--dd-amber:#a96c07;--dd-red:#d62b4e;--dd-blue:#1f5fd8;
+  --dd-teal:#0089aa;--dd-purple:#7a3fa0;
+  --c:#003087;
+}
+body{background:var(--dd-bg);min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--dd-tx)}
+.dd-panel{box-shadow:0 2px 12px rgba(0,48,135,.06)}
+
+/* ===== DEMO BADGE ===== */
+.demo-strip{background:rgba(255,170,34,.12);border-bottom:1px solid rgba(255,170,34,.25);padding:6px 32px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#ffaa22;letter-spacing:.08em;text-align:center}
+
+/* ===== DATADOG HEADER ===== */
+.dd-header{background:var(--dd-bg2);border-bottom:1px solid var(--dd-border);padding:12px 24px;display:flex;align-items:center;gap:16px}
+.dd-logo{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--dd-blue);letter-spacing:.05em}
+.dd-logo span{color:var(--dd-muted);font-weight:400}
+.dd-breadcrumb{font-size:11px;color:var(--dd-muted);display:flex;align-items:center;gap:6px}
+.dd-breadcrumb b{color:var(--dd-tx)}
+.dd-live{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:11px;font-family:'IBM Plex Mono',monospace}
+.dd-live-dot{width:7px;height:7px;border-radius:50%;background:var(--dd-green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.dd-time{color:var(--dd-muted);font-size:10px}
+
+/* ===== LAYOUT ===== */
+.dd-wrap{max-width:1280px;margin:0 auto;padding:20px 24px;display:flex;flex-direction:column;gap:16px}
+.dd-row{display:grid;gap:12px}
+.dd-row.cols-4{grid-template-columns:repeat(4,1fr)}
+.dd-row.cols-3{grid-template-columns:repeat(3,1fr)}
+.dd-row.cols-2{grid-template-columns:1fr 1fr}
+.dd-row.cols-13{grid-template-columns:1fr 2fr}
+@media(max-width:900px){.dd-row.cols-4,.dd-row.cols-3,.dd-row.cols-2,.dd-row.cols-13{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.dd-row.cols-4,.dd-row.cols-3,.dd-row.cols-2,.dd-row.cols-13{grid-template-columns:1fr}}
+
+/* ===== PANELS ===== */
+.dd-panel{background:var(--dd-panel);border:1px solid var(--dd-border);border-radius:6px;padding:14px 16px}
+.dd-panel-title{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dd-muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.dd-panel-title .live-badge{background:rgba(39,201,63,.12);color:var(--dd-green);border:1px solid rgba(39,201,63,.3);border-radius:4px;padding:1px 6px;font-size:8px;letter-spacing:.08em}
+
+/* ===== KPI TILES ===== */
+.dd-kpi{display:flex;flex-direction:column;gap:4px}
+.dd-kpi .val{font-size:28px;font-weight:700;font-family:'IBM Plex Mono',monospace;line-height:1}
+.dd-kpi .lbl{font-size:10px;color:var(--dd-muted);letter-spacing:.05em;text-transform:uppercase}
+.dd-kpi .sub{font-size:10px;color:var(--dd-green);margin-top:2px}
+.dd-kpi .sub.warn{color:var(--dd-amber)}
+.dd-kpi .sub.err{color:var(--dd-red)}
+.val-green{color:var(--dd-green)}.val-amber{color:var(--dd-amber)}.val-red{color:var(--dd-red)}.val-blue{color:var(--dd-blue)}.val-teal{color:var(--dd-teal)}
+
+/* ===== SPARK CHARTS ===== */
+.spark-wrap{height:52px;display:flex;align-items:flex-end;gap:2px;margin-top:8px}
+.spark-wrap .bar{flex:1;border-radius:2px 2px 0 0;transition:opacity .2s}
+.spark-wrap .bar:hover{opacity:.7}
+
+/* ===== LINE CHART SVG ===== */
+.line-chart{width:100%;height:80px;margin-top:8px}
+
+/* ===== DAG TABLE ===== */
+.dag-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.dag-table th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--dd-muted);padding:0 10px 8px 0;border-bottom:1px solid var(--dd-border)}
+.dag-table td{padding:7px 10px 7px 0;border-bottom:1px solid rgba(100,130,255,.06);vertical-align:middle}
+.dag-table tr:last-child td{border-bottom:none}
+.dag-table .dag-id{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--dd-blue)}
+.status-pill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.06em}
+.status-pill.ok{background:rgba(39,201,63,.12);color:var(--dd-green);border:1px solid rgba(39,201,63,.2)}
+.status-pill.run{background:rgba(102,136,255,.12);color:var(--dd-blue);border:1px solid rgba(102,136,255,.2)}
+.status-pill.warn{background:rgba(255,170,34,.12);color:var(--dd-amber);border:1px solid rgba(255,170,34,.2)}
+.status-pill.fail{background:rgba(255,59,92,.12);color:var(--dd-red);border:1px solid rgba(255,59,92,.2)}
+.dur-bar{display:inline-block;height:4px;border-radius:2px;background:var(--dd-blue);opacity:.6;vertical-align:middle;margin-right:6px}
+
+/* ===== ALERT FEED ===== */
+.alert-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(100,130,255,.06)}
+.alert-item:last-child{border-bottom:none}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.alert-dot.ok{background:var(--dd-green)}.alert-dot.warn{background:var(--dd-amber)}.alert-dot.err{background:var(--dd-red)}.alert-dot.info{background:var(--dd-blue)}
+.alert-body{flex:1}
+.alert-name{font-size:11.5px;font-weight:600;color:var(--dd-tx)}
+.alert-meta{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dd-muted);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+.alert-ts{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dd-muted);flex-shrink:0}
+
+/* ===== HEATMAP ===== */
+.heatmap{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;margin-top:8px}
+.hm-cell{height:14px;border-radius:2px;transition:.2s}
+.hm-cell:hover{opacity:.7}
+
+/* ===== GMEET NOTIF ===== */
+.gmeet-notif{background:rgba(0,180,216,.07);border:1px solid rgba(0,180,216,.2);border-radius:6px;padding:10px 14px;display:flex;align-items:flex-start;gap:10px;margin-top:8px}
+.gmeet-icon{font-size:18px;flex-shrink:0}
+.gmeet-body{flex:1}
+.gmeet-title{font-size:11px;font-weight:700;color:var(--dd-teal)}
+.gmeet-msg{font-size:10.5px;color:var(--dd-muted);margin-top:3px;line-height:1.5}
+.gmeet-time{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dd-muted);margin-top:4px}
+
+/* ===== GAUGE ===== */
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 0}
+.gauge-arc{position:relative;width:110px;height:60px;overflow:hidden}
+.gauge-arc svg{width:110px;height:60px}
+.gauge-val{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:700}
+.gauge-lbl{font-size:9.5px;color:var(--dd-muted);text-transform:uppercase;letter-spacing:.06em;text-align:center}
+
+/* ===== CF TABLE ===== */
+.cf-row{display:grid;grid-template-columns:1.5fr 80px 80px 80px 60px;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(100,130,255,.06);font-size:11px}
+.cf-row:last-child{border-bottom:none}
+.cf-hdr{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--dd-muted);padding-bottom:8px;border-bottom:1px solid var(--dd-border)}
+.cf-name{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dd-blue)}
+.cf-num{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-align:right}
+.mini-pill{display:inline-block;padding:1px 6px;border-radius:3px;font-size:8px;font-weight:700;font-family:'IBM Plex Mono',monospace}
+.mini-pill.ok{background:rgba(39,201,63,.15);color:var(--dd-green)}
+.mini-pill.warn{background:rgba(255,170,34,.15);color:var(--dd-amber)}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:rgba(100,130,255,.2)}
+</style>
+<style id="gn-cta-css">
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff !important;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="responsive-audit-fix">
+html,body{max-width:100%;overflow-x:hidden}
+.dd-row>*{min-width:0}.dd-panel{min-width:0;max-width:100%;overflow-x:auto}
+@media(max-width:640px){
+  .porto-nav .in{padding:10px 12px;gap:8px}.porto-back{margin-left:auto}
+  .dd-header{padding:10px 12px;flex-wrap:wrap}.dd-breadcrumb{order:3;width:100%;overflow-wrap:anywhere}.dd-live{margin-left:auto}
+  .dd-wrap{padding:12px 10px;gap:10px}.dd-panel{min-width:0;max-width:100%;overflow-x:auto;padding:12px}
+  .dd-panel-title{flex-wrap:wrap}.dag-table,.cf-row{min-width:520px}.heatmap{min-width:420px}
+}
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+</style>
+<style id="global-nav-css">
+/* Mesma barra usada em todos os apps do portfolio. */
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+/* A barra .gn e fixed: reserva o espaco dela e some no modo embed. */
+body{padding-top:44px}
+html.in-iframe body,html.embed-mode body{padding-top:0}
+html.in-iframe .gn,html.embed-mode .gn{display:none!important}
+@media(max-width:640px){.gn-back{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Carrefour, Observabilidade · Datadog + GCP · Jennifer Evangelista</h1>
+
+<nav class="gn" id="globalNav" aria-label="Navega&ccedil;&atilde;o do portf&oacute;lio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#carrefour">Experi&ecirc;ncia Carrefour &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<div class="tech-disclaimer" role="note">&#x1F512; <strong>Demonstra&ccedil;&atilde;o t&eacute;cnica com dados mockados</strong>&ensp;&middot;&ensp;Esta solu&ccedil;&atilde;o foi desenvolvida exclusivamente para fins demonstrativos e utiliza apenas dados mockados, sem qualquer informa&ccedil;&atilde;o de clientes, conte&uacute;do corporativo, dados confidenciais ou integra&ccedil;&atilde;o com ambientes reais. Seu objetivo &eacute; evidenciar a arquitetura, as decis&otilde;es t&eacute;cnicas, o comportamento dos componentes em um cen&aacute;rio controlado e o funcionamento da solu&ccedil;&atilde;o.</div>
+
+<!-- Datadog-style header -->
+<div class="dd-header">
+  <div class="dd-logo">🐶 Datadog <span>· Carrefour Data Platform</span></div>
+  <div class="dd-breadcrumb">Dashboards <b>›</b> <b>Observabilidade de Dados · Produção</b></div>
+  <div class="dd-live"><span class="dd-live-dot"></span> DEMO AO VIVO · DADOS SINTÉTICOS <span class="dd-time">atualizado há 12s</span></div>
+  <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este painel recria a observabilidade de pipelines de dados no Datadog: monitores acompanham execução, qualidade e SLA, enquanto alertas conectam a falha à linhagem e ao time responsável. A simulação evidencia como reduzir o tempo de diagnóstico e impedir que um dado degradado avance silenciosamente para relatórios e produtos.</p>
+  <span class="context-action"><b>O que faz:</b> Monitora pipelines em tempo real. Quando falha, mostra qual dado degradou, quem é responsável e por que o problema existe. <b>Experimente:</b> simule incidente, veja cascata de alertas, resolva em 3 clicks. <b>O que a demo mostra:</b> o caminho entre alerta, investigação e resolução de um incidente simulado.</span>
+</aside>
+
+<div class="dd-wrap">
+
+  <!-- ROW 1: KPI tiles -->
+  <div class="dd-row cols-4">
+    <div class="dd-panel">
+      <div class="dd-panel-title">SLA Pipelines</div>
+      <div class="dd-kpi"><div class="val val-green">99,7%</div><div class="lbl">últimas 24h</div><div class="sub">▲ meta: 99,5% · atingida</div></div>
+    </div>
+    <div class="dd-panel">
+      <div class="dd-panel-title">DAGs em execução</div>
+      <div class="dd-kpi"><div class="val val-blue" id="dag-running">847</div><div class="lbl">total hoje</div><div class="sub">3 rodando agora</div></div>
+    </div>
+    <div class="dd-panel">
+      <div class="dd-panel-title">Falhas (24h)</div>
+      <div class="dd-kpi"><div class="val val-amber">2</div><div class="lbl">alertas gerados</div><div class="sub warn">✓ ambas resolvidas · MTTR &lt; 18min</div></div>
+    </div>
+    <div class="dd-panel">
+      <div class="dd-panel-title">Cloud Functions</div>
+      <div class="dd-kpi"><div class="val val-teal">12</div><div class="lbl">funções monitoradas</div><div class="sub">100% operacional</div></div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Pipeline throughput + DAG table -->
+  <div class="dd-row cols-13">
+    <!-- Throughput chart -->
+    <div class="dd-panel">
+      <div class="dd-panel-title">Throughput · Registros/h <span class="live-badge">LIVE</span></div>
+      <div style="font-size:10.5px;color:var(--dd-muted);margin-bottom:10px;line-height:1.5">Volume de registros que os pipelines de dados processaram por hora, quanto maior, mais dados chegando ao consumidor.</div>
+      <svg class="line-chart" viewBox="0 0 300 80" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6688ff" stop-opacity=".3"/>
+            <stop offset="100%" stop-color="#6688ff" stop-opacity="0"/>
+          </lineargradient>
+        </defs>
+        <path fill="url(#lg1)" d="M0,65 L12,58 25,62 37,50 50,54 62,40 75,44 87,30 100,36 112,22 125,28 137,18 150,24 162,14 175,20 187,12 200,17 212,8 225,14 237,6 250,10 262,4 275,8 287,3 300,6 L300,80 0,80 Z"/>
+        <path fill="none" stroke="#6688ff" stroke-width="2" d="M0,65 L12,58 25,62 37,50 50,54 62,40 75,44 87,30 100,36 112,22 125,28 137,18 150,24 162,14 175,20 187,12 200,17 212,8 225,14 237,6 250,10 262,4 275,8 287,3 300,6"/>
+        <line x1="187" y1="0" x2="187" y2="80" stroke="rgba(255,170,34,.4)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="185" y="10" fill="#ffaa22" font-size="7" font-family="monospace" text-anchor="end">alerta ⚠</text>
+      </svg>
+      <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--dd-muted);font-family:'IBM Plex Mono',monospace;margin-top:4px">
+        <span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>agora</span>
+      </div>
+      <!-- Heatmap by hour -->
+      <div class="dd-panel-title" style="margin-top:16px;margin-bottom:4px">Heatmap · Carga por hora</div>
+      <div class="heatmap" id="heatmap"></div>
+      <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--dd-muted);font-family:'IBM Plex Mono',monospace;margin-top:4px">
+        <span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>23h</span>
+      </div>
+    </div>
+
+    <!-- DAG table -->
+    <div class="dd-panel">
+      <div class="dd-panel-title">Airflow DAGs · Status em Produção <span class="live-badge">LIVE</span></div>
+      <div style="font-size:10.5px;color:var(--dd-muted);margin-bottom:10px;line-height:1.5">DAGs são os pipelines de dados agendados no Airflow, cada linha é um fluxo que roda automaticamente para mover e transformar dados de uma fonte para outra.</div>
+      <table class="dag-table">
+        <thead><tr>
+          <th>DAG ID</th><th>Status</th><th>Duração</th><th>Última execução</th><th>Owner</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td class="dag-id">sales_daily_v2</td>
+            <td><span class="status-pill ok">✓ success</span></td>
+            <td><span class="dur-bar" style="width:48px"></span>38min</td>
+            <td style="color:var(--dd-muted);font-size:10.5px">há 2h 14min</td>
+            <td style="color:var(--dd-muted);font-size:10px">squad-comercial</td>
+          </tr>
+          <tr>
+            <td class="dag-id">inventory_sync_hourly</td>
+            <td><span class="status-pill run">▶ running</span></td>
+            <td><span class="dur-bar" style="width:22px"></span>18min</td>
+            <td style="color:var(--dd-muted);font-size:10.5px">em andamento</td>
+            <td style="color:var(--dd-muted);font-size:10px">squad-logistica</td>
+          </tr>
+          <tr>
+            <td class="dag-id">quality_check_gold</td>
+            <td><span class="status-pill ok">✓ success</span></td>
+            <td><span class="dur-bar" style="width:15px"></span>12min</td>
+            <td style="color:var(--dd-muted);font-size:10.5px">há 45min</td>
+            <td style="color:var(--dd-muted);font-size:10px">squad-dados</td>
+          </tr>
+          <tr>
+            <td class="dag-id">ecommerce_events_v3</td>
+            <td><span class="status-pill ok">✓ success</span></td>
+            <td><span class="dur-bar" style="width:60px"></span>52min</td>
+            <td style="color:var(--dd-muted);font-size:10.5px">há 1h 02min</td>
+            <td style="color:var(--dd-muted);font-size:10px">squad-digital</td>
+          </tr>
+          <tr>
+            <td class="dag-id">crm_data_refresh</td>
+            <td><span class="status-pill warn">⚠ late</span></td>
+            <td><span class="dur-bar" style="width:85px;background:var(--dd-amber)"></span>1h 28min</td>
+            <td style="color:var(--dd-amber);font-size:10.5px">atraso detectado</td>
+            <td style="color:var(--dd-muted);font-size:10px">squad-crm</td>
+          </tr>
+          <tr>
+            <td class="dag-id">pdv_bronze_ingest</td>
+            <td><span class="status-pill ok">✓ success</span></td>
+            <td><span class="dur-bar" style="width:28px"></span>24min</td>
+            <td style="color:var(--dd-muted);font-size:10.5px">há 30min</td>
+            <td style="color:var(--dd-muted);font-size:10px">squad-dados</td>
+          </tr>
+          <tr>
+            <td class="dag-id">lineage_refresh_daily</td>
+            <td><span class="status-pill ok">✓ success</span></td>
+            <td><span class="dur-bar" style="width:8px"></span>6min</td>
+            <td style="color:var(--dd-muted);font-size:10.5px">há 5h 10min</td>
+            <td style="color:var(--dd-muted);font-size:10px">squad-dados</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ROW 3: Cloud Functions + SLA gauges + Alert feed -->
+  <div class="dd-row cols-3">
+
+    <!-- Cloud Functions -->
+    <div class="dd-panel">
+      <div class="dd-panel-title">Cloud Functions · GCP</div>
+      <div style="font-size:10.5px;color:var(--dd-muted);margin-bottom:10px;line-height:1.5">Funções automáticas no Google Cloud: disparam alertas, detectam falhas de qualidade, sincronizam linhagem com o catálogo e notificam o Canal corporativo de mensagens.</div>
+      <div class="cf-row cf-hdr">
+        <div>Função</div><div style="text-align:right">Inv/h</div><div style="text-align:right">Erros</div><div style="text-align:right">Latência p99</div><div></div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-name">quality-alert-trigger</div>
+        <div class="cf-num">1.243</div>
+        <div class="cf-num val-green">0</div>
+        <div class="cf-num">142ms</div>
+        <div><span class="mini-pill ok">OK</span></div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-name">alert-notifier</div>
+        <div class="cf-num">18</div>
+        <div class="cf-num val-green">0</div>
+        <div class="cf-num">89ms</div>
+        <div><span class="mini-pill ok">OK</span></div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-name">lineage-sync-hook</div>
+        <div class="cf-num">4.102</div>
+        <div class="cf-num val-green">2</div>
+        <div class="cf-num">218ms</div>
+        <div><span class="mini-pill ok">OK</span></div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-name">sla-breach-detector</div>
+        <div class="cf-num">847</div>
+        <div class="cf-num val-green">0</div>
+        <div class="cf-num">67ms</div>
+        <div><span class="mini-pill ok">OK</span></div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-name">data-quality-scorer</div>
+        <div class="cf-num">2.891</div>
+        <div class="cf-num val-amber">7</div>
+        <div class="cf-num">384ms</div>
+        <div><span class="mini-pill warn">WARN</span></div>
+      </div>
+    </div>
+
+    <!-- SLA Gauges -->
+    <div class="dd-panel">
+      <div class="dd-panel-title">SLA por Domínio de Negócio</div>
+      <div style="font-size:10.5px;color:var(--dd-muted);margin-bottom:10px;line-height:1.5">% de disponibilidade dos dados por área: 100% = dados sempre entregues no prazo. Abaixo de 99,5% aciona alerta automático.</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:4px"><span style="color:var(--dd-muted)">Vendas</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--dd-green)">99,9%</span></div>
+          <div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px"><div style="width:99.9%;height:100%;background:var(--dd-green);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:4px"><span style="color:var(--dd-muted)">Estoque</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--dd-green)">99,7%</span></div>
+          <div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px"><div style="width:99.7%;height:100%;background:var(--dd-green);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:4px"><span style="color:var(--dd-muted)">E-commerce</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--dd-green)">99,8%</span></div>
+          <div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px"><div style="width:99.8%;height:100%;background:var(--dd-green);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:4px"><span style="color:var(--dd-muted)">CRM</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--dd-amber)">97,2%</span></div>
+          <div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px"><div style="width:97.2%;height:100%;background:var(--dd-amber);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:4px"><span style="color:var(--dd-muted)">RH</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--dd-green)">100%</span></div>
+          <div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px"><div style="width:100%;height:100%;background:var(--dd-green);border-radius:3px"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:4px"><span style="color:var(--dd-muted)">Financeiro</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--dd-green)">99,5%</span></div>
+          <div style="height:6px;background:rgba(255,255,255,.08);border-radius:3px"><div style="width:99.5%;height:100%;background:var(--dd-green);border-radius:3px"></div></div>
+        </div>
+      </div>
+      <!-- Canal corporativo de mensagens notif -->
+      <div class="gmeet-notif">
+        <div class="gmeet-icon">📹</div>
+        <div class="gmeet-body">
+          <div class="gmeet-title">Canal corporativo de mensagens · Alerta crítico</div>
+          <div class="gmeet-msg">⚠ crm_data_refresh · atraso &gt; 90min<br>Impacto: relatórios de reposição de estoque<br>@webhook-google-meet-dados-alerta</div>
+          <div class="gmeet-time">notificado há 12min · respondido em 4min</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert feed -->
+    <div class="dd-panel">
+      <div class="dd-panel-title">Feed de Alertas · últimas 24h <span class="live-badge">LIVE</span></div>
+      <div class="alert-item">
+        <div class="alert-dot warn"></div>
+        <div class="alert-body">
+          <div class="alert-name">crm_data_refresh · atraso crítico (&gt;90min)</div>
+          <div class="alert-meta"><span>Monitor: pipeline-sla-breach</span><span>⚡ Canal corporativo de mensagens notificado</span></div>
+        </div>
+        <div class="alert-ts">há 12min</div>
+      </div>
+      <div class="alert-item">
+        <div class="alert-dot ok"></div>
+        <div class="alert-body">
+          <div class="alert-name">quality_check_gold · 3 assets abaixo do threshold</div>
+          <div class="alert-meta"><span>Monitor: data-quality-score</span><span>✓ resolvido · MTTR 8min</span></div>
+        </div>
+        <div class="alert-ts">há 45min</div>
+      </div>
+      <div class="alert-item">
+        <div class="alert-dot ok"></div>
+        <div class="alert-body">
+          <div class="alert-name">sales_daily_v2 · latência 2h18min (meta: &lt;2h)</div>
+          <div class="alert-meta"><span>Monitor: dag-duration</span><span>✓ resolvido · MTTR 18min</span></div>
+        </div>
+        <div class="alert-ts">há 3h 21min</div>
+      </div>
+      <div class="alert-item">
+        <div class="alert-dot info"></div>
+        <div class="alert-body">
+          <div class="alert-name">lineage_refresh_daily · concluído com sucesso</div>
+          <div class="alert-meta"><span>Monitor: dag-completion</span><span>500+ assets sincronizados</span></div>
+        </div>
+        <div class="alert-ts">há 5h 10min</div>
+      </div>
+      <div class="alert-item">
+        <div class="alert-dot ok"></div>
+        <div class="alert-body">
+          <div class="alert-name">ecommerce_events_v3 · recuperado após retry</div>
+          <div class="alert-meta"><span>Monitor: dag-failure</span><span>✓ resolvido automaticamente</span></div>
+        </div>
+        <div class="alert-ts">há 7h 48min</div>
+      </div>
+      <div class="alert-item">
+        <div class="alert-dot info"></div>
+        <div class="alert-body">
+          <div class="alert-name">Implantação do monitor quality-alert-trigger</div>
+          <div class="alert-meta"><span>Deploy · CI/CD pipeline</span><span>via jennifer.evangelista@example.invalid</span></div>
+        </div>
+        <div class="alert-ts">há 14h</div>
+      </div>
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--dd-border);display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dd-muted)">
+        <span>Total 24h: 6 eventos</span>
+        <span style="color:var(--dd-green)">2 alertas · 100% resolvidos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Live Log Stream + Incident Replay -->
+  <div class="dd-row cols-2">
+
+    <!-- Live log terminal -->
+    <div class="dd-panel" style="position:relative">
+      <div class="dd-panel-title">Log Stream · Airflow + GCP <span class="live-badge">LIVE</span></div>
+      <div class="log-terminal" id="logTerminal"></div>
+    </div>
+
+    <!-- Incident replay -->
+    <div class="dd-panel incident-panel">
+      <div class="dd-panel-title">Simulação de Incidente · Resposta em Tempo Real</div>
+      <div style="font-size:10.5px;color:var(--dd-muted);margin-bottom:12px;line-height:1.5">Observe como o sistema detecta, alerta e resolve um incidente automaticamente.</div>
+      <div class="incident-timeline" id="incTimeline"></div>
+      <button class="incident-replay-btn" id="replayBtn" onclick="replayIncident()">▶ Rodar simulação de incidente</button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- EXTRA CSS -->
+<style>
+/* LOG TERMINAL */
+.log-terminal{background:#0a0e1a;border:1px solid rgba(100,130,255,.1);border-radius:4px;padding:10px 12px;height:260px;overflow-y:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:1.7;scrollbar-width:thin;scrollbar-color:rgba(100,130,255,.2) transparent}
+.log-terminal::-webkit-scrollbar{width:4px}
+.log-terminal::-webkit-scrollbar-thumb{background:rgba(100,130,255,.2)}
+.log-line{opacity:0;animation:logIn .3s ease forwards;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@keyframes logIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+.log-ts{color:#555a70}.log-ok{color:#27c93f}.log-warn{color:#ffaa22}.log-err{color:#ff3b5c}.log-info{color:#6688ff}.log-dim{color:#444a60}.log-dag{color:#00b4d8}.log-metric{color:#9b59b6}
+
+/* INCIDENT TIMELINE */
+.incident-timeline{display:flex;flex-direction:column;gap:0;position:relative;padding-left:20px;min-height:180px}
+.incident-timeline:empty{display:none;min-height:0;padding-left:0}
+.incident-timeline:empty::before{display:none}
+.incident-timeline::before{content:'';position:absolute;left:7px;top:4px;bottom:4px;width:2px;background:rgba(100,130,255,.1)}
+.inc-step{position:relative;padding:8px 0 8px 16px;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.inc-step.show{opacity:1;transform:none}
+.inc-step::before{content:'';position:absolute;left:-17px;top:12px;width:10px;height:10px;border-radius:50%;border:2px solid rgba(100,130,255,.2);background:var(--dd-bg);transition:background .3s,border-color .3s}
+.inc-step.show::before{background:var(--step-color,var(--dd-blue));border-color:var(--step-color,var(--dd-blue))}
+.inc-step.active::before{box-shadow:0 0 8px var(--step-color,var(--dd-blue));animation:stepPulse 1s ease infinite}
+@keyframes stepPulse{0%,100%{box-shadow:0 0 4px var(--step-color)}50%{box-shadow:0 0 12px var(--step-color)}}
+.inc-label{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dd-muted);margin-bottom:2px}
+.inc-title{font-size:12px;font-weight:600}
+.inc-detail{font-size:10px;color:var(--dd-muted);margin-top:2px}
+.incident-replay-btn{margin-top:16px;display:inline-flex;align-items:center;gap:9px;background:var(--dd-blue);border:none;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:13.5px;font-weight:700;letter-spacing:.03em;padding:14px 26px;border-radius:11px;cursor:pointer;transition:transform .18s,box-shadow .2s,background .2s;box-shadow:0 8px 24px rgba(31,95,216,.34);animation:replayPulse 2.2s ease-in-out infinite}
+.incident-replay-btn:hover{background:#1850c0;transform:translateY(-2px);box-shadow:0 12px 32px rgba(31,95,216,.46)}
+.incident-replay-btn:active{transform:translateY(0)}
+@keyframes replayPulse{0%,100%{box-shadow:0 8px 22px rgba(31,95,216,.30)}50%{box-shadow:0 8px 32px rgba(31,95,216,.58)}}
+/* painel de incidente = o ponto interativo em destaque */
+.incident-panel{border:1.5px solid rgba(31,95,216,.42)!important;box-shadow:0 6px 26px rgba(31,95,216,.14)!important;position:relative}
+.incident-panel::after{content:'✦ INTERATIVO';position:absolute;top:12px;right:14px;font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.14em;color:var(--dd-blue);background:rgba(31,95,216,.1);border:1px solid rgba(31,95,216,.28);border-radius:20px;padding:3px 9px}
+
+/* TOAST NOTIFICATION */
+.dd-toast{position:fixed;bottom:24px;right:24px;background:#fff;border:1.5px solid rgba(214,43,78,.45);border-radius:10px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;z-index:999;opacity:0;transform:translateY(20px) scale(.95);transition:opacity .4s,transform .4s;max-width:380px;box-shadow:0 16px 44px rgba(0,48,135,.2)}
+.dd-toast.show{opacity:1;transform:none}
+.dd-toast.resolved{border-color:rgba(39,201,63,.4)}
+.dd-toast-icon{font-size:22px;flex-shrink:0;animation:toastShake .5s ease}
+@keyframes toastShake{0%,100%{transform:none}20%,60%{transform:translateX(-3px)}40%,80%{transform:translateX(3px)}}
+.dd-toast-body{flex:1}
+.dd-toast-title{font-size:12px;font-weight:700;color:var(--dd-red)}
+.dd-toast.resolved .dd-toast-title{color:var(--dd-green)}
+.dd-toast-msg{font-size:10.5px;color:var(--dd-muted);margin-top:3px;line-height:1.5}
+.dd-toast-time{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--dd-muted);margin-top:4px}
+</style>
+
+<script>
+// Heatmap
+(function(){
+  var hm=document.getElementById('heatmap');
+  var loads=[3,2,2,2,3,5,14,22,30,38,45,48,52,55,58,60,58,52,44,36,28,18,10,6];
+  var max=Math.max(...loads);
+  loads.forEach(function(v,i){
+    var cell=document.createElement('div');
+    cell.className='hm-cell';
+    var ratio=v/max;
+    var r=Math.round(102+(ratio*(39-102)));
+    var g=Math.round(136+(ratio*(201-136)));
+    var b=Math.round(255+(ratio*(63-255)));
+    cell.style.background='rgba('+r+','+g+','+b+','+(.15+ratio*.8)+')';
+    cell.title=('0'+i).slice(-2)+'h · '+v+'% de carga';
+    hm.appendChild(cell);
+  });
+})();
+
+// Animate DAG running counter
+(function(){
+  var el=document.getElementById('dag-running');
+  var v=847;
+  setInterval(function(){
+    v=847+Math.floor(Math.random()*3);
+    el.textContent=v;
+  },4000);
+})();
+
+// ============ LIVE LOG STREAM ============
+(function(){
+  var term=document.getElementById('logTerminal');
+  var dags=['sales_daily_v2','inventory_sync_hourly','quality_check_gold','ecommerce_events_v3','crm_data_refresh','pdv_bronze_ingest','lineage_refresh_daily'];
+  var squads=['squad-comercial','squad-logistica','squad-dados','squad-digital','squad-crm'];
+  var cfs=['quality-alert-trigger','alert-notifier','lineage-sync-hook','sla-breach-detector','data-quality-scorer'];
+  var pool=[
+    function(){var d=dags[Math.floor(Math.random()*dags.length)];var rows=Math.floor(Math.random()*90000)+10000;return{cls:'log-ok',t:'[airflow] DAG '+d+' · task_instance succeeded · '+rows.toLocaleString()+' rows'}},
+    function(){var d=dags[Math.floor(Math.random()*dags.length)];return{cls:'log-info',t:'[airflow] DAG '+d+' · scheduler heartbeat · next run in '+(Math.floor(Math.random()*50)+10)+'min'}},
+    function(){var cf=cfs[Math.floor(Math.random()*cfs.length)];var ms=Math.floor(Math.random()*300)+40;return{cls:'log-dag',t:'[cloud-fn] '+cf+' invoked · '+ms+'ms · status 200'}},
+    function(){var d=dags[Math.floor(Math.random()*dags.length)];var pct=(Math.random()*2+98).toFixed(1);return{cls:'log-metric',t:'[monitor] '+d+' · completeness='+pct+'% · freshness=OK · uniqueness=OK'}},
+    function(){var sq=squads[Math.floor(Math.random()*squads.length)];return{cls:'log-ok',t:'[catalog] asset sync · '+sq+' · '+(Math.floor(Math.random()*40)+5)+' assets refreshed'}},
+    function(){var d=dags[Math.floor(Math.random()*dags.length)];var dur=(Math.random()*40+5).toFixed(0);return{cls:'log-info',t:'[airflow] DAG '+d+' · running · duration '+dur+'min / expected 45min'}},
+    function(){return{cls:'log-dim',t:'[gcp] compute.googleapis.com · health check · all zones OK'}},
+    function(){var gb=(Math.random()*8+0.5).toFixed(1);return{cls:'log-dag',t:'[bigquery] query completed · '+gb+' GB processed · slot_ms '+(Math.floor(Math.random()*5000)+1000)}},
+    function(){return{cls:'log-warn',t:'[monitor] sla-breach-detector · crm_data_refresh approaching threshold · '+(Math.floor(Math.random()*20)+70)+'min / limit 90min'}},
+    function(){return{cls:'log-ok',t:'[datadog] monitor evaluation · 12 monitors · all OK · next check in 30s'}},
+  ];
+  function ts(){var d=new Date();return('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+':'+('0'+d.getSeconds()).slice(-2)}
+  function addLog(){
+    var entry=pool[Math.floor(Math.random()*pool.length)]();
+    var div=document.createElement('div');
+    div.className='log-line';
+    div.innerHTML='<span class="log-ts">'+ts()+'</span> <span class="'+entry.cls+'">'+entry.t+'</span>';
+    term.appendChild(div);
+    if(term.children.length>80)term.removeChild(term.firstChild);
+    term.scrollTop=term.scrollHeight;
+  }
+  for(var i=0;i<6;i++)addLog();
+  setInterval(addLog,1800+Math.floor(Math.random()*1200));
+})();
+
+// ============ INCIDENT REPLAY ============
+var incSteps=[
+  {label:'DETECÇÃO',title:'Monitor dispara alerta',detail:'sla-breach-detector · crm_data_refresh > 90min (limite: 90min)',color:'#d62b4e',toast:{icon:'🚨',title:'ALERTA CRÍTICO',msg:'crm_data_refresh ultrapassou SLA de 90min.\nImpacto: relatórios de reposição de estoque.',cls:''}},
+  {label:'NOTIFICAÇÃO · 4s',title:'Canal corporativo de mensagens acionado automaticamente',detail:'Cloud Function alert-notifier → canal #dados-alerta-critico',color:'#a96c07',toast:{icon:'📹',title:'Canal corporativo de mensagens · Alerta enviado',msg:'Notificação enviada ao canal de dados.\n@squad-crm @squad-dados convocados.',cls:''}},
+  {label:'INVESTIGAÇÃO · 2min',title:'Equipe identifica a causa',detail:'BigQuery slot contention · query concorrente bloqueou o pipeline batch',color:'#1f5fd8'},
+  {label:'CORREÇÃO · 6min',title:'Pipeline reiniciado com prioridade',detail:'DAG crm_data_refresh retriggered com slot reservation · executando...',color:'#0089aa'},
+  {label:'RESOLUÇÃO · 12min',title:'Incidente resolvido · MTTR 12min',detail:'Pipeline concluído com sucesso · 34.218 registros processados · SLA restabelecido',color:'#12902f',toast:{icon:'✅',title:'RESOLVIDO',msg:'crm_data_refresh concluído com sucesso.\nMTTR: 12min. SLA restabelecido.',cls:'resolved'}},
+];
+var incRunning=false;
+function replayIncident(){
+  if(incRunning)return;
+  incRunning=true;
+  var tl=document.getElementById('incTimeline');
+  var btn=document.getElementById('replayBtn');
+  btn.textContent='⏳ Simulando...';
+  btn.style.opacity='.5';
+  tl.innerHTML='';
+  incSteps.forEach(function(s){
+    var step=document.createElement('div');
+    step.className='inc-step';
+    step.style.setProperty('--step-color',s.color);
+    step.innerHTML='<div class="inc-label">'+s.label+'</div><div class="inc-title" style="color:'+s.color+'">'+s.title+'</div><div class="inc-detail">'+s.detail+'</div>';
+    tl.appendChild(step);
+  });
+  var steps=tl.querySelectorAll('.inc-step');
+  var i=0;
+  function next(){
+    if(i>=steps.length){
+      incRunning=false;
+      btn.textContent='▶ Replay incidente';
+      btn.style.opacity='1';
+      setTimeout(function(){var t=document.querySelector('.dd-toast');if(t)t.remove();},3000);
+      return;
+    }
+    if(i>0)steps[i-1].classList.remove('active');
+    steps[i].classList.add('show','active');
+    var s=incSteps[i];
+    if(s.toast)showToast(s.toast);
+    i++;
+    setTimeout(next,2200);
+  }
+  next();
+}
+function showToast(t){
+  var old=document.querySelector('.dd-toast');
+  if(old)old.remove();
+  var d=document.createElement('div');
+  d.className='dd-toast'+(t.cls?' '+t.cls:'');
+  d.innerHTML='<div class="dd-toast-icon">'+t.icon+'</div><div class="dd-toast-body"><div class="dd-toast-title">'+t.title+'</div><div class="dd-toast-msg">'+t.msg.replace(/\n/g,'<br>')+'</div><div class="dd-toast-time">agora mesmo</div></div>';
+  document.body.appendChild(d);
+  requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.add('show')})});
+}
+setTimeout(replayIncident,2500);
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body></html>
+
+
+
+
+

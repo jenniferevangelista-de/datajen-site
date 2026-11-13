@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Observabilidade · Itaú Unibanco, Jennifer Evangelista</title>
+<meta name="description" content="Dashboard de observabilidade de dados e serviços no contexto Itaú Unibanco.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/itau-observability-dashboard.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Observabilidade · Itaú Unibanco, Jennifer Evangelista">
+<meta property="og:description" content="Dashboard de observabilidade de dados e serviços no contexto Itaú Unibanco.">
+<meta property="og:url" content="https://datajen.com.br/itau-observability-dashboard.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Observabilidade · Itaú Unibanco, Jennifer Evangelista">
+<meta name="twitter:description" content="Dashboard de observabilidade de dados e serviços no contexto Itaú Unibanco.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#111213;--bg2:#181A1B;--bg3:#1F2123;--card:#22252A;--line:#2D3138;--orange:#EC7000;--orange-lt:#ff9a4030;--green:#1FA463;--green-lt:#1fa46322;--red:#E53535;--red-lt:#e5353522;--yellow:#F5C942;--yellow-lt:#f5c94222;--blue:#3E9BF4;--blue-lt:#3e9bf422;--ink:#E8ECF0;--muted:#7A8A9A;--muted2:#4A5568;--sans:'Inter',sans-serif;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;padding-top:44px}
+
+/* TOPBAR */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 20px;height:52px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:13px}
+.logo-badge{width:30px;height:30px;border-radius:6px;background:linear-gradient(135deg,var(--orange),#ff6b00);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800}
+.topbar-pill{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:4px 10px;color:var(--muted)}
+.topbar-sep{flex:1}
+.time-range{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--muted);cursor:pointer}
+.range-btn{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:6px 12px;font-family:var(--mono);font-size:10px;color:var(--muted);cursor:pointer;transition:.15s}
+.range-btn:hover,.range-btn.active{background:var(--orange-lt);border-color:var(--orange);color:var(--orange)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:live 1.5s infinite}
+@keyframes live{0%,100%{opacity:1}50%{opacity:.3}}
+.refresh-btn{background:var(--orange);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-family:var(--mono);font-size:10px;font-weight:700;cursor:pointer;transition:.2s}
+.refresh-btn:hover{background:#c85c00}
+.back-btn{font-family:var(--mono);font-size:9px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:5px 12px;transition:.2s}
+.back-btn:hover{color:var(--ink);border-color:var(--muted)}
+
+/* GRID */
+.container{padding:16px}
+.grid{display:grid;gap:10px}
+.g-stats{grid-template-columns:repeat(4,1fr)}
+.g-main{grid-template-columns:2fr 1fr;margin-top:10px}
+.g-row{grid-template-columns:1fr 1fr 1fr;margin-top:10px}
+.g-bot{grid-template-columns:1fr 2fr;margin-top:10px}
+@media(max-width:1100px){.g-stats{grid-template-columns:repeat(2,1fr)}.g-main,.g-row,.g-bot{grid-template-columns:1fr}}
+
+/* PANEL */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line)}
+.panel-title{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.panel-tag{font-family:var(--mono);font-size:8.5px;border-radius:4px;padding:2px 7px}
+.tag-ok{background:var(--green-lt);color:var(--green)}
+.tag-warn{background:var(--yellow-lt);color:var(--yellow)}
+.tag-err{background:var(--red-lt);color:var(--red)}
+.tag-blue{background:var(--blue-lt);color:var(--blue)}
+
+/* STAT CARDS */
+.stat-val{font-family:var(--mono);font-size:28px;font-weight:700;padding:14px 14px 4px;line-height:1}
+.stat-lbl{font-size:11px;color:var(--muted);padding:0 14px 8px;line-height:1.4}
+.stat-change{font-family:var(--mono);font-size:9px;padding:6px 14px 12px;display:flex;align-items:center;gap:5px}
+.chg-up{color:var(--green)}
+.chg-dn{color:var(--red)}
+.chg-nt{color:var(--muted)}
+.stat-bar{height:3px;margin:0 14px 12px}
+
+/* CHART AREA */
+.chart-area{padding:14px;position:relative}
+.chart-label{font-family:var(--mono);font-size:8.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+svg.spark{display:block;width:100%;overflow:visible}
+.sparkline{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sparkfill{stroke:none}
+.yaxis{font-family:var(--mono);font-size:8px;fill:#4A5568}
+.grid-line{stroke:#2D3138;stroke-width:.5}
+
+/* ALERT LIST */
+.alert-list{max-height:220px;overflow-y:auto}
+.alert-item{display:flex;align-items:flex-start;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);transition:.15s}
+.alert-item:hover{background:var(--bg3)}
+.al-dot{width:8px;height:8px;border-radius:50%;flex:none;margin-top:4px}
+.al-crit{background:var(--red);box-shadow:0 0 6px var(--red)}
+.al-warn{background:var(--yellow)}
+.al-ok{background:var(--green)}
+.al-info{background:var(--blue)}
+.al-name{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink)}
+.al-msg{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
+.al-time{font-family:var(--mono);font-size:8.5px;color:var(--muted2);margin-left:auto;flex:none;margin-top:2px;white-space:nowrap}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:10.5px}
+.tbl th{padding:8px 12px;text-align:left;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);font-weight:600}
+.tbl td{padding:9px 12px;border-bottom:1px solid #1c1e22}
+.tbl tr:hover td{background:var(--bg3)}
+.status-chip{font-family:var(--mono);font-size:8.5px;font-weight:700;border-radius:4px;padding:2px 8px;display:inline-flex;align-items:center;gap:4px}
+
+/* HEATMAP */
+.heatmap{display:grid;gap:3px;padding:14px;grid-template-columns:repeat(24,1fr)}
+.hm-cell{aspect-ratio:1;border-radius:2px;cursor:pointer;transition:.1s}
+.hm-cell:hover{opacity:.7}
+.hm-0{background:#2D3138}
+.hm-1{background:#1a4730}
+.hm-2{background:#1FA463}
+.hm-3{background:#5fd38a}
+.hm-4{background:var(--yellow)}
+.hm-5{background:var(--red)}
+
+/* DISCLAIMER */
+.disclaimer-bar{background:#EC700018;border:1px solid #EC700033;border-radius:6px;padding:8px 14px;font-family:var(--mono);font-size:9px;color:#EC7000;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+
+/* RESP-itau-observability-dashboard.html */
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:flex-start;gap:8px;padding:10px 14px}
+  .container{padding:10px 10px}
+  .g-stats{grid-template-columns:repeat(2,1fr)}
+  .g-main,.g-row,.g-bot{grid-template-columns:1fr}
+  .panel{overflow-x:auto}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="topbar-dark-override">
+/* Esta pagina tem topbar escura por design; o tema compartilhado clareava o fundo e apagava o texto. */
+html[data-company-theme] .topbar{background:var(--bg2)!important;backdrop-filter:none!important}
+</style>
+<style id="observability-interaction-upgrade">
+.obs-lab{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.72fr);gap:12px;margin-bottom:12px}
+.obs-controls,.obs-feedback{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.obs-controls strong{display:block;font-size:13px;margin-bottom:3px}.obs-controls p,.obs-feedback p{font-size:11px;line-height:1.5;color:var(--muted)}
+.obs-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.obs-action{border:1px solid #36435a;border-radius:7px;background:#f7f9fc;color:#172033;padding:8px 11px;font:800 9px/1.2 var(--mono);cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.14)}.obs-action:hover,.obs-action:focus-visible{background:#fff;border-color:var(--blue);transform:translateY(-1px)}.obs-action.warn{background:#33260d;border-color:#d68b20;color:#ffe19a}.obs-action.danger{background:#35191d;border-color:#b53e3e;color:#ffb1b1}.obs-action.recover{background:var(--green);border-color:var(--green);color:#fff}
+.obs-feedback-label{font:800 9px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}.obs-feedback-value{font-family:var(--mono);font-size:21px;font-weight:800;color:var(--green);margin:7px 0 4px}
+.panel.mode-warning{box-shadow:0 0 0 2px rgba(245,197,24,.32),0 14px 36px rgba(245,197,24,.08)}.panel.mode-critical{box-shadow:0 0 0 2px rgba(229,53,53,.38),0 14px 36px rgba(229,53,53,.12)}
+.obs-toast{position:fixed;right:22px;bottom:22px;z-index:300;background:#fff;color:#171714;border:1px solid var(--orange);border-radius:10px;padding:12px 16px;font:700 11px/1.4 var(--mono);box-shadow:0 14px 40px rgba(0,0,0,.28);opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s}.obs-toast.show{opacity:1;transform:none}
+.hm-cell{position:relative}.hm-cell:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media(max-width:760px){.obs-lab{grid-template-columns:1fr}.obs-actions{display:grid;grid-template-columns:1fr 1fr}}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="responsive-audit-fix">
+html,body{max-width:100%;overflow-x:hidden}.grid>*{min-width:0}
+@media(max-width:640px){
+  .topbar{height:auto;min-height:52px;padding:9px 12px;gap:8px;flex-wrap:wrap}.topbar-sep{display:none}.back-btn{margin-left:auto}
+  .time-range{order:3;width:100%;max-width:100%;overflow-x:auto;padding-bottom:3px}.range-btn{flex:0 0 auto}
+  .container{padding:10px}.g-stats{grid-template-columns:1fr}.panel{min-width:0}.panel-head{gap:8px;flex-wrap:wrap}
+  .tbl{min-width:560px}.panel:has(.tbl){overflow-x:auto}
+}
+</style>
+<style>
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+.pill-live-added{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:4px 10px;display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Observabilidade · Itaú Unibanco, Jennifer Evangelista</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back primary" href="cases-itau.html">&#x1F948; &larr; Case Ita&uacute;</a>
+    <a class="gn-back" href="experiencia.html#itau-unibanco">Experi&ecirc;ncia Ita&uacute; &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-badge">OB</div>
+    Observabilidade
+  </div>
+  <div class="topbar-pill">PUC · Crédito PF</div>
+  <div class="topbar-pill">Grafana + CloudWatch</div>
+  <div class="topbar-sep"></div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <div class="live-dot"></div>
+    <span style="font-family:var(--mono);font-size:10px;color:var(--green)">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+  </div>
+  <div style="display:flex;gap:4px">
+    <span class="range-btn active" onclick="setRange(this,'1h')">1h</span>
+    <span class="range-btn" onclick="setRange(this,'3h')">3h</span>
+    <span class="range-btn" onclick="setRange(this,'6h')">6h</span>
+    <span class="range-btn" onclick="setRange(this,'24h')">24h</span>
+  </div>
+  <button class="refresh-btn" onclick="refreshAll()">⟳ Atualizar</button>
+  <a class="back-btn" href="experiencia.html#itau-unibanco" style="margin-left:8px">← Voltar ao case</a>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este laboratório conecta métricas, logs, alertas, pipelines e heatmap para explicar a saúde da plataforma de dados. Ao criar um pico de latência ou uma falha, a pessoa acompanha impacto, investigação e recuperação; para o negócio, evidencia como observabilidade reduz incerteza operacional e protege as jornadas dependentes desses dados.</p>
+  <span class="context-action"><b>O que faz:</b> Conecta métrica → alerta → investigação → ação → restauração. Crie um incidente, observe o efeito em cascata e execute a resolução. <b>Experimente:</b> simule um pico de latência, utilize o mapa de calor e execute o runbook. <b>O que a demo mostra:</b> investigação e restauração simuladas, sem atribuir redução histórica de MTTR à interface.</span>
+</aside>
+
+<div class="container">
+  <div class="disclaimer-bar">Protótipo ilustrativo · todos os dados, métricas e nomes são fictícios e têm finalidade exclusivamente demonstrativa</div>
+
+  <section class="obs-lab" aria-label="Simulador de observabilidade">
+    <div class="obs-controls">
+      <strong>Provoque um sinal e acompanhe a resposta do painel.</strong>
+      <p>Os botões alteram KPIs, alertas, gráficos e a saúde do pipeline. Depois, restaure o ambiente para confirmar a recuperação.</p>
+      <div class="obs-actions">
+        <button class="obs-action warn" type="button" onclick="simulateLatencySpike()">⚡ Pico de latência</button>
+        <button class="obs-action danger" type="button" onclick="simulatePipelineFailure()">⚠ Falha no pipeline</button>
+        <button class="obs-action" type="button" onclick="inspectNoisiestHour()">🔎 Investigar heatmap</button>
+        <button class="obs-action recover" type="button" onclick="recoverObservability()">✓ Restaurar ambiente</button>
+      </div>
+    </div>
+    <aside class="obs-feedback" id="obsFeedback" aria-live="polite">
+      <div class="obs-feedback-label">Estado atual</div>
+      <div class="obs-feedback-value">Todos os SLOs dentro da meta</div>
+      <p>Escolha um cenário para observar como a telemetria orienta o diagnóstico.</p>
+    </aside>
+  </section>
+
+  <!-- STAT ROW -->
+  <div class="grid g-stats">
+    <div class="panel">
+      <div class="stat-val" style="color:var(--green)" id="s1">99.97%</div>
+      <div class="stat-lbl">Disponibilidade · PUC<br>janela de 24 horas</div>
+      <div class="stat-change"><span class="chg-up">↑</span> +0,02 p.p. em relação a ontem</div>
+      <div class="stat-bar" style="background:linear-gradient(90deg,var(--green) 99.97%,var(--line) 0)"></div>
+    </div>
+    <div class="panel">
+      <div class="stat-val" style="color:var(--blue)" id="s2">142ms</div>
+      <div class="stat-lbl">Latência P95 · Keyspaces<br>operações de leitura</div>
+      <div class="stat-change"><span class="chg-up">↓</span> <span style="color:var(--green)">−18ms abaixo da média histórica</span></div>
+      <div class="stat-bar" style="background:linear-gradient(90deg,var(--blue) 28%,var(--line) 0)"></div>
+    </div>
+    <div class="panel">
+      <div class="stat-val" style="color:var(--orange)" id="s3">2,1 PB</div>
+      <div class="stat-lbl">Volume ativo no S3<br>bases de crédito PF</div>
+      <div class="stat-change chg-nt">→ +12 GB ingeridos hoje</div>
+      <div class="stat-bar" style="background:linear-gradient(90deg,var(--orange) 84%,var(--line) 0)"></div>
+    </div>
+    <div class="panel">
+      <div class="stat-val" style="color:var(--green)" id="s4">0</div>
+      <div class="stat-lbl">Incidentes críticos ativos<br>nas últimas 4 horas</div>
+      <div class="stat-change"><span class="chg-up">✓</span> <span style="color:var(--green)">Todos os serviços operacionais</span></div>
+      <div class="stat-bar" style="background:var(--green)"></div>
+    </div>
+  </div>
+
+  <!-- MAIN: LATENCY CHART + ALERTS -->
+  <div class="grid g-main">
+    <!-- LATENCY CHART -->
+    <div class="panel" id="latencyPanel">
+      <div class="panel-head">
+        <span class="panel-title">Latência de Resposta · Keyspaces + Aurora · Percentis P50 / P95 / P99</span>
+        <span class="panel-tag tag-ok">● Dentro do SLO</span>
+      </div>
+      <div class="chart-area" style="padding-bottom:8px">
+        <svg class="spark" viewBox="0 0 600 120" id="latChart"></svg>
+      </div>
+      <div style="display:flex;gap:16px;padding:8px 14px 14px;font-family:var(--mono);font-size:10px;color:var(--muted)">
+        <span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:12px;height:2px;background:var(--green)"></span>P50 · mediana</span>
+        <span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:12px;height:2px;background:var(--orange)"></span>P95 · cauda</span>
+        <span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:12px;height:2px;background:var(--red)"></span>P99 · pior caso</span>
+      </div>
+    </div>
+
+    <!-- ALERT LIST -->
+    <div class="panel" id="alertsPanel">
+      <div class="panel-head">
+        <span class="panel-title">Registro de Ocorrências · últimas 24h</span>
+        <span class="panel-tag tag-blue">CloudWatch Alerts</span>
+      </div>
+      <div class="alert-list" id="alertList"></div>
+    </div>
+  </div>
+
+  <!-- ROW: THROUGHPUT, EMR, PIPELINE HEALTH -->
+  <div class="grid g-row">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Vazão de Processamento · registros/segundo</span>
+        <span class="panel-tag tag-blue">PUC · pipelines batch</span>
+      </div>
+      <div class="chart-area">
+        <svg class="spark" viewBox="0 0 280 80" id="throughChart"></svg>
+      </div>
+      <div style="padding:0 14px 12px;font-family:var(--mono);font-size:20px;font-weight:700;color:var(--blue)">48,3k/s <span style="font-size:10px;color:var(--muted);font-weight:400">pico nas últimas 24h</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Utilização de Recursos · AWS EMR</span>
+        <span class="panel-tag tag-ok">6 workers ativos</span>
+      </div>
+      <div class="chart-area">
+        <svg class="spark" viewBox="0 0 280 80" id="emrChart"></svg>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 12px">
+        <div>
+          <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--green)">62%</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">CPU médio</div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--blue)">74%</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted)">Memória média</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Taxa de Erros · últimas 6 horas</span>
+        <span class="panel-tag tag-ok">0,04% · dentro do SLO</span>
+      </div>
+      <div class="chart-area">
+        <svg class="spark" viewBox="0 0 280 80" id="errChart"></svg>
+      </div>
+      <div style="padding:0 14px 12px;font-family:var(--mono);font-size:20px;font-weight:700;color:var(--green)"><span id="errMetric">0,04%</span> <span style="font-size:10px;color:var(--muted);font-weight:400">SLO definido: &lt; 0,5%</span></div>
+    </div>
+  </div>
+
+  <!-- BOT ROW: PIPELINE TABLE + HEATMAP -->
+  <div class="grid g-bot">
+    <div class="panel" id="pipelinesPanel">
+      <div class="panel-head">
+        <span class="panel-title">Pipelines em Produção · PUC · Visão de SLO</span>
+        <span class="panel-tag tag-ok">Todos operacionais</span>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="tbl" id="pipeTable"></table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="panel-title">Mapa de Calor · Volume de Execuções 24h × Pipeline</span>
+        <span class="panel-tag tag-blue">Janelas de 1 hora</span>
+      </div>
+      <div class="heatmap" id="heatmap"></div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 14px 12px;font-family:var(--mono);font-size:8.5px;color:var(--muted)">
+        <span>Volume baixo</span>
+        <span style="width:12px;height:10px;border-radius:2px;background:#2D3138;display:inline-block"></span>
+        <span style="width:12px;height:10px;border-radius:2px;background:#1a4730;display:inline-block"></span>
+        <span style="width:12px;height:10px;border-radius:2px;background:var(--green);display:inline-block"></span>
+        <span style="width:12px;height:10px;border-radius:2px;background:var(--yellow);display:inline-block"></span>
+        <span style="width:12px;height:10px;border-radius:2px;background:var(--red);display:inline-block"></span>
+        <span>Volume alto</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="obs-toast" id="obsToast" role="status"></div>
+
+<script>
+/* ===== DATA (fictícia, didática) ===== */
+const ALERTS = [
+  {sev:'ok',name:'Keyspaces · Recuperação automática',msg:'Latência P95 retornou ao baseline após pico registrado às 09:32. Nenhuma ação adicional necessária.',time:'09:48'},
+  {sev:'warn',name:'EMR · Pico de utilização de CPU',msg:'Worker 3 atingiu 88% de CPU. Auto-scaling iniciado com provisionamento de capacidade adicional.',time:'09:32'},
+  {sev:'info',name:'Deploy concluído · score_features v4.1',msg:'Nova versão implantada com sucesso no ambiente de homologação. Aguardando validação para promoção à produção.',time:'08:15'},
+  {sev:'ok',name:'Pipeline PUC · Batch noturno concluído',msg:'Processamento noturno finalizado sem incidentes. 42 milhões de registros processados dentro da janela prevista.',time:'06:02'},
+  {sev:'warn',name:'S3 · Capacidade de armazenamento',msg:'Bucket datalake-raw atingiu 85% da cota mensal. Recomendamos acionar política de lifecycle antecipadamente.',time:'04:20'},
+  {sev:'info',name:'Aurora · Backup automático',msg:'Snapshot de consistência concluído com êxito. Janela de execução: 03:00 às 03:42.',time:'03:42'},
+  {sev:'ok',name:'Verificação preventiva · Sem incidentes',msg:'Nenhum incidente crítico registrado nas últimas 4 horas. Todos os serviços dentro dos parâmetros de SLO.',time:'23:00'},
+];
+
+const PIPELINES = [
+  {name:'puc-score-features',freq:'a cada 30 min',last:'09:30',dur:'4m 12s',st:'ok',slo:'99,8%'},
+  {name:'puc-limite-batch',freq:'a cada 1h',last:'09:00',dur:'8m 05s',st:'ok',slo:'99,9%'},
+  {name:'puc-risk-features',freq:'a cada 15 min',last:'09:45',dur:'2m 44s',st:'ok',slo:'99,7%'},
+  {name:'puc-antifraude-ml',freq:'a cada 5 min',last:'09:50',dur:'0m 58s',st:'ok',slo:'99,6%'},
+];
+let observabilityMode='normal';
+let selectedRange='1h';
+
+/* ===== SVG SPARKLINE HELPERS ===== */
+function makePath(pts, vw, vh, col, fill=false){
+  const xs = pts.map((_,i)=>i/(pts.length-1)*vw);
+  const mn = Math.min(...pts), mx = Math.max(...pts);
+  const ys = pts.map(p=> vh*0.1 + (1-(p-mn)/(mx-mn||1))*(vh*0.8));
+  const d  = xs.map((x,i)=>(i===0?`M${x},${ys[i]}`:`L${x},${ys[i]}`)).join(' ');
+  if(fill){
+    const df = d + ` L${xs[xs.length-1]},${vh} L${xs[0]},${vh} Z`;
+    return `<path d="${df}" fill="${col}" opacity=".15"/>`;
+  }
+  return `<path d="${d}" class="sparkline" stroke="${col}"/>`;
+}
+
+function gridLines(vw, vh, n=4){
+  return Array.from({length:n+1},(_,i)=>{
+    const y = vh*0.1 + i*(vh*0.8/n);
+    return `<line x1="0" y1="${y.toFixed(1)}" x2="${vw}" y2="${y.toFixed(1)}" class="grid-line"/>`;
+  }).join('');
+}
+
+function rnd(base, amp, len=60){
+  return Array.from({length:len},()=>base + (Math.random()-.5)*amp);
+}
+
+/* ===== LATENCY CHART ===== */
+function buildLatChart(){
+  const vw=600, vh=120;
+  const p50 = rnd(80, 30);
+  const p95 = rnd(142, 60);
+  const p99 = rnd(220, 80);
+  // spike at index 30
+  p95[30]=observabilityMode==='latency'?460:280;
+  p99[30]=observabilityMode==='latency'?620:340;
+  p50[30]=observabilityMode==='latency'?190:120;
+  const svg = document.getElementById('latChart');
+  svg.innerHTML = gridLines(vw,vh,4)
+    + makePath(p50,vw,vh,'#1FA463',true) + makePath(p50,vw,vh,'#1FA463')
+    + makePath(p95,vw,vh,'#EC7000',true) + makePath(p95,vw,vh,'#EC7000')
+    + makePath(p99,vw,vh,'#E53535',true) + makePath(p99,vw,vh,'#E53535')
+    + `<line x1="${vw/2}" y1="0" x2="${vw/2}" y2="${vh}" stroke="#E5353560" stroke-width="1" stroke-dasharray="3,3"/>
+       <text x="${vw/2+4}" y="16" font-size="8" fill="#E53535" font-family="monospace">spike 09:32</text>`;
+}
+
+function buildThroughChart(){
+  const vw=280, vh=80;
+  const d = rnd(38000, 18000, 40);
+  const svg = document.getElementById('throughChart');
+  svg.innerHTML = gridLines(vw,vh,3) + makePath(d,vw,vh,'#3E9BF4',true) + makePath(d,vw,vh,'#3E9BF4');
+}
+
+function buildEmrChart(){
+  const vw=280, vh=80;
+  const cpu = rnd(62, 20, 40);
+  const mem = rnd(74, 12, 40);
+  // spike
+  cpu[22]=88;
+  const svg = document.getElementById('emrChart');
+  svg.innerHTML = gridLines(vw,vh,3)
+    + makePath(cpu,vw,vh,'#1FA463',true) + makePath(cpu,vw,vh,'#1FA463')
+    + makePath(mem,vw,vh,'#3E9BF4',true) + makePath(mem,vw,vh,'#3E9BF4');
+}
+
+function buildErrChart(){
+  const vw=280, vh=80;
+  const d = rnd(observabilityMode==='failure'?0.82:0.04, observabilityMode==='failure'?0.45:0.03, 40).map(v=>Math.max(0,v));
+  const svg = document.getElementById('errChart');
+  svg.innerHTML = gridLines(vw,vh,3)
+    + `<line x1="0" y1="${vh*0.3}" x2="${vw}" y2="${vh*0.3}" stroke="#E5353540" stroke-width=".8" stroke-dasharray="4,4"/>`
+    + makePath(d,vw,vh,'#1FA463',true) + makePath(d,vw,vh,'#1FA463');
+}
+
+/* ===== ALERTS ===== */
+function buildAlerts(){
+  const cls = {ok:'al-ok',warn:'al-warn',crit:'al-crit',info:'al-info'};
+  document.getElementById('alertList').innerHTML = ALERTS.map(a=>`
+    <div class="alert-item">
+      <div class="al-dot ${cls[a.sev]||'al-info'}"></div>
+      <div style="flex:1">
+        <div class="al-name">${a.name}</div>
+        <div class="al-msg">${a.msg}</div>
+      </div>
+      <div class="al-time">${a.time}</div>
+    </div>`).join('');
+}
+
+/* ===== PIPELINE TABLE ===== */
+function buildTable(){
+  const stChip = s=>s==='ok'
+    ?'<span class="status-chip" style="background:#1fa46322;color:#1FA463">● OK</span>'
+    :'<span class="status-chip" style="background:#e5353522;color:#E53535">✕ ERR</span>';
+  document.getElementById('pipeTable').innerHTML =
+    `<thead><tr><th>Pipeline</th><th>Frequência</th><th>Última execução</th><th>Duração média</th><th>SLO</th><th>Status</th></tr></thead>
+     <tbody>`+
+    PIPELINES.map(p=>`<tr>
+      <td style="color:var(--ink);font-weight:600">${p.name}</td>
+      <td>${p.freq}</td>
+      <td>${p.last}</td>
+      <td>${p.dur}</td>
+      <td style="color:var(--green)">${p.slo}</td>
+      <td>${stChip(p.st)}</td>
+    </tr>`).join('')+
+    `</tbody>`;
+}
+
+/* ===== HEATMAP ===== */
+function buildHeatmap(){
+  const palette = [0,1,2,2,2,3,2,2,2,2,3,2,2,2,2,2,2,4,5,2,2,2,2,2];
+  let html='';
+  for(let r=0;r<4;r++){
+    palette.forEach((c,i)=>{
+      const jitter = (r===2&&i===17)?5:(r===2&&i===18)?4:c;
+      html+=`<div class="hm-cell hm-${jitter}" role="button" tabindex="0" onclick="showHeatmapDetail(${r},${i},${jitter})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showHeatmapDetail(${r},${i},${jitter})}" title="${['idle','low','ok','medium','warn','crit'][jitter]}: h${i}-${i+1}"></div>`;
+    });
+  }
+  document.getElementById('heatmap').innerHTML = html;
+}
+
+/* ===== RANGE BUTTON ===== */
+function setRange(el, range){
+  document.querySelectorAll('.range-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  selectedRange=range;
+  setObsFeedback('Janela '+range+' selecionada','Os gráficos foram recalculados para a nova janela de investigação.');
+  refreshAll();
+}
+
+function setObsFeedback(title,copy){
+  document.getElementById('obsFeedback').innerHTML=`<div class="obs-feedback-label">Investigação · ${selectedRange}</div><div class="obs-feedback-value">${title}</div><p>${copy}</p>`;
+}
+function obsToast(message){
+  const toast=document.getElementById('obsToast');toast.textContent=message;toast.classList.add('show');clearTimeout(obsToast.timer);obsToast.timer=setTimeout(()=>toast.classList.remove('show'),2600);
+}
+function clearObsHighlights(){document.querySelectorAll('.panel.mode-warning,.panel.mode-critical').forEach(panel=>panel.classList.remove('mode-warning','mode-critical'));}
+function removeSimulationAlerts(){for(let i=ALERTS.length-1;i>=0;i--){if(ALERTS[i].sim) ALERTS.splice(i,1);}}
+
+function simulateLatencySpike(){
+  observabilityMode='latency';removeSimulationAlerts();
+  ALERTS.unshift({sim:true,sev:'warn',name:'SIMULAÇÃO · Keyspaces · Latência P95 elevada',msg:'P95 atingiu 460ms. Investigação recomenda verificar partição quente e capacidade de leitura.',time:'agora'});
+  document.getElementById('s2').textContent='460ms';document.getElementById('s2').style.color='var(--yellow)';
+  document.getElementById('s4').textContent='0';clearObsHighlights();document.getElementById('latencyPanel').classList.add('mode-warning');
+  buildAlerts();buildLatChart();setObsFeedback('P95 acima do SLO','O alerta aponta degradação de leitura, mas o pipeline segue operacional. A próxima ação é correlacionar capacidade e partições.');obsToast('Pico criado · latência e alerta atualizados');
+}
+
+function simulatePipelineFailure(){
+  observabilityMode='failure';removeSimulationAlerts();PIPELINES[2].st='err';
+  ALERTS.unshift({sim:true,sev:'crit',name:'SIMULAÇÃO · puc-risk-features indisponível',msg:'Execução falhou após três tentativas. Runbook e rollback foram acionados.',time:'agora'});
+  document.getElementById('s4').textContent='1';document.getElementById('s4').style.color='var(--red)';clearObsHighlights();document.getElementById('pipelinesPanel').classList.add('mode-critical');document.getElementById('alertsPanel').classList.add('mode-critical');
+  document.getElementById('errMetric').textContent='0,82%';document.getElementById('errMetric').style.color='var(--red)';
+  buildAlerts();buildTable();buildErrChart();setObsFeedback('Incidente crítico em andamento','O pipeline puc-risk-features está indisponível. Use Restaurar ambiente para executar rollback e confirmar a recuperação.');obsToast('Falha criada · pipeline e taxa de erro atualizados');
+}
+
+function recoverObservability(){
+  observabilityMode='normal';removeSimulationAlerts();PIPELINES.forEach(p=>p.st='ok');
+  document.getElementById('s2').textContent='142ms';document.getElementById('s2').style.color='var(--blue)';document.getElementById('s4').textContent='0';document.getElementById('s4').style.color='var(--green)';clearObsHighlights();
+  document.getElementById('errMetric').textContent='0,04%';document.getElementById('errMetric').style.color='var(--green)';
+  buildAlerts();buildTable();refreshAll();setObsFeedback('Ambiente restaurado','Rollback concluído, alertas encerrados e todos os pipelines voltaram ao SLO.');obsToast('Recuperação concluída · todos os serviços operacionais');
+}
+
+function inspectNoisiestHour(){
+  const cell=document.querySelector('.hm-5')||document.querySelector('.hm-4');if(cell){cell.scrollIntoView({behavior:'smooth',block:'center'});cell.focus();}
+  setObsFeedback('Maior concentração · 17h–19h','O heatmap destaca a janela com maior volume e correlação com alertas de CPU. Clique em uma célula para abrir o detalhe.');
+}
+function showHeatmapDetail(row,hour,severity){
+  const pipeline=PIPELINES[row];const labels=['ocioso','baixo','normal','médio','atenção','crítico'];
+  setObsFeedback(`${pipeline.name} · ${hour}h–${hour+1}h`,`Volume ${labels[severity]}. Última duração ${pipeline.dur}, SLO ${pipeline.slo} e status ${pipeline.st==='ok'?'operacional':'com falha'}.`);
+}
+
+/* ===== REFRESH ===== */
+let refreshing=false;
+function refreshAll(){
+  if(refreshing) return;
+  refreshing=true;
+  buildLatChart(); buildThroughChart(); buildEmrChart(); buildErrChart();
+  setTimeout(()=>refreshing=false,500);
+}
+
+/* ===== INIT ===== */
+buildLatChart();
+buildThroughChart();
+buildEmrChart();
+buildErrChart();
+buildAlerts();
+buildTable();
+buildHeatmap();
+
+// Auto-refresh every 30s
+setInterval(refreshAll, 30000);
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

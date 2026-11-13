@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heineken · Plataforma de Dados & Impacto</title>
+<meta name="description" content="Arquitetura da plataforma de dados e impacto mensurável no contexto Heineken: pipeline interativo da ingestão ao DataVis, FinOps, portfólio de projetos e avaliação do gestor.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/heineken-dataplatform-app.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Heineken · Plataforma de Dados &amp; Impacto">
+<meta property="og:description" content="Arquitetura da plataforma de dados e impacto mensurável no contexto Heineken: pipeline interativo da ingestão ao DataVis, FinOps, portfólio de projetos e avaliação do gestor.">
+<meta property="og:url" content="https://datajen.com.br/heineken-dataplatform-app.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Heineken · Plataforma de Dados &amp; Impacto">
+<meta name="twitter:description" content="Arquitetura da plataforma de dados e impacto mensurável no contexto Heineken: pipeline interativo da ingestão ao DataVis, FinOps, portfólio de projetos e avaliação do gestor.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--panel:#141922;--card:#1a2030;--border:#232d42;
+  --ink:#e8ecf4;--muted:#6b7694;--acc:#00b140;--acc2:#007a2f;
+  --gold:#c17f2a;--silver:#7eb8d4;--bronze:#9b6b3a;
+  --red:#ef4444;--amber:#f59e0b;--blue:#4d7cfe;
+  --mono:'IBM Plex Mono',monospace;--sans:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 24px;border-bottom:1px solid var(--border);background:var(--panel);position:sticky;top:0;z-index:100}
+.back-btn{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:6px 12px;cursor:pointer;transition:.2s}
+.back-btn:hover{color:var(--ink);border-color:var(--acc)}
+.logo-area{display:flex;align-items:center;gap:10px}
+.hein-badge{width:28px;height:28px;background:#007a2f;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.title-area{display:flex;flex-direction:column}
+.title-main{font-weight:800;font-size:14px;letter-spacing:.02em}
+.title-sub{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.06em}
+.topbar-right{margin-left:auto;display:flex;gap:10px;align-items:center}
+.tag-live{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;background:rgba(0,177,64,.12);color:var(--acc);border:1px solid rgba(0,177,64,.3);border-radius:99px;padding:4px 10px;display:flex;gap:5px;align-items:center}
+.tag-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--acc);animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.daily-vol{font-family:var(--mono);font-size:10px;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:5px 10px}
+.daily-vol span{color:var(--ink);font-weight:700}
+
+/* PIPELINE SECTION */
+.pipeline-wrap{padding:24px 24px 0;overflow-x:auto}
+.pipeline-title{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.pipeline{display:flex;align-items:stretch;gap:0;min-width:900px}
+
+/* NODE */
+.pnode{display:flex;flex-direction:column;align-items:center;position:relative;cursor:pointer;flex:1;min-width:0}
+.pnode-inner{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border-radius:14px;border:1.5px solid var(--border);background:var(--card);width:100%;transition:.2s;position:relative;overflow:hidden}
+.pnode-inner::before{content:'';position:absolute;inset:0;opacity:0;transition:.3s;pointer-events:none}
+.pnode.active .pnode-inner,.pnode:hover .pnode-inner{border-color:var(--node-color,var(--acc));box-shadow:0 0 0 1px var(--node-color,var(--acc))22}
+.pnode.active .pnode-inner::before{opacity:1;background:radial-gradient(ellipse at 50% 0%,var(--node-color,var(--acc))14 0%,transparent 70%)}
+.node-icon{font-size:22px;line-height:1}
+.node-label{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
+.pnode.active .node-label,.pnode:hover .node-label{color:var(--node-color,var(--acc))}
+.node-name{font-size:11.5px;font-weight:700;text-align:center;color:var(--ink);line-height:1.3}
+.node-tools{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:2px}
+.ntool{font-family:var(--mono);font-size:8.5px;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:4px;padding:2px 5px;white-space:nowrap}
+
+/* ARROW */
+.parrow{display:flex;align-items:center;padding:0 2px;flex-shrink:0;position:relative;width:36px}
+.parrow-line{width:100%;height:2px;background:linear-gradient(90deg,var(--border),var(--border));position:relative;overflow:visible}
+.parrow-head{position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid var(--border)}
+.particle{position:absolute;width:6px;height:6px;border-radius:50%;top:50%;transform:translateY(-50%);animation:flow 2.4s linear infinite;opacity:0}
+@keyframes flow{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:calc(100% + 2px);opacity:0}}
+
+/* MEDALLION BADGES */
+.medal-badge{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:2px 7px;margin-top:4px}
+.medal-bronze{background:rgba(155,107,58,.2);color:var(--bronze);border:1px solid rgba(155,107,58,.4)}
+.medal-silver{background:rgba(126,184,212,.15);color:var(--silver);border:1px solid rgba(126,184,212,.3)}
+.medal-gold{background:rgba(193,127,42,.18);color:var(--gold);border:1px solid rgba(193,127,42,.35)}
+
+/* DETAIL PANEL */
+.detail-section{padding:24px;border-top:1px solid var(--border);margin-top:0;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr 340px;gap:18px;align-items:start}
+.det-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.det-header{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.det-title{font-size:18px;font-weight:800;margin-bottom:6px;line-height:1.2}
+.det-desc{font-size:13px;color:var(--muted);line-height:1.65}
+.metric-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
+.metric-row:last-child{border-bottom:none}
+.metric-label{font-size:12px;color:var(--muted)}
+.metric-val{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink)}
+.metric-val.green{color:var(--acc)}
+.metric-val.gold{color:var(--gold)}
+.tool-grid{display:flex;flex-wrap:wrap;gap:6px}
+.tool-chip{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.04em;border-radius:6px;padding:5px 10px;border:1px solid var(--border);color:var(--ink);background:rgba(255,255,255,.04)}
+.code-block{background:#0a0d14;border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:11px;color:#a8b4d0;line-height:1.7;overflow-x:auto;white-space:pre}
+.code-comment{color:#4b5577}
+.code-kw{color:#7eb8d4}
+.code-str{color:#c17f2a}
+.code-fn{color:#5fd38a}
+.code-num{color:#a78bfa}
+.note-didatic{font-family:var(--mono);font-size:9px;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:5px 10px;margin-top:8px;letter-spacing:.04em}
+
+/* METRICS STRIP */
+.metrics-strip{display:flex;gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin:0 24px 20px}
+.ms-item{flex:1;background:var(--panel);padding:12px 16px;display:flex;flex-direction:column;gap:3px}
+.ms-v{font-family:var(--mono);font-size:15px;font-weight:800;color:var(--acc)}
+.ms-l{font-size:11px;color:var(--muted)}
+
+/* EMPTY STATE */
+.empty-state{padding:40px 24px;text-align:center}
+.empty-state p{color:var(--muted);font-size:14px;margin-top:8px}
+.empty-icon{font-size:32px;margin-bottom:8px}
+
+@media(max-width:720px){
+  .detail-grid{grid-template-columns:1fr}
+  .pipeline{min-width:700px}
+}
+
+/* SECTION TABS */
+.sec-tabs{display:flex;gap:8px;padding:16px 24px 0;flex-wrap:wrap}
+.sec-tab{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);background:var(--panel);border:1px solid var(--border);border-radius:99px;padding:9px 18px;transition:.2s;cursor:pointer}
+.sec-tab:hover{color:var(--ink);border-color:var(--acc)}
+.sec-tab.active{color:#fff;background:var(--acc2);border-color:var(--acc)}
+.sec-title-wrap{padding:36px 24px 4px}
+.sec-eyebrow{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.sec-title{font-family:'Source Serif 4',serif;font-weight:700;font-size:clamp(22px,2.6vw,30px);margin-top:6px;color:var(--ink)}
+.sec-dek{font-size:13px;color:var(--muted);margin-top:6px;max-width:640px;line-height:1.6}
+.sec-dek.interaction-callout{display:inline-flex;align-items:center;gap:10px;max-width:none;margin-top:14px;padding:11px 15px;border:1px solid color-mix(in srgb,var(--acc) 55%,var(--border));border-radius:10px;background:color-mix(in srgb,var(--acc) 10%,var(--panel));color:var(--ink);font-weight:700;box-shadow:0 0 24px rgba(0,177,64,.08)}
+.sec-dek.interaction-callout::before{content:'☝';display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--acc);color:#fff;flex:0 0 auto}
+
+/* IMPACT KPIs */
+.impact-body{padding:20px 24px 8px;display:flex;flex-direction:column;gap:16px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:800px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--kc,var(--acc)),transparent)}
+.kl{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}
+.kv{font-family:var(--mono);font-size:30px;font-weight:800;line-height:1;color:var(--kc,var(--acc))}
+.ks{font-size:11px;color:var(--muted);margin-top:6px}
+.kd{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:8px;background:color-mix(in srgb,var(--kc,var(--acc)) 16%,transparent);color:var(--kc,var(--acc))}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:800px){.row2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:10px}
+.ct{font-size:13.5px;font-weight:700;color:var(--ink)}
+.cs{font-size:11px;color:var(--muted);margin-top:3px}
+.cb{font-family:var(--mono);font-size:9px;padding:3px 9px;border-radius:20px;font-weight:700;border:1px solid;white-space:nowrap;background:color-mix(in srgb,var(--cbc,var(--acc)) 14%,transparent);border-color:color-mix(in srgb,var(--cbc,var(--acc)) 35%,transparent);color:var(--cbc,var(--acc))}
+canvas{max-height:230px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
+.bab{border-radius:10px;padding:14px;border:1px solid}
+.bab.r{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3)}
+.bab.g{background:color-mix(in srgb,var(--acc) 12%,transparent);border-color:color-mix(in srgb,var(--acc) 30%,transparent)}
+.bal{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-weight:700}
+.bal.r{color:var(--red)}.bal.g{color:var(--acc)}
+.bav{font-family:var(--mono);font-size:26px;font-weight:800}
+.bav.r{color:var(--red)}.bav.g{color:var(--acc)}
+.bas{font-size:11px;color:var(--muted);margin-top:3px}
+.fi{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.fi-item{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
+.fi-icon{font-size:15px}
+.fi-text{font-size:11.5px;color:var(--ink)}
+.fi-badge{margin-left:auto;font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:20px;background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc);font-weight:700;white-space:nowrap}
+.adf-action{width:100%;margin-top:12px;border:0;border-radius:10px;padding:11px 14px;background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;font:700 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 24px rgba(0,177,64,.18);transition:transform .2s,box-shadow .2s}
+.adf-action:hover,.adf-action:focus-visible{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,177,64,.28);outline:2px solid #fff;outline-offset:2px}
+.adf-action[disabled]{cursor:wait;opacity:.72;transform:none}
+.adf-lab{display:grid;gap:6px;margin-top:10px}
+.adf-pipe{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);transition:.25s}
+.adf-pipe-name{font:600 10.5px var(--mono);color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adf-pipe-status{font:700 9px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.adf-pipe.scanning{border-color:var(--amber);box-shadow:0 0 0 1px rgba(245,158,11,.15)}
+.adf-pipe.active .adf-pipe-status{color:var(--acc)}
+.adf-pipe.orphan .adf-pipe-status{color:var(--red)}
+.adf-summary{display:none;margin-top:9px;padding:9px 10px;border-radius:8px;background:color-mix(in srgb,var(--acc) 12%,transparent);border:1px solid color-mix(in srgb,var(--acc) 34%,transparent);font-size:11px;line-height:1.5;color:var(--ink)}
+.adf-summary.show{display:block;animation:fadeIn .3s ease}
+.global-band{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid color-mix(in srgb,var(--blue) 40%,var(--border));border-radius:12px;background:linear-gradient(90deg,color-mix(in srgb,var(--blue) 12%,var(--card)),var(--card));font-size:12px;line-height:1.5;color:var(--muted)}
+.global-band strong{font:700 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#9ab7ff;white-space:nowrap}
+.portfolio-more{margin-top:12px;padding:10px 12px;border-radius:9px;background:color-mix(in srgb,var(--acc) 9%,var(--bg));border:1px dashed color-mix(in srgb,var(--acc) 45%,var(--border));font-size:11.5px;color:var(--muted);line-height:1.5}
+.portfolio-more strong{color:var(--acc)}
+@media(max-width:650px){.global-band{align-items:flex-start;flex-direction:column;gap:5px}.metrics-strip{overflow-x:auto}.ms-item{min-width:150px}.sec-dek.interaction-callout{align-items:flex-start}}
+.tcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:8px 10px;text-align:left;border-bottom:1px solid var(--border)}
+td{font-size:12px;padding:9px 10px;border-bottom:1px solid var(--border);color:var(--ink)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.chip{font-family:var(--mono);font-size:9.5px;padding:2px 9px;border-radius:20px;font-weight:700;white-space:nowrap}
+.chip.done{background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc)}
+.chip.wip{background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--amber)}
+.chip.arch{background:color-mix(in srgb,var(--blue) 16%,transparent);color:var(--blue)}
+.quote{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;border-left:3px solid var(--acc);margin-bottom:28px}
+.qt{font-family:'Source Serif 4',serif;font-size:15px;line-height:1.7;color:var(--ink);font-style:italic}
+.qa{font-family:var(--mono);font-size:11px;color:var(--acc);margin-top:12px;font-weight:600;letter-spacing:.03em}
+/* ===== PORTFOLIO NAV ===== */
+.porto-nav{position:sticky;top:0;z-index:200;background:rgba(244,242,236,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.1)}
+.porto-nav .in{max-width:1280px;margin:0 auto;padding:13px 32px;display:flex;align-items:center;gap:16px}
+.porto-wordmark{font-family:'Source Serif 4',serif;font-size:18px;font-weight:700;text-decoration:none;white-space:nowrap;color:#1a1a1a}
+.porto-wordmark .the{font-style:italic;font-weight:400;margin-right:4px}
+.nav-links{display:flex;gap:16px;list-style:none;flex:1;min-width:0;overflow:hidden}
+.nav-links a{font-size:13px;font-weight:600;color:#66625a;text-decoration:none;white-space:nowrap;transition:.2s}
+.nav-links a:hover{color:#1a1a1a}
+.lang-sw{display:flex;gap:2px}
+.lang-sw button{background:none;border:none;cursor:pointer;font-size:17px;padding:4px 5px;border-radius:8px;opacity:.45;transition:.2s;line-height:1}
+.lang-sw button:hover{opacity:.8;background:rgba(0,0,0,.06)}
+.lang-sw button.active{opacity:1;background:rgba(0,0,0,.06);box-shadow:0 0 0 1.5px rgba(0,0,0,.15)}
+.btn-nav{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;text-decoration:none;border-radius:99px;padding:8px 15px;white-space:nowrap;transition:.25s}
+.btn-nav.wa{border:1.5px solid #25d366;color:#25d366}
+.btn-nav.wa:hover{background:#25d366;color:#fff}
+.btn-nav.dark{background:#1a1a1a;color:#f4f2ec}
+.btn-nav.dark:hover{opacity:.85}
+.porto-back{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-decoration:none;color:#1a1a1a;border:1px solid rgba(0,0,0,.15);background:#fff;border-radius:99px;padding:8px 13px;white-space:nowrap;transition:.25s}
+.porto-back:hover{border-color:#1a1a1a}
+.nav-cases-li{position:relative}
+.nav-cases-toggle{cursor:pointer;white-space:nowrap}
+.nav-cases-drop{display:flex;flex-direction:column;gap:2px;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%) translateY(-6px);background:#fff;border:1.5px solid rgba(0,0,0,.1);border-radius:14px;padding:8px;min-width:240px;box-shadow:0 16px 40px rgba(0,0,0,.12);z-index:500;backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease,transform .2s ease}
+.nav-cases-li.open .nav-cases-drop{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-cases-drop a{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:#1a1a1a;text-decoration:none;padding:8px 12px;border-radius:8px;transition:.15s;white-space:nowrap}
+.nav-cases-drop a:hover{background:rgba(0,0,0,.06)}
+.ncd-num{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#66625a;letter-spacing:.1em;min-width:18px}
+.ncd-flag{font-size:13px;line-height:1;flex-shrink:0}
+.ncd-badge{margin-left:auto;font-size:9px;font-family:'IBM Plex Mono',monospace;font-weight:700;padding:2px 7px;border-radius:20px;background:#fef9e0;color:#8a6a00;border:1px solid #e6c840;letter-spacing:.06em}
+@media(max-width:1080px){.nav-links{display:none}}
+.nav-traj-li{position:relative}
+.nav-traj-toggle{cursor:pointer;white-space:nowrap}
+.nav-traj-drop{display:flex;flex-direction:column;gap:1px;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%) translateY(-6px);background:#fff;border:1.5px solid rgba(0,0,0,.1);border-radius:14px;padding:8px;min-width:220px;max-height:380px;overflow-y:auto;box-shadow:0 16px 40px rgba(0,0,0,.14);z-index:500;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease,transform .2s ease}
+.nav-traj-li.open .nav-traj-drop{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-traj-drop a{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:#1a1a1a;text-decoration:none;padding:7px 10px;border-radius:7px;transition:.15s;white-space:nowrap}
+.nav-traj-drop a:hover{background:rgba(0,0,0,.06)}
+.ncd-per{margin-left:auto;font-size:9px;font-family:'IBM Plex Mono',monospace;color:#999;padding-left:10px}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="topbar-dark-override">
+/* Esta pagina tem topbar escura por design; o tema compartilhado clareava o fundo e apagava o texto. */
+html[data-company-theme] .topbar{background:var(--panel,#161616)!important;backdrop-filter:none!important}
+</style>
+<style id="nav-drop-fix">.nav-traj-drop a,.nav-cases-drop a,.nav-tree-drop a{color:#1a1a1a!important}.nav-traj-drop a:hover,.nav-cases-drop a:hover{color:#000!important}</style>
+<style id="context-popover-css">
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+</style>
+<style id="global-nav-css">
+/* Mesma barra usada em todos os apps do portfolio. */
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+/* A barra .gn e fixed: reserva o espaco dela e some no modo embed. */
+body{padding-top:44px}
+html.in-iframe body,html.embed-mode body{padding-top:0}
+html.in-iframe .gn,html.embed-mode .gn{display:none!important}
+@media(max-width:640px){.gn-back{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Heineken · Plataforma de Dados, da Ingestão ao DataVis</h1>
+<nav class="gn" id="globalNav" aria-label="Navega&ccedil;&atilde;o do portf&oacute;lio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#heineken">Experi&ecirc;ncia Heineken &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="back-btn" href="experiencia.html#heineken">← case</a>
+  <div class="logo-area">
+    <div class="hein-badge">🍺</div>
+    <div class="title-area">
+      <div class="title-main">Heineken · Plataforma de Dados</div>
+      <div class="title-sub">ARQUITETURA CORPORATIVA · DA INGESTÃO AO DATAVIS</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="tag-live">● DEMO AO VIVO · DADOS SINTÉTICOS</div>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+  </div>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este produto percorre a plataforma de dados da Heineken, dos sistemas de origem ao consumo em Power BI. Azure Data Factory e Databricks orquestram e transformam dados nas camadas Bronze, Silver e Gold, enquanto qualidade, catálogo, FinOps e observabilidade sustentam a entrega; o resultado é uma base governada para decisões e iniciativas de arquitetura.</p>
+  <span class="context-action"><b>O que faz:</b> Pipeline completo: SAP → Azure Lake (Bronze/Silver/Gold) → Power BI. Selecione cada nó para consultar ferramentas, regras e controles. <b>Experimente:</b> acesse FinOps e consulte a estimativa de economia anual de €15 mil; a origem da contagem de mais de 100 profissionais capacitados está a confirmar. <b>O que a demo mostra:</b> as etapas de processamento e os controles da plataforma reconstruída.</span>
+</aside>
+
+<!-- METRICS STRIP -->
+<div class="metrics-strip" style="margin-top:20px">
+  <div class="ms-item"><div class="ms-v">500+</div><div class="ms-l">pipelines ADF saneados</div></div>
+  <div class="ms-item"><div class="ms-v">107 TB</div><div class="ms-l">logs migrados Standard→Archive</div></div>
+  <div class="ms-item"><div class="ms-v">200+</div><div class="ms-l">ativos técnicos e visões de solução · padrão enterprise</div></div>
+  <div class="ms-item"><div class="ms-v">€15k</div><div class="ms-l">economia FinOps estimada/ano</div></div>
+  <div class="ms-item"><div class="ms-v">34</div><div class="ms-l">projetos sob responsabilidade de arquitetura</div></div>
+</div>
+
+<!-- SECTION TABS -->
+<div class="sec-tabs">
+  <a href="#arquitetura" class="sec-tab active" data-sec="arquitetura">🔧 Arquitetura do dado</a>
+  <a href="#impacto" class="sec-tab" data-sec="impacto">📊 Impacto & resultados</a>
+</div>
+
+<!-- ==================== ARQUITETURA ==================== -->
+<section id="arquitetura">
+  <div class="sec-title-wrap">
+    <div class="sec-eyebrow">Como funciona</div>
+    <div class="sec-title">Jornada do dado, da ingestão ao DataVis</div>
+    <div class="sec-dek interaction-callout">Clique em uma camada abaixo para explorar arquitetura, métricas e código de cada estágio do pipeline.</div>
+  </div>
+
+  <!-- PIPELINE -->
+  <div class="pipeline-wrap">
+    <div class="pipeline" id="pipeline"></div>
+  </div>
+
+  <!-- DETAIL PANEL -->
+  <div id="detailPanel">
+    <div class="empty-state">
+      <div class="empty-icon">☝️</div>
+      <p>Selecione uma camada acima para explorar arquitetura, métricas e código</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== IMPACTO ==================== -->
+<section id="impacto">
+  <div class="sec-title-wrap">
+    <div class="sec-eyebrow">// The HEINEKEN Company · Architecture Committee · 2025</div>
+    <div class="sec-title">Impacto mensurável da atuação</div>
+    <div class="sec-dek">Azure · Engenharia de Dados · Spark · NavNext · FinOps · Architecture Committee · 34 projetos sob responsabilidade de arquitetura</div>
+  </div>
+  <div class="impact-body">
+    <div class="global-band"><strong>Colaboração internacional</strong><span>Colaboração técnica, apresentações de arquitetura e alinhamentos com profissionais e stakeholders de diferentes países da Heineken.</span></div>
+    <div class="kpis">
+      <div class="kpi" style="--kc:var(--gold)">
+        <div class="kl">FinOps, economia total</div>
+        <div class="kv">€15K</div>
+        <div class="ks">estimativa anual de redução de custos Azure · referência 2025</div>
+        <div class="kd">↓ Lifecycle + saneamento do ADF</div>
+      </div>
+      <div class="kpi" style="--kc:var(--acc)">
+        <div class="kl">Pipelines removidos</div>
+        <div class="kv">500+</div>
+        <div class="ks">saneamento do Data Factory</div>
+        <div class="kd">↑ ambiente limpo e governado</div>
+      </div>
+      <div class="kpi" style="--kc:var(--blue)">
+        <div class="kl">Sessões de arquitetura</div>
+        <div class="kv">104</div>
+        <div class="ks">Plantão · múltiplos times</div>
+        <div class="kd">↑ 2025</div>
+      </div>
+      <div class="kpi" style="--kc:var(--amber)">
+        <div class="kl">Ativos de arquitetura enterprise</div>
+        <div class="kv">200+</div>
+        <div class="ks">visões de solução, decisões, integrações e padrões reutilizáveis</div>
+        <div class="kd">↑ hub global de arquitetura</div>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="card">
+        <div class="ch"><div><div class="ct">Projetos por categoria</div><div class="cs">34 projetos sob responsabilidade de arquitetura</div></div><span class="cb" style="--cbc:var(--acc)">34 projetos</span></div>
+        <canvas id="projChart"></canvas>
+      </div>
+      <div class="card">
+        <div class="ch"><div><div class="ct">Sanitização Data Factory</div><div class="cs">Antes vs. depois dos pipelines</div></div><span class="cb" style="--cbc:var(--gold)">FinOps</span></div>
+        <div class="ba">
+          <div class="bab r"><div class="bal r">ANTES</div><div class="bav r">700+</div><div class="bas">pipelines (500+ inativos)</div></div>
+          <div class="bab g"><div class="bal g">DEPOIS</div><div class="bav g">~200</div><div class="bas">pipelines ativos e governados</div></div>
+        </div>
+        <div class="fi">
+          <div class="fi-item"><span class="fi-icon">♻️</span><span class="fi-text">Lifecycle aplicado ao bucket de diagnóstico</span><span class="fi-badge">107 TB</span></div>
+          <div class="fi-item"><span class="fi-icon">📋</span><span class="fi-text">Checklist de arquitetura criado</span><span class="fi-badge">Novo</span></div>
+          <div class="fi-item"><span class="fi-icon">🏗️</span><span class="fi-text">Template Corporativo padronizado</span><span class="fi-badge">Gold</span></div>
+        </div>
+        <button class="adf-action" id="runAdfAudit" type="button">▶ Executar auditoria interativa</button>
+        <div class="adf-lab" id="adfLab" aria-live="polite">
+          <div class="adf-pipe" data-result="active"><span class="adf-pipe-name">sales_daily_gold</span><span class="adf-pipe-status">aguardando</span></div>
+          <div class="adf-pipe" data-result="orphan"><span class="adf-pipe-name">legacy_export_monthly</span><span class="adf-pipe-status">aguardando</span></div>
+          <div class="adf-pipe" data-result="active"><span class="adf-pipe-name">sap_orders_incremental</span><span class="adf-pipe-status">aguardando</span></div>
+          <div class="adf-pipe" data-result="orphan"><span class="adf-pipe-name">temp_copy_v1</span><span class="adf-pipe-status">aguardando</span></div>
+        </div>
+        <div class="adf-summary" id="adfSummary"><strong>Auditoria concluída:</strong> 2 pipelines ativos preservados e 2 órfãos encaminhados para validação de ownership antes da desativação. Na operação real, esse método foi aplicado em escala e saneou 500+ pipelines.</div>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="card">
+        <div class="ch"><div><div class="ct">Sessões de arquitetura por mês</div><div class="cs">Plantão de Arquitetura · 104 sessões totais</div></div><span class="cb" style="--cbc:var(--blue)">104 total</span></div>
+        <canvas id="sessChart"></canvas>
+      </div>
+      <div class="card">
+        <div class="ch"><div><div class="ct">Economia FinOps acumulada</div><div class="cs">Evolução da economia em euros · 2025</div></div><span class="cb" style="--cbc:var(--gold)">€15K</span></div>
+        <canvas id="savChart"></canvas>
+      </div>
+    </div>
+    <div class="tcard">
+      <div class="ch"><div><div class="ct">Portfólio de projetos estratégicos</div><div class="cs">Amostra das frentes sob responsabilidade de arquitetura de soluções e dados</div></div><span class="cb" style="--cbc:var(--acc)">34 projetos</span></div>
+      <table>
+        <thead><tr><th>Projeto</th><th>Categoria</th><th>Stack</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>NavNext</strong></td><td>Distribuição · Architecture Committee</td><td>Azure · Databricks</td><td><span class="chip arch">Committee</span></td></tr>
+          <tr><td>Tax Reform</td><td>Fiscal · Compliance</td><td>ADF · Synapse</td><td><span class="chip done">Entregue</span></td></tr>
+          <tr><td>Tax Reconciliation</td><td>Fiscal · Qualidade</td><td>ADF · Data Lake</td><td><span class="chip done">Entregue</span></td></tr>
+          <tr><td>GenAI People</td><td>IA Generativa · RH</td><td>Azure OpenAI</td><td><span class="chip wip">Em andamento</span></td></tr>
+          <tr><td>DRC</td><td>Regulatório · Dados</td><td>ADF · Gold Layer</td><td><span class="chip done">Entregue</span></td></tr>
+          <tr><td>Portal de Revendas</td><td>Comercial · Analytics</td><td>Power BI · Synapse</td><td><span class="chip done">Entregue</span></td></tr>
+          <tr><td>Ironclad</td><td>Contratos · Integração</td><td>ADF · APIM</td><td><span class="chip done">Entregue</span></td></tr>
+          <tr><td>Migração KNIME</td><td>Migração · FinOps</td><td>Databricks</td><td><span class="chip done">Entregue</span></td></tr>
+          <tr><td>Budget App → Azure</td><td>Escalabilidade · Cloud</td><td>AKS · App Service</td><td><span class="chip done">Entregue</span></td></tr>
+          <tr><td>Monitoramento de Crises</td><td>Observabilidade</td><td>Grafana · Monitor</td><td><span class="chip done">Entregue</span></td></tr>
+        </tbody>
+      </table>
+      <div class="portfolio-more"><strong>E muito mais.</strong> A tabela apresenta apenas uma amostra do portfólio. Outras frentes incluíram modernização de dados, IA, integrações, FinOps, migrações cloud, governança e soluções corporativas.</div>
+    </div>
+    <div class="quote">
+      <div class="qt">"A Jennifer teve um ano de entregas robustas, consistentes e de impacto direto na evolução técnica da área. Ela elevou padrões, estruturou processos que não existiam, consolidou frameworks e contribuiu de forma ativa para praticamente todos os projetos estratégicos que tocaram arquitetura em 2025."</div>
+      <div class="qa">: Gestor direto · The HEINEKEN Company · Avaliação anual 2025</div>
+    </div>
+  </div>
+</section>
+
+<script>
+const NODES = [
+  {
+    id:'fontes',
+    icon:'🗄️',
+    label:'Fontes',
+    name:'SAP & Sistemas de Origem',
+    tools:['SAP ERP','SAP BW','Excel','SharePoint','APIs'],
+    color:'#7dd3a5',
+    title:'Sistemas de Origem',
+    desc:'Os dados nascem nos sistemas transacionais da operação: SAP ERP (vendas, estoque, financeiro), SAP BW (BI legado), planilhas operacionais e APIs de parceiros. Cada fonte tem latência, formato e volume diferentes, o desafio de arquitetura começa aqui.',
+    metrics:[
+      {l:'Fontes mapeadas',v:'12+'},
+      {l:'Frequência SAP ERP',v:'Batch diário'},
+      {l:'Frequência APIs',v:'Near real-time'},
+      {l:'Formatos de entrada',v:'ABAP, CSV, JSON'},
+      {l:'Sistemas críticos',v:'SAP ERP · BW · Theobald'},
+    ],
+    codeTitle:'Mapeamento de fonte (didático)',
+    code:`<span class="code-comment"># Exemplo didático, dados e nomes fictícios</span>
+<span class="code-kw">from</span> dataclasses <span class="code-kw">import</span> dataclass
+
+@dataclass
+<span class="code-kw">class</span> <span class="code-fn">FonteConfig</span>:
+    nome: str
+    sistema: str
+    frequencia: str
+    formato: str
+    camada_destino: str
+
+fontes = [
+    <span class="code-fn">FonteConfig</span>(
+        nome=<span class="code-str">"vendas_diarias"</span>,
+        sistema=<span class="code-str">"SAP_ERP"</span>,
+        frequencia=<span class="code-str">"diario_22h"</span>,
+        formato=<span class="code-str">"ABAP_RFC"</span>,
+        camada_destino=<span class="code-str">"bronze/sap/vendas"</span>
+    ),
+    <span class="code-fn">FonteConfig</span>(
+        nome=<span class="code-str">"estoque_atual"</span>,
+        sistema=<span class="code-str">"SAP_BW"</span>,
+        frequencia=<span class="code-str">"horario"</span>,
+        formato=<span class="code-str">"CSV"</span>,
+        camada_destino=<span class="code-str">"bronze/bw/estoque"</span>
+    ),
+]`,
+  },
+  {
+    id:'extracao',
+    icon:'⚙️',
+    label:'Extração',
+    name:'Theobald · Alteryx · KNIME',
+    tools:['Theobald Software','Alteryx','KNIME','ADF Copy'],
+    color:'#5ac98b',
+    title:'Camada de Extração',
+    desc:'O Theobald Software é o conector especializado em SAP, extrai dados do ERP via RFC/ABAP sem impactar a performance do sistema de origem. Alteryx e KNIME processam fontes não-SAP (Excel, APIs, SharePoint). O Azure Data Factory orquestra as execuções com retry e alertas.',
+    metrics:[
+      {l:'Conector SAP',v:'Theobald xfa'},
+      {l:'Extração batch média',v:'< 8 min'},
+      {l:'Taxa de sucesso',v:'99,4%'},
+      {l:'Alertas ADF ativos',v:'Sim (email + Teams)'},
+      {l:'Retry automático',v:'3× com backoff'},
+    ],
+    codeTitle:'Extração SAP via Theobald (didático)',
+    code:`<span class="code-comment"># Exemplo didático, dados e nomes fictícios</span>
+<span class="code-kw">import</span> requests, json
+
+<span class="code-comment"># Theobald xfa expõe RFC como REST endpoint</span>
+<span class="code-kw">def</span> <span class="code-fn">extrair_sap</span>(tabela: str, campos: list[str]) -> list[dict]:
+    payload = {
+        <span class="code-str">"table"</span>: tabela,
+        <span class="code-str">"fields"</span>: campos,
+        <span class="code-str">"where"</span>: <span class="code-str">"ERDAT >= '20240101'"</span>,
+        <span class="code-str">"rowCount"</span>: <span class="code-num">50000</span>
+    }
+    resp = requests.<span class="code-fn">post</span>(
+        <span class="code-str">"http://theobald-server:8065/run/VBAK"</span>,
+        json=payload, timeout=<span class="code-num">120</span>
+    )
+    resp.<span class="code-fn">raise_for_status</span>()
+    <span class="code-kw">return</span> resp.<span class="code-fn">json</span>()[<span class="code-str">"rows"</span>]`,
+  },
+  {
+    id:'bronze',
+    icon:'🟫',
+    label:'Bronze · Raw',
+    name:'Azure Data Lake · Raw',
+    tools:['Azure Blob Storage','Azure Data Lake','Parquet','Delta Lake'],
+    color:'#2fb66e',
+    medal:'bronze',
+    title:'Camada Bronze, Dado Bruto',
+    desc:'Os dados chegam exatamente como estão nos sistemas de origem, sem transformação. Formato Parquet particionado por data. É a camada de auditoria: se algo der errado downstream, o dado original está aqui. A migração de 107 TB de logs para a camada Archive embasou uma estimativa de €15k de economia/ano sem perda de retenção.',
+    metrics:[
+      {l:'Formato de armazenamento',v:'Parquet · Delta'},
+      {l:'Particionamento',v:'ano/mês/dia'},
+      {l:'Retenção',v:'90 dias quente · 7 anos frio'},
+      {l:'Logs migrados (Archive)',v:'107 TB',cls:'gold'},
+      {l:'Economia estimada',v:'€15k/ano',cls:'green'},
+    ],
+    codeTitle:'Escrita na camada Bronze (didático)',
+    code:`<span class="code-comment"># Exemplo didático, dados e nomes fictícios</span>
+<span class="code-kw">from</span> pyspark.sql <span class="code-kw">import</span> SparkSession
+<span class="code-kw">from</span> datetime <span class="code-kw">import</span> date
+
+spark = SparkSession.<span class="code-fn">builder</span>.<span class="code-fn">getOrCreate</span>()
+
+<span class="code-comment"># Caminho fictício, não é um recurso real</span>
+BRONZE = <span class="code-str">"abfss://bronze@meuadls.dfs.core.windows.net"</span>
+
+df = spark.<span class="code-fn">createDataFrame</span>(registros_sap)
+
+(df.<span class="code-fn">write</span>
+   .<span class="code-fn">format</span>(<span class="code-str">"delta"</span>)
+   .<span class="code-fn">mode</span>(<span class="code-str">"append"</span>)
+   .<span class="code-fn">partitionBy</span>(<span class="code-str">"ano"</span>, <span class="code-str">"mes"</span>, <span class="code-str">"dia"</span>)
+   .<span class="code-fn">save</span>(f<span class="code-str">"{BRONZE}/sap/vendas"</span>))`,
+  },
+  {
+    id:'processamento',
+    icon:'⚡',
+    label:'Processamento',
+    name:'ADF · Databricks · PySpark',
+    tools:['Azure Data Factory','Databricks','PySpark','Delta Live Tables'],
+    color:'#00a550',
+    title:'Camada de Processamento',
+    desc:'Azure Data Factory orquestra os pipelines com triggers agendadas, dependências e alertas. Databricks executa as transformações PySpark: limpeza, enriquecimento, joins entre domínios e regras de negócio. O padrão Medallion garante rastreabilidade de Bronze a Gold com Delta Lake transacional.',
+    metrics:[
+      {l:'Orquestrador',v:'Azure Data Factory'},
+      {l:'Engine de transformação',v:'Databricks · PySpark'},
+      {l:'Padrão arquitetural',v:'Medallion (B→S→G)'},
+      {l:'Pipelines ativos após saneamento',v:'< 200 (era 700+)'},
+      {l:'SLA de processamento',v:'< 30 min D+0'},
+    ],
+    codeTitle:'Transformação Bronze → Silver (didático)',
+    code:`<span class="code-comment"># Exemplo didático, dados e nomes fictícios</span>
+<span class="code-kw">from</span> pyspark.sql <span class="code-kw">import</span> functions <span class="code-kw">as</span> F
+
+BRONZE = <span class="code-str">"abfss://bronze@meuadls.dfs.core.windows.net"</span>
+SILVER = <span class="code-str">"abfss://silver@meuadls.dfs.core.windows.net"</span>
+
+df_raw = spark.<span class="code-fn">read</span>.<span class="code-fn">format</span>(<span class="code-str">"delta"</span>).<span class="code-fn">load</span>(f<span class="code-str">"{BRONZE}/sap/vendas"</span>)
+
+df_clean = (df_raw
+    .<span class="code-fn">filter</span>(F.<span class="code-fn">col</span>(<span class="code-str">"valor"</span>) > <span class="code-num">0</span>)
+    .<span class="code-fn">withColumn</span>(<span class="code-str">"data_norm"</span>, F.<span class="code-fn">to_date</span>(<span class="code-str">"data_pedido"</span>, <span class="code-str">"yyyyMMdd"</span>))
+    .<span class="code-fn">dropDuplicates</span>([<span class="code-str">"id_pedido"</span>])
+    .<span class="code-fn">withColumn</span>(<span class="code-str">"ingestion_ts"</span>, F.<span class="code-fn">current_timestamp</span>()))
+
+df_clean.<span class="code-fn">write</span>.<span class="code-fn">format</span>(<span class="code-str">"delta"</span>).<span class="code-fn">mode</span>(<span class="code-str">"overwrite"</span>).<span class="code-fn">save</span>(
+    f<span class="code-str">"{SILVER}/vendas_curadas"</span>)`,
+  },
+  {
+    id:'silver',
+    icon:'🥈',
+    label:'Silver · Curado',
+    name:'Dado Limpo & Validado',
+    tools:['Delta Lake','Data Quality','Great Expectations'],
+    color:'#0f8f50',
+    medal:'silver',
+    title:'Camada Silver, Dado Curado',
+    desc:'Dados limpos, deduplicados e com tipos corretos. Aqui se aplicam as regras de negócio básicas e validações de qualidade (completude, unicidade, frescor). É a fonte de verdade para os analistas, queries diretas ou materialização via Gold. Documentação de cada tabela gerada no Confluence com Cobertura Agregada.',
+    metrics:[
+      {l:'Taxa de completude-alvo',v:'> 98%'},
+      {l:'Deduplicação',v:'Por chave de negócio'},
+      {l:'Validação de schema',v:'Automática (Delta)'},
+      {l:'Documentação',v:'Confluence · 200+ assets'},
+      {l:'Tempo médio Bronze→Silver',v:'~12 min'},
+    ],
+    codeTitle:'Validação de qualidade (didático)',
+    code:`<span class="code-comment"># Exemplo didático, dados e nomes fictícios</span>
+<span class="code-kw">from</span> great_expectations.dataset <span class="code-kw">import</span> SparkDFDataset
+
+<span class="code-kw">def</span> <span class="code-fn">validar_silver</span>(df):
+    gdf = <span class="code-fn">SparkDFDataset</span>(df)
+
+    resultados = {
+        <span class="code-str">"id_pedido_unique"</span>: gdf.<span class="code-fn">expect_column_values_to_be_unique</span>(
+            <span class="code-str">"id_pedido"</span>),
+        <span class="code-str">"valor_positivo"</span>: gdf.<span class="code-fn">expect_column_values_to_be_between</span>(
+            <span class="code-str">"valor"</span>, min_value=<span class="code-num">0.01</span>),
+        <span class="code-str">"data_nao_nula"</span>: gdf.<span class="code-fn">expect_column_values_to_not_be_null</span>(
+            <span class="code-str">"data_norm"</span>),
+    }
+    falhas = [k <span class="code-kw">for</span> k, v <span class="code-kw">in</span> resultados.<span class="code-fn">items</span>() <span class="code-kw">if not</span> v.success]
+    <span class="code-kw">if</span> falhas:
+        <span class="code-kw">raise</span> <span class="code-fn">ValueError</span>(f<span class="code-str">f"Falhas de qualidade: {falhas}"</span>)`,
+  },
+  {
+    id:'gold',
+    icon:'🥇',
+    label:'Gold · Servida',
+    name:'Agregados Prontos p/ Consumo',
+    tools:['Delta Lake','Databricks SQL','Azure Synapse'],
+    color:'#087a42',
+    medal:'gold',
+    title:'Camada Gold, Dado Agregado',
+    desc:'Agregados e modelos dimensionais prontos para consumo direto pelo Power BI e pelas APIs analíticas. Atualização orquestrada pelo ADF com dependência nas tabelas Silver. É aqui que vivem as métricas de negócio: faturamento por canal, performance de revendas, indicadores de Budget e Tax.',
+    metrics:[
+      {l:'Granularidade',v:'Diária · Mensal · YTD'},
+      {l:'Modelos dimensionais',v:'Star schema'},
+      {l:'Atualização',v:'D+0 até 06h'},
+      {l:'Casos de uso principais',v:'Budget · Tax · Revendas'},
+      {l:'Consumers ativos',v:'Power BI · APIs internas'},
+    ],
+    codeTitle:'Materialização Gold (didático)',
+    code:`<span class="code-comment"># Exemplo didático, dados e nomes fictícios</span>
+GOLD = <span class="code-str">"abfss://gold@meuadls.dfs.core.windows.net"</span>
+
+df_silver = spark.<span class="code-fn">read</span>.<span class="code-fn">format</span>(<span class="code-str">"delta"</span>).<span class="code-fn">load</span>(
+    f<span class="code-str">"{SILVER}/vendas_curadas"</span>)
+
+df_gold = (df_silver
+    .<span class="code-fn">groupBy</span>(<span class="code-str">"canal"</span>, <span class="code-str">"mes"</span>, <span class="code-str">"ano"</span>)
+    .<span class="code-fn">agg</span>(
+        F.<span class="code-fn">sum</span>(<span class="code-str">"valor"</span>).<span class="code-fn">alias</span>(<span class="code-str">"faturamento_total"</span>),
+        F.<span class="code-fn">countDistinct</span>(<span class="code-str">"id_cliente"</span>).<span class="code-fn">alias</span>(<span class="code-str">"clientes_ativos"</span>),
+        F.<span class="code-fn">avg</span>(<span class="code-str">"ticket_medio"</span>).<span class="code-fn">alias</span>(<span class="code-str">"ticket_medio"</span>),
+    ))
+
+df_gold.<span class="code-fn">write</span>.<span class="code-fn">format</span>(<span class="code-str">"delta"</span>).<span class="code-fn">mode</span>(<span class="code-str">"overwrite"</span>).<span class="code-fn">save</span>(
+    f<span class="code-str">"{GOLD}/faturamento_canal"</span>)`,
+  },
+  {
+    id:'consumo',
+    icon:'📊',
+    label:'Consumo · DataVis',
+    name:'Power BI · Relatórios Executivos',
+    tools:['Power BI','DirectQuery','Import Mode','Alertas'],
+    color:'#f3c65d',
+    title:'Camada de Consumo, DataVis',
+    desc:'Power BI conectado diretamente à camada Gold via DirectQuery (dados ao vivo) ou Import Mode (performance para relatórios pesados). Dashboards entregues a áreas de negócio: Financeiro, Tax, Revendas, Budget. Arquitetura documentada com One Page do Daily Volume e Cobertura Agregada para orientar times analíticos.',
+    metrics:[
+      {l:'Ferramenta principal',v:'Power BI Premium'},
+      {l:'Modo de conexão',v:'DirectQuery + Import'},
+      {l:'Áreas atendidas',v:'Financeiro · Tax · Revendas'},
+      {l:'Documentação',v:'One Page Daily Volume'},
+      {l:'Governança de relatórios',v:'Workspace · RLS · Lineage'},
+    ],
+    codeTitle:'DAX, Métrica de Faturamento YTD (didático)',
+    code:`<span class="code-comment">// Exemplo didático, dados e nomes fictícios</span>
+
+<span class="code-fn">Faturamento YTD</span> =
+<span class="code-kw">CALCULATE</span>(
+    <span class="code-kw">SUM</span>(faturamento_canal[faturamento_total]),
+    <span class="code-kw">DATESYTD</span>(dim_calendario[data])
+)
+
+<span class="code-fn">Variação vs Budget</span> =
+<span class="code-kw">DIVIDE</span>(
+    [Faturamento YTD] - [Budget YTD],
+    [Budget YTD],
+    <span class="code-num">0</span>
+)
+
+<span class="code-fn">Ranking Canal</span> =
+<span class="code-kw">RANKX</span>(
+    <span class="code-kw">ALL</span>(dim_canal),
+    [Faturamento YTD],
+    ,
+    <span class="code-kw">DESC</span>
+)`,
+  },
+];
+
+const COLORS = {
+  fontes:'#7eb8d4', extracao:'#a78bfa', bronze:'#9b6b3a',
+  processamento:'#4d7cfe', silver:'#7eb8d4', gold:'#c17f2a', consumo:'#f59e0b'
+};
+
+let activeId = null;
+
+function buildPipeline(){
+  const pipe = document.getElementById('pipeline');
+  pipe.innerHTML = '';
+  NODES.forEach((n,i)=>{
+    const node = document.createElement('div');
+    node.className = 'pnode';
+    node.style.setProperty('--node-color', n.color);
+    node.dataset.id = n.id;
+    node.innerHTML = `
+      <div class="pnode-inner">
+        <div class="node-label">${n.label}</div>
+        <div class="node-icon">${n.icon}</div>
+        <div class="node-name">${n.name}</div>
+        ${n.medal ? `<div class="medal-badge medal-${n.medal}">${n.medal}</div>` : ''}
+        <div class="node-tools">${n.tools.slice(0,3).map(t=>`<span class="ntool">${t}</span>`).join('')}</div>
+      </div>`;
+    node.addEventListener('click', ()=> selectNode(n.id));
+    pipe.appendChild(node);
+
+    if(i < NODES.length - 1){
+      const arrow = document.createElement('div');
+      arrow.className = 'parrow';
+      const c = n.color;
+      arrow.innerHTML = `
+        <div class="parrow-line" style="background:linear-gradient(90deg,${c}33,${c}66)">
+          <div class="parrow-head" style="border-left-color:${c}88"></div>
+          <div class="particle" style="background:${c};animation-delay:${i*0.35}s"></div>
+          <div class="particle" style="background:${c};animation-delay:${i*0.35+1.2}s"></div>
+        </div>`;
+      pipe.appendChild(arrow);
+    }
+  });
+}
+
+function selectNode(id){
+  activeId = id;
+  document.querySelectorAll('.pnode').forEach(el=>{
+    el.classList.toggle('active', el.dataset.id === id);
+  });
+  const n = NODES.find(x=>x.id===id);
+  renderDetail(n);
+}
+
+function renderDetail(n){
+  const metricsHtml = n.metrics.map(m=>`
+    <div class="metric-row">
+      <span class="metric-label">${m.l}</span>
+      <span class="metric-val ${m.cls||''}">${m.v}</span>
+    </div>`).join('');
+
+  const toolsHtml = n.tools.map(t=>`<span class="tool-chip">${t}</span>`).join('');
+
+  document.getElementById('detailPanel').innerHTML = `
+  <div class="detail-section">
+    <div class="detail-grid">
+      <div class="det-block">
+        <div class="det-header">SOBRE ESTA CAMADA</div>
+        <div class="det-title" style="color:${n.color}">${n.icon} ${n.title}</div>
+        <div class="det-desc" style="margin-top:10px">${n.desc}</div>
+        <div style="margin-top:14px">
+          <div class="det-header" style="margin-bottom:8px">FERRAMENTAS</div>
+          <div class="tool-grid">${toolsHtml}</div>
+        </div>
+      </div>
+      <div class="det-block">
+        <div class="det-header">MÉTRICAS & DECISÕES</div>
+        ${metricsHtml}
+      </div>
+      <div class="det-block">
+        <div class="det-header">${n.codeTitle}</div>
+        <div class="code-block">${n.code}</div>
+        <div class="tech-disclaimer" role="note">&#x1F512; <strong>Demonstra&ccedil;&atilde;o t&eacute;cnica com dados mockados</strong>&ensp;&middot;&ensp;Esta solu&ccedil;&atilde;o foi desenvolvida exclusivamente para fins demonstrativos e utiliza apenas dados mockados, sem qualquer informa&ccedil;&atilde;o de clientes, conte&uacute;do corporativo, dados confidenciais ou integra&ccedil;&atilde;o com ambientes reais. Seu objetivo &eacute; evidenciar a arquitetura, as decis&otilde;es t&eacute;cnicas, o comportamento dos componentes em um cen&aacute;rio controlado e o funcionamento da solu&ccedil;&atilde;o.</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// Auditoria didática do ADF: interação curta para demonstrar o método de governança.
+const runAdfAudit = document.getElementById('runAdfAudit');
+runAdfAudit.addEventListener('click', async()=>{
+  const rows = [...document.querySelectorAll('#adfLab .adf-pipe')];
+  const summary = document.getElementById('adfSummary');
+  runAdfAudit.disabled = true;
+  runAdfAudit.textContent = 'Analisando histórico de execução...';
+  summary.classList.remove('show');
+  rows.forEach(row=>{
+    row.classList.remove('active','orphan','scanning');
+    row.querySelector('.adf-pipe-status').textContent = 'na fila';
+  });
+
+  for(const row of rows){
+    row.classList.add('scanning');
+    row.querySelector('.adf-pipe-status').textContent = 'analisando 90 dias';
+    await new Promise(resolve=>setTimeout(resolve,430));
+    row.classList.remove('scanning');
+    const result = row.dataset.result;
+    row.classList.add(result);
+    row.querySelector('.adf-pipe-status').textContent = result==='active' ? 'ativo · preservar' : 'órfão · validar owner';
+  }
+
+  summary.classList.add('show');
+  runAdfAudit.disabled = false;
+  runAdfAudit.textContent = '↻ Executar nova auditoria';
+});
+
+buildPipeline();
+
+
+// Auto-select first node after brief delay for demo feel
+setTimeout(()=> selectNode('fontes'), 600);
+
+// ===== SECTION TABS (scroll-spy) =====
+(function(){
+  const tabs = document.querySelectorAll('.sec-tab');
+  const sections = ['arquitetura','impacto'].map(id=>document.getElementById(id));
+  tabs.forEach(t=>t.addEventListener('click', e=>{
+    e.preventDefault();
+    document.getElementById(t.dataset.sec).scrollIntoView({behavior:'smooth', block:'start'});
+  }));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        tabs.forEach(t=>t.classList.toggle('active', t.dataset.sec===entry.target.id));
+      }
+    });
+  }, {rootMargin:'-40% 0px -50% 0px'});
+  sections.forEach(s=> s && io.observe(s));
+})();
+
+// ===== IMPACT CHARTS =====
+(function(){
+  const style = getComputedStyle(document.body);
+  const acc = style.getPropertyValue('--acc').trim() || '#00b140';
+  const gold = style.getPropertyValue('--gold').trim() || '#c17f2a';
+  const blue = style.getPropertyValue('--blue').trim() || '#4d7cfe';
+  const amber = style.getPropertyValue('--amber').trim() || '#f59e0b';
+  const muted = style.getPropertyValue('--muted').trim() || '#6b7694';
+  const grid = 'rgba(255,255,255,.06)';
+  Chart.defaults.color = muted;
+  Chart.defaults.font.family = "'IBM Plex Mono',monospace";
+  Chart.defaults.font.size = 10.5;
+
+  new Chart(document.getElementById('projChart'), {
+    type:'bar',
+    data:{labels:['Estratégico','FinOps','Docs/Gov','Suporte','Migração'],
+      datasets:[{data:[17,5,7,3,2],backgroundColor:[acc+'aa',gold+'aa',blue+'aa',amber+'aa','#5fd38aaa'],borderColor:[acc,gold,blue,amber,'#5fd38a'],borderWidth:1,borderRadius:4}]},
+    options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:grid}},y:{grid:{color:grid},ticks:{stepSize:2}}}}
+  });
+
+  const m = ['Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez','Jan','Fev'];
+  new Chart(document.getElementById('sessChart'), {
+    type:'bar',
+    data:{labels:m,datasets:[{data:[6,9,8,11,10,12,10,9,11,8,6,4],backgroundColor:blue+'aa',borderColor:blue,borderWidth:1,borderRadius:3}]},
+    options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:grid}},y:{grid:{color:grid}}}}
+  });
+
+  new Chart(document.getElementById('savChart'), {
+    type:'line',
+    data:{labels:m,datasets:[{data:[0,500,1200,2500,4000,6500,9000,11000,12500,13800,14500,15000],borderColor:gold,backgroundColor:gold+'1a',fill:true,tension:.4,pointRadius:3,pointBackgroundColor:gold}]},
+    options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:grid}},y:{grid:{color:grid},ticks:{callback:v=>'€'+v.toLocaleString()}}}}
+  });
+})();
+</script>
+<script>(function(){['.nav-cases-toggle','.nav-traj-toggle'].forEach(function(sel){var t=document.querySelector(sel);if(t){t.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var li=this.parentElement;li.classList.toggle('open');document.querySelectorAll('.nav-cases-li,.nav-traj-li').forEach(function(el){if(el!==li)el.classList.remove('open');});});}});document.addEventListener('click',function(){document.querySelectorAll('.nav-cases-li,.nav-traj-li').forEach(function(el){el.classList.remove('open');});});})();</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinOps · Itaú Unibanco, Jennifer Evangelista</title>
+<meta name="description" content="Dashboard interativo de FinOps e eficiência cloud no contexto Itaú Unibanco.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/itau-finops-dashboard.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="FinOps · Itaú Unibanco, Jennifer Evangelista">
+<meta property="og:description" content="Dashboard interativo de FinOps e eficiência cloud no contexto Itaú Unibanco.">
+<meta property="og:url" content="https://datajen.com.br/itau-finops-dashboard.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FinOps · Itaú Unibanco, Jennifer Evangelista">
+<meta name="twitter:description" content="Dashboard interativo de FinOps e eficiência cloud no contexto Itaú Unibanco.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F2;--bg2:#FFFFFF;--card:#FFFFFF;--line:#EAE4DA;--orange:#EC7000;--orange2:#c85c00;--orange-lt:#FFF3E8;--orange-md:#FFD9B3;--green:#1A7A45;--green-lt:#E4F4EC;--red:#CC3333;--red-lt:#FDEAEA;--blue:#1A5FAB;--blue-lt:#E8F0FA;--ink:#1A1209;--muted:#7A6855;--sans:'Inter',sans-serif;--mono:'IBM Plex Mono',monospace;--serif:'Source Serif 4',serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;padding-top:44px}
+
+/* TOPBAR */
+.topbar{background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 24px;height:54px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:13px;color:var(--ink)}
+.logo-badge{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1c0800,var(--orange));display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800}
+.topbar-sep{flex:1}
+.topbar-pill{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;background:var(--orange-lt);border:1px solid var(--orange-md);border-radius:6px;padding:4px 10px;color:var(--orange)}
+.disclaimer{font-family:var(--mono);font-size:9px;color:var(--muted);background:#F0EBE3;border:1px solid var(--line);border-radius:6px;padding:4px 10px}
+.back-btn{font-family:var(--mono);font-size:9.5px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:6px 14px;transition:.2s}
+.back-btn:hover{color:var(--ink);border-color:var(--ink)}
+
+/* LAYOUT */
+.container{padding:20px 24px;max-width:1280px;margin:0 auto}
+
+/* HERO SAVINGS */
+.hero{background:linear-gradient(135deg,#1c0800 0%,#7a2800 50%,var(--orange) 100%);color:#fff;border-radius:14px;padding:32px 36px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:20px}
+.hero h1{font-family:var(--serif);font-size:26px;font-weight:700;line-height:1.2;max-width:380px}
+.hero p{font-size:13px;opacity:.8;margin-top:8px;line-height:1.55;max-width:380px}
+.hero-kpis{display:flex;gap:32px;margin-top:20px}
+.hkpi .v{font-family:var(--mono);font-size:32px;font-weight:700;color:#FFD9B3;line-height:1}
+.hkpi .l{font-size:11px;opacity:.75;margin-top:4px;letter-spacing:.02em}
+.hero-badge{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:3px 8px;color:#fff;margin-top:8px;display:inline-block}
+
+/* GRID */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g32{grid-template-columns:2fr 1fr}
+@media(max-width:1100px){.g3{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}.g32{grid-template-columns:1fr}}
+@media(max-width:700px){.g2,.g3,.g4,.g32{grid-template-columns:1fr}}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line)}
+.card-title{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.card-tag{font-family:var(--mono);font-size:8.5px;font-weight:700;border-radius:4px;padding:2px 8px}
+.tag-ok{background:var(--green-lt);color:var(--green)}
+.tag-warn{background:#FFF3E8;color:var(--orange)}
+.tag-info{background:var(--blue-lt);color:var(--blue)}
+
+/* STAT */
+.stat-val{font-family:var(--serif);font-size:32px;font-weight:700;padding:16px 16px 4px;line-height:1}
+.stat-lbl{font-size:12px;color:var(--muted);padding:0 16px 8px;line-height:1.4}
+.stat-sub{font-family:var(--mono);font-size:9px;color:var(--muted);padding:0 16px 14px;display:flex;align-items:center;gap:6px}
+
+/* DONUT CHART */
+.donut-wrap{padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+svg.donut{display:block}
+.donut-legend{width:100%;display:flex;flex-direction:column;gap:5px}
+.dl-row{display:flex;align-items:center;gap:8px;font-size:11px}
+.dl-dot{width:10px;height:10px;border-radius:2px;flex:none}
+.dl-lbl{flex:1;color:var(--muted)}
+.dl-val{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink)}
+.dl-pct{font-family:var(--mono);font-size:9px;color:var(--muted)}
+
+/* BAR CHART */
+.bar-chart{padding:14px 16px}
+.bar-row{display:grid;grid-template-columns:90px 1fr 56px;align-items:center;gap:8px;margin-bottom:10px}
+.bar-label{font-family:var(--mono);font-size:10px;color:var(--muted);text-align:right}
+.bar-track{height:8px;background:var(--line);border-radius:99px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:99px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.bar-value{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--ink)}
+
+/* SAVINGS TABLE */
+.stbl{width:100%;border-collapse:collapse}
+.stbl th{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:9px 14px;text-align:left;border-bottom:1px solid var(--line)}
+.stbl td{padding:10px 14px;border-bottom:1px solid var(--bg);font-size:12px}
+.stbl tr:hover td{background:var(--orange-lt)}
+.saving-chip{font-family:var(--mono);font-size:9px;font-weight:700;border-radius:4px;padding:2px 8px}
+
+/* TIMELINE */
+.timeline{padding:16px}
+.tl-item{display:flex;gap:12px;margin-bottom:16px}
+.tl-line{display:flex;flex-direction:column;align-items:center;gap:0}
+.tl-dot{width:10px;height:10px;border-radius:50%;flex:none;border:2px solid var(--green);background:var(--green-lt)}
+.tl-bar{width:2px;flex:1;background:var(--line);margin-top:2px;min-height:20px}
+.tl-content{flex:1;padding-bottom:4px}
+.tl-title{font-weight:700;font-size:12px;color:var(--ink);margin-bottom:3px}
+.tl-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.tl-saving{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--green);background:var(--green-lt);border-radius:4px;padding:2px 8px;display:inline-block;margin-top:4px}
+
+/* WATERFALL */
+.wf{padding:16px 16px 8px}
+.wf-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.wf-label{font-family:var(--mono);font-size:10px;color:var(--muted);width:130px;flex:none;text-align:right}
+.wf-track{flex:1;position:relative;height:24px}
+.wf-segment{position:absolute;height:100%;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-family:var(--mono);font-size:9.5px;font-weight:700;color:#fff;white-space:nowrap;transition:opacity .2s}
+.wf-segment:hover{opacity:.8}
+.wf-val{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--ink);width:80px;flex:none}
+
+/* RESP-itau-finops-dashboard.html */
+@media(max-width:640px){
+  .page-header{flex-direction:column;align-items:flex-start;gap:8px;padding:12px 16px}
+  .container{padding:12px 10px}
+  .g2,.g3,.g4,.g32{grid-template-columns:1fr}
+  .card{padding:14px}
+  table{font-size:11px}
+  th,td{padding:6px 8px}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="finops-interaction-upgrade">
+.finops-lab{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:14px;margin-bottom:14px}
+.finops-controls,.finops-insight{background:#fff;border:1px solid var(--orange-md);border-radius:12px;padding:16px}.finops-insight{border-left:5px solid var(--orange);box-shadow:0 12px 30px rgba(236,112,0,.1)}
+.finops-controls h2{font-family:var(--serif);font-size:19px;margin-bottom:4px}.finops-controls p,.finops-insight p{font-size:12px;line-height:1.55;color:var(--muted)}
+.scenario-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.scenario-btn{border:1px solid var(--orange-md);border-radius:8px;background:#fff;color:var(--orange2);padding:9px 12px;font:700 10px/1.2 var(--mono);cursor:pointer}.scenario-btn.active{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 8px 20px rgba(236,112,0,.22)}
+.finops-insight-label{font:800 9px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+.finops-insight-value{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--green);margin:8px 0 2px}.finops-insight-meta{font:600 10px/1.5 var(--mono);color:var(--muted)}
+.dl-row,.bar-row{cursor:pointer;border-radius:7px;padding:4px;transition:.2s}.dl-row:hover,.bar-row:hover{background:var(--orange-lt);transform:translateX(3px)}
+.service-focus{animation:finopsFocus .65s ease}@keyframes finopsFocus{40%{box-shadow:0 0 0 5px rgba(236,112,0,.16)}}
+@media(max-width:780px){.finops-lab{grid-template-columns:1fr}.scenario-buttons{display:grid;grid-template-columns:1fr 1fr}}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="responsive-audit-fix">
+html,body{max-width:100%;overflow-x:hidden}.grid>*{min-width:0}
+@media(max-width:640px){
+  .topbar{height:auto;min-height:50px;padding:9px 12px;flex-wrap:wrap}.topbar-sep{display:none}.disclaimer{order:3;width:100%;white-space:normal}
+  .hero{flex-direction:column;padding:22px 18px;gap:14px}.hero>div{width:100%;min-width:0}.hero-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;margin-top:14px}
+  .hkpi{min-width:0}.hkpi .v{font-size:26px}.hkpi .l{overflow-wrap:anywhere}
+  .scenario-buttons{grid-template-columns:1fr}.card{min-width:0}.stbl-wrap,.table-wrap{max-width:100%;overflow-x:auto}
+}
+</style>
+<style>
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+.pill-live-added{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:4px 10px;display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back primary" href="cases-itau.html">&#x1F948; &larr; Case Ita&uacute;</a>
+    <a class="gn-back" href="experiencia.html#itau-unibanco">Experi&ecirc;ncia Ita&uacute; &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-badge">FO</div>
+    FinOps · PUC
+  </div>
+  <div class="topbar-pill">R$2M em otimizações realizadas</div>
+  <div class="topbar-sep"></div>
+  <div class="disclaimer">Protótipo ilustrativo · todos os valores são fictícios e têm finalidade exclusivamente demonstrativa</div>
+  <span class="pill-live-added">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+  <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+  <a class="back-btn" href="experiencia.html#itau-unibanco" style="margin-left:12px">← Voltar ao case</a>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este painel FinOps transforma consumo técnico da AWS em cenários de decisão. Custos são organizados por serviço e iniciativa, permitindo comparar baseline, otimização, aumento de demanda e ausência de governança; o resultado é priorizar economia com contexto de capacidade e risco, sem tratar redução de custo como corte cego.</p>
+  <span class="context-action"><b>O que faz:</b> Transforma fatura AWS em cenários de decisão: baseline, otimizado, +20% demand, sem governança. Veja impacto de cada. <b>Experimente:</b> alterne cenários, clique nas iniciativas. <b>O que a demo mostra:</b> como comparar cenários fictícios de custos e discutir decisões de otimização.</span>
+</aside>
+
+<div class="container">
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;opacity:.7;margin-bottom:8px">FINOPS · PLATAFORMA ÚNICA DE CRÉDITO · AWS</div>
+      <h1>R$2 milhões<br>referência de economia do case</h1>
+      <p>Aplicação sistemática de práticas de FinOps sobre a infraestrutura AWS da Plataforma Única de Crédito. Neste cenário simulado, o custo anual passa de R$52 milhões para R$50 milhões por meio de rightsizing de instâncias, aquisição estratégica de Reserved Instances, políticas de lifecycle em S3 e eliminação de redundâncias no data lake.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <span class="hero-badge">Rightsizing de instâncias EMR</span>
+        <span class="hero-badge">Reserved Instances 1 ano</span>
+        <span class="hero-badge">S3 Intelligent-Tiering</span>
+        <span class="hero-badge">Keyspaces · Capacity Mode</span>
+        <span class="hero-badge">Cloudability · visibilidade e alocação</span>
+        <span class="hero-badge">Deduplicação do data lake</span>
+      </div>
+    </div>
+    <div>
+      <div class="hero-kpis">
+        <div class="hkpi">
+          <div class="v" id="heroBaseline">R$52M</div>
+          <div class="l">custo anual de baseline</div>
+        </div>
+        <div style="font-family:var(--serif);font-size:28px;font-weight:700;opacity:.4;align-self:center">→</div>
+        <div class="hkpi">
+          <div class="v" id="heroForecast" style="color:#5fd38a">R$50M</div>
+          <div class="l">após otimizações FinOps</div>
+        </div>
+      </div>
+      <div style="margin-top:14px;font-family:var(--mono);font-size:11px;opacity:.8">Economia anual simulada: <span id="heroSaving" style="font-size:18px;font-weight:700;color:#FFD9B3">R$2.000.000</span></div>
+      <div style="font-family:var(--mono);font-size:9px;opacity:.5;margin-top:4px">−3,85% sobre o baseline · governança de custo como cultura de engenharia</div>
+    </div>
+  </div>
+
+  <aside class="cloudability-context" style="margin:0 0 22px;padding:18px 22px;background:#fff7ed;border-left:4px solid #ec7000;border-radius:12px"><h2 style="font-size:18px;margin:0 0 8px">Cloudability no trabalho de FinOps</h2><p style="font-size:14px;line-height:1.7;margin:0">O Cloudability foi usado para apoiar as demandas de FinOps e redução de custos na AWS, junto à revisão de consumo por serviço, rightsizing, capacidade reservada, armazenamento em camadas e cobrança do Keyspaces. Os valores nas telas financeiras são cenários didáticos; não representam economia realizada.</p></aside>
+  <section class="finops-lab" aria-label="Simulador FinOps">
+    <div class="finops-controls">
+      <h2>Teste decisões de custo antes de aplicá-las.</h2>
+      <p>Alterne entre baseline, plano otimizado e crescimento de demanda. Os indicadores e a distribuição por serviço são recalculados no painel.</p>
+      <div class="scenario-buttons">
+        <button class="scenario-btn" type="button" onclick="setFinopsScenario('baseline',this)">Baseline sem otimização</button>
+        <button class="scenario-btn active" type="button" onclick="setFinopsScenario('optimized',this)">✓ Plano otimizado</button>
+        <button class="scenario-btn" type="button" onclick="setFinopsScenario('growth',this)">Demanda +20%</button>
+        <button class="scenario-btn" type="button" onclick="setFinopsScenario('stress',this)">Pico sem governança</button>
+      </div>
+    </div>
+    <aside class="finops-insight" id="finopsInsight" aria-live="polite">
+      <div class="finops-insight-label">VISÃO EXECUTIVA · plano otimizado</div>
+      <div class="finops-insight-value">R$2,0M</div>
+      <p>Economia anual preservada mesmo com os pipelines críticos dentro do SLO.</p>
+      <div class="finops-insight-meta">Selecione uma fatia do gráfico para ver quais decisões de engenharia explicam o custo daquele serviço.</div>
+    </aside>
+  </section>
+
+  <!-- ROW 1: STAT CARDS -->
+  <div class="grid g4" style="margin-bottom:14px">
+    <div class="card">
+      <div class="card-head"><span class="card-title">Custo Anual Otimizado</span><span class="card-tag tag-ok">▼ Reduzido</span></div>
+      <div class="stat-val" id="annualCostStat" style="color:var(--green)">R$50M</div>
+      <div class="stat-lbl">infraestrutura AWS · PUC · ano corrente</div>
+      <div class="stat-sub"><span style="color:var(--green)">↓ R$2M em relação ao baseline</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">Maior ganho individual</span><span class="card-tag tag-info">AWS EMR</span></div>
+      <div class="stat-val" style="color:var(--orange)">R$820k</div>
+      <div class="stat-lbl">Rightsizing de instâncias + Reserved Instances</div>
+      <div class="stat-sub"><span>41% do total de economia simulada</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">S3 · Gestão de ciclo de vida</span><span class="card-tag tag-ok">operacional</span></div>
+      <div class="stat-val" style="color:var(--orange)">R$480k</div>
+      <div class="stat-lbl">Intelligent-Tiering automatizado + Glacier</div>
+      <div class="stat-sub"><span>24% do total de economia simulada</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">Keyspaces · Modo de capacidade</span><span class="card-tag tag-ok">provisionado</span></div>
+      <div class="stat-val" style="color:var(--orange)">R$340k</div>
+      <div class="stat-lbl">Migração de on-demand para provisionado</div>
+      <div class="stat-sub"><span>17% do total de economia simulada</span></div>
+    </div>
+  </div>
+
+  <!-- ROW 2: DONUT + BAR + WATERFALL -->
+  <div class="grid g3" style="margin-bottom:14px">
+    <!-- Custo por serviço -->
+    <div class="card">
+      <div class="card-head"><span class="card-title">Distribuição de Custo por Serviço · R$50M</span><span class="card-tag tag-info">visão anual</span></div>
+      <div class="donut-wrap">
+        <svg class="donut" viewBox="0 0 160 160" width="140" height="140" id="donutSvg"></svg>
+        <div class="donut-legend" id="donutLegend"></div>
+      </div>
+    </div>
+
+    <!-- Economia por categoria -->
+    <div class="card">
+      <div class="card-head"><span class="card-title">Economia Realizada por Iniciativa</span><span class="card-tag" style="background:var(--green-lt);color:var(--green)">R$2M no total</span></div>
+      <div class="bar-chart" id="savBar"></div>
+    </div>
+
+    <!-- Waterfall mensal -->
+    <div class="card">
+      <div class="card-head"><span class="card-title">Evolução do Custo Mensal · Trajetória de redução</span><span class="card-tag tag-warn">últimos 6 meses</span></div>
+      <div class="wf" id="wfChart"></div>
+    </div>
+  </div>
+
+  <!-- ROW 3: SAVINGS TABLE + TIMELINE -->
+  <div class="grid g32" style="margin-bottom:14px">
+    <!-- Savings table -->
+    <div class="card">
+      <div class="card-head"><span class="card-title">Iniciativas de Otimização · Detalhamento por prática</span><span class="card-tag tag-ok">todas implementadas</span></div>
+      <div style="overflow-x:auto">
+        <table class="stbl" id="savTable"></table>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="card">
+      <div class="card-head"><span class="card-title">Cronologia de implementação</span><span class="card-tag tag-info">jornada FinOps</span></div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ====== DATA (didático, fictício) ====== */
+const SERVICES = [
+  {l:'AWS EMR',v:21.4,c:'#EC7000'},
+  {l:'Keyspaces',v:12.8,c:'#E53535'},
+  {l:'S3 Storage',v:8.2,c:'#3E9BF4'},
+  {l:'Aurora',v:4.1,c:'#1FA463'},
+  {l:'Lambda/Glue',v:2.4,c:'#F5C942'},
+  {l:'Outros',v:1.1,c:'#9E8C7A'},
+];
+
+const SAVINGS = [
+  {l:'Rightsizing EMR',v:820,max:1000,c:'#EC7000'},
+  {l:'Reserved Instances',v:620,max:1000,c:'#c85c00'},
+  {l:'S3 Lifecycle',v:480,max:1000,c:'#3E9BF4'},
+  {l:'Keyspaces capacity',v:340,max:1000,c:'#1FA463'},
+  {l:'Dedup de dados',v:180,max:1000,c:'#F5C942'},
+  {l:'Lambda cleanup',v:90,max:1000,c:'#9E8C7A'},
+];
+
+const SAV_TABLE = [
+  {pr:'Rightsizing de instâncias EMR','desc':'Redimensionamento de workers m5.4xl para m5.2xl em cargas de trabalho com padrão de consumo previsível, sem impacto na performance dos pipelines.','serv':'EMR','econ':'R$820k','cls':'green'},
+  {pr:'Reserved Instances · 1 ano','desc':'Aquisição de Reserved Instances para o nó master do EMR e para capacidade estável do Keyspaces, substituindo uso contínuo de instâncias On-Demand.','serv':'EMR / KS','econ':'R$620k','cls':'green'},
+  {pr:'S3 · Políticas de lifecycle','desc':'Ativação do Intelligent-Tiering automático para dados acessados com baixa frequência e arquivamento em Glacier após 90 dias de inatividade.','serv':'S3','econ':'R$480k','cls':'blue'},
+  {pr:'Keyspaces · Capacity Mode','desc':'Migração de tabelas de leitura intensiva de on-demand para provisionado, com base em análise histórica de throughput dos pipelines de crédito PF.','serv':'Keyspaces','econ':'R$340k','cls':'green'},
+  {pr:'Deduplicação do data lake','desc':'Identificação e remoção de dados redundantes na camada bronze, resultando em redução de 14% no volume de armazenamento total do S3.','serv':'S3','econ':'R$180k','cls':'orange'},
+  {pr:'Revisão de funções Lambda','desc':'Descomissionamento de funções ociosas e ajuste de alocação de memória nos handlers dos pipelines de crédito, alinhando custo ao consumo real.','serv':'Lambda','econ':'R$90k','cls':'muted'},
+];
+
+const TIMELINE = [
+  {t:'Diagnóstico e mapeamento de custos',d:'Levantamento integral dos gastos AWS da PUC, com decomposição por serviço, área consumidora e padrão de uso. Identificação das iniciativas de maior potencial de redução.',sav:''},
+  {t:'Rightsizing de EMR e Reserved Instances',d:'Redimensionamento dos clusters EMR com base em análise de utilização histórica, seguido da aquisição de Reserved Instances para cargas de trabalho com demanda estável e previsível.',sav:'R$1,44M/ano'},
+  {t:'Políticas de lifecycle no S3',d:'Implantação de Intelligent-Tiering automático e regras de arquivamento em Glacier para dados históricos de crédito, reduzindo custos de armazenamento sem comprometer a acessibilidade.',sav:'R$480k/ano'},
+  {t:'Otimização de Keyspaces e deduplicação',d:'Migração de tabelas críticas para capacity mode provisionado e eliminação de redundâncias na camada bronze do data lake, com validação de integridade ao longo de todo o processo.',sav:'R$520k/ano'},
+  {t:'Governança contínua de custo cloud',d:'Implantação de dashboards de consumo por área consumidora integrados ao Data Factory. Consciência de custo cloud incorporada como princípio de engenharia no time, com revisões periódicas de alocação.',sav:'contínuo'},
+];
+
+const FINOPS_SCENARIOS={
+  baseline:{baseline:52,cost:52,saving:0,series:[52,52,52,52,52,52],label:'Baseline sem otimização',copy:'Nenhuma iniciativa aplicada. O custo permanece em R$52M e a plataforma fica exposta a desperdícios conhecidos.'},
+  optimized:{baseline:52,cost:50,saving:2,series:[52,51.4,50.9,50.4,50.1,50],label:'Plano otimizado',copy:'Rightsizing, reservas e lifecycle reduzem o custo anual em R$2M sem retirar capacidade dos pipelines críticos.'},
+  growth:{baseline:62.4,cost:58.6,saving:3.8,series:[52,53.6,55.4,56.7,57.8,58.6],label:'Demanda +20%',copy:'Se o volume crescer 20% sem otimização, o custo anual projetado chega a R$62,4M. Com rightsizing, reservas, lifecycle e acompanhamento no Cloudability, o cenário simulado fica em R$58,6M: R$3,8M de custo evitado.'},
+  stress:{baseline:62.4,cost:62.4,saving:0,series:[52,54.2,56.8,58.9,60.7,62.4],label:'Pico sem governança',copy:'Sem limites, reservas e lifecycle, o crescimento de demanda se converte integralmente em custo.'}
+};
+let activeFinopsScenario='optimized';
+const BASE_SERVICE_VALUES=SERVICES.map(s=>s.v);
+
+/* ====== DONUT ====== */
+function buildDonut(){
+  const total = SERVICES.reduce((a,b)=>a+b.v,0);
+  let angle = -90;
+  let paths = '';
+  SERVICES.forEach(s=>{
+    const pct = s.v/total;
+    const a1  = angle, a2 = angle + pct*360;
+    const r = 60, cx = 80, cy = 80, ir = 38;
+    const rad1 = a1*Math.PI/180, rad2 = a2*Math.PI/180;
+    const x1o=cx+r*Math.cos(rad1), y1o=cy+r*Math.sin(rad1);
+    const x2o=cx+r*Math.cos(rad2), y2o=cy+r*Math.sin(rad2);
+    const x1i=cx+ir*Math.cos(rad2), y1i=cy+ir*Math.sin(rad2);
+    const x2i=cx+ir*Math.cos(rad1), y2i=cy+ir*Math.sin(rad1);
+    const large = pct>.5?1:0;
+    paths += `<path d="M${x1o.toFixed(2)},${y1o.toFixed(2)} A${r},${r} 0 ${large} 1 ${x2o.toFixed(2)},${y2o.toFixed(2)} L${x1i.toFixed(2)},${y1i.toFixed(2)} A${ir},${ir} 0 ${large} 0 ${x2i.toFixed(2)},${y2i.toFixed(2)} Z" fill="${s.c}" opacity=".92"/>`;
+    angle = a2;
+  });
+  document.getElementById('donutSvg').innerHTML =
+    paths +
+    `<text x="80" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#1A1209" font-family="monospace">R$50M</text>
+     <text x="80" y="88" text-anchor="middle" font-size="8" fill="#7A6855" font-family="monospace">anual</text>`;
+
+  document.getElementById('donutLegend').innerHTML = SERVICES.map((s,index)=>`
+    <div class="dl-row" role="button" tabindex="0" onclick="focusFinopsService(${index})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();focusFinopsService(${index})}">
+      <span class="dl-dot" style="background:${s.c}"></span>
+      <span class="dl-lbl">${s.l}</span>
+      <span class="dl-val">R$${s.v}M</span>
+      <span class="dl-pct">${((s.v/total)*100).toFixed(0)}%</span>
+    </div>`).join('');
+}
+
+/* ====== SAVINGS BAR ====== */
+function buildSavBar(){
+  document.getElementById('savBar').innerHTML = SAVINGS.map((s,index)=>`
+    <div class="bar-row" role="button" tabindex="0" onclick="focusFinopsSaving(${index})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();focusFinopsSaving(${index})}">
+      <span class="bar-label">${s.l}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${s.v/10}%;background:${s.c}"></div></div>
+      <span class="bar-value" style="color:var(--green)">R$${s.v}k</span>
+    </div>`).join('');
+}
+
+/* ====== WATERFALL (monthly) ====== */
+function buildWaterfall(){
+  const months = ['SET','OUT','NOV','DEZ','JAN','FEV'];
+  const vals   = FINOPS_SCENARIOS[activeFinopsScenario].series;
+  const max    = Math.max(...vals)*1.02;
+  const el = document.getElementById('wfChart');
+  el.innerHTML = months.map((m,i)=>{
+    const w = (vals[i]/max)*100;
+    const color = i===0?'#9E8C7A':vals[i]<vals[i-1]?'#1A7A45':'#CC3333';
+    const delta=vals[i]-vals[0];
+    const deltaLabel=i===0?'referência':`${delta<0?'−':'+'}R$${Math.abs(delta).toLocaleString('pt-BR',{maximumFractionDigits:1})}M`;
+    return `<div class="wf-bar-row">
+      <span class="wf-label">${m}</span>
+      <div class="wf-track">
+        <div class="wf-segment" style="left:0;width:${w}%;background:${color};opacity:${i===0?.55:.82}">
+          R$${vals[i]}M
+        </div>
+      </div>
+      <span class="wf-val" style="color:${i===0?'var(--muted)':delta<=0?'var(--green)':'var(--red)'}">${deltaLabel}</span>
+    </div>`;
+  }).join('');
+}
+
+function setFinopsScenario(key,button){
+  const scenario=FINOPS_SCENARIOS[key];if(!scenario)return;
+  activeFinopsScenario=key;
+  document.querySelectorAll('.scenario-btn').forEach(btn=>btn.classList.toggle('active',btn===button));
+  const factor=scenario.cost/50;
+  SERVICES.forEach((service,index)=>service.v=Number((BASE_SERVICE_VALUES[index]*factor).toFixed(1)));
+  document.getElementById('heroBaseline').textContent=`R$${scenario.baseline.toLocaleString('pt-BR')}M`;
+  document.getElementById('heroForecast').textContent=`R$${scenario.cost.toLocaleString('pt-BR')}M`;
+  document.getElementById('heroSaving').textContent=scenario.saving?`R$${scenario.saving.toLocaleString('pt-BR')} milhões`:'R$0';
+  document.getElementById('annualCostStat').textContent=`R$${scenario.cost.toLocaleString('pt-BR')}M`;
+  document.getElementById('finopsInsight').innerHTML=`<div class="finops-insight-label">VISÃO EXECUTIVA · ${scenario.label}</div><div class="finops-insight-value">${scenario.saving?`R$${scenario.saving.toLocaleString('pt-BR')}M`:'R$0'}</div><p>${scenario.copy}</p><div class="finops-insight-meta">Selecione uma fatia do gráfico para ver quais decisões de engenharia explicam o custo daquele serviço.</div>`;
+  buildDonut();buildWaterfall();
+}
+
+function focusFinopsService(index){
+  const service=SERVICES[index];const total=SERVICES.reduce((sum,item)=>sum+item.v,0);
+  document.getElementById('finopsInsight').innerHTML=`<div class="finops-insight-label">Leitura técnica · ${service.l}</div><div class="finops-insight-value">R$${service.v.toLocaleString('pt-BR')}M</div><p>Este serviço representa ${Math.round(service.v/total*100)}% do custo anual do cenário. Compare sua participação antes de priorizar uma ação.</p><div class="finops-insight-meta">Cenário: ${FINOPS_SCENARIOS[activeFinopsScenario].label}</div>`;
+  const insight=document.getElementById('finopsInsight');insight.classList.remove('service-focus');void insight.offsetWidth;insight.classList.add('service-focus');
+}
+
+function focusFinopsSaving(index){
+  const saving=SAVINGS[index];
+  document.getElementById('finopsInsight').innerHTML=`<div class="finops-insight-label">Iniciativa selecionada</div><div class="finops-insight-value">R$${saving.v}k</div><p><b>${saving.l}</b> contribui com ${Math.round(saving.v/2000*100)}% do plano de economia anual.</p><div class="finops-insight-meta">Clique em outro item para comparar a contribuição.</div>`;
+}
+
+/* ====== TABLE ====== */
+function buildTable(){
+  const colMap = {green:'var(--green)',blue:'#1A5FAB',orange:'var(--orange)',muted:'var(--muted)'};
+  document.getElementById('savTable').innerHTML =
+    `<thead><tr><th>Iniciativa</th><th>Detalhamento</th><th>Serviço AWS</th><th>Economia anual</th></tr></thead><tbody>` +
+    SAV_TABLE.map(r=>`<tr>
+      <td style="font-weight:700;color:var(--ink);white-space:nowrap">${r.pr}</td>
+      <td style="color:var(--muted);max-width:260px">${r.desc}</td>
+      <td><span style="font-family:var(--mono);font-size:9px;background:var(--blue-lt);color:var(--blue);border-radius:4px;padding:2px 7px;font-weight:700">${r.serv}</span></td>
+      <td><span style="font-family:var(--mono);font-size:11px;font-weight:700;color:${colMap[r.cls]||'var(--green)'}">${r.econ}</span></td>
+    </tr>`).join('') + `</tbody>`;
+}
+
+/* ====== TIMELINE ====== */
+function buildTimeline(){
+  document.getElementById('timeline').innerHTML = TIMELINE.map((t,i)=>`
+    <div class="tl-item">
+      <div class="tl-line">
+        <div class="tl-dot" style="${i===0?'border-color:var(--orange);background:var(--orange-lt)':''}"></div>
+        ${i<TIMELINE.length-1?'<div class="tl-bar"></div>':''}
+      </div>
+      <div class="tl-content">
+        <div class="tl-title">${t.t}</div>
+        <div class="tl-desc">${t.d}</div>
+        ${t.sav?`<span class="tl-saving">${t.sav==='ongoing'?'↻ contínuo':'✓ '+t.sav}</span>`:''}
+      </div>
+    </div>`).join('');
+}
+
+/* ====== INIT ====== */
+buildDonut();
+buildSavBar();
+buildWaterfall();
+buildTable();
+buildTimeline();
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

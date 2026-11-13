@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carrefour · Data Catalog, OpenMetadata Demo</title>
+<meta name="description" content="Demonstração de catálogo e governança de dados com OpenMetadata no contexto Carrefour.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/carrefour-datacatalog-app.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Carrefour · Data Catalog, OpenMetadata Demo">
+<meta property="og:description" content="Demonstração de catálogo e governança de dados com OpenMetadata no contexto Carrefour.">
+<meta property="og:url" content="https://datajen.com.br/carrefour-datacatalog-app.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carrefour · Data Catalog, OpenMetadata Demo">
+<meta name="twitter:description" content="Demonstração de catálogo e governança de dados com OpenMetadata no contexto Carrefour.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+:root{
+  --bg:#0f1117;--panel:#181c26;--card:#1e2333;--border:#2a3148;--ink:#e8ecf4;
+  --muted:#6b7694;--acc:#0077ff;--green:#10b981;--amber:#f59e0b;--red:#ef4444;
+  --purple:#8b5cf6;--mono:'IBM Plex Mono',monospace;--sans:'Inter',sans-serif;
+  --serif:'Source Serif 4',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;padding-top:44px}
+a{color:inherit;text-decoration:none}
+
+/* ── TOPBAR ── */
+.topbar{display:flex;align-items:center;gap:12px;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--panel);position:sticky;top:0;z-index:50}
+.logo-pill{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;letter-spacing:.04em}
+.logo-pill .dot{width:8px;height:8px;border-radius:50%;background:var(--acc)}
+.breadcrumb{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.breadcrumb span{color:var(--ink)}
+.topbar-right{margin-left:auto;display:flex;gap:10px;align-items:center}
+.tbtn{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;border-radius:6px;padding:7px 14px;border:none;cursor:pointer;transition:.2s}
+.tbtn.outline{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.tbtn.outline:hover{border-color:var(--acc);color:var(--acc)}
+.tbtn.primary{background:var(--acc);color:#fff}
+.tbtn.primary:hover{background:#0066dd}
+.tag-live{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3);border-radius:99px;padding:4px 10px;display:flex;gap:5px;align-items:center}
+.tag-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── LAYOUT ── */
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 53px)}
+
+/* ── SIDEBAR ── */
+.sidebar{background:var(--panel);border-right:1px solid var(--border);padding:20px 0}
+.sidebar-section{margin-bottom:6px}
+.sidebar-label{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:0 18px;margin:16px 0 8px}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 18px;font-size:13px;color:var(--muted);cursor:pointer;transition:.15s;border-left:3px solid transparent}
+.sidebar-item:hover{color:var(--ink);background:rgba(255,255,255,.03)}
+.sidebar-item.active{color:var(--ink);background:rgba(0,119,255,.08);border-left-color:var(--acc)}
+.sidebar-item .ico{font-size:15px;flex:none}
+.sidebar-count{margin-left:auto;font-family:var(--mono);font-size:10px;background:rgba(255,255,255,.07);border-radius:99px;padding:2px 8px;color:var(--muted)}
+
+/* ── MAIN ── */
+.main{display:flex;flex-direction:column;overflow:hidden}
+
+/* ── SEARCH BAR ── */
+.search-bar{padding:20px 28px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:center}
+.search-wrap{flex:1;position:relative}
+.search-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
+.search-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 16px 11px 42px;font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;transition:.2s}
+.search-input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,119,255,.12)}
+.search-input::placeholder{color:var(--muted)}
+.filter-chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.06em;border-radius:99px;padding:6px 12px;border:1px solid var(--border);cursor:pointer;transition:.2s;color:var(--muted)}
+.chip.active,.chip:hover{border-color:var(--acc);color:var(--acc);background:rgba(0,119,255,.08)}
+
+/* ── CONTENT AREA ── */
+.content{display:grid;grid-template-columns:minmax(260px,1fr) 360px;flex:1;overflow:hidden}
+.asset-list{padding:16px 18px;overflow-y:auto;max-height:calc(100vh - 180px)}
+.detail-panel{border-left:1px solid var(--border);padding:20px 22px;overflow-y:auto;max-height:calc(100vh - 180px)}
+
+/* ── ASSET CARDS ── */
+.asset-section-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.asset-card{background:var(--card);border:1px solid var(--border);border-left:3px solid transparent;border-radius:12px;padding:16px 18px;margin-bottom:10px;cursor:pointer;transition:.2s;display:flex;align-items:flex-start;gap:14px}
+.asset-card:hover{border-color:var(--acc)!important;background:linear-gradient(rgba(0,119,255,.12),rgba(0,119,255,.12)),var(--card)!important}
+.asset-card.selected{border-color:var(--acc)!important;background:#0c1526!important;box-shadow:0 0 0 1px rgba(0,119,255,.3),0 4px 16px rgba(0,119,255,.1)!important}
+.asset-card[data-type="table"]{border-left-color:rgba(0,119,255,.55)}
+.asset-card[data-type="pipeline"]{border-left-color:rgba(139,92,246,.55)}
+.asset-card[data-type="dashboard"]{border-left-color:rgba(16,185,129,.55)}
+.asset-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex:none}
+.asset-icon.table{background:rgba(0,119,255,.18)}
+.asset-icon.pipeline{background:rgba(139,92,246,.18)}
+.asset-icon.dashboard{background:rgba(16,185,129,.18)}
+.asset-card.selected .asset-icon.table{background:rgba(0,119,255,.32)}
+.asset-card.selected .asset-icon.pipeline{background:rgba(139,92,246,.32)}
+.asset-card.selected .asset-icon.dashboard{background:rgba(16,185,129,.32)}
+/* Card selecionado tem fundo escuro: o texto precisa ficar claro para não sumir */
+.asset-card.selected .asset-name{color:#f4f7ff!important}
+.asset-card.selected .asset-path{color:#93a4c4!important}
+.asset-card.selected .asset-type-pill,.asset-card.selected .owner-chip{color:#b8c4dc!important;border-color:rgba(255,255,255,.18)!important}
+.asset-info{flex:1;min-width:0}
+.asset-name{font-weight:700;font-size:14px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.asset-path{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-bottom:8px}
+.asset-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.quality-badge{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:10px;font-weight:700;border-radius:6px;padding:3px 8px}
+.quality-badge.high{background:rgba(16,185,129,.12);color:var(--green)}
+.quality-badge.med{background:rgba(245,158,11,.12);color:var(--amber)}
+.quality-badge.low{background:rgba(239,68,68,.12);color:var(--red)}
+.owner-chip{font-family:var(--mono);font-size:10px;color:var(--muted);background:rgba(255,255,255,.05);border-radius:4px;padding:2px 7px}
+.asset-type-pill{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:2px 7px}
+
+/* ── DETAIL PANEL ── */
+.dp-header{margin-bottom:20px}
+.dp-title{font-size:18px;font-weight:800;margin-bottom:4px}
+.dp-path{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:14px}
+.dp-tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.dp-tag{font-family:var(--mono);font-size:10px;border-radius:4px;padding:3px 9px;border:1px solid}
+.dp-tag.domain{border-color:rgba(0,119,255,.4);color:#60a5fa;background:rgba(0,119,255,.08)}
+.dp-tag.crit{border-color:rgba(239,68,68,.4);color:#f87171;background:rgba(239,68,68,.08)}
+.dp-tag.owner{border-color:rgba(16,185,129,.4);color:#34d399;background:rgba(16,185,129,.08)}
+.dp-section{margin-bottom:20px}
+.dp-section-title{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.dp-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── QUALITY METER ── */
+.quality-ring{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.ring-wrap{position:relative;width:72px;height:72px;flex:none}
+.ring-wrap svg{transform:rotate(-90deg)}
+.ring-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:16px}
+.quality-breakdown{flex:1}
+.qb-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px}
+.qb-row .label{color:var(--muted)}
+.qb-bar{height:4px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}
+.qb-bar-fill{height:100%;border-radius:2px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+
+/* ── LINEAGE SVG ── */
+.lineage-area{background:#080d18!important;border-radius:10px;padding:16px;border:1px solid rgba(0,119,255,.25)!important;overflow:hidden}
+.lineage-area svg{width:100%;height:auto}
+
+/* ── SCHEMA TABLE ── */
+.schema-table{width:100%;font-size:12px;border-collapse:collapse}
+.schema-table th{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:left;padding:7px 10px;border-bottom:1px solid var(--border)}
+.schema-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.04)}
+.schema-table tr:hover td{background:rgba(255,255,255,.02)}
+.col-type{font-family:var(--mono);font-size:10.5px;color:var(--purple)}
+.col-pii{font-size:10px;color:var(--amber);background:rgba(245,158,11,.1);border-radius:3px;padding:1px 5px}
+.col-pk{font-size:10px;color:var(--acc);background:rgba(0,119,255,.1);border-radius:3px;padding:1px 5px}
+
+/* ── BACK LINK ── */
+.back-link{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--muted);text-decoration:none;transition:.2s;padding:8px 12px;border-radius:8px;border:1px solid var(--border)}
+.back-link:hover{color:var(--ink);border-color:var(--muted)}
+
+/* ── ACTIVITY FEED ── */
+.activity-item{display:flex;gap:10px;margin-bottom:12px;font-size:12px}
+.activity-dot{width:7px;height:7px;border-radius:50%;flex:none;margin-top:4px}
+.activity-dot.green{background:var(--green)}
+.activity-dot.blue{background:var(--acc)}
+.activity-dot.amber{background:var(--amber)}
+.activity-text{color:var(--muted);line-height:1.5}
+.activity-text b{color:var(--ink)}
+.activity-ts{font-family:var(--mono);font-size:9.5px;color:var(--muted);margin-top:2px}
+
+/* RESP-carrefour-datacatalog-app.html */
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .sidebar{display:none}
+  .content{grid-template-columns:1fr}
+  .topbar{flex-wrap:wrap;gap:8px}
+}
+@media(max-width:640px){
+  .topbar{padding:8px 12px}
+  .content{padding:0}
+  .asset-list{max-height:none}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="topbar-dark-override">
+/* Esta página é dark por design; o tema compartilhado força fundo claro no .topbar e apagava o texto claro. */
+html[data-company-theme] .topbar{background:var(--panel)!important;backdrop-filter:none!important}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="openmetadata-collaboration-ui">
+/* Nesta página a orientação fica em um popover discreto, preservando o app. */
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 var(--sans);cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+
+/* Aproxima a hierarquia visual e colaborativa do OpenMetadata. */
+.content{grid-template-columns:minmax(360px,1fr) minmax(440px,.82fr)!important;background:#f5f7fb}
+.asset-list,.detail-panel{background:#f8f9fc}
+.detail-panel,.detail-panel *{color:#0f172a}
+.detail-panel .dp-path,.detail-panel .om-tab{color:#475569!important}
+.detail-panel .om-tab:hover{color:#0f172a!important;background:rgba(15,23,42,.05)!important}
+.detail-panel .om-tab.active{color:#145edb!important}
+.asset-list .asset-section-label{color:#475569}
+.asset-card:hover .asset-name,.asset-card:hover .asset-path{color:inherit}
+.detail-panel .dp-tag{color:#0f172a}
+.detail-panel p{color:#334155}
+.detail-panel{padding:16px 18px!important}
+.asset-card{box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.asset-card:hover{transform:translateY(-1px);box-shadow:0 7px 20px rgba(29,78,216,.08)}
+.dp-product-head{display:flex;align-items:flex-start;gap:11px;margin-bottom:12px}
+.dp-product-icon{width:40px;height:40px;border-radius:10px;background:rgba(0,119,255,.18);display:grid;place-items:center;font-size:20px;flex:none}
+.dp-product-icon.pipeline{background:rgba(139,92,246,.22)}
+.dp-product-icon.dashboard{background:rgba(16,185,129,.22)}
+.dp-product-main{min-width:0;flex:1}
+.dp-head-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.om-action{border:1px solid #d8ddea;border-radius:8px;background:#fff;color:#475569;padding:6px 9px;font:700 11px/1 var(--sans);cursor:pointer;transition:.16s}
+.om-action:hover,.om-action.on{border-color:#2563eb;color:#145edb;background:#eff6ff}
+.om-action.primary{background:#2563eb;color:#fff;border-color:#2563eb}
+.om-tabs{display:flex;gap:0;overflow-x:auto;border-bottom:1px solid var(--border);margin:0 -18px 16px;padding:0 18px}
+.om-tab{border:0;background:transparent;color:var(--muted);padding:10px 13px 11px;font:700 11.5px/1 var(--sans);white-space:nowrap;cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,background .15s;letter-spacing:.01em}
+.om-tab:hover{color:var(--ink);background:rgba(255,255,255,.04)}
+.om-tab.active{color:#60a5fa;border-bottom-color:#3b82f6;background:rgba(59,130,246,.06)}
+.om-overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.om-summary-card{border:1px solid #e0e4ed;border-radius:10px;background:#fff;padding:11px}
+.om-summary-card span{display:block;color:#768198;font-size:10px;margin-bottom:4px}.om-summary-card b{font-size:12px;color:#1f2937}
+.social-composer{border:1px solid #dfe3ec;border-radius:12px;background:#fff;padding:10px;margin-bottom:12px}
+.social-composer textarea{width:100%;min-height:66px;resize:vertical;border:0;outline:0;background:transparent;color:#1f2937;font:500 12px/1.5 var(--sans)}
+.social-compose-actions{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px solid #edf0f5;padding-top:8px}
+.social-hint{font-size:10px;color:#8a94a7}
+.feed-card{display:grid;grid-template-columns:32px 1fr;gap:9px;border:1px solid #e1e5ed;border-radius:12px;background:#fff;padding:11px;margin-bottom:9px}
+.feed-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#ede9fe;color:#6d28d9;font-weight:850;font-size:11px}
+.feed-head{display:flex;justify-content:space-between;gap:8px;font-size:11px}.feed-head b{color:#1f2937}.feed-time{color:#98a1b2;font-size:10px}
+.feed-body{font-size:12px;line-height:1.5;color:#596273;margin-top:4px}.feed-body strong{color:#1f2937}
+.feed-actions{display:flex;gap:12px;margin-top:8px}.feed-actions button{border:0;background:transparent;color:#667085;font:700 10px var(--sans);cursor:pointer;padding:0}.feed-actions button:hover{color:#145edb}
+.task-row{display:flex;align-items:center;gap:9px;border:1px solid #e1e5ed;border-radius:10px;background:#fff;padding:10px;margin-bottom:8px;font-size:11px;color:#475569}.task-state{margin-left:auto;border-radius:99px;padding:3px 7px;background:#fff7ed;color:#c2410c;font-size:9px;font-weight:800}.task-state.done{background:#ecfdf5;color:#047857}
+@media(max-width:1100px){.content{grid-template-columns:1fr 390px!important}}
+@media(max-width:900px){.content{grid-template-columns:1fr!important}.detail-panel{border-left:0;border-top:1px solid var(--border);max-height:none}.context-info-btn{order:3}.context-popover{top:92px}}
+@media(max-width:560px){.om-overview-grid{grid-template-columns:1fr}.dp-head-actions{gap:4px}.om-action{padding:6px 7px}.context-popover{right:10px}}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app","detail-page--catalog");</script>
+<h1 class="sr-only">Carrefour · Data Catalog, OpenMetadata Demo</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#carrefour">Experi&ecirc;ncia Carrefour &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo-pill"><div class="dot"></div>OpenMetadata</div>
+  <div class="breadcrumb">/ <span>Carrefour Brasil</span> / <span>Data Catalog</span></div>
+  <div class="topbar-right">
+    <span class="tag-live">live</span>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+    <a class="back-link" href="experiencia.html#carrefour">← case completo</a>
+  </div>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do OpenMetadata e em problemas reais de governança. Ativos, nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>É uma rede de colaboração em torno dos dados: pessoas encontram um ativo, seguem mudanças, conversam com owners, abrem tarefas, verificam qualidade e navegam pela linhagem antes de usar a informação.</p>
+  <span class="context-action">Explore um ativo e abra “Feed & tarefas”.</span>
+</aside>
+
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Explorar</div>
+      <div class="sidebar-item active" onclick="filterAssets('all')">
+        <span class="ico">🏛️</span> Todos os ativos <span class="sidebar-count">847</span>
+      </div>
+      <div class="sidebar-item" onclick="filterAssets('table')">
+        <span class="ico">📋</span> Tabelas <span class="sidebar-count">612</span>
+      </div>
+      <div class="sidebar-item" onclick="filterAssets('pipeline')">
+        <span class="ico">⚙️</span> Pipelines <span class="sidebar-count">183</span>
+      </div>
+      <div class="sidebar-item" onclick="filterAssets('dashboard')">
+        <span class="ico">📊</span> Dashboards <span class="sidebar-count">52</span>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Domínios</div>
+      <div class="sidebar-item" onclick="filterDomain('vendas')"><span class="ico">🛒</span> Vendas <span class="sidebar-count">241</span></div>
+      <div class="sidebar-item" onclick="filterDomain('estoque')"><span class="ico">📦</span> Estoque <span class="sidebar-count">178</span></div>
+      <div class="sidebar-item" onclick="filterDomain('clientes')"><span class="ico">👥</span> Clientes <span class="sidebar-count">134</span></div>
+      <div class="sidebar-item" onclick="filterDomain('financeiro')"><span class="ico">💰</span> Financeiro <span class="sidebar-count">294</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Qualidade</div>
+      <div class="sidebar-item" onclick="filterQuality('high')"><span class="ico">🟢</span> Alta (>90%) <span class="sidebar-count">523</span></div>
+      <div class="sidebar-item" onclick="filterQuality('med')"><span class="ico">🟡</span> Média (70-90%) <span class="sidebar-count">218</span></div>
+      <div class="sidebar-item" onclick="filterQuality('low')"><span class="ico">🔴</span> Baixa (<70%) <span class="sidebar-count">106</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="search-bar">
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input class="search-input" id="searchInput" placeholder="Buscar tabelas, pipelines, donos, tags…" oninput="onSearch(this.value)">
+      </div>
+      <div class="filter-chips">
+        <span class="chip active" onclick="toggleChip(this,'all')">Todos</span>
+        <span class="chip" onclick="toggleChip(this,'vendas')">Vendas</span>
+        <span class="chip" onclick="toggleChip(this,'estoque')">Estoque</span>
+        <span class="chip" onclick="toggleChip(this,'pii')">PII</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- ASSET LIST -->
+      <div class="asset-list" id="assetList">
+        <div class="asset-section-label">Resultado da busca, 847 ativos</div>
+        <!-- Cards rendered by JS -->
+      </div>
+
+      <!-- DETAIL PANEL -->
+      <div class="detail-panel" id="detailPanel">
+        <!-- Filled by JS on select -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ASSETS = [
+  {id:1, type:'table', icon:'📋', name:'sales_daily_agg', path:'bigquery.carrefour-datalake.vendas', domain:'vendas', quality:96, owner:'jen.evangelista', criticidade:'alta', desc:'Agregação diária de vendas PDV, e-commerce e self-checkout. Alimenta reposição em tempo real e BI comercial.', tags:['dominio:vendas','criticidade:alta','sla:99.5%'], schema:[{col:'sale_date',type:'DATE',pk:true},{col:'store_id',type:'STRING',pk:true},{col:'sku',type:'STRING',pk:true},{col:'units_sold',type:'INTEGER'},{col:'revenue',type:'FLOAT64'},{col:'channel',type:'STRING'},{col:'customer_id',type:'STRING',pii:true}], lineageIn:['pdv_raw_events','ecomm_orders_stream'], lineageOut:['BI_comercial','reposicao_realtime','mktg_personalizado'], completeness:98, freshness:100, uniqueness:94},
+  {id:2, type:'table', icon:'📋', name:'customer_360_profile', path:'bigquery.carrefour-datalake.clientes', domain:'clientes', quality:91, owner:'data-team-clientes', criticidade:'alta', desc:'Perfil unificado de cliente com histórico de compras, preferências e score de propensidade.', tags:['dominio:clientes','pii:alto','criticidade:alta'], schema:[{col:'customer_id',type:'STRING',pk:true},{col:'cpf_hash',type:'STRING',pii:true},{col:'loyalty_tier',type:'STRING'},{col:'ltv_30d',type:'FLOAT64'},{col:'propensity_score',type:'FLOAT64'},{col:'last_purchase_ts',type:'TIMESTAMP'},{col:'consent_marketing',type:'BOOLEAN'}], lineageIn:['crm_events','loyalty_transactions'], lineageOut:['mktg_campaigns','recomendacoes_app'], completeness:94, freshness:91, uniqueness:99},
+  {id:3, type:'pipeline', icon:'⚙️', name:'sales_streaming_ingestion', path:'airflow.carrefour-gcp.pipelines', domain:'vendas', quality:99, owner:'jen.evangelista', criticidade:'critica', desc:'Cloud Function + Pub/Sub capturando eventos de venda em tempo real. SLA < 2s de latência.', tags:['streaming','sla:2s','criticidade:critica'], schema:[], lineageIn:['pubsub.carrefour.sales_events'], lineageOut:['sales_daily_agg','reposicao_realtime'], completeness:100, freshness:100, uniqueness:98},
+  {id:4, type:'table', icon:'📋', name:'inventory_snapshot_daily', path:'bigquery.carrefour-datalake.estoque', domain:'estoque', quality:88, owner:'data-team-supply', criticidade:'alta', desc:'Snapshot diário de estoque por SKU e loja. Base para reposição automática e alertas de ruptura.', tags:['dominio:estoque','batch:daily'], schema:[{col:'snapshot_date',type:'DATE',pk:true},{col:'store_id',type:'STRING',pk:true},{col:'sku',type:'STRING',pk:true},{col:'qty_on_hand',type:'INTEGER'},{col:'qty_in_transit',type:'INTEGER'},{col:'reorder_point',type:'INTEGER'},{col:'days_of_supply',type:'FLOAT64'}], lineageIn:['wms_export','supplier_api'], lineageOut:['reposicao_realtime','BI_supply','alertas_ruptura'], completeness:89, freshness:87, uniqueness:100},
+  {id:5, type:'dashboard', icon:'📊', name:'Painel Executivo de Vendas', path:'looker.carrefour.dashboards', domain:'financeiro', quality:95, owner:'bi-team', criticidade:'media', desc:'Dashboard de KPIs comerciais: faturamento, ticket médio, conversão e top SKUs por região.', tags:['executivo','bi','vendas'], schema:[], lineageIn:['sales_daily_agg','customer_360_profile'], lineageOut:[], completeness:96, freshness:95, uniqueness:94},
+  {id:6, type:'table', icon:'📋', name:'fraud_risk_events', path:'bigquery.carrefour-datalake.financeiro', domain:'financeiro', quality:82, owner:'data-team-risk', criticidade:'alta', desc:'Eventos de risco de fraude em transações. Modelo de detecção com score 0-100.', tags:['dominio:financeiro','pii:alto','criticidade:alta','ml:score'], schema:[{col:'event_id',type:'STRING',pk:true},{col:'transaction_ts',type:'TIMESTAMP'},{col:'store_id',type:'STRING'},{col:'amount',type:'FLOAT64'},{col:'fraud_score',type:'FLOAT64'},{col:'cpf_hash',type:'STRING',pii:true},{col:'decision',type:'STRING'}], lineageIn:['payment_events_raw'], lineageOut:['fraud_alerts','compliance_report'], completeness:83, freshness:80, uniqueness:99},
+  {id:7, type:'pipeline', icon:'⚙️', name:'data_quality_validation_dag', path:'airflow.carrefour-gcp.quality', domain:'vendas', quality:100, owner:'jen.evangelista', criticidade:'alta', desc:'DAG Airflow verificando qualidade de dados em todas as zonas do lake. Bloqueia promoção de dado ruim.', tags:['qualidade','tdd','sla:99%'], schema:[], lineageIn:['sales_daily_agg','inventory_snapshot_daily'], lineageOut:['quality_report_slack','data_ops_log'], completeness:100, freshness:100, uniqueness:100},
+];
+
+let selectedId = 1;
+let currentFilter = 'all';
+
+function qColor(q){return q>=90?'high':q>=70?'med':'low'}
+function qLabel(q){return q>=90?'Alta':q>=70?'Média':'Baixa'}
+
+function renderList(assets){
+  document.getElementById('assetList').innerHTML =
+    `<div class="asset-section-label">Resultado, ${assets.length} ativos encontrados</div>` +
+    assets.map(a=>`
+    <div class="asset-card${a.id===selectedId?' selected':''}" data-type="${a.type}" onclick="selectAsset(${a.id})">
+      <div class="asset-icon ${a.type}">${a.icon}</div>
+      <div class="asset-info">
+        <div class="asset-name">${a.name}</div>
+        <div class="asset-path">${a.path}</div>
+        <div class="asset-meta">
+          <span class="quality-badge ${qColor(a.quality)}">▲ ${a.quality}%</span>
+          <span class="asset-type-pill">${a.type}</span>
+          <span class="owner-chip">${a.owner}</span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function buildLineageSVG(asset){
+  if(!asset.lineageIn.length && !asset.lineageOut.length) return '<p style="color:var(--muted);font-size:12px;text-align:center;padding:20px">Sem linhagem registrada</p>';
+  const W=332, H=110, cx=W/2, cy=H/2;
+  let svg=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 Z" fill="#0077ff" opacity=".6"/></marker></defs>`;
+  // Source nodes
+  asset.lineageIn.forEach((s,i)=>{
+    const y=i*(28+6)+16;
+    svg+=`<rect x="4" y="${y}" width="130" height="24" rx="5" fill="#0d1a2e" stroke="#1e4080"/>
+    <text x="12" y="${y+15}" fill="#93b4dc" font-size="9" font-family="IBM Plex Mono">${s.substring(0,18)}</text>
+    <line x1="134" y1="${y+12}" x2="${cx-44}" y2="${cy}" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 3" opacity=".8" marker-end="url(#arr)"/>`;
+  });
+  // Central node
+  svg+=`<rect x="${cx-44}" y="${cy-17}" width="88" height="34" rx="8" fill="#1d4ed8"/>
+  <rect x="${cx-44}" y="${cy-17}" width="88" height="34" rx="8" fill="url(#nodeGrad)" opacity=".4"/>
+  <text x="${cx}" y="${cy+6}" fill="#fff" font-size="9" font-weight="700" text-anchor="middle" font-family="IBM Plex Mono">${asset.name.substring(0,12)}</text>`;
+  // Output nodes
+  asset.lineageOut.forEach((t,i)=>{
+    const y=i*(28+6)+16;
+    svg+=`<line x1="${cx+44}" y1="${cy}" x2="${W-138}" y2="${y+12}" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 3" opacity=".8" marker-end="url(#arr)"/>
+    <rect x="${W-134}" y="${y}" width="130" height="24" rx="5" fill="#091a14" stroke="#0d5c3a"/>
+    <text x="${W-126}" y="${y+15}" fill="#6ee7b7" font-size="9" font-family="IBM Plex Mono">${t.substring(0,18)}</text>`;
+  });
+  svg+=`</svg>`;
+  return svg;
+}
+
+function buildQualityRing(q){
+  const r=28, c=36, circ=2*Math.PI*r, dash=circ*(q/100);
+  const col=q>=90?'#10b981':q>=70?'#f59e0b':'#ef4444';
+  return `<svg width="72" height="72" viewBox="0 0 72 72">
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="7"/>
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${col}" stroke-width="7"
+      stroke-dasharray="${dash} ${circ}" stroke-linecap="round"
+      style="transition:stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1);transform:rotate(-90deg);transform-origin:center"/>
+  </svg><div class="ring-val" style="color:${col}">${q}%</div>`;
+}
+
+let detailTab='overview';
+const SOCIAL={};
+function socialFor(a){
+  if(!SOCIAL[a.id]) SOCIAL[a.id]={following:false,likes:2+a.id,comments:[
+    {who:'Jennifer',time:'agora',body:`Documentação funcional revisada para <strong>${a.name}</strong>. Owner e criticidade confirmados.`},
+    {who:'Data Steward',time:'há 2h',body:`A qualidade foi recalculada: completeness ${a.completeness}% e freshness ${a.freshness}%.`}
+  ],tasks:[
+    {text:'Validar descrição com o domínio de negócio',done:false},
+    {text:'Confirmar owner e SLA do ativo',done:true}
+  ]};
+  return SOCIAL[a.id];
+}
+function renderOverview(a){
+  return `
+    <div class="om-overview-grid">
+      <div class="om-summary-card"><span>Tipo</span><b>${a.type}</b></div>
+      <div class="om-summary-card"><span>Owner</span><b>${a.owner}</b></div>
+      <div class="om-summary-card"><span>Domínio</span><b>${a.domain}</b></div>
+      <div class="om-summary-card"><span>Certificação</span><b>◉ Gold</b></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Score de Qualidade</div>
+      <div class="quality-ring">
+        <div class="ring-wrap">${buildQualityRing(a.quality)}</div>
+        <div class="quality-breakdown">
+          ${[['Completeness',a.completeness],['Freshness',a.freshness],['Uniqueness',a.uniqueness]].map(([k,v])=>`
+          <div class="qb-row"><span class="label">${k}</span><span style="font-family:var(--mono);font-size:11px">${v}%</span></div>
+          <div class="qb-bar"><div class="qb-bar-fill" style="width:${v}%;background:${v>=90?'var(--green)':v>=70?'var(--amber)':'var(--red)'}"></div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    ${a.schema.length?`
+    <div class="dp-section">
+      <div class="dp-section-title">Schema (${a.schema.length} colunas)</div>
+      <table class="schema-table">
+        <tr><th>Coluna</th><th>Tipo</th><th>Flag</th></tr>
+        ${a.schema.map(c=>`<tr><td style="font-family:var(--mono);font-size:11.5px">${c.col}</td><td class="col-type">${c.type}</td><td>${c.pk?`<span class="col-pk">PK</span>`:''}${c.pii?`<span class="col-pii">PII</span>`:''}</td></tr>`).join('')}
+      </table>
+    </div>`:''}`;
+}
+function renderFeed(a){
+  const s=socialFor(a);
+  return `
+    <div class="social-composer">
+      <textarea id="feedComposer" placeholder="Compartilhe contexto, marque um owner ou abra uma discussão sobre este ativo..."></textarea>
+      <div class="social-compose-actions"><span class="social-hint">Use @owner para envolver o responsável</span><button class="om-action primary" onclick="postFeed()">Publicar no feed</button></div>
+    </div>
+    <div class="dp-section-title">Atividade da comunidade</div>
+    <div id="feedItems">${s.comments.map((c,i)=>`<article class="feed-card"><div class="feed-avatar">${c.who.slice(0,1)}</div><div><div class="feed-head"><b>${c.who}</b><span class="feed-time">${c.time}</span></div><div class="feed-body">${c.body}</div><div class="feed-actions"><button onclick="likeFeed(this)">♡ útil</button><button onclick="replyFeed(${i})">↳ responder</button><button onclick="createTaskFromFeed(${i})">☑ criar tarefa</button></div></div></article>`).join('')}</div>`;
+}
+function renderTasks(a){
+  const s=socialFor(a);
+  return `<div class="social-composer"><textarea id="taskComposer" placeholder="Descreva a tarefa de governança ou documentação..."></textarea><div class="social-compose-actions"><span class="social-hint">A tarefa ficará ligada a ${a.name}</span><button class="om-action primary" onclick="addTask()">Criar tarefa</button></div></div><div class="dp-section-title">Tarefas do ativo</div><div id="taskItems">${s.tasks.map((t,i)=>`<div class="task-row"><button class="om-action" onclick="toggleTask(${i})">${t.done?'✓':'○'}</button><span>${t.text}</span><span class="task-state ${t.done?'done':''}">${t.done?'resolvida':'aberta'}</span></div>`).join('')}</div>`;
+}
+function renderLineageTab(a){return `<div class="dp-section"><div class="dp-section-title">Linhagem de dados</div><p style="font-size:12px;line-height:1.5;color:var(--muted);margin-bottom:10px">Veja a origem, os consumidores e o impacto de uma alteração antes de publicar.</p><div class="lineage-area">${buildLineageSVG(a)}</div></div>`}
+function renderDetailBody(a){
+  if(detailTab==='feed') return renderFeed(a);
+  if(detailTab==='tasks') return renderTasks(a);
+  if(detailTab==='lineage') return renderLineageTab(a);
+  return renderOverview(a);
+}
+function selectAsset(id){
+  selectedId=id;
+  const a=ASSETS.find(x=>x.id===id);
+  const social=socialFor(a);
+  const dp=document.getElementById('detailPanel');
+  dp.innerHTML=`
+    <div class="dp-header">
+      <div class="dp-product-head"><div class="dp-product-icon ${a.type}">${a.icon}</div><div class="dp-product-main"><div class="dp-title">${a.name}</div><div class="dp-path">${a.path}</div></div></div>
+      <div class="dp-tags">
+        <span class="dp-tag domain">📁 ${a.domain}</span><span class="dp-tag crit">⚠️ ${a.criticidade}</span><span class="dp-tag owner">👤 ${a.owner}</span>${a.tags.filter(t=>t.startsWith('sla')).map(t=>`<span class="dp-tag domain">🎯 ${t}</span>`).join('')}
+      </div>
+      <p style="font-size:13px;line-height:1.65;color:var(--muted)">${a.desc}</p>
+      <div class="dp-head-actions"><button class="om-action ${social.following?'on':''}" onclick="toggleFollow()">${social.following?'★ Seguindo':'☆ Seguir'}</button><button class="om-action" onclick="likeAsset(this)">♡ ${social.likes}</button><button class="om-action" onclick="switchDetailTab('feed')">💬 ${social.comments.length}</button><button class="om-action" onclick="switchDetailTab('tasks')">☑ ${social.tasks.filter(t=>!t.done).length}</button></div>
+    </div>
+    <nav class="om-tabs" aria-label="Seções do ativo"><button class="om-tab ${detailTab==='overview'?'active':''}" onclick="switchDetailTab('overview')">Visão geral</button><button class="om-tab ${detailTab==='feed'?'active':''}" onclick="switchDetailTab('feed')">Feed & conversas <b>${social.comments.length}</b></button><button class="om-tab ${detailTab==='tasks'?'active':''}" onclick="switchDetailTab('tasks')">Tarefas <b>${social.tasks.filter(t=>!t.done).length}</b></button><button class="om-tab ${detailTab==='lineage'?'active':''}" onclick="switchDetailTab('lineage')">Linhagem</button></nav>
+    <div id="detailBody">${renderDetailBody(a)}</div>`;
+
+  renderList(ASSETS);
+}
+
+function switchDetailTab(tab){detailTab=tab;selectAsset(selectedId)}
+function toggleFollow(){const a=ASSETS.find(x=>x.id===selectedId);const s=socialFor(a);s.following=!s.following;s.comments.unshift({who:'Você',time:'agora',body:s.following?'Passou a seguir este ativo e receber atualizações.':'Deixou de seguir este ativo.'});selectAsset(selectedId)}
+function likeAsset(){const s=socialFor(ASSETS.find(x=>x.id===selectedId));s.likes+=1;selectAsset(selectedId)}
+function likeFeed(btn){btn.textContent='♥ útil';btn.style.color='#145edb'}
+function postFeed(){const input=document.getElementById('feedComposer');const value=input&&input.value.trim();if(!value)return;socialFor(ASSETS.find(x=>x.id===selectedId)).comments.unshift({who:'Você',time:'agora',body:value.replace(/[<>]/g,'')});selectAsset(selectedId)}
+function replyFeed(){const input=document.getElementById('feedComposer');if(input){input.value='@owner ';input.focus()}}
+function createTaskFromFeed(){detailTab='tasks';const s=socialFor(ASSETS.find(x=>x.id===selectedId));s.tasks.unshift({text:'Revisar contexto levantado no feed',done:false});selectAsset(selectedId)}
+function addTask(){const input=document.getElementById('taskComposer');const value=input&&input.value.trim();if(!value)return;socialFor(ASSETS.find(x=>x.id===selectedId)).tasks.unshift({text:value.replace(/[<>]/g,''),done:false});selectAsset(selectedId)}
+function toggleTask(i){const s=socialFor(ASSETS.find(x=>x.id===selectedId));s.tasks[i].done=!s.tasks[i].done;selectAsset(selectedId)}
+
+function onSearch(q){
+  const filtered = q.trim()
+    ? ASSETS.filter(a=>a.name.includes(q.toLowerCase())||a.domain.includes(q.toLowerCase())||a.desc.toLowerCase().includes(q.toLowerCase()))
+    : ASSETS;
+  renderList(filtered);
+}
+
+function filterAssets(type){
+  document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const f = type==='all'?ASSETS:ASSETS.filter(a=>a.type===type);
+  renderList(f);
+}
+function filterDomain(d){
+  document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  renderList(ASSETS.filter(a=>a.domain===d));
+}
+function filterQuality(tier){
+  document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  renderList(ASSETS.filter(a=>qColor(a.quality)===tier));
+}
+function toggleChip(el,v){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  if(v==='pii') renderList(ASSETS.filter(a=>a.tags.some(t=>t.includes('pii'))));
+  else if(v==='all') renderList(ASSETS);
+  else renderList(ASSETS.filter(a=>a.domain===v));
+}
+
+// Init
+selectAsset(1);
+
+const contextInfoBtn=document.getElementById('contextInfoBtn');
+const contextPopover=document.getElementById('contextPopover');
+if(contextInfoBtn&&contextPopover){
+  const closeContext=()=>{
+    contextPopover.classList.remove('open');
+    contextInfoBtn.setAttribute('aria-expanded','false');
+  };
+  contextInfoBtn.addEventListener('click',event=>{
+    event.stopPropagation();
+    const isOpen=contextPopover.classList.toggle('open');
+    contextInfoBtn.setAttribute('aria-expanded',String(isOpen));
+  });
+  contextPopover.addEventListener('click',event=>event.stopPropagation());
+  document.addEventListener('click',closeContext);
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')closeContext()});
+}
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

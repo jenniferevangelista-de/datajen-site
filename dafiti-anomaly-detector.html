@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dafiti · Anomaly Detector</title>
+<meta name="description" content="Demonstração de detecção de anomalias em dados no contexto Dafiti.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/dafiti-anomaly-detector.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Dafiti · Anomaly Detector">
+<meta property="og:description" content="Demonstração de detecção de anomalias em dados no contexto Dafiti.">
+<meta property="og:url" content="https://datajen.com.br/dafiti-anomaly-detector.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dafiti · Anomaly Detector">
+<meta name="twitter:description" content="Demonstração de detecção de anomalias em dados no contexto Dafiti.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+:root{
+  --bg:#08060e;--panel:#0e0a1a;--card:#130d22;--card2:#1a1030;
+  --acc:#e91e8c;--acc2:#c41570;--green:#10b981;--red:#ef4444;--warn:#f59e0b;--blue:#38bdf8;
+  --text:#f0e6ff;--sub:#8b7aa8;--border:#1e1530;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;font-size:13px;overflow-x:hidden;padding-top:44px}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.dafiti-dot{width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,var(--acc),#9333ea);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.pill{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;border:1px solid}
+.pill-live{background:rgba(233,30,140,.12);color:var(--acc);border-color:rgba(233,30,140,.3)}
+.pill-case{background:rgba(255,255,255,.05);color:var(--sub);border-color:var(--border);text-decoration:none;cursor:pointer}
+.pill-case:hover{color:var(--text);border-color:var(--sub)}
+
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+
+/* MODERNIZATION CONTEXT */
+.modernization{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.8fr);gap:12px;padding:12px 20px;background:linear-gradient(135deg,#10081c,#170b25);border-bottom:1px solid var(--border)}
+.modern-story,.modern-proof{border:1px solid rgba(233,30,140,.25);border-radius:14px;background:linear-gradient(145deg,rgba(233,30,140,.10),rgba(147,51,234,.05));padding:13px 15px}
+.modern-label{font:800 9px/1.2 'Fira Code',monospace;text-transform:uppercase;letter-spacing:.16em;color:#f472b6;margin-bottom:6px}.modern-story h2{font-size:20px;line-height:1.12;margin-bottom:6px;color:#fff}.modern-story p{font-size:11px;color:#d8cce7;line-height:1.55;max-width:940px}.modern-stack{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.modern-stack span{padding:4px 8px;border:1px solid rgba(244,114,182,.22);border-radius:999px;background:rgba(233,30,140,.08);font:700 9px/1 'Fira Code',monospace;color:#fbcfe8}
+.modern-proof{display:grid;grid-template-columns:1fr 1fr;gap:7px}.proof-item{background:rgba(8,6,14,.58);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:9px}.proof-item strong{display:block;font-size:16px;color:#fff}.proof-item span{font-size:9px;color:#cdbfda;text-transform:uppercase;letter-spacing:.05em}
+
+/* ETL SPEED BAR */
+.etl-bar{background:var(--panel);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:16px}
+.etl-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--sub);min-width:100px}
+.etl-tracks{flex:1;display:flex;flex-direction:column;gap:5px}
+.etl-track{display:flex;align-items:center;gap:8px}
+.etl-name{font-size:10px;width:80px;color:var(--sub)}
+.etl-bg{flex:1;height:12px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden}
+.etl-fill{height:100%;border-radius:6px;transition:width 1.5s cubic-bezier(.2,1,.3,1)}
+.etl-fill.bq{background:linear-gradient(90deg,#4285f4,#34a853);width:0}
+.etl-fill.emr{background:linear-gradient(90deg,var(--acc),#9333ea);width:0}
+.etl-time{font-size:11px;font-weight:800;min-width:40px;text-align:right}
+.etl-badge{padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+
+/* SCENARIO SELECTOR */
+.scenario-bar{display:flex;align-items:center;gap:8px;padding:10px 20px;border-bottom:1px solid var(--border)}
+.sc-label{font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
+.sc-btn{padding:5px 13px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--sub);transition:all .18s}
+.sc-btn:hover,.sc-btn.active{color:var(--text);border-color:var(--acc);background:rgba(233,30,140,.1)}
+.threshold-control{display:flex;align-items:center;gap:8px;margin-left:8px;color:var(--sub);font-size:10px}.threshold-control input{accent-color:var(--acc);width:110px}.threshold-control output{color:#f9a8d4;font-weight:800;min-width:34px}
+.scan-btn{margin-left:auto;padding:7px 18px;background:var(--acc);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.scan-btn:hover{background:var(--acc2)}
+.scan-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* MAIN */
+.main{display:grid;grid-template-columns:1fr 310px;gap:10px;padding:10px 20px;min-height:640px;height:calc(100vh - 328px)}
+
+/* PRODUCT TABLE */
+.products-panel{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.prod-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.prod-title{font-size:12px;font-weight:700}
+.prod-meta{font-size:10px;color:var(--sub)}
+.prod-progress{height:3px;background:var(--border);flex-shrink:0}
+.prod-prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),#9333ea);width:0;transition:width .4s ease}
+
+.prod-table{flex:1;overflow-y:auto;overflow-x:auto}
+.prod-th{display:grid;grid-template-columns:minmax(120px,2fr) 65px 65px 65px 100px 72px;gap:4px;padding:7px 12px;background:var(--card2);font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;position:sticky;top:0;z-index:2;flex-shrink:0;min-width:560px}
+.prod-row{display:grid;grid-template-columns:minmax(120px,2fr) 65px 65px 65px 100px 72px;gap:4px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.04);align-items:center;transition:background .15s;min-width:560px}
+.prod-row:hover{background:rgba(255,255,255,.03)}
+.prod-row{cursor:pointer}.prod-row:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}.prod-row.selected{background:rgba(233,30,140,.12);box-shadow:inset 3px 0 var(--acc)}
+.prod-row.scanning{animation:scan-flash .5s ease-in-out}
+.prod-row.anomaly{background:rgba(239,68,68,.06);border-left:3px solid var(--red)}
+@keyframes scan-flash{0%,100%{background:transparent}50%{background:rgba(233,30,140,.1)}}
+
+.prod-name{font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+.prod-cat{display:inline-block;font-size:9px;padding:1px 5px;border-radius:4px;background:rgba(255,255,255,.07);color:var(--sub);font-weight:700}
+.prod-num{font-size:12px;font-weight:700;text-align:right}
+.prod-num.up{color:var(--green)}.prod-num.down{color:var(--red)}.prod-num.neutral{color:var(--text)}
+
+.score-bar-wrap{position:relative}
+.score-bg{width:100%;height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+.score-fill{height:100%;border-radius:4px;width:0;transition:width .8s ease}
+.score-tag{font-size:9px;font-weight:700;margin-top:2px;opacity:0;transition:opacity .4s}
+
+.anomaly-badge{padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700;white-space:nowrap;opacity:0;transition:opacity .4s}
+.ab-ok{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.ab-anomaly{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.ab-warn{background:rgba(245,158,11,.1);color:var(--warn);border:1px solid rgba(245,158,11,.25)}
+
+/* RIGHT PANEL */
+.right{display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+
+.stats-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px;flex-shrink:0}
+.sc-title{font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sc-stat{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.sc-num{font-size:20px;font-weight:900;margin-bottom:2px}
+.sc-lbl{font-size:10px;color:var(--sub)}
+
+.alert-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;flex-shrink:0}
+.alert-feed{display:flex;flex-direction:column;gap:5px;max-height:220px;overflow-y:auto}
+.slack-msg{background:#1a1f36;border-radius:8px;padding:9px 10px;border-left:3px solid var(--acc)}
+.slack-msg.ok{border-left-color:var(--green)}
+.slack-header{display:flex;align-items:center;gap:5px;margin-bottom:4px}
+.slack-app{font-size:11px;font-weight:700;color:var(--acc)}
+.slack-time{font-size:10px;color:var(--sub)}
+.slack-body{font-size:11px;line-height:1.5;color:#c9d1f0}
+.slack-body b{color:var(--red)}
+.slack-body.ok-body{color:#c9d1f0}
+
+.model-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;flex-shrink:0}
+.investigation-card{background:linear-gradient(145deg,rgba(233,30,140,.14),rgba(147,51,234,.08));border:1px solid rgba(244,114,182,.28);border-radius:12px;padding:13px;flex-shrink:0}.inv-kicker{font:800 9px/1 'Fira Code',monospace;color:#f9a8d4;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}.inv-title{font-size:15px;font-weight:850;margin-bottom:5px}.inv-copy{font-size:10px;line-height:1.5;color:#c4b5d8}.inv-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}.inv-action{border:1px solid rgba(244,114,182,.25);background:rgba(233,30,140,.10);color:#fbcfe8;border-radius:7px;padding:7px;font-size:9px;font-weight:800;cursor:pointer}.inv-action:hover{background:rgba(233,30,140,.22)}
+.model-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px}
+.model-row:last-child{border:none}
+.model-key{color:var(--sub)}
+.model-val{font-weight:700}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+@media(max-width:940px){.modernization{grid-template-columns:1fr}.main{grid-template-columns:1fr;height:auto}.right{overflow:visible}.scenario-bar{flex-wrap:wrap}.scan-btn{margin-left:0}}
+@media(max-width:700px){.modernization{padding:10px}.modern-proof{grid-template-columns:1fr 1fr}.main{grid-template-columns:1fr}.prod-th,.prod-row{grid-template-columns:2fr 70px 70px 90px}.threshold-control{width:100%;margin-left:0}.threshold-control input{flex:1}.scan-btn{width:100%;justify-content:center}}
+
+/* RESP-dafiti-anomaly-detector.html */
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 12px}
+  .main{padding:8px 10px;gap:8px;height:auto}
+  .right{overflow-y:visible}
+  .prod-th,.prod-row{grid-template-columns:1fr 60px 60px}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="topbar-contrast-fix">
+/* O tema compartilhado clareia o fundo da topbar; o texto desta pagina era claro e sumia. */
+html[data-company-theme] .topbar .topbar-left{color:#1a1a1a!important}
+html[data-company-theme] .topbar .pill-live{color:#9d174d!important;background:rgba(233,30,140,.14)!important}
+html[data-company-theme] .topbar .pill-case{color:#334155!important}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<link rel="stylesheet" href="flow-explorer.css?v=20261029-route-safe">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Dafiti · Anomaly Detector</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#dafiti">Experi&ecirc;ncia Dafiti &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="dafiti-dot">D</div>
+    Dafiti · ML Anomaly Detector
+  </div>
+  <div class="topbar-right">
+    <span class="pill pill-live">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+    <a href="experiencia.html#dafiti" class="pill pill-case">← case completo</a>
+  </div>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este detector recria a introdução de Spark e AWS na análise de vendas da Dafiti. PySpark processa o volume distribuído e o modelo compara cada cenário com o comportamento esperado para apontar desvios; para o negócio, evidencia onde investigar estoque, campanha ou operação antes que uma anomalia vire uma decisão equivocada.</p>
+  <span class="context-action"><b>O que faz:</b> Modelo Spark detecta quando vendas caem fora do padrão esperado. <b>Experimente:</b> escolha cenário (Black Friday/normal), simule checagem, compare. <b>O que a demo mostra:</b> como um alerta sintético pode orientar investigação de uma variação nas vendas.</span>
+</aside>
+
+<section class="modernization" aria-label="Modernização de dados Dafiti">
+  <div class="modern-story">
+    <div class="modern-label">Spark e AWS como alavancas de escala</div>
+    <h2>Jennifer levou processamento distribuído para a engenharia de dados da Dafiti.</h2>
+    <p>Esta reconstrução mostra a modernização de cargas antes concentradas em consultas BigQuery para pipelines PySpark no Amazon EMR, com dados no Amazon S3 e orquestração Airflow. A mudança abriu espaço para processar volumes maiores, reduzir gargalos e incorporar detecção de anomalias à operação de e-commerce.</p>
+    <div class="modern-stack"><span>BigQuery</span><span>PySpark</span><span>Amazon EMR</span><span>Amazon S3</span><span>Airflow</span><span>IsolationForest</span><span>Data Quality</span></div>
+  </div>
+  <div class="modern-proof">
+    <div class="proof-item"><strong>500M</strong><span>linhas no cenário didático</span></div>
+    <div class="proof-item"><strong>12×</strong><span>comparativo ilustrativo</span></div>
+    <div class="proof-item"><strong>3 cenários</strong><span>normal, campanha e pico</span></div>
+    <div class="proof-item"><strong>1 investigação</strong><span>do alerta à ação</span></div>
+  </div>
+</section>
+
+<!-- ETL SPEED BAR -->
+<div class="etl-bar">
+  <div class="etl-label">ETL · 500M rows</div>
+  <div class="etl-tracks">
+    <div class="etl-track">
+      <div class="etl-name">BigQuery SQL</div>
+      <div class="etl-bg"><div class="etl-fill bq" id="bqBar"></div></div>
+      <div class="etl-time" id="bqTime" style="color:var(--sub)">8 min</div>
+    </div>
+    <div class="etl-track">
+      <div class="etl-name">PySpark · EMR</div>
+      <div class="etl-bg"><div class="etl-fill emr" id="emrBar"></div></div>
+      <div class="etl-time" id="emrTime" style="color:var(--acc)">40 s</div>
+    </div>
+  </div>
+  <div class="etl-badge">12× mais rápido</div>
+</div>
+
+<!-- SCENARIO BAR -->
+<div class="scenario-bar">
+  <div class="sc-label">Cenário</div>
+  <button class="sc-btn active" onclick="setScenario('normal',this)">Dia normal</button>
+  <button class="sc-btn" onclick="setScenario('blackfriday',this)">Black Friday</button>
+  <button class="sc-btn" onclick="setScenario('campanha',this)">Campanha verão</button>
+  <label class="threshold-control">Limite para gerar alerta
+    <input id="thresholdRange" type="range" min="65" max="95" value="80" step="5" aria-label="Limite para gerar alerta" aria-describedby="thresholdHelp">
+    <output id="thresholdOut">0,80</output><span id="thresholdHelp" class="threshold-explainer">Score de 0 a 1: acima do limite, gera alerta. Limite menor = mais alertas; maior = menos alertas.</span>
+  </label>
+  <button class="scan-btn" id="scanBtn" onclick="runScan()">
+    <span>🔍</span> Executar scan ML
+  </button>
+</div>
+
+<div class="main">
+  <!-- PRODUCT TABLE -->
+  <div class="products-panel">
+    <div class="prod-head">
+      <div class="prod-title">📦 Catálogo · Detecção de anomalias por SKU</div>
+      <div class="prod-meta" id="scanStatus">Aguardando scan…</div>
+    </div>
+    <div class="prod-progress"><div class="prod-prog-fill" id="scanProg"></div></div>
+    <div class="prod-th">
+      <div>Produto</div><div style="text-align:right">Hoje</div><div style="text-align:right">Esperado</div><div style="text-align:right">Variação</div><div>Anomaly Score</div><div>Status</div>
+    </div>
+    <div class="prod-table" id="prodTable"></div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="investigation-card" id="investigationCard" aria-live="polite">
+      <div class="inv-kicker">Investigação orientada</div>
+      <div class="inv-title" id="invTitle">Execute o scan e escolha um SKU</div>
+      <div class="inv-copy" id="invCopy">O painel cruza venda atual, comportamento esperado e score. Depois do scan, clique em qualquer linha para abrir uma hipótese e a próxima ação recomendada.</div>
+      <div class="inv-actions">
+        <button type="button" class="inv-action" id="invStock">Simular checagem de estoque</button>
+        <button type="button" class="inv-action" id="invCampaign">Comparar campanha</button>
+      </div>
+    </div>
+    <div class="stats-card">
+      <div class="sc-title">Resumo do scan</div>
+      <div class="sc-grid">
+        <div class="sc-stat"><div class="sc-num" id="stTotal" style="color:var(--text)">—</div><div class="sc-lbl">SKUs analisados</div></div>
+        <div class="sc-stat"><div class="sc-num" id="stAnom" style="color:var(--red)">—</div><div class="sc-lbl">Anomalias</div></div>
+        <div class="sc-stat"><div class="sc-num" id="stTime" style="color:var(--acc)">—</div><div class="sc-lbl">Tempo scan</div></div>
+        <div class="sc-stat"><div class="sc-num" id="stFP" style="color:var(--green)">—</div><div class="sc-lbl">Falso positivo</div></div>
+      </div>
+    </div>
+
+    <div class="alert-card">
+      <div class="sc-title">🔔 Slack · #operacoes-estoque</div>
+      <div class="alert-feed" id="alertFeed">
+        <div class="slack-msg ok">
+          <div class="slack-header"><span class="slack-app">DafitiBot</span><span class="slack-time">Ontem 14:02</span></div>
+          <div class="slack-body ok-body">✅ Scan anterior: 12 SKUs normais. Nenhuma reposição urgente.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="model-card">
+      <div class="sc-title">🤖 Modelo · IsolationForest</div>
+      <div class="model-row"><span class="model-key">Algoritmo</span><span class="model-val">IsolationForest</span></div>
+      <div class="model-row"><span class="model-key">Contaminação</span><span class="model-val">5%</span></div>
+      <div class="model-row"><span class="model-key">Janela histórica</span><span class="model-val">6 meses / SKU</span></div>
+      <div class="model-row"><span class="model-key">Features</span><span class="model-val">mean, std, trend_7d</span></div>
+      <div class="model-row"><span class="model-key">Schedule Airflow</span><span class="model-val">a cada 2h</span></div>
+      <div class="model-row"><span class="model-key">Falso positivo</span><span class="model-val" style="color:var(--green)">< 8%</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Animate ETL bars on load
+setTimeout(()=>{
+  document.getElementById('bqBar').style.width='100%';
+  document.getElementById('emrBar').style.width='8.3%'; // 40s / 480s
+},300);
+
+const SCENARIOS = {
+  normal:{
+    label:'Terça · 14h',
+    products:[
+      {name:'Vestido Floral Midi',cat:'Vestidos',today:142,exp:138,score:.12},
+      {name:'Calça Jeans Skinny',cat:'Calças',today:89,exp:91,score:.09},
+      {name:'Blusa Cropped Listrada',cat:'Blusas',today:201,exp:47,score:.97,spike:true},
+      {name:'Tênis Running Asics',cat:'Calçados',today:33,exp:35,score:.14},
+      {name:'Bolsa Tiracolo Couro',cat:'Bolsas',today:55,exp:52,score:.18},
+      {name:'Short Jeans Feminino',cat:'Shorts',today:78,exp:80,score:.11},
+      {name:'Camiseta Básica Algodão',cat:'Camisetas',today:6,exp:95,score:.96,drop:true},
+      {name:'Sandália Plataforma',cat:'Calçados',today:44,exp:40,score:.22},
+      {name:'Saia Midi Estampada',cat:'Saias',today:61,exp:58,score:.15},
+      {name:'Jaqueta Jeans Oversized',cat:'Jaquetas',today:29,exp:31,score:.10},
+      {name:'Regata Fitness Dry-Fit',cat:'Fitness',today:103,exp:99,score:.13},
+      {name:'Ankle Boot Couro',cat:'Calçados',today:38,exp:37,score:.08},
+    ]
+  },
+  blackfriday:{
+    label:'Black Friday · 00h',
+    products:[
+      {name:'Vestido Floral Midi',cat:'Vestidos',today:1840,exp:1700,score:.18},
+      {name:'Calça Jeans Skinny',cat:'Calças',today:2100,exp:1950,score:.19},
+      {name:'Blusa Cropped Listrada',cat:'Blusas',today:48,exp:1800,score:.99,drop:true},
+      {name:'Tênis Running Asics',cat:'Calçados',today:3200,exp:3100,score:.14},
+      {name:'Bolsa Tiracolo Couro',cat:'Bolsas',today:890,exp:820,score:.17},
+      {name:'Short Jeans Feminino',cat:'Shorts',today:4100,exp:3800,score:.21},
+      {name:'Camiseta Básica Algodão',cat:'Camisetas',today:6200,exp:5900,score:.15},
+      {name:'Sandália Plataforma',cat:'Calçados',today:4800,exp:4500,score:.20},
+      {name:'Saia Midi Estampada',cat:'Saias',today:1200,exp:1100,score:.18},
+      {name:'Jaqueta Jeans Oversized',cat:'Jaquetas',today:12,exp:1700,score:.98,drop:true},
+      {name:'Regata Fitness Dry-Fit',cat:'Fitness',today:2800,exp:2600,score:.19},
+      {name:'Ankle Boot Couro',cat:'Calçados',today:2200,exp:2050,score:.16},
+    ]
+  },
+  campanha:{
+    label:'Campanha verão · Seg',
+    products:[
+      {name:'Vestido Floral Midi',cat:'Vestidos',today:430,exp:138,score:.94,spike:true},
+      {name:'Calça Jeans Skinny',cat:'Calças',today:82,exp:91,score:.12},
+      {name:'Blusa Cropped Listrada',cat:'Blusas',today:290,exp:47,score:.95,spike:true},
+      {name:'Tênis Running Asics',cat:'Calçados',today:36,exp:35,score:.09},
+      {name:'Bolsa Tiracolo Couro',cat:'Bolsas',today:58,exp:52,score:.17},
+      {name:'Short Jeans Feminino',cat:'Shorts',today:510,exp:80,score:.96,spike:true},
+      {name:'Camiseta Básica Algodão',cat:'Camisetas',today:88,exp:95,score:.11},
+      {name:'Sandália Plataforma',cat:'Calçados',today:380,exp:40,score:.95,spike:true},
+      {name:'Saia Midi Estampada',cat:'Saias',today:64,exp:58,score:.16},
+      {name:'Jaqueta Jeans Oversized',cat:'Jaquetas',today:21,exp:31,score:.18},
+      {name:'Regata Fitness Dry-Fit',cat:'Fitness',today:99,exp:99,score:.10},
+      {name:'Ankle Boot Couro',cat:'Calçados',today:35,exp:37,score:.09},
+    ]
+  }
+};
+
+let currentScenario='normal';
+let threshold=.80;
+let selectedProductIndex=null;
+
+function setScenario(s,btn){
+  currentScenario=s;
+  selectedProductIndex=null;
+  document.querySelectorAll('.sc-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable(false);
+  resetStats();
+}
+
+function renderTable(showScores){
+  const sc = SCENARIOS[currentScenario];
+  const tbl = document.getElementById('prodTable');
+  tbl.innerHTML='';
+  sc.products.forEach((p,i)=>{
+    const pct = ((p.today-p.exp)/p.exp*100);
+    const pctStr = (pct>=0?'+':'')+pct.toFixed(0)+'%';
+    const pctColor = p.drop?'var(--red)':p.spike?'var(--warn)':'var(--text)';
+    const scoreColor = p.score>=threshold?'var(--red)':p.score>threshold-.20?'var(--warn)':'var(--green)';
+    const statusClass = p.score>=threshold?'ab-anomaly':p.score>threshold-.20?'ab-warn':'ab-ok';
+    const statusText = p.score>=threshold?(p.spike?'⬆ Pico':'⬇ Drop'):p.score>threshold-.20?'⚠ Suspeito':'✓ Normal';
+    const rowClass = showScores && p.score>=threshold ? 'prod-row anomaly':'prod-row';
+    const scoreW = showScores ? Math.round(p.score*100)+'%':'0%';
+    const tagOpacity = showScores ? 1:0;
+    const badgeOpacity = showScores ? 1:0;
+    tbl.innerHTML+=`<div class="${rowClass}" id="row${i}" role="button" tabindex="0" data-product-index="${i}" aria-label="Investigar ${p.name}">
+      <div class="prod-name">${p.name} <span class="prod-cat">${p.cat}</span></div>
+      <div class="prod-num">${p.today.toLocaleString('pt-BR')}</div>
+      <div class="prod-num neutral">${p.exp.toLocaleString('pt-BR')}</div>
+      <div class="prod-num" style="color:${pctColor}">${pctStr}</div>
+      <div class="score-bar-wrap">
+        <div class="score-bg"><div class="score-fill" id="sf${i}" style="width:${scoreW};background:${scoreColor}"></div></div>
+        <div class="score-tag" id="st${i}" style="color:${scoreColor};opacity:${tagOpacity}">${(p.score*100).toFixed(0)} / 100</div>
+      </div>
+      <div class="anomaly-badge ${statusClass}" id="ab${i}" style="opacity:${badgeOpacity}">${statusText}</div>
+    </div>`;
+  });
+  tbl.querySelectorAll('.prod-row').forEach(row=>{
+    const open=()=>openInvestigation(Number(row.dataset.productIndex));
+    row.addEventListener('click',open);
+    row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+  });
+}
+
+function resetStats(){
+  ['stTotal','stAnom','stTime','stFP'].forEach(id=>{ document.getElementById(id).textContent=': '; });
+  document.getElementById('scanProg').style.width='0%';
+  document.getElementById('scanStatus').textContent='Aguardando scan…';
+}
+
+function delay(ms){return new Promise(r=>setTimeout(r,ms))}
+
+async function runScan(){
+  const btn=document.getElementById('scanBtn');
+  btn.disabled=true; btn.textContent='⏳ Processando…';
+  renderTable(false);
+  resetStats();
+  document.getElementById('scanStatus').textContent='IsolationForest rodando…';
+
+  const sc=SCENARIOS[currentScenario];
+  let anomCount=0;
+  const t0=performance.now();
+
+  for(let i=0;i<sc.products.length;i++){
+    const p=sc.products[i];
+    const row=document.getElementById('row'+i);
+    if(row){row.classList.add('scanning');}
+    await delay(320);
+    if(row){row.classList.remove('scanning');}
+
+    // Reveal score bar
+    const sf=document.getElementById('sf'+i);
+    const st=document.getElementById('st'+i);
+    const ab=document.getElementById('ab'+i);
+    const scoreColor=p.score>=threshold?'var(--red)':p.score>threshold-.20?'var(--warn)':'var(--green)';
+    if(sf){sf.style.width=Math.round(p.score*100)+'%'; sf.style.background=scoreColor;}
+    await delay(50);
+    if(st){st.style.opacity='1';}
+    if(ab){ab.style.opacity='1';}
+
+    if(p.score>=threshold){
+      anomCount++;
+      if(row){row.classList.add('anomaly');}
+    }
+
+    document.getElementById('scanProg').style.width=((i+1)/sc.products.length*100)+'%';
+  }
+
+  const elapsed=((performance.now()-t0)/1000).toFixed(1);
+  document.getElementById('stTotal').textContent=sc.products.length;
+  document.getElementById('stAnom').textContent=anomCount;
+  document.getElementById('stTime').textContent=elapsed+'s';
+  document.getElementById('stFP').textContent='< 8%';
+  document.getElementById('scanStatus').textContent=`Scan concluído · ${anomCount} anomalia(s) detectada(s)`;
+
+  // Send Slack alert
+  sendSlackAlert(sc, anomCount);
+  const firstAnomaly=sc.products.findIndex(p=>p.score>=threshold);
+  openInvestigation(firstAnomaly>=0?firstAnomaly:0);
+
+  btn.disabled=false;
+  btn.innerHTML='<span>🔍</span> Executar scan ML';
+}
+
+function sendSlackAlert(sc, anomCount){
+  const feed=document.getElementById('alertFeed');
+  const now=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const anoms=sc.products.filter(p=>p.score>=threshold);
+  let body,cls;
+
+  if(anomCount===0){
+    body=`✅ Scan completo · ${sc.products.length} SKUs normais (${sc.label}). Nenhuma reposição urgente.`;
+    cls='ok';
+  } else {
+    const lines=anoms.map(p=>{
+      const type=p.spike?'⬆ PICO':'⬇ DROP';
+      const pct=Math.abs((p.today-p.exp)/p.exp*100).toFixed(0);
+      return `• <b>${p.name}</b>: ${type} ${pct}% (${p.today} vs esperado ${p.exp})`;
+    }).join('<br>');
+    body=`🚨 <b>${anomCount} anomalia(s) · ${sc.label}</b><br>${lines}<br><br>Score IF ≥ ${threshold.toFixed(2)} · investigação recomendada.`;
+    cls='';
+  }
+
+  const div=document.createElement('div');
+  div.className=`slack-msg ${cls}`;
+  div.innerHTML=`<div class="slack-header"><span class="slack-app">DafitiBot</span><span class="slack-time">Hoje ${now}</span></div><div class="slack-body ${cls?'ok-body':''}">${body}</div>`;
+  feed.insertBefore(div,feed.firstChild);
+}
+
+function openInvestigation(index){
+  const sc=SCENARIOS[currentScenario];
+  const p=sc.products[index];
+  if(!p)return;
+  selectedProductIndex=index;
+  document.querySelectorAll('.prod-row').forEach(r=>r.classList.remove('selected'));
+  document.getElementById('row'+index)?.classList.add('selected');
+  const variation=((p.today-p.exp)/p.exp*100);
+  const direction=variation>=0?'acima':'abaixo';
+  document.getElementById('invTitle').textContent=p.name;
+  document.getElementById('invCopy').innerHTML=`Venda <b>${Math.abs(variation).toFixed(0)}% ${direction}</b> do esperado, score <b>${p.score.toFixed(2)}</b>. ${p.score>=threshold?'Prioridade alta: valide estoque, preço, campanha e integridade da origem antes de acionar reposição.':'Comportamento dentro do limite atual; acompanhe a tendência antes de intervir.'}`;
+}
+
+function annotateInvestigation(mode){
+  if(selectedProductIndex===null){
+    document.getElementById('invCopy').textContent='Execute o scan e selecione uma linha antes de abrir uma ação de investigação.';
+    return;
+  }
+  const p=SCENARIOS[currentScenario].products[selectedProductIndex];
+  document.getElementById('invCopy').innerHTML=mode==='stock'
+    ? `<b>Checagem simulada:</b> saldo físico, reservas e pedidos em trânsito foram anexados à investigação de ${p.name}. Próximo passo: validar ruptura ou erro de ingestão.`
+    : `<b>Comparação simulada:</b> calendário promocional e uplift esperado foram cruzados com ${p.name}. Próximo passo: classificar o pico como campanha válida ou desvio operacional.`;
+}
+
+document.getElementById('thresholdRange').addEventListener('input',e=>{
+  threshold=Number(e.target.value)/100;
+  document.getElementById('thresholdOut').textContent=threshold.toFixed(2).replace('.',',');
+  renderTable(false);resetStats();selectedProductIndex=null;
+  document.getElementById('invTitle').textContent='Sensibilidade ajustada';
+  document.getElementById('invCopy').textContent=`Novo limite ${threshold.toFixed(2)}. Execute novamente para recalcular alertas e prioridades.`;
+});
+document.getElementById('invStock').addEventListener('click',()=>annotateInvestigation('stock'));
+document.getElementById('invCampaign').addEventListener('click',()=>annotateInvestigation('campaign'));
+
+// Initial render
+renderTable(false);
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

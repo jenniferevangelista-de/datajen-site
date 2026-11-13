@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iara: Chatbot de Beleza Natura · FIAP 2017</title>
+<meta name="description" content="Demonstração interativa da Iara, chatbot de beleza do Challenge FIAP e Natura.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/iara-natura-chat.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Iara: Chatbot de Beleza Natura · FIAP 2017">
+<meta property="og:description" content="Demonstração interativa da Iara, chatbot de beleza do Challenge FIAP e Natura.">
+<meta property="og:url" content="https://datajen.com.br/iara-natura-chat.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Iara: Chatbot de Beleza Natura · FIAP 2017">
+<meta name="twitter:description" content="Demonstração interativa da Iara, chatbot de beleza do Challenge FIAP e Natura.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<script>
+if(new URLSearchParams(window.location.search).get('embed')==='1')document.documentElement.classList.add('embed-mode');
+if(window.self!==window.top)document.documentElement.classList.add('in-iframe');
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f14;--chat-bg:#1a1a22;--bubble-bg:#252535;
+  --user:#6B3CC8;--user2:#7B4DD8;
+  --green:#25D366;--green2:#128C7E;
+  --natura:#2d7a3a;--natura2:#e8f5ec;
+  --gold:#C8A84B;--gold2:#FFD060;
+  --text:#e8eaf0;--muted:#6a6a8a;--border:rgba(255,255,255,0.08);
+  --pink:#E91E8C;--teal:#00BCD4;--blue:#2196F3;
+}
+body{
+  background:linear-gradient(135deg,#0a0a12 0%,#0f0f1a 100%);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  padding:2rem 1rem;gap:2rem;flex-wrap:wrap;
+}
+
+/* PHONE */
+.phone-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem}
+.phone-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#4a3a6a}
+.phone{
+  width:340px;height:640px;background:var(--chat-bg);border-radius:36px;
+  border:10px solid #111;
+  box-shadow:0 0 0 1px #222,0 0 0 3px #111,0 32px 80px rgba(0,0,0,0.9),inset 0 0 0 1px #2a2a3a;
+  overflow:hidden;position:relative;display:flex;flex-direction:column;
+}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:130px;height:30px;background:#111;border-radius:0 0 20px 20px;z-index:50}
+.notch-cam{position:absolute;top:8px;right:22px;width:10px;height:10px;border-radius:50%;background:#1a1a1a}
+
+/* STATUS */
+.status-bar{height:44px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 6px;flex-shrink:0;font-size:12px;font-weight:600;color:var(--text);background:var(--chat-bg);position:relative;z-index:10}
+.sb-time{font-size:15px;font-weight:700}
+
+/* SCREENS */
+.screens{flex:1;overflow:hidden;position:relative}
+.screen{position:absolute;inset:0;transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.screen.active{transform:translateX(0)}
+.screen.prev{transform:translateX(-100%)}
+.screen.next{transform:translateX(100%)}
+
+/* CHAT HEADER */
+.chat-header{
+  background:#1e1e28;border-bottom:1px solid var(--border);
+  padding:10px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0;
+}
+.ch-back{font-size:20px;color:#7B5EA7;cursor:pointer;background:none;border:none;padding:0 4px}
+.ch-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--natura),#1a5226);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ch-info{flex:1}
+.ch-name{font-size:15px;font-weight:700;color:var(--text)}
+.ch-status{font-size:11px;color:var(--green);display:flex;align-items:center;gap:4px}
+.ch-status::before{content:'●';font-size:8px}
+.ch-icons{display:flex;gap:14px;font-size:18px;color:var(--muted)}
+
+/* CHAT AREA */
+.chat-area{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;background:var(--chat-bg)}
+.chat-area::-webkit-scrollbar{width:3px}
+.chat-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
+
+/* MESSAGES */
+.msg-row{display:flex;gap:8px;align-items:flex-end}
+.msg-row.user{flex-direction:row-reverse}
+.msg-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--natura),#1a5226);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.msg-avatar.user{background:linear-gradient(135deg,var(--user),var(--user2))}
+
+.bubble{
+  max-width:230px;padding:10px 12px;border-radius:16px;
+  font-size:13.5px;line-height:1.5;color:var(--text);
+}
+.bubble.bot{background:var(--bubble-bg);border-radius:4px 16px 16px 16px}
+.bubble.user{background:linear-gradient(135deg,var(--user),var(--user2));border-radius:16px 4px 16px 16px;color:white}
+.bubble.system{background:rgba(255,255,255,0.05);text-align:center;font-size:11px;color:var(--muted);border-radius:8px;max-width:100%;align-self:center}
+.msg-time{font-size:10px;color:var(--muted);margin-top:2px;text-align:right}
+
+/* PHOTO BUBBLE */
+.photo-bubble{
+  width:200px;border-radius:12px;overflow:hidden;
+  background:var(--bubble-bg);border:1px solid rgba(255,255,255,0.1);
+}
+.photo-area{
+  height:150px;background:linear-gradient(135deg,#2a1a4a,#1a2a4a);
+  display:flex;align-items:center;justify-content:center;font-size:48px;
+  position:relative;
+}
+.photo-overlay{
+  position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,0.4));
+}
+.photo-label{font-size:10px;color:rgba(255,255,255,0.6);padding:6px 10px}
+
+/* TYPING */
+.typing{display:flex;gap:4px;padding:10px 14px;background:var(--bubble-bg);border-radius:4px 16px 16px 16px;width:54px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:typing 1.2s ease-in-out infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+/* FEATURE TAGS */
+.feature-list{display:flex;flex-direction:column;gap:5px;margin-top:6px}
+.feat-tag{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.06);border-radius:6px;padding:5px 8px}
+.ft-label{font-size:12px;color:var(--text)}
+.ft-conf{font-size:11px;font-weight:700;color:var(--gold2)}
+.ft-bar{height:3px;border-radius:2px;margin-top:3px;overflow:hidden;background:rgba(255,255,255,0.08)}
+.ft-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+
+/* PRODUCT CARDS */
+.products-scroll{display:flex;gap:8px;overflow-x:auto;padding:4px 2px;scrollbar-width:none}
+.products-scroll::-webkit-scrollbar{display:none}
+.prod-card{
+  flex-shrink:0;width:150px;background:#1e1e2a;border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;overflow:hidden;
+}
+.prod-img{height:90px;background:linear-gradient(135deg,var(--natura),#2a6a38);display:flex;align-items:center;justify-content:center;font-size:36px}
+.prod-body{padding:44px 10px 8px}
+.prod-line{font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--natura);font-weight:700;margin-bottom:2px}
+.prod-name{font-size:11.5px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:4px}
+.prod-why{font-size:10px;color:var(--muted);line-height:1.3;margin-bottom:6px}
+.prod-price{font-size:13px;font-weight:800;color:var(--gold2)}
+.prod-btn{width:100%;margin-top:5px;padding:6px;background:var(--natura);border:none;border-radius:6px;color:white;font-size:11px;font-weight:700;cursor:pointer}
+
+/* QUICK REPLIES */
+.quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 8px}
+.qr{padding:7px 12px;border-radius:20px;border:1px solid var(--user);color:var(--user2);font-size:12px;cursor:pointer;background:rgba(107,60,200,0.08);transition:all .15s;white-space:nowrap}
+.qr:hover{background:rgba(107,60,200,0.2)}
+
+/* INPUT BAR */
+.input-bar{background:#1e1e28;border-top:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.input-field{flex:1;background:rgba(255,255,255,0.06);border:none;border-radius:20px;padding:9px 14px;color:var(--text);font-size:13px;outline:none}
+.input-field::placeholder{color:var(--muted)}
+.input-icons{display:flex;gap:8px;font-size:20px;color:var(--muted)}
+.send-btn{width:36px;height:36px;border-radius:50%;background:var(--user);border:none;color:white;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* CHANNEL SCREEN */
+.chan-screen{background:linear-gradient(160deg,#0f1020,#151525);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px}
+.chan-logo{width:80px;height:80px;border-radius:24px;background:linear-gradient(135deg,var(--natura),#1a5226);display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 0 24px rgba(45,122,58,0.3)}
+.chan-title{font-size:22px;font-weight:800;color:var(--text);text-align:center}
+.chan-sub{font-size:13px;color:var(--muted);text-align:center;line-height:1.5;max-width:280px}
+.chan-year{font-size:10px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;border:1px solid rgba(200,168,75,0.3);background:rgba(200,168,75,0.08)}
+.chan-list{display:flex;flex-direction:column;gap:10px;width:100%}
+.chan-item{
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px;
+  cursor:pointer;transition:all .2s;
+}
+.chan-item:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15)}
+.ci-icon{font-size:28px}
+.ci-name{font-size:15px;font-weight:700;color:var(--text)}
+.ci-sub{font-size:11px;color:var(--muted)}
+.ci-arrow{margin-left:auto;font-size:18px;color:var(--muted)}
+.chan-watson{margin-top:4px;font-size:10px;color:var(--muted);text-align:center;display:flex;align-items:center;justify-content:center;gap:6px}
+.w-dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+
+/* RESP-iara-natura-chat.html */
+@media(max-width:640px){
+  .chat-wrap{width:100%;height:auto;min-height:calc(100vh - 120px)}
+  .msg{max-width:92%}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="natura-editorial-redesign">
+:root{
+  --natura-ink:#153e32;--natura-leaf:#2d7a3a;--natura-leaf-soft:#e7f0e8;
+  --natura-orange:#a64a1a;--natura-coral:#d96f2c;--natura-cream:#f7f2e8;
+}
+html{max-width:100%;overflow-x:hidden}
+body{
+  display:block;min-height:100vh;padding:56px 0 28px;color:var(--natura-ink);
+  background:radial-gradient(circle at 10% 16%,rgba(217,111,44,.16),transparent 24%),radial-gradient(circle at 90% 72%,rgba(45,122,58,.16),transparent 27%),#f5f0e6;
+  position:relative;overflow-x:hidden;
+}
+body:before,body:after{content:"";position:fixed;border-radius:50%;pointer-events:none;filter:blur(2px);z-index:-1;animation:naturaFloat 8s ease-in-out infinite alternate}
+body:before{width:190px;height:190px;left:-76px;bottom:8%;border:1px solid rgba(47,112,71,.24);box-shadow:0 0 0 24px rgba(47,112,71,.045),0 0 0 48px rgba(47,112,71,.03)}
+body:after{width:130px;height:130px;right:1%;top:18%;background:rgba(221,128,57,.09)}
+@keyframes naturaFloat{to{transform:translateY(-18px) rotate(7deg)}}
+
+.demo-integrity-banner{
+  width:min(1040px,calc(100% - 32px));margin:0 auto;padding:8px 12px;display:flex;align-items:flex-start;gap:9px;
+  border:1px solid #d7c6b7;border-radius:11px;background:rgba(255,253,248,.86);color:#53645c;
+  font:500 10.5px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;box-shadow:0 7px 20px rgba(42,18,8,.06)
+}
+.demo-integrity-banner>span:first-child{font-size:14px;line-height:1.2}
+.demo-integrity-banner strong{display:inline;margin-right:5px;color:var(--natura-orange);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.experience-shell{
+  width:min(1040px,calc(100% - 32px));margin:clamp(16px,2.8vh,26px) auto 0;display:grid;
+  grid-template-columns:minmax(270px,410px) minmax(0,340px);align-items:center;justify-content:center;
+  gap:clamp(28px,5.5vw,78px);min-width:0
+}
+.natura-intro{width:100%;max-width:410px;align-self:center;min-width:0}
+.natura-kicker{font:800 9px ui-monospace,monospace;letter-spacing:.17em;text-transform:uppercase;color:var(--natura-orange)}
+.natura-intro h2{font:700 clamp(36px,4vw,52px)/.98 Georgia,serif;margin:10px 0 13px;letter-spacing:-.04em}
+.natura-intro h2 em{font-weight:400;color:var(--natura-leaf)}
+.natura-intro>p{font-size:14px;line-height:1.55;color:#53645c;max-width:400px}
+.natura-guide{display:grid;gap:6px;margin-top:16px}
+.natura-step{display:grid;grid-template-columns:30px 1fr;gap:9px;align-items:center;border:1px solid #d7cdbd;background:rgba(255,255,255,.72);border-radius:11px;padding:7px 10px;transition:.22s}
+.natura-step:hover{transform:translateX(4px);border-color:#4a9562;box-shadow:0 8px 20px rgba(47,112,71,.1)}
+.natura-step b{width:30px;height:30px;border-radius:9px;background:var(--natura-ink);color:#fff;display:grid;place-items:center;font-size:11px}
+.natura-step span{font-size:12px;font-weight:750;line-height:1.3}
+.natura-hint{display:inline-flex;margin-top:12px;background:var(--natura-coral);color:#fff;border-radius:99px;padding:7px 11px;font-weight:800;font-size:10.5px;box-shadow:0 8px 18px rgba(217,111,44,.2)}
+
+.phone-wrap{position:relative;min-width:0;gap:7px}
+.phone-label{color:#8d5e36;font-size:9px;font-weight:800;letter-spacing:1.45px}
+.phone{
+  width:340px;height:min(640px,calc(100svh - 148px));min-height:560px;border:7px solid var(--natura-ink);border-radius:36px;
+  background:var(--natura-ink);box-shadow:0 0 0 2px #285e4d,0 22px 58px rgba(32,66,52,.23);max-width:100%
+}
+.notch{width:104px;height:23px;border-radius:0 0 16px 16px;background:var(--natura-ink)}
+.notch-cam{top:6px;right:18px;width:8px;height:8px}
+.status-bar{height:35px;padding:0 20px 5px;background:var(--natura-cream);color:var(--natura-ink);font-size:10px}
+.sb-time{font-size:12px}
+.journey-bar{position:relative;height:34px;padding:5px 10px 4px;display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:7px;background:#fff;border-bottom:1px solid #ded5c7;color:var(--natura-ink);flex-shrink:0}
+.journey-count{font:800 8px/1 ui-monospace,monospace;letter-spacing:.08em;color:var(--natura-orange);text-transform:uppercase}
+.journey-label{font-size:10.5px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.journey-reset{border:0;background:#edf5ef;color:var(--natura-leaf);border-radius:7px;padding:4px 6px;font-size:9px;font-weight:800;cursor:pointer}
+.journey-progress{position:absolute;left:0;right:0;bottom:0;height:2px;background:#e7ded1;overflow:hidden}
+.journey-progress span{display:block;width:16.666%;height:100%;background:linear-gradient(90deg,var(--natura-leaf),var(--natura-coral));transition:width .3s ease}
+.phone-toast{position:absolute;z-index:80;left:50%;bottom:62px;width:max-content;max-width:calc(100% - 28px);padding:7px 10px;border-radius:9px;background:rgba(21,62,50,.96);color:#fff;font-size:10.5px;line-height:1.3;text-align:center;box-shadow:0 8px 22px rgba(21,62,50,.24);opacity:0;pointer-events:none;transform:translate(-50%,8px);transition:.2s}
+.phone-toast.show{opacity:1;transform:translate(-50%,0)}
+.screens,.screen{min-width:0}
+.chat-header{min-height:47px;padding:7px 10px;gap:8px;background:#fff;border-color:#ded5c7}
+.ch-back{min-width:27px;min-height:27px;padding:0;font-size:21px;border-radius:50%}
+.ch-avatar{width:34px;height:34px;font-size:17px}
+.ch-info{min-width:0}
+.ch-name{font-size:13px;color:var(--natura-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ch-status{font-size:9.5px}
+.ch-icons{gap:9px;font-size:14px;color:#748078}
+.chat-area{padding:9px 10px;gap:7px;background:var(--natura-cream);color:var(--natura-ink);overscroll-behavior:contain}
+.msg-row{gap:6px;min-width:0}
+.msg-avatar{width:27px;height:27px;font-size:12px}
+.bubble{max-width:215px;padding:7px 9px;border-radius:13px;font-size:12px;line-height:1.38}
+.bubble.bot{background:#fff;color:var(--natura-ink);border:1px solid #dfd7c9;border-radius:4px 13px 13px 13px}
+.bubble.user{background:linear-gradient(135deg,var(--natura-coral),#b84b28);border-radius:13px 4px 13px 13px}
+.bubble.system{font-size:9px;background:#ede5d8;color:#748078}
+.photo-bubble{width:168px;border-color:#d8d0c2;background:#fff}
+.photo-area{height:105px;background:linear-gradient(135deg,#ead8c8,#d8eadf);font-size:38px}
+.photo-label{padding:5px 8px;color:#6f766f;font-size:9px}
+.typing{padding:8px 10px;width:45px;background:#fff;border:1px solid #dfd7c9}
+.feature-list{gap:3px;margin-top:4px}
+.feat-tag{padding:4px 6px;background:#f2ede5}
+.ft-label{font-size:10.5px;color:var(--natura-ink)}
+.ft-conf{font-size:10px;color:var(--natura-orange)}
+.ft-bar{margin-top:1px;background:#e8ded1}
+.ft-fill{background:linear-gradient(90deg,var(--natura-leaf),#74a97b)}
+.products-scroll{max-width:100%;gap:7px;padding:3px 1px 7px;scroll-snap-type:x proximity;overscroll-behavior-inline:contain}
+.prod-card{width:136px;border-color:#d8d0c2;background:#fff;scroll-snap-align:start}
+.prod-img{height:62px;font-size:27px}
+.prod-body{padding:7px 8px 8px}
+.prod-line{font-size:8px;color:var(--natura-orange)}
+.prod-name{font-size:10.5px;color:var(--natura-ink)}
+.prod-why{font-size:9px;color:#748078;margin-bottom:4px}
+.prod-price{font-size:11px;color:var(--natura-orange)}
+.prod-btn{padding:5px;background:var(--natura-leaf);font-size:9.5px}
+.quick-replies{gap:5px;padding:5px 10px 6px;background:#fff;border-top:1px solid #eee6da;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.quick-replies::-webkit-scrollbar{display:none}
+.qr{flex:0 0 auto;padding:6px 9px;border-color:var(--natura-coral);color:var(--natura-orange);background:#fff3eb;font:700 10.5px/1.1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;white-space:nowrap}
+.qr:hover,.qr:focus-visible{background:var(--natura-coral);color:#fff}
+.input-bar{min-width:0;padding:7px 9px;gap:7px;background:#fff;border-color:#ded5c7}
+.input-icons{display:flex;gap:3px;font-size:inherit}
+.input-action{width:28px;height:28px;border:0;border-radius:8px;background:#f3ede4;color:#866346;font-size:14px;cursor:pointer}
+.input-field{min-width:0;padding:8px 10px;background:#f6f1e8;color:var(--natura-ink);font-size:11px}
+.send-btn{width:31px;height:31px;flex:0 0 31px;background:var(--natura-coral);font-size:14px}
+.chan-screen{justify-content:center;gap:10px;padding:15px 18px;background:linear-gradient(160deg,#f8f3e9,#e7f0e8)}
+.chan-logo{width:58px;height:58px;border-radius:18px;font-size:29px;box-shadow:0 12px 26px rgba(45,122,58,.18);animation:naturaGlow 2.4s ease-in-out infinite alternate}
+@keyframes naturaGlow{to{transform:translateY(-3px);box-shadow:0 16px 30px rgba(45,122,58,.25)}}
+.chan-title{color:var(--natura-ink);font-family:Georgia,serif;font-size:25px}
+.chan-sub{max-width:260px;color:#65746c;font-size:11px;line-height:1.4}
+.chan-year{font-size:8px;color:var(--natura-orange);border-color:#d9a27d;background:#fff4ec;padding:3px 9px}
+.chan-list{gap:6px}
+.chan-item{width:100%;padding:9px 11px;gap:10px;text-align:left;font-family:inherit;background:#fff;border-color:#d8d0c2;box-shadow:0 5px 14px rgba(47,89,68,.055)}
+.chan-item:hover,.chan-item[aria-pressed="true"]{background:#edf5ef;border-color:#5e9b70;transform:translateX(3px)}
+.ci-icon{font-size:21px}
+.ci-name{font-size:12.5px;color:var(--natura-ink)}
+.ci-sub{font-size:9.5px;color:#748078}
+.chan-watson{font-size:8.5px;color:#748078}
+.w-dot{background:var(--natura-leaf)}
+.demo-controls{width:100%;display:grid;grid-template-columns:1fr 1.3fr;gap:7px}
+.demo-controls button{border-radius:9px;padding:7px 11px;font-size:11px;font-weight:800;cursor:pointer}
+.demo-prev{background:rgba(45,122,58,.08);border:1px solid rgba(45,122,58,.28);color:var(--natura-leaf)}
+.demo-next{background:var(--natura-leaf);border:1px solid var(--natura-leaf);color:#fff}
+.demo-controls button:disabled{opacity:.4;cursor:not-allowed}
+.journey-dots{display:flex;align-items:center;justify-content:center;gap:5px;min-height:12px}
+.journey-dot{width:7px;height:7px;border:0;border-radius:5px;padding:0;background:rgba(45,122,58,.22);cursor:pointer;transition:.25s}
+.journey-dot.active{width:20px;background:var(--natura-leaf)}
+
+@media(max-width:860px){
+  .experience-shell{width:min(744px,calc(100% - 24px));grid-template-columns:minmax(250px,1fr) 318px;gap:18px}
+  .demo-integrity-banner{width:min(744px,calc(100% - 24px))}
+  .natura-intro h2{font-size:35px}.natura-intro>p{font-size:13px}.natura-step span{font-size:11px}
+  .phone{width:318px;height:590px;min-height:540px}
+}
+@media(max-width:640px){
+  body{padding:52px 0 22px}
+  .demo-integrity-banner{width:calc(100% - 20px);padding:7px 9px;font-size:9.5px;line-height:1.35}
+  .demo-integrity-banner strong{display:block;margin:0 0 1px;font-size:9px}
+  .experience-shell{width:calc(100% - 20px);margin-top:13px;grid-template-columns:minmax(0,1fr);gap:14px;justify-items:center}
+  .natura-intro{max-width:480px;text-align:center}.natura-intro h2{font-size:30px;margin:7px 0 8px}.natura-intro>p{max-width:none;font-size:12px;line-height:1.42}
+  .natura-guide{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:10px}
+  .natura-step{display:flex;flex-direction:column;gap:4px;justify-content:flex-start;padding:6px 5px;min-width:0;height:63px}
+  .natura-step:hover{transform:translateY(-2px)}.natura-step b{width:23px;height:23px;border-radius:7px;font-size:9px;flex:0 0 auto}.natura-step span{font-size:9px;line-height:1.15}
+  .natura-hint{margin-top:8px;padding:6px 9px;font-size:9.5px}
+  .phone-wrap{width:min(330px,100%)}.phone{width:100%;height:570px;min-height:520px}
+}
+@media(max-width:430px){
+  body{padding-top:50px}
+  .demo-integrity-banner{width:calc(100% - 16px)}
+  .experience-shell{width:calc(100% - 16px);margin-top:10px;gap:11px}
+  .natura-kicker{font-size:8px}.natura-intro h2{font-size:27px}.natura-intro>p{font-size:11.5px}
+  .phone-wrap{width:min(326px,calc(100vw - 20px))}.phone{height:552px;min-height:500px;border-width:6px;border-radius:31px}
+  .phone-label{font-size:8px;letter-spacing:1.05px}.status-bar{height:31px}.journey-bar{height:32px}
+  .chat-header{min-height:44px}.bubble{max-width:205px;font-size:11.5px}.chan-screen{padding:12px 15px}
+  .demo-controls button{padding:7px 8px;font-size:10.5px}
+}
+@media(max-height:700px) and (min-width:641px){
+  body{padding-top:50px}.demo-integrity-banner{padding-block:6px}.experience-shell{margin-top:10px}
+  .natura-intro h2{font-size:32px}.natura-guide{margin-top:10px}.natura-hint{margin-top:8px}
+  .phone{height:530px;min-height:500px}.phone-label{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  body:before,body:after,.chan-logo{animation:none}.screen,.journey-progress span,.phone-toast,.journey-dot{transition:none}
+}
+html.embed-mode,html.embed-mode body,html.in-iframe,html.in-iframe body{width:100%;height:100%;min-height:100%;overflow:hidden}
+html.embed-mode body,html.in-iframe body{display:grid;place-items:center;padding:0}
+html.embed-mode body:before,html.embed-mode body:after,html.in-iframe body:before,html.in-iframe body:after{display:none}
+html.embed-mode .gn,
+html.embed-mode .demo-integrity-banner,
+html.embed-mode .everyday-translation,
+html.embed-mode .tech-disclaimer,
+html.embed-mode .natura-intro,
+html.embed-mode .phone-label,
+html.embed-mode .journey-dots,
+html.embed-mode .demo-controls,
+html.embed-mode .mob-veil,
+html.in-iframe .gn,
+html.in-iframe .demo-integrity-banner,
+html.in-iframe .everyday-translation,
+html.in-iframe .tech-disclaimer,
+html.in-iframe .natura-intro,
+html.in-iframe .phone-label,
+html.in-iframe .journey-dots,
+html.in-iframe .demo-controls,
+html.in-iframe .mob-veil{display:none!important}
+html.embed-mode .experience-shell,
+html.in-iframe .experience-shell{
+  width:100%;height:100%;min-height:0;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr;place-items:center;gap:0
+}
+html.embed-mode .phone-wrap,
+html.in-iframe .phone-wrap{
+  width:340px;max-width:calc(100% - 20px);margin:0;gap:0;place-self:center
+}
+html.embed-mode .phone,
+html.in-iframe .phone{
+  width:340px;max-width:100%;height:min(640px,calc(100svh - 24px));min-height:0
+}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<link rel="stylesheet" href="embedded-preview.css?v=20261027-fit">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Iara: Chatbot de Beleza Natura · FIAP 2017</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back primary" href="cases-fiap.html">&larr; Case FIAP &middot; Natura</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<aside class="demo-integrity-banner" aria-label="Transparência da demonstração">
+  <span aria-hidden="true">🔒</span>
+  <span><strong>Reconstrução independente · dados sintéticos</strong>Fluxos, nomes, imagens, valores e resultados são fictícios; nenhum dado de cliente, conteúdo confidencial ou ambiente real foi utilizado.</span>
+</aside>
+
+<main class="experience-shell" id="conteudo-principal">
+<aside class="natura-intro" aria-label="Como experimentar a Iara">
+  <span class="natura-kicker">IA conversacional · beleza personalizada</span>
+  <h2>Uma conversa que vira <em>recomendação.</em></h2>
+  <p>Escolha um canal, envie uma foto fictícia e acompanhe a Iara combinar visão computacional, contexto da conversa e catálogo Natura para explicar cada indicação.</p>
+  <div class="natura-guide">
+    <div class="natura-step"><b>01</b><span>Explore 3 canais na reconstrução. WhatsApp é uma extensão posterior a 2017.</span></div>
+    <div class="natura-step"><b>02</b><span>Simule a análise visual e confirme suas preferências.</span></div>
+    <div class="natura-step"><b>03</b><span>Compare produtos e entenda o motivo da recomendação.</span></div>
+  </div>
+  <span class="natura-hint">Interaja diretamente no celular →</span>
+</aside>
+
+<div class="phone-wrap">
+  <div class="phone-label">★ Iara · Chatbot Natura · FIAP 2017 ★</div>
+  <div class="phone">
+    <div class="notch"><div class="notch-cam"></div></div>
+
+    <div class="status-bar">
+      <span class="sb-time">9:41</span>
+      <div style="display:flex;gap:5px;align-items:center;font-size:11px"><span>●●●</span><span>4G</span><span>🔋</span></div>
+    </div>
+
+    <div class="journey-bar" aria-label="Progresso da conversa">
+      <span class="journey-count" id="journeyCount">Etapa 1/6</span>
+      <strong class="journey-label" id="journeyLabel">Escolha o canal</strong>
+      <button class="journey-reset" id="journeyReset" type="button" aria-label="Reiniciar demonstração">↺ Reiniciar</button>
+      <div class="journey-progress" aria-hidden="true"><span id="journeyProgress"></span></div>
+    </div>
+
+    <div class="phone-toast" id="phoneToast" role="status" aria-live="polite"></div>
+
+    <div class="screens" id="screens">
+
+      <!-- S0: CHANNEL SELECTION -->
+      <div class="screen active" id="s0">
+        <div class="chan-screen">
+          <div class="chan-logo">🌿</div>
+          <span class="chan-year">FIAP Startup One · 2017</span>
+          <div class="chan-title">Iara</div>
+          <div class="chan-sub">Consultora virtual de beleza da Natura. Envie sua foto e receba recomendações personalizadas com IBM Watson.</div>
+          <div class="chan-list">
+            <button class="chan-item" type="button" data-channel="Messenger">
+              <span class="ci-icon">💬</span>
+              <div><div class="ci-name">Facebook Messenger</div><div class="ci-sub">Principal canal de atendimento</div></div>
+              <span class="ci-arrow">›</span>
+            </button>
+            <button class="chan-item" type="button" data-channel="WhatsApp">
+              <span class="ci-icon">📱</span>
+              <div><div class="ci-name">WhatsApp</div><div class="ci-sub">Extensão demonstrativa posterior a 2017</div></div>
+              <span class="ci-arrow">›</span>
+            </button>
+            <button class="chan-item" type="button" data-channel="Telegram">
+              <span class="ci-icon">✈️</span>
+              <div><div class="ci-name">Telegram</div><div class="ci-sub">Bot disponível 24h</div></div>
+              <span class="ci-arrow">›</span>
+            </button>
+          </div>
+          <div class="chan-watson"><div class="w-dot"></div> Powered by IBM Watson · Bluemix · Node-RED</div>
+        </div>
+      </div>
+
+      <!-- S1: GREETING -->
+      <div class="screen next" id="s1">
+        <div class="chat-header">
+          <button class="ch-back" onclick="go(0)">‹</button>
+          <div class="ch-avatar">🌿</div>
+          <div class="ch-info">
+            <div class="ch-name">Iara · Natura · <span class="channel-name">Messenger</span></div>
+            <div class="ch-status">online agora</div>
+          </div>
+          <div class="ch-icons"><span>📞</span><span>⋮</span></div>
+        </div>
+        <div class="chat-area">
+          <div class="bubble system">hoje, 9:41</div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div>
+              <div class="bubble bot">Olá! 😊 Sou a <strong>Iara</strong>, sua consultora virtual de beleza Natura.</div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div>
+              <div class="bubble bot">Posso te recomendar os produtos perfeitos para o seu tipo de cabelo, tom de pele e estilo: só me manda uma foto! 📸</div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div>
+              <div class="bubble bot">Ou se preferir, pode me dizer o que está procurando:</div>
+            </div>
+          </div>
+        </div>
+        <div class="quick-replies" aria-label="Respostas rápidas">
+          <button class="qr" type="button" data-next="2" data-choice="Enviar foto">📸 Enviar foto</button>
+          <button class="qr" type="button" data-next="2" data-choice="Produtos de beleza">💄 Produtos de beleza</button>
+          <button class="qr" type="button" data-next="2" data-choice="Perfumes">🌸 Perfumes</button>
+          <button class="qr" type="button" data-next="2" data-choice="Skincare">💆 Skincare</button>
+        </div>
+        <div class="input-bar">
+          <div class="input-icons"><button class="input-action" type="button" data-action="attach" aria-label="Anexar arquivo">＋</button><button class="input-action" type="button" data-action="photo" aria-label="Simular envio de foto">📷</button></div>
+          <input class="input-field" aria-label="Mensagem para Iara" placeholder="Digite uma mensagem...">
+          <button class="send-btn" type="button" data-next="2" aria-label="Enviar mensagem">↑</button>
+        </div>
+      </div>
+
+      <!-- S2: PHOTO SENT -->
+      <div class="screen next" id="s2">
+        <div class="chat-header">
+          <button class="ch-back" onclick="go(1)">‹</button>
+          <div class="ch-avatar">🌿</div>
+          <div class="ch-info">
+            <div class="ch-name">Iara · Natura · <span class="channel-name">Messenger</span></div>
+            <div class="ch-status">online agora</div>
+          </div>
+          <div class="ch-icons"><span>📞</span><span>⋮</span></div>
+        </div>
+        <div class="chat-area">
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div><div class="bubble bot">Oi! 😊 O que você está procurando hoje?</div></div>
+          </div>
+          <div class="msg-row user">
+            <div class="msg-avatar user">J</div>
+            <div><div class="bubble user" id="intentMessage">gostaria de produtos de beleza</div></div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div><div class="bubble bot">😊</div></div>
+          </div>
+          <div class="msg-row user">
+            <div class="msg-avatar user">J</div>
+            <div><div class="bubble user" id="needMessage">quero produtos para meu cabelo</div></div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div><div class="bubble bot" id="photoPrompt">Me manda sua foto que eu identifico seu tipo de cabelo e tom de pele e recomendo os produtos ideais! 📸</div></div>
+          </div>
+          <div class="msg-row user">
+            <div class="msg-avatar user">J</div>
+            <div>
+              <div class="photo-bubble">
+                <div class="photo-area">
+                  <span style="font-size:56px">🤳</span>
+                  <div class="photo-overlay"></div>
+                </div>
+                <div class="photo-label">foto_selfie.jpg · enviada</div>
+              </div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div class="typing"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+        <div style="padding:0 14px 8px">
+          <div style="font-size:11px;color:var(--muted);text-align:center">Watson Visual Recognition analisando... ✨</div>
+        </div>
+        <div class="input-bar">
+          <div class="input-icons"><button class="input-action" type="button" data-action="attach" aria-label="Anexar arquivo">＋</button><button class="input-action" type="button" data-action="photo" aria-label="Simular envio de foto">📷</button></div>
+          <input class="input-field" aria-label="Mensagem para Iara" placeholder="Digite uma mensagem...">
+          <button class="send-btn" type="button" data-next="3" aria-label="Enviar mensagem">↑</button>
+        </div>
+      </div>
+
+      <!-- S3: WATSON ANALYSIS RESULTS -->
+      <div class="screen next" id="s3">
+        <div class="chat-header">
+          <button class="ch-back" onclick="go(2)">‹</button>
+          <div class="ch-avatar">🌿</div>
+          <div class="ch-info">
+            <div class="ch-name">Iara · Natura · <span class="channel-name">Messenger</span></div>
+            <div class="ch-status">online agora</div>
+          </div>
+          <div class="ch-icons"><span>📞</span><span>⋮</span></div>
+        </div>
+        <div class="chat-area">
+          <div class="msg-row user">
+            <div class="msg-avatar user">J</div>
+            <div>
+              <div class="photo-bubble">
+                <div class="photo-area"><span style="font-size:56px">🤳</span><div class="photo-overlay"></div></div>
+                <div class="photo-label">foto_selfie.jpg</div>
+              </div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div>
+              <div class="bubble bot">
+                <div style="font-size:12px;color:var(--gold);margin-bottom:6px;font-weight:600">🔍 Identifiquei na sua foto:</div>
+                <div class="feature-list">
+                  <div class="feat-tag">
+                    <span class="ft-label">✂️ Cabelo afro natural</span>
+                    <span class="ft-conf">96%</span>
+                  </div>
+                  <div class="ft-bar"><div class="ft-fill" style="width:96%"></div></div>
+                  <div class="feat-tag">
+                    <span class="ft-label">🎨 Tom de pele médio</span>
+                    <span class="ft-conf">91%</span>
+                  </div>
+                  <div class="ft-bar"><div class="ft-fill" style="width:91%"></div></div>
+                  <div class="feat-tag">
+                    <span class="ft-label">👗 Estilo casual/despoj.</span>
+                    <span class="ft-conf">88%</span>
+                  </div>
+                  <div class="ft-bar"><div class="ft-fill" style="width:88%"></div></div>
+                  <div class="feat-tag">
+                    <span class="ft-label">📅 Faixa etária 25 a 34</span>
+                    <span class="ft-conf">83%</span>
+                  </div>
+                  <div class="ft-bar"><div class="ft-fill" style="width:83%"></div></div>
+                  <div class="feat-tag">
+                    <span class="ft-label">🌿 Cor castanho cobre</span>
+                    <span class="ft-conf">88%</span>
+                  </div>
+                  <div class="ft-bar"><div class="ft-fill" style="width:88%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div><div class="bubble bot">Perfeito! Com base no seu perfil, separei as melhores recomendações da linha <strong>Natura</strong> especialmente para você 🌸</div></div>
+          </div>
+        </div>
+        <div class="quick-replies" aria-label="Respostas rápidas">
+          <button class="qr" type="button" data-next="4" data-choice="Ver recomendações">Ver recomendações →</button>
+          <button class="qr" type="button" data-next="2" data-choice="Enviar outra foto">Enviar outra foto</button>
+        </div>
+        <div class="input-bar">
+          <div class="input-icons"><button class="input-action" type="button" data-action="attach" aria-label="Anexar arquivo">＋</button><button class="input-action" type="button" data-action="photo" aria-label="Simular envio de foto">📷</button></div>
+          <input class="input-field" aria-label="Mensagem para Iara" placeholder="Digite uma mensagem...">
+          <button class="send-btn" type="button" data-next="4" aria-label="Enviar mensagem">↑</button>
+        </div>
+      </div>
+
+      <!-- S4: PRODUCT RECOMMENDATIONS -->
+      <div class="screen next" id="s4">
+        <div class="chat-header">
+          <button class="ch-back" onclick="go(3)">‹</button>
+          <div class="ch-avatar">🌿</div>
+          <div class="ch-info">
+            <div class="ch-name">Iara · Natura · <span class="channel-name">Messenger</span></div>
+            <div class="ch-status">online agora</div>
+          </div>
+          <div class="ch-icons"><span>📞</span><span>⋮</span></div>
+        </div>
+        <div class="chat-area">
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div><div class="bubble bot" id="recommendationHeading1">✨ <strong>Para seu cabelo afro</strong>: linha Lumina e Natura Plant:</div></div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar" style="opacity:0"></div>
+            <div style="width:100%">
+              <div class="products-scroll">
+                <div class="prod-card">
+                  <div class="prod-img">🫧</div>
+                  <div class="prod-body">
+                    <div class="prod-line">Plant · Natura</div>
+                    <div class="prod-name">Shampoo Curls Intenso</div>
+                    <div class="prod-why">Ideal para cabelo afro natural com hidratação profunda</div>
+                    <div class="prod-price">R$ 32,90</div>
+                    <button class="prod-btn" type="button" data-product="Shampoo Curls Intenso">Escolher →</button>
+                  </div>
+                </div>
+                <div class="prod-card">
+                  <div class="prod-img">💆</div>
+                  <div class="prod-body">
+                    <div class="prod-line">Lumina · Natura</div>
+                    <div class="prod-name">Máscara Afro Power</div>
+                    <div class="prod-why">Definição e brilho para cachos naturais</div>
+                    <div class="prod-price">R$ 28,50</div>
+                    <button class="prod-btn" type="button" data-product="Máscara Afro Power">Escolher →</button>
+                  </div>
+                </div>
+                <div class="prod-card">
+                  <div class="prod-img">✨</div>
+                  <div class="prod-body">
+                    <div class="prod-line">Tododia · Natura</div>
+                    <div class="prod-name">Óleo Capilar Argan</div>
+                    <div class="prod-why">Acabamento sedoso para fios afro e crespos</div>
+                    <div class="prod-price">R$ 45,00</div>
+                    <button class="prod-btn" type="button" data-product="Óleo Capilar Argan">Escolher →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div><div class="bubble bot" id="recommendationHeading2">💄 <strong>Para seu tom de pele médio</strong>: base e batom:</div></div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar" style="opacity:0"></div>
+            <div style="width:100%">
+              <div class="products-scroll">
+                <div class="prod-card">
+                  <div class="prod-img" style="background:linear-gradient(135deg,#8B4513,#D2691E)">💋</div>
+                  <div class="prod-body">
+                    <div class="prod-line">Una · Natura</div>
+                    <div class="prod-name">Base Sérum Cor Média 4</div>
+                    <div class="prod-why">Tom ideal para pele médio-dourada</div>
+                    <div class="prod-price">R$ 68,90</div>
+                    <button class="prod-btn" type="button" data-product="Base Sérum Cor Média 4">Escolher →</button>
+                  </div>
+                </div>
+                <div class="prod-card">
+                  <div class="prod-img" style="background:linear-gradient(135deg,#C41E3A,#8B0000)">💄</div>
+                  <div class="prod-body">
+                    <div class="prod-line">Una · Natura</div>
+                    <div class="prod-name">Batom Matte Terra</div>
+                    <div class="prod-why">Cor terrosa que valoriza pele com subtom quente</div>
+                    <div class="prod-price">R$ 39,90</div>
+                    <button class="prod-btn" type="button" data-product="Batom Matte Terra">Escolher →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="quick-replies" aria-label="Respostas rápidas">
+          <button class="qr" type="button" data-next="5" data-choice="Falar com consultora">Falar com consultora</button>
+          <button class="qr" type="button" data-action="more-products">Ver mais produtos</button>
+          <button class="qr" type="button" data-next="2" data-choice="Enviar outra foto">Enviar outra foto</button>
+        </div>
+        <div class="input-bar">
+          <div class="input-icons"><button class="input-action" type="button" data-action="attach" aria-label="Anexar arquivo">＋</button><button class="input-action" type="button" data-action="photo" aria-label="Simular envio de foto">📷</button></div>
+          <input class="input-field" aria-label="Mensagem para Iara" placeholder="Digite uma mensagem...">
+          <button class="send-btn" type="button" data-next="5" aria-label="Enviar mensagem">↑</button>
+        </div>
+      </div>
+
+      <!-- S5: CONSULTORA -->
+      <div class="screen next" id="s5">
+        <div class="chat-header">
+          <button class="ch-back" onclick="go(4)">‹</button>
+          <div class="ch-avatar">🌿</div>
+          <div class="ch-info">
+            <div class="ch-name">Iara · Natura · <span class="channel-name">Messenger</span></div>
+            <div class="ch-status">online agora</div>
+          </div>
+          <div class="ch-icons"><span>📞</span><span>⋮</span></div>
+        </div>
+        <div class="chat-area">
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div><div class="bubble bot">Ótimo! Também posso te conectar com uma <strong>consultora Natura</strong> perto de você 📍</div></div>
+          </div>
+          <div class="msg-row user">
+            <div class="msg-avatar user">J</div>
+            <div><div class="bubble user">sim, quero falar com uma consultora</div></div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div>
+              <div class="bubble bot">
+                <div style="font-size:12px;font-weight:700;margin-bottom:8px;color:#8a6d1f">📍 Consultoras próximas a você:</div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 10px">
+                    <div style="font-size:12px;font-weight:700">Maria Silva</div>
+                    <div style="font-size:11px;color:var(--muted)">Av. Paulista, 900 · 0,3 km</div>
+                    <div style="font-size:11px;color:var(--green);margin-top:2px">(11) 99234-5678</div>
+                  </div>
+                  <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 10px">
+                    <div style="font-size:12px;font-weight:700">Ana Costa</div>
+                    <div style="font-size:11px;color:var(--muted)">R. Augusta, 210 · 0,8 km</div>
+                    <div style="font-size:11px;color:var(--green);margin-top:2px">(11) 98765-4321</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div><div class="bubble bot">Posso te ajudar com mais alguma coisa? 🌸</div></div>
+          </div>
+          <div class="msg-row user">
+            <div class="msg-avatar user">J</div>
+            <div><div class="bubble user">obrigada Iara! 😍</div></div>
+          </div>
+          <div class="msg-row">
+            <div class="msg-avatar">🌿</div>
+            <div><div class="bubble bot">Fico feliz em ajudar! 🌿 Volte sempre que precisar. Beleza que valoriza quem você é! ✨</div></div>
+          </div>
+        </div>
+        <div class="quick-replies" aria-label="Respostas rápidas">
+          <button class="qr" type="button" data-next="1" data-choice="Nova consulta">Nova consulta</button>
+          <button class="qr" type="button" data-action="order">Ver pedido</button>
+        </div>
+        <div class="input-bar">
+          <div class="input-icons"><button class="input-action" type="button" data-action="attach" aria-label="Anexar arquivo">＋</button><button class="input-action" type="button" data-action="photo" aria-label="Simular envio de foto">📷</button></div>
+          <input class="input-field" aria-label="Mensagem para Iara" placeholder="Digite uma mensagem...">
+          <button class="send-btn" type="button" aria-label="Enviar mensagem">↑</button>
+        </div>
+      </div>
+
+    </div><!-- /screens -->
+  </div><!-- /phone -->
+
+  <div class="journey-dots" id="dots" aria-label="Etapas da demonstração"></div>
+  <div class="demo-controls">
+    <button class="demo-prev" id="demoPrev" type="button">‹ Anterior</button>
+    <button class="demo-next" id="demoNext" type="button">Próxima etapa ›</button>
+  </div>
+</div>
+</main>
+
+<script>
+const TOTAL=6;
+const stepNames=['Escolha o canal','Conte o que busca','Envie uma foto','Revise a análise','Compare recomendações','Fale com consultora'];
+const nextLabels=['Começar conversa ›','Simular análise ›','Ver resultado ›','Ver produtos ›','Buscar consultora ›','Reiniciar ↺'];
+const scrEls=Array.from({length:TOTAL},(_,i)=>document.getElementById('s'+i));
+const dots=document.getElementById('dots');
+const demoPrev=document.getElementById('demoPrev');
+const demoNext=document.getElementById('demoNext');
+const journeyCount=document.getElementById('journeyCount');
+const journeyLabel=document.getElementById('journeyLabel');
+const journeyProgress=document.getElementById('journeyProgress');
+const phoneToast=document.getElementById('phoneToast');
+const intentProfiles={
+  'Produtos de beleza':{
+    intent:'gostaria de produtos de beleza',need:'quero produtos para meu cabelo',
+    prompt:'Me manda sua foto que eu identifico seu tipo de cabelo e tom de pele e recomendo os produtos ideais! 📸',
+    headings:['✨ <strong>Para seu cabelo afro</strong>: linha Lumina e Natura Plant:','💄 <strong>Para seu tom de pele médio</strong>: base e batom:'],
+    products:[
+      ['Plant · Natura','Shampoo Curls Intenso','Hidratação profunda para cabelo afro natural','R$ 32,90','🫧','linear-gradient(135deg,#2d7a3a,#184a2a)'],
+      ['Lumina · Natura','Máscara Afro Power','Definição e brilho para cachos naturais','R$ 28,50','💆','linear-gradient(135deg,#2d7a3a,#5a9c65)'],
+      ['Tododia · Natura','Óleo Capilar Argan','Acabamento sedoso para fios afro e crespos','R$ 45,00','✨','linear-gradient(135deg,#a64a1a,#d96f2c)'],
+      ['Una · Natura','Base Sérum Cor Média 4','Tom ideal para pele médio-dourada','R$ 68,90','💋','linear-gradient(135deg,#8B4513,#D2691E)'],
+      ['Una · Natura','Batom Matte Terra','Terroso que valoriza o subtom quente','R$ 39,90','💄','linear-gradient(135deg,#C41E3A,#8B0000)']
+    ]
+  },
+  'Perfumes':{
+    intent:'quero encontrar um perfume para o dia a dia',need:'prefiro fragrâncias florais, leves e marcantes',
+    prompt:'Envie uma foto fictícia: vou combinar estilo, ocasião e intensidade para ordenar as fragrâncias. 📸',
+    headings:['🌸 <strong>Para seu estilo casual</strong>: florais leves e luminosos:','🌿 <strong>Para variar a ocasião</strong>: frescos e amadeirados:'],
+    products:[
+      ['Essencial · Natura','Essencial Floral','Floral elegante para momentos especiais','R$ 199,90','🌺','linear-gradient(135deg,#9f3b4e,#e998a7)'],
+      ['Luna · Natura','Luna Radiante','Chipre floral luminoso para o dia','R$ 169,90','🌙','linear-gradient(135deg,#8f3f72,#d98ab5)'],
+      ['Ilía · Natura','Ilía Secreto','Floral intenso com contraste adocicado','R$ 179,90','✨','linear-gradient(135deg,#7e3154,#d69ab7)'],
+      ['Kaiak · Natura','Kaiak Vital','Frescor aromático para rotina ativa','R$ 159,90','💧','linear-gradient(135deg,#176a6a,#52b6a7)'],
+      ['Ekos · Natura','Frescor de Castanha','Conforto amadeirado de baixa intensidade','R$ 129,90','🌰','linear-gradient(135deg,#76522d,#c89b62)']
+    ]
+  },
+  'Skincare':{
+    intent:'quero montar uma rotina simples de skincare',need:'busco hidratação, limpeza suave e proteção solar',
+    prompt:'Envie uma foto fictícia: vou simular sinais visuais e combinar com sua rotina declarada. 📸',
+    headings:['💧 <strong>Para hidratar e equilibrar</strong>: cuidados leves de uso diário:','☀️ <strong>Para tratar e proteger</strong>: sérum e fotoproteção:'],
+    products:[
+      ['Chronos · Natura','Acqua Biohidratante','Hidratação leve para reforçar a barreira da pele','R$ 92,90','💧','linear-gradient(135deg,#2d7a6e,#80bdb0)'],
+      ['Faces · Natura','Gel de Limpeza','Limpeza suave para começar a rotina','R$ 38,90','🫧','linear-gradient(135deg,#4f8a72,#b4d8c6)'],
+      ['Ekos · Natura','Polpa Facial Castanha','Nutrição confortável para áreas ressecadas','R$ 69,90','🌰','linear-gradient(135deg,#76522d,#c89b62)'],
+      ['Chronos · Natura','Sérum Intensivo','Tratamento concentrado para textura uniforme','R$ 128,90','✨','linear-gradient(135deg,#7b4a72,#c796bb)'],
+      ['Fotoequilíbrio · Natura','Protetor FPS 60','Proteção diária com acabamento confortável','R$ 79,90','☀️','linear-gradient(135deg,#d96f2c,#f3b46c)']
+    ]
+  }
+};
+let cur=0;
+let selectedChannel='Messenger';
+let chosenIntent='Produtos de beleza';
+let toastTimer;
+
+function showToast(message){
+  window.clearTimeout(toastTimer);
+  phoneToast.textContent=message;
+  phoneToast.classList.add('show');
+  toastTimer=window.setTimeout(()=>phoneToast.classList.remove('show'),1900);
+}
+
+function updateControls(){
+  journeyCount.textContent=`Etapa ${cur+1}/${TOTAL}`;
+  journeyLabel.textContent=stepNames[cur];
+  journeyProgress.style.width=`${((cur+1)/TOTAL)*100}%`;
+  demoPrev.disabled=cur===0;
+  demoNext.textContent=nextLabels[cur];
+  dots.innerHTML=Array.from({length:TOTAL},(_,i)=>
+    `<button class="journey-dot${i===cur?' active':''}" type="button" data-go="${i}" aria-label="Ir para etapa ${i+1}: ${stepNames[i]}"${i===cur?' aria-current="step"':''}></button>`
+  ).join('');
+}
+
+function go(n,message=''){
+  if(n<0||n>=TOTAL)return;
+  cur=n;
+  scrEls.forEach((screen,i)=>{
+    screen.className=`screen ${i===cur?'active':i<cur?'prev':'next'}`;
+    screen.setAttribute('aria-hidden',i===cur?'false':'true');
+    screen.inert=i!==cur;
+  });
+  updateControls();
+  window.requestAnimationFrame(()=>{
+    const area=scrEls[cur].querySelector('.chat-area');
+    if(area)area.scrollTop=area.scrollHeight;
+  });
+  if(message)showToast(message);
+}
+window.go=go;
+
+function selectChannel(button){
+  selectedChannel=button.dataset.channel;
+  document.querySelectorAll('.chan-item').forEach(item=>item.setAttribute('aria-pressed',item===button?'true':'false'));
+  document.querySelectorAll('.channel-name').forEach(label=>{label.textContent=selectedChannel});
+  go(1,`${selectedChannel} selecionado · conversa iniciada`);
+}
+
+function appendMessage(screen,text,type){
+  const area=screen.querySelector('.chat-area');
+  if(!area)return;
+  const row=document.createElement('div');
+  row.className=`msg-row dynamic-msg${type==='user'?' user':''}`;
+  const avatar=document.createElement('div');
+  avatar.className=`msg-avatar${type==='user'?' user':''}`;
+  avatar.textContent=type==='user'?'J':'🌿';
+  const wrap=document.createElement('div');
+  const bubble=document.createElement('div');
+  bubble.className=`bubble ${type}`;
+  bubble.textContent=text;
+  wrap.appendChild(bubble);row.append(avatar,wrap);area.appendChild(row);
+  area.scrollTop=area.scrollHeight;
+}
+
+function applyIntent(intent){
+  chosenIntent=intentProfiles[intent]?intent:'Produtos de beleza';
+  const profile=intentProfiles[chosenIntent];
+  document.getElementById('intentMessage').textContent=profile.intent;
+  document.getElementById('needMessage').textContent=profile.need;
+  document.getElementById('photoPrompt').textContent=profile.prompt;
+  document.getElementById('recommendationHeading1').innerHTML=profile.headings[0];
+  document.getElementById('recommendationHeading2').innerHTML=profile.headings[1];
+  scrEls[4].querySelectorAll('.prod-card').forEach((card,index)=>{
+    const [line,name,why,price,icon,background]=profile.products[index];
+    card.querySelector('.prod-line').textContent=line;
+    card.querySelector('.prod-name').textContent=name;
+    card.querySelector('.prod-why').textContent=why;
+    card.querySelector('.prod-price').textContent=price;
+    const image=card.querySelector('.prod-img');image.textContent=icon;image.style.background=background;
+    card.querySelector('.prod-btn').dataset.product=name;
+  });
+}
+
+function replyFor(text){
+  const normalized=text.toLocaleLowerCase('pt-BR');
+  if(/perfume|fragrância|fragrancia/.test(normalized))return 'Perfeito. Vou considerar família olfativa, ocasião e intensidade antes de recomendar.';
+  if(/pele|base|batom|maquiagem/.test(normalized))return 'Entendi. Vou cruzar tom, subtom e acabamento desejado com o catálogo demonstrativo.';
+  if(/cabelo|cacho|crespo|shampoo/.test(normalized))return 'Ótimo. Vou observar curvatura, necessidade de hidratação e rotina para refinar a indicação.';
+  if(/foto|selfie|imagem/.test(normalized))return 'Pode enviar: nesta demo a imagem é fictícia e a análise usa apenas resultados sintéticos.';
+  return 'Entendi. Vou usar essa preferência para deixar a recomendação mais relevante para você.';
+}
+
+function sendMessage(button){
+  const screen=button.closest('.screen');
+  const input=screen.querySelector('.input-field');
+  const text=input.value.trim();
+  if(!text){showToast('Digite uma preferência antes de enviar.');input.focus();return}
+  if(cur===1){
+    const normalized=text.toLocaleLowerCase('pt-BR');
+    if(/perfume|fragrância|fragrancia/.test(normalized))applyIntent('Perfumes');
+    else if(/skincare|pele|hidrata|protetor/.test(normalized))applyIntent('Skincare');
+    else applyIntent('Produtos de beleza');
+  }
+  appendMessage(screen,text,'user');
+  input.value='';button.disabled=true;
+  showToast('Iara está interpretando sua preferência…');
+  window.setTimeout(()=>{
+    appendMessage(screen,replyFor(text),'bot');
+    button.disabled=false;
+    const next=Number(button.dataset.next);
+    if(Number.isInteger(next)&&next>cur){
+      showToast('Preferência registrada · avance quando quiser');
+    }else{
+      showToast('Preferência registrada nesta simulação');
+    }
+  },520);
+}
+
+function resetDemo(){
+  document.querySelectorAll('.dynamic-msg').forEach(message=>message.remove());
+  document.querySelectorAll('.input-field').forEach(input=>{input.value=''});
+  document.querySelectorAll('.chan-item').forEach(item=>item.setAttribute('aria-pressed','false'));
+  selectedChannel='Messenger';
+  chosenIntent='Produtos de beleza';applyIntent(chosenIntent);
+  document.querySelectorAll('.channel-name').forEach(label=>{label.textContent=selectedChannel});
+  go(0,'Demonstração reiniciada');
+}
+
+document.querySelectorAll('.chan-item').forEach(button=>button.addEventListener('click',()=>selectChannel(button)));
+document.querySelectorAll('.qr').forEach(button=>button.addEventListener('click',()=>{
+  const action=button.dataset.action;
+  if(action==='more-products'){
+    scrEls[4].querySelectorAll('.products-scroll').forEach(row=>row.scrollBy({left:145,behavior:'smooth'}));
+    showToast('Mais opções reveladas · deslize os cards para comparar');
+    return;
+  }
+  if(action==='order'){
+    showToast('Pedido demonstrativo · nenhum valor ou compra é real');
+    return;
+  }
+  const next=Number(button.dataset.next);
+  const choice=button.dataset.choice||button.textContent.trim();
+  if(cur===1)applyIntent(choice);
+  if(Number.isInteger(next))go(next,`Você escolheu: ${choice}`);
+}));
+
+document.querySelectorAll('.prod-btn').forEach(button=>button.addEventListener('click',()=>{
+  go(5,`${button.dataset.product} salvo para conversar com a consultora`);
+}));
+
+document.querySelectorAll('.send-btn').forEach(button=>button.addEventListener('click',()=>sendMessage(button)));
+document.querySelectorAll('.input-field').forEach(input=>input.addEventListener('keydown',event=>{
+  if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();input.closest('.input-bar').querySelector('.send-btn').click()}
+}));
+
+document.querySelectorAll('.input-action').forEach(button=>button.addEventListener('click',()=>{
+  if(button.dataset.action==='attach'){showToast('Anexo simulado aberto · use a câmera para continuar');return}
+  if(cur<=1)go(2,'Selfie sintética anexada');
+  else if(cur===2)go(3,'Análise sintética concluída');
+  else go(2,'Nova selfie sintética anexada');
+}));
+
+dots.addEventListener('click',event=>{
+  const dot=event.target.closest('[data-go]');
+  if(dot)go(Number(dot.dataset.go));
+});
+demoPrev.addEventListener('click',()=>go(cur-1));
+demoNext.addEventListener('click',()=>cur===TOTAL-1?resetDemo():go(cur+1));
+document.getElementById('journeyReset').addEventListener('click',resetDemo);
+
+document.addEventListener('keydown',event=>{
+  if(event.target.matches('input,textarea'))return;
+  if(event.key==='ArrowLeft')go(cur-1);
+  if(event.key==='ArrowRight')cur===TOTAL-1?resetDemo():go(cur+1);
+});
+
+let pointerStart=null;
+document.getElementById('screens').addEventListener('pointerdown',event=>{
+  pointerStart=event.target.closest('button,input,.products-scroll')?null:event.clientX;
+});
+document.getElementById('screens').addEventListener('pointerup',event=>{
+  if(pointerStart===null)return;
+  const delta=event.clientX-pointerStart;pointerStart=null;
+  if(Math.abs(delta)<55)return;
+  if(delta>0)go(cur-1);else if(cur<TOTAL-1)go(cur+1);
+});
+
+updateControls();
+applyIntent(chosenIntent);
+go(0);
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

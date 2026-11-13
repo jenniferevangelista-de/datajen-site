@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Capacidade de Pagamento, Itaú</title>
+<meta name="description" content="Demonstração de capacidade de pagamento e Open Finance no contexto Itaú Unibanco.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/itau-openfinance-app.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Real Capacidade de Pagamento, Itaú">
+<meta property="og:description" content="Demonstração de capacidade de pagamento e Open Finance no contexto Itaú Unibanco.">
+<meta property="og:url" content="https://datajen.com.br/itau-openfinance-app.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Real Capacidade de Pagamento, Itaú">
+<meta name="twitter:description" content="Demonstração de capacidade de pagamento e Open Finance no contexto Itaú Unibanco.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<script>
+if(new URLSearchParams(window.location.search).get('embed')==='1')document.documentElement.classList.add('embed-mode');
+if(window.self!==window.top)document.documentElement.classList.add('in-iframe');
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#FF6200;--orange-d:#CC4E00;--orange-l:#FFF0E6;--orange-ll:#FFF8F3;
+  --navy:#1a2740;--navy-l:#253450;
+  --green:#00A878;--green-l:#E6F7F3;
+  --red:#E53935;--red-l:#FDECEA;
+  --blue:#1a73e8;--blue-l:#E8F0FE;
+  --bg:#F5F5F0;--white:#FFFFFF;--dark:#1a1a1a;--muted:#888;--border:#E8E8E0;
+  --yellow:#F5A623;--yellow-l:#FFF8EC;
+}
+body{
+  background:var(--bg);
+  min-height:100vh;display:block;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  padding:44px 0 40px;
+}
+
+/* ── NAV DE RETORNO ── */
+
+.itau-demo-shell{width:min(1180px,calc(100% - 32px));margin:28px auto 0;display:grid;grid-template-columns:minmax(330px,.82fr) minmax(0,1.18fr);gap:clamp(34px,5vw,72px);align-items:center}
+.phone-wrap{display:flex;flex-direction:column;align-items:center;gap:.6rem;zoom:.78;justify-self:center}
+.phone-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--orange-d);font-weight:800}
+
+.itau-story{min-width:0;padding:24px 0}
+.itau-kicker{display:flex;align-items:center;gap:10px;color:var(--orange);font:800 10px/1.2 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase}
+.itau-kicker::before{content:'';width:36px;height:2px;background:currentColor}
+.itau-story h1{max-width:720px;margin:15px 0 14px;font-family:Georgia,'Times New Roman',serif;font-size:clamp(38px,4.7vw,68px);line-height:.97;letter-spacing:-.045em;color:var(--dark)}
+.itau-story h1 em{font-weight:400}
+.itau-lead{max-width:680px;color:var(--muted);font-size:17px;line-height:1.6}
+.itau-everyday{margin-top:22px;padding:18px 20px;border:1px solid rgba(236,112,0,.3);border-radius:16px;background:linear-gradient(135deg,var(--orange-ll),#fff);box-shadow:0 13px 34px rgba(236,112,0,.1)}
+.itau-everyday strong{display:block;margin-bottom:5px;color:var(--orange);font:800 10px/1.2 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
+.itau-everyday p{color:var(--dark);font-size:14px;line-height:1.55}
+.itau-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:18px}
+.itau-kpi{padding:15px 17px;border:1px solid rgba(236,112,0,.24);border-radius:14px;background:#fff;transition:.22s}
+.itau-kpi:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(236,112,0,.13)}
+.itau-kpi b{display:block;color:var(--orange);font-family:Georgia,'Times New Roman',serif;font-size:24px;line-height:1}
+.itau-kpi span{display:block;margin-top:6px;color:var(--muted);font:700 9px/1.4 'IBM Plex Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+.itau-inside-hint{display:flex;align-items:flex-start;gap:10px;margin-top:18px;padding:13px 15px;border-left:3px solid var(--orange);background:rgba(236,112,0,.07);border-radius:0 12px 12px 0;color:var(--dark);font-size:13px;line-height:1.5}
+.itau-inside-hint span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--orange);color:#fff;font-weight:900;flex:none;animation:pulse-o 1.5s ease-in-out infinite}
+@media(max-width:900px){.itau-demo-shell{grid-template-columns:1fr;gap:14px}.itau-story{order:-1;padding:8px 0}.phone-wrap{zoom:.82}}
+@media(max-width:520px){.itau-demo-shell{width:calc(100% - 20px)}.phone-wrap{zoom:.88;width:100%}.itau-story h1{font-size:38px}.itau-kpis{grid-template-columns:1fr 1fr}.itau-lead{font-size:15px}}
+
+.phone{
+  width:375px;height:720px;background:var(--bg);border-radius:44px;
+  border:10px solid #111;
+  box-shadow:0 0 0 1px #222,0 0 0 3px #111,0 32px 80px rgba(0,0,0,0.85),inset 0 0 0 1px #333;
+  overflow:hidden;position:relative;display:flex;flex-direction:column;
+}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:130px;height:30px;background:#111;border-radius:0 0 20px 20px;z-index:50}
+.notch-cam{position:absolute;top:8px;right:22px;width:10px;height:10px;border-radius:50%;background:#222}
+.status-bar{height:44px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 6px;flex-shrink:0;font-size:12px;font-weight:600;color:var(--dark);background:var(--white);position:relative;z-index:10}
+.status-bar.orange{background:var(--orange);color:white}
+.status-bar.navy{background:var(--navy);color:white}
+.sb-time{font-size:15px;font-weight:700}
+.screens{flex:1;overflow:hidden;position:relative}
+.screen{position:absolute;inset:0;background:var(--bg);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.screen.active{transform:translateX(0)}
+.screen.prev{transform:translateX(-100%)}
+.screen.next{transform:translateX(100%)}
+
+/* NAV */
+.nav-bar{background:var(--white);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.nav-bar.orange{background:var(--orange);border:none}
+.nav-bar.navy{background:var(--navy);border:none}
+.nav-back{font-size:20px;cursor:pointer;padding:0 4px;background:none;border:none}
+.nav-back.w{color:white}
+.nav-back.o{color:var(--orange)}
+.nav-title{font-size:16px;font-weight:700;color:var(--dark)}
+.nav-title.w{color:white}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:0}
+.content::-webkit-scrollbar{width:3px}
+.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* HERO sections */
+.hero-orange{background:linear-gradient(160deg,var(--orange),var(--orange-d));padding:28px 24px 24px;display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0}
+.hero-navy{background:linear-gradient(160deg,var(--navy),var(--navy-l));padding:28px 24px 24px;display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0}
+
+/* CARDS */
+.card{background:var(--white);border-radius:12px;border:1px solid var(--border);padding:16px;margin:12px 20px 0}
+.card.orange-border{border-color:rgba(255,98,0,.3);background:var(--orange-ll)}
+.card.green-border{border-color:rgba(0,168,120,.3);background:var(--green-l)}
+
+/* BUTTONS */
+.btn{width:100%;padding:15px;border-radius:12px;border:none;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s}
+.btn:active{opacity:.8}
+.btn.primary{background:var(--orange);color:white;box-shadow:0 4px 16px rgba(255,98,0,.3)}
+.btn.navy{background:var(--navy);color:white}
+.btn.ghost{background:transparent;color:var(--muted);font-size:13px;padding:10px}
+.btn.success{background:var(--green);color:white;box-shadow:0 4px 16px rgba(0,168,120,.3)}
+.btn.restart{margin-top:8px;background:#fff;color:var(--orange-d);border:1px solid rgba(255,98,0,.4);box-shadow:0 6px 16px rgba(255,98,0,.08)}
+.btn.restart:hover{background:var(--orange-ll);border-color:var(--orange)}
+.btn-wrap{padding:12px 20px}
+
+/* SCORE CIRCLE */
+.score-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;padding:20px 0 10px}
+.score-svg{position:relative;width:160px;height:160px}
+.score-svg svg{position:absolute;top:0;left:0}
+.score-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-num{font-size:38px;font-weight:800;color:var(--orange)}
+.score-max{font-size:13px;color:var(--muted)}
+.score-label{font-size:13px;font-weight:600;color:var(--dark);text-align:center}
+
+/* PROGRESS */
+.progress-wrap{padding:20px 24px}
+.prog-step{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.prog-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;font-weight:700}
+.prog-icon.done{background:var(--green-l);color:var(--green)}
+.prog-icon.active{background:var(--orange-l);color:var(--orange);animation:pulse-o 1.5s ease-in-out infinite}
+.prog-icon.wait{background:var(--border);color:var(--muted)}
+@keyframes pulse-o{0%,100%{box-shadow:0 0 0 0 rgba(255,98,0,.3)}50%{box-shadow:0 0 0 8px rgba(255,98,0,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes prog{from{width:0}to{width:85%}}
+.prog-label{font-size:14px;font-weight:600;color:var(--dark)}
+.prog-sub{font-size:11px;color:var(--muted)}
+
+/* BANK GRID */
+.bank-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 20px 0}
+.bank-item{
+  background:var(--white);border:2px solid var(--border);border-radius:10px;
+  padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s;
+}
+.bank-item.selected{border-color:var(--orange);background:var(--orange-ll)}
+.bank-icon{font-size:22px}
+.bank-name{font-size:13px;font-weight:600;color:var(--dark)}
+.bank-check{margin-left:auto;width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px}
+.bank-item.selected .bank-check{background:var(--orange);border-color:var(--orange);color:white}
+
+/* COMPARISON */
+.compare-row{display:flex;gap:10px;padding:12px 20px 0}
+.compare-box{flex:1;border-radius:10px;padding:12px;text-align:center}
+.compare-box.declared{background:var(--red-l);border:1px solid rgba(229,57,53,.2)}
+.compare-box.real{background:var(--green-l);border:1px solid rgba(0,168,120,.2)}
+.cmp-label{font-size:9.5px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;font-weight:600}
+.cmp-label.r{color:var(--red)}
+.cmp-label.g{color:var(--green)}
+.cmp-value{font-size:20px;font-weight:800;color:var(--dark)}
+.cmp-sub{font-size:10px;color:var(--muted);margin-top:3px}
+
+.insight-bar{margin:14px 20px 0;background:var(--orange-l);border:1px solid rgba(255,98,0,.2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.ib-icon{font-size:24px}
+.ib-text{font-size:12px;color:var(--orange-d);line-height:1.5;font-weight:500}
+
+/* OFFER */
+.offer-hero{background:linear-gradient(135deg,#00A878,#007A56);padding:28px 24px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.offer-val{font-size:42px;font-weight:800;color:white}
+.offer-lab{font-size:12px;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase}
+.offer-was{font-size:13px;color:rgba(255,255,255,.6)}
+
+.feature-list{padding:14px 20px 0;display:flex;flex-direction:column;gap:8px}
+.feature-row{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.fr-icon{font-size:20px}
+.fr-text{font-size:13px;color:var(--dark);font-weight:500}
+.fr-badge{margin-left:auto;font-size:10px;padding:3px 8px;border-radius:20px;font-weight:700}
+.fr-badge.g{background:var(--green-l);color:var(--green)}
+
+/* CONSENT */
+.consent-list{padding:14px 20px 0;display:flex;flex-direction:column;gap:8px}
+.consent-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)}
+.consent-item:last-child{border:none}
+.ci-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.ci-text{font-size:13px;color:var(--dark);line-height:1.5}
+.ci-text strong{font-weight:700}
+
+/* INFO ROW */
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border:none}
+.ir-key{font-size:13px;color:var(--muted)}
+.ir-val{font-size:13px;font-weight:600;color:var(--dark)}
+.ir-val.o{color:var(--orange)}
+.ir-val.g{color:var(--green)}
+
+/* BOTTOM NAV */
+.bottom-nav{background:var(--white);border-top:1px solid var(--border);display:flex;padding:8px 0 20px;flex-shrink:0}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;color:var(--dark);font-weight:600;cursor:pointer}
+.bn-item.active{color:var(--orange)}
+.bn-icon{font-size:22px}
+
+/* SECURITY BADGE */
+.sec-badge{display:flex;align-items:center;gap:8px;margin:10px 20px 0;padding:10px 14px;background:var(--blue-l);border-radius:8px;border:1px solid rgba(26,115,232,.2)}
+.sb-text{font-size:11px;color:var(--blue);line-height:1.4}
+
+/* TOAST */
+.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:#1a2740;color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .3s;white-space:nowrap;z-index:200}
+.toast.show{opacity:1}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="itau-app-priority">
+html[data-app-ui="editorial"] .openfinance-cta{
+  background:linear-gradient(135deg,var(--orange),var(--orange-d))!important;
+  border-color:transparent!important;color:#fff!important;
+  box-shadow:0 14px 30px rgba(236,112,0,.24)!important;
+  animation:openFinanceGlow 2.2s ease-in-out infinite;
+}
+html[data-app-ui="editorial"] .openfinance-cta *{color:#fff!important}
+@keyframes openFinanceGlow{0%,100%{transform:translateY(0);box-shadow:0 14px 30px rgba(236,112,0,.2)}50%{transform:translateY(-3px);box-shadow:0 18px 38px rgba(236,112,0,.34)}}
+</style>
+<style id="itau-embed-mode">
+html.embed-mode,html.embed-mode body{width:100%;height:100%;min-height:100%;overflow:hidden}
+html.embed-mode body{display:grid;place-items:center;padding:0}
+html.embed-mode .gn,
+html.embed-mode .demo-integrity-banner,
+html.embed-mode .everyday-translation,
+html.embed-mode .tech-disclaimer,
+html.embed-mode .itau-story,
+html.embed-mode .context-header-bar,
+html.embed-mode .context-popover,
+html.embed-mode .mob-veil,
+html.in-iframe .gn,
+html.in-iframe .demo-integrity-banner,
+html.in-iframe .everyday-translation,
+html.in-iframe .tech-disclaimer,
+html.in-iframe .itau-story,
+html.in-iframe .context-header-bar,
+html.in-iframe .context-popover,
+html.in-iframe .mob-veil{display:none!important}
+html.embed-mode .itau-demo-shell,
+html.in-iframe .itau-demo-shell{
+  width:100%;height:100%;min-height:0;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr;place-items:center;gap:0
+}
+html.embed-mode .phone-wrap,
+html.in-iframe .phone-wrap{
+  width:375px;max-width:100%;margin:0;zoom:1;justify-self:center
+}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<link rel="stylesheet" href="embedded-preview.css?v=20261027-fit">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Real Capacidade de Pagamento, Itaú</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back primary" href="cases-itau.html">&#x1F948; &larr; Case Batalha de Dados</a>
+    <a class="gn-back" href="experiencia.html#itau-unibanco">Experi&ecirc;ncia Ita&uacute; Unibanco &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+<div class="context-header-bar">
+  <span class="context-live-badge">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+  <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Os resultados históricos identificados nesta página pertencem ao projeto Batalha de Dados · Itaú Unibanco. O aplicativo foi reconstruído para demonstrar a proposta: nomes, movimentações, scores individuais e ofertas das telas são fictícios e não reproduzem registros de clientes.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este aplicativo recria a jornada de consentimento do Open Finance e a transformação de dados autorizados em uma oferta. O motor reúne movimentações de diferentes instituições, calcula sinais de capacidade de pagamento e aplica o score à política de crédito; o resultado é uma decisão mais contextualizada e explicável para cliente e banco.</p>
+  <span class="context-action"><b>O que faz:</b> Simula autorização de bancos → análise de movimentações → score de capacidade → oferta ilustrativa. <b>Experimente:</b> selecione bancos, avance e compare cenários. <b>Escopo:</b> sem conexão a contas reais, execução do modelo histórico ou aprovação de crédito.</span>
+</aside>
+
+<main class="itau-demo-shell" id="conteudo-principal">
+<div class="phone-wrap">
+  <div class="phone-label">★ Real Capacidade de Pagamento, Itaú ★</div>
+  <div class="phone">
+    <div class="notch"><div class="notch-cam"></div></div>
+
+    <div class="status-bar" id="statusBar">
+      <span class="sb-time">9:41</span>
+      <div style="display:flex;gap:5px;align-items:center;font-size:11px"><span>●●●</span><span>5G</span><span>🔋</span></div>
+    </div>
+
+    <div class="screens" id="screens">
+
+      <!-- S0: HOME -->
+      <div class="screen active" id="s0">
+        <div class="nav-bar">
+          <span style="font-size:22px;font-weight:900;color:var(--orange)">itaú</span>
+          <div style="margin-left:auto;display:flex;gap:10px">
+            <span style="font-size:20px">🔔</span>
+            <span style="font-size:20px">👤</span>
+          </div>
+        </div>
+        <div class="content">
+          <div style="padding:16px 20px 0">
+            <div style="font-size:13px;color:var(--muted)">Olá, Jennifer 👋</div>
+            <div style="font-size:20px;font-weight:800;color:var(--dark);margin-top:2px">Seu painel financeiro</div>
+          </div>
+
+          <div class="card openfinance-cta" role="button" tabindex="0" data-primary-action onclick="go(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go(1)}" style="border-color:var(--orange);border-width:1.5px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <span style="font-size:28px">🔓</span>
+              <div>
+                <div style="font-size:15px;font-weight:800;color:var(--dark)">Descubra seu potencial real</div>
+                <div style="font-size:11px;color:var(--dark);opacity:.65">via Open Finance</div>
+              </div>
+            </div>
+            <div style="font-size:12px;color:var(--orange-d);font-weight:600;line-height:1.5;margin-bottom:12px">Conecte seus outros bancos e veja sua verdadeira capacidade de crédito, não apenas o que declarou.</div>
+            <div style="background:var(--orange);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700;color:white;text-align:center">Conectar via Open Finance →</div>
+          </div>
+
+          <div class="card">
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:10px">Limite atual</div>
+            <div id="currentLimitValue" style="font-size:28px;font-weight:800;color:var(--dark)">R$ 8.000</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">Cartão de crédito Itaú</div>
+            <div id="potentialLimitHint" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--orange);font-weight:700">Conecte bancos para recalcular sua capacidade →</div>
+          </div>
+
+          <div class="card">
+            <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Sabia que...</div>
+            <div style="font-size:13px;font-weight:600;color:var(--dark);line-height:1.5">Seu relacionamento financeiro vai além de uma única conta.</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px">Hackathon: renda divergente em mais de 20% em 92,23% da amostra de 720 mil clientes PF. Divergência não significa maior renda em todos os casos.</div>
+          </div>
+        </div>
+        <div class="bottom-nav">
+          <div class="bn-item active" onclick="bnNav(this,'início')"><span class="bn-icon">🏠</span>início</div>
+          <div class="bn-item" onclick="bnNav(this,'cartões')"><span class="bn-icon">💳</span>cartões</div>
+          <div class="bn-item" onclick="bnNav(this,'extrato')"><span class="bn-icon">📊</span>extrato</div>
+          <div class="bn-item" onclick="bnNav(this,'perfil')"><span class="bn-icon">👤</span>perfil</div>
+        </div>
+      </div>
+
+      <!-- S1: SELECT BANKS -->
+      <div class="screen next" id="s1">
+        <div class="nav-bar">
+          <button class="nav-back o" onclick="go(0)">‹</button>
+          <span class="nav-title">Open Finance</span>
+        </div>
+        <div class="content">
+          <div style="padding:16px 20px 6px">
+            <div style="font-size:18px;font-weight:800;color:var(--dark)">Selecione seus bancos</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:4px">Escolha onde você tem conta ou cartão</div>
+          </div>
+
+          <div class="bank-grid">
+            <div class="bank-item selected" id="b1" onclick="toggleBank(this)">
+              <span class="bank-icon">🟠</span>
+              <span class="bank-name">Bradesco</span>
+              <div class="bank-check">✓</div>
+            </div>
+            <div class="bank-item selected" id="b2" onclick="toggleBank(this)">
+              <span class="bank-icon">🟡</span>
+              <span class="bank-name">Banco do Brasil</span>
+              <div class="bank-check">✓</div>
+            </div>
+            <div class="bank-item selected" id="b3" onclick="toggleBank(this)">
+              <span class="bank-icon">🔴</span>
+              <span class="bank-name">Santander</span>
+              <div class="bank-check">✓</div>
+            </div>
+            <div class="bank-item" id="b4" onclick="toggleBank(this)">
+              <span class="bank-icon">🟣</span>
+              <span class="bank-name">Nubank</span>
+              <div class="bank-check"></div>
+            </div>
+            <div class="bank-item" id="b5" onclick="toggleBank(this)">
+              <span class="bank-icon">🔵</span>
+              <span class="bank-name">Caixa</span>
+              <div class="bank-check"></div>
+            </div>
+            <div class="bank-item" id="b6" onclick="toggleBank(this)">
+              <span class="bank-icon">⚫</span>
+              <span class="bank-name">BTG Pactual</span>
+              <div class="bank-check"></div>
+            </div>
+          </div>
+
+          <div class="sec-badge" style="margin-top:16px">
+            <span style="font-size:18px">🔒</span>
+            <span class="sb-text">Regulado pelo Banco Central do Brasil. Seus dados são compartilhados apenas com seu consentimento e podem ser revogados a qualquer momento.</span>
+          </div>
+
+          <div class="btn-wrap" style="padding-top:14px">
+            <button class="btn primary" id="continueBanks" type="button" onclick="go(2)">Continuar com 3 bancos →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- S2: CONSENT -->
+      <div class="screen next" id="s2">
+        <div class="nav-bar">
+          <button class="nav-back o" onclick="go(1)">‹</button>
+          <span class="nav-title">Autorização</span>
+        </div>
+        <div class="content">
+          <div style="padding:16px 20px 0">
+            <div style="font-size:18px;font-weight:800;color:var(--dark)">O Itaú irá acessar</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:2px">nos últimos 12 meses, em cada banco selecionado:</div>
+          </div>
+          <div class="consent-list">
+            <div class="consent-item">
+              <span class="ci-icon">📥</span>
+              <div class="ci-text"><strong>Créditos e depósitos</strong>, salários, transferências recebidas, rendimentos</div>
+            </div>
+            <div class="consent-item">
+              <span class="ci-icon">📤</span>
+              <div class="ci-text"><strong>Débitos e pagamentos</strong>, contas pagas, cartões, financiamentos</div>
+            </div>
+            <div class="consent-item">
+              <span class="ci-icon">💳</span>
+              <div class="ci-text"><strong>Limites e dívidas</strong>, uso atual de crédito em outros bancos</div>
+            </div>
+            <div class="consent-item">
+              <span class="ci-icon">🚫</span>
+              <div class="ci-text" style="color:var(--muted)"><strong>Não acessado:</strong> senhas, saldos de investimento, dados pessoais além do CPF</div>
+            </div>
+          </div>
+          <div class="card" style="background:#E8F5E9;border-color:rgba(0,168,120,.2);margin-top:8px">
+            <div style="font-size:12px;color:#2E7D32;font-weight:600">✓ Cenário simulado &nbsp;·&nbsp; ✓ Sem acesso a contas reais</div>
+          </div>
+          <div style="padding:8px 20px">
+            <div style="font-size:11px;color:var(--muted);line-height:1.5;text-align:center">Continuar apenas navega pela demonstração; não concede uma autorização bancária real. Uma implantação precisa observar a regulamentação aplicável do Open Finance, incluindo a Resolução Conjunta nº 1/2020 e suas alterações. Consentimento, validade de token e retenção de dados são controles distintos.</div>
+          </div>
+          <div class="btn-wrap">
+            <div class="btn primary" onclick="go(3)">Simular autorização</div>
+            <div class="btn ghost" onclick="go(1)" style="margin-top:6px">Cancelar</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3: ANALYZING -->
+      <div class="screen next" id="s3">
+        <div class="nav-bar navy">
+          <span class="nav-title w" style="margin:0 auto">Analisando seus dados</span>
+        </div>
+        <div class="content">
+          <div class="hero-navy">
+            <div style="font-size:52px;animation:spin 2s linear infinite">⚙️</div>
+            <div id="analysisTitle" style="font-size:16px;font-weight:700;color:white">Calculando sua capacidade real</div>
+            <div id="analysisSub" style="font-size:12px;color:rgba(255,255,255,.65);text-align:center">Isso pode levar alguns segundos</div>
+            <div style="background:rgba(255,255,255,.1);border-radius:20px;height:6px;width:200px;overflow:hidden;margin-top:6px">
+              <div style="height:100%;background:var(--orange);border-radius:20px;width:70%;animation:prog 2s ease-out forwards"></div>
+            </div>
+          </div>
+          <div class="progress-wrap" id="analysisProgress">
+            <div class="prog-step">
+              <div class="prog-icon done">✓</div>
+              <div>
+                <div class="prog-label">Bradesco conectado</div>
+                <div class="prog-sub">286 transações · 12 meses</div>
+              </div>
+            </div>
+            <div class="prog-step">
+              <div class="prog-icon done">✓</div>
+              <div>
+                <div class="prog-label">Banco do Brasil conectado</div>
+                <div class="prog-sub">341 transações · 12 meses</div>
+              </div>
+            </div>
+            <div class="prog-step">
+              <div class="prog-icon active">...</div>
+              <div>
+                <div class="prog-label">Santander, coletando</div>
+                <div class="prog-sub">220 transações encontradas</div>
+              </div>
+            </div>
+            <div class="prog-step">
+              <div class="prog-icon wait">4</div>
+              <div>
+                <div class="prog-label">Reconstruindo renda real</div>
+                <div class="prog-sub">Feature engineering · ML model</div>
+              </div>
+            </div>
+            <div class="prog-step">
+              <div class="prog-icon wait">5</div>
+              <div>
+                <div class="prog-label">Calculando score</div>
+                <div class="prog-sub">Modelo histórico: XGBoost · 847 features · execução simulada</div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-wrap">
+            <div class="btn primary" onclick="go(4)">Simular resultado →</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S4: RESULT / SCORE -->
+      <div class="screen next" id="s4">
+        <div class="nav-bar orange">
+          <span class="nav-title w" style="margin:0 auto">Seu perfil financeiro real</span>
+        </div>
+        <div class="content">
+          <div class="score-wrap">
+            <div class="score-svg">
+              <svg viewBox="0 0 160 160" width="160" height="160">
+                <circle cx="80" cy="80" r="68" fill="none" stroke="#FFE0CC" stroke-width="12"/>
+                <circle cx="80" cy="80" r="68" fill="none" stroke="var(--orange)" stroke-width="12"
+                  stroke-dasharray="427" stroke-dashoffset="107"
+                  stroke-linecap="round" transform="rotate(-90 80 80)"
+                  style="transition:stroke-dashoffset 1.5s ease"/>
+              </svg>
+              <div class="score-center">
+                <div class="score-num">782</div>
+                <div class="score-max">/1000</div>
+              </div>
+            </div>
+            <div class="score-label">Real Capacidade de Pagamento</div>
+            <div style="font-size:11px;color:var(--muted)">Percentil 84, acima da média</div>
+          </div>
+
+          <div class="compare-row">
+            <div class="compare-box declared">
+              <div class="cmp-label r">Renda declarada</div>
+              <div class="cmp-value">R$ 5.000</div>
+              <div class="cmp-sub">informada no cadastro</div>
+            </div>
+            <div class="compare-box real">
+              <div class="cmp-label g">Renda estimada</div>
+              <div class="cmp-value" id="observedCapacity">R$ 8.400</div>
+              <div class="cmp-sub" id="observedCapacitySub">observada em transações de 3 bancos</div>
+            </div>
+          </div>
+
+          <div class="insight-bar">
+            <span class="ib-icon">📈</span>
+            <span class="ib-text" id="capacityInsight">Os dados autorizados revelam uma capacidade mensal estimada 68% acima da renda declarada, permitindo uma decisão mais contextualizada.</span>
+          </div>
+
+          <div style="padding:12px 20px 0">
+            <div style="font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px">Detalhes do modelo</div>
+          </div>
+          <div style="margin:0 20px">
+            <div class="info-row"><span class="ir-key">Regularidade de renda</span><span class="ir-val g">Excelente</span></div>
+            <div class="info-row"><span class="ir-key">Histórico de pagamentos</span><span class="ir-val g">100% em dia</span></div>
+            <div class="info-row"><span class="ir-key">Comprometimento de renda</span><span class="ir-val o">28%</span></div>
+            <div class="info-row"><span class="ir-key">Diversidade de crédito</span><span class="ir-val" id="institutionCount">3 instituições</span></div>
+            <div class="info-row"><span class="ir-key">Transações fictícias da simulação</span><span class="ir-val" id="transactionCount">847</span></div>
+          </div>
+          <div class="btn-wrap" style="padding-top:14px">
+            <div class="btn primary" onclick="go(5)">Ver oferta personalizada →</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S5: OFFER -->
+      <div class="screen next" id="s5">
+        <div class="nav-bar" style="background:var(--green);border:none">
+          <button class="nav-back w" type="button" onclick="resetSimulation()" aria-label="Fazer nova simulação" title="Fazer nova simulação">↻</button>
+          <span class="nav-title w" style="margin:0 auto">🎉 Oferta personalizada</span>
+          <span style="width:28px" aria-hidden="true"></span>
+        </div>
+        <div class="content">
+          <div class="offer-hero">
+            <div style="font-size:14px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:1px">Novo limite de crédito</div>
+            <div class="offer-val" id="offerValue">R$ 15.000</div>
+            <div class="offer-was" id="offerWas">antes: R$ 8.000 · aumento de 87,5%</div>
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <div style="background:rgba(255,255,255,.2);padding:4px 10px;border-radius:20px;font-size:11px;color:white;font-weight:600">Sem consulta SPC/Serasa</div>
+              <div style="background:rgba(255,255,255,.2);padding:4px 10px;border-radius:20px;font-size:11px;color:white;font-weight:600">Liberação imediata</div>
+            </div>
+          </div>
+
+          <div class="feature-list">
+            <div class="feature-row">
+              <span class="fr-icon">💳</span>
+              <span class="fr-text">Cartão de crédito Itaú Platinum</span>
+              <span class="fr-badge g">Novo</span>
+            </div>
+            <div class="feature-row">
+              <span class="fr-icon">🏦</span>
+              <span class="fr-text">Empréstimo pré-aprovado R$ 30.000</span>
+              <span class="fr-badge g">0.89%/mês</span>
+            </div>
+            <div class="feature-row">
+              <span class="fr-icon">📱</span>
+              <span class="fr-text">Pix parcelado disponível</span>
+              <span class="fr-badge g">Grátis</span>
+            </div>
+            <div class="feature-row">
+              <span class="fr-icon">🔒</span>
+              <span class="fr-text">Sem dados bancários reais</span>
+              <span class="fr-badge g">DEMO</span>
+            </div>
+          </div>
+
+          <div style="margin:12px 20px 0;padding:12px 14px;background:var(--orange-ll);border-radius:10px;border:1px solid rgba(255,98,0,.2)">
+            <div id="offerDisclaimer" style="font-size:11px;color:var(--orange-d);line-height:1.5">Demonstração com dados fictícios de transações em 3 bancos. O cenário ilustra a proposta de Real Capacidade de Pagamento, sem executar o modelo histórico. Os limites são ilustrativos e não constituem oferta de crédito.</div>
+          </div>
+
+          <div class="btn-wrap" style="padding-top:14px">
+            <button class="btn success" type="button" onclick="accept()">Aceitar oferta</button>
+            <button class="btn restart" type="button" onclick="resetSimulation()">↻ Fazer nova simulação</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /screens -->
+  </div><!-- /phone -->
+
+  <div style="display:flex;gap:6px;margin-top:2px" id="dots"></div>
+</div>
+
+<aside class="itau-story" aria-label="Como explorar o app Open Finance">
+  <div class="itau-kicker">Resultados reais do hackathon · aplicativo reconstruído</div>
+  <h2>Veja a capacidade de pagamento que o <em>cadastro sozinho não enxerga.</em></h2>
+  <p class="itau-lead">Este aplicativo demonstra a proposta apresentada no hackathon Batalha de Dados · Itaú Unibanco: complementar a análise de capacidade de pagamento com informações de diferentes instituições. Os números do estudo são históricos; a jornada navegável usa dados fictícios, sem conexão a bancos reais nem execução do modelo treinado no evento.</p>
+  <div class="itau-everyday">
+    <strong>Traduzindo para o dia a dia</strong>
+    <p>O limite não aumenta por mágica: sem dados adicionais, permanece em R$ 8 mil. A cada banco autorizado, o motor ganha evidências sobre entradas, compromissos e regularidade financeira, recalcula a Real Capacidade de Pagamento e só então simula uma oferta maior. Tudo usa dados fictícios.</p>
+  </div>
+  <div class="itau-kpis" aria-label="Resultados históricos do hackathon e escopo da simulação, identificados em cada cartão">
+    <div class="itau-kpi"><b>720 mil</b><span>resultado do hackathon · clientes PF na amostra analisada</span></div>
+    <div class="itau-kpi"><b>R$ 3,2 bi</b><span>estimativa do hackathon · potencial de carteira, sujeito à análise de risco</span></div>
+    <div class="itau-kpi"><b>87,5%</b><span>aumento ilustrativo de limite na jornada</span></div>
+    <div class="itau-kpi"><b>6 telas</b><span>do consentimento à oferta final</span></div>
+  </div>
+  <div class="itau-inside-hint"><span>↓</span><div><strong>A interação acontece no aplicativo.</strong><br>Comece pelo cartão laranja dentro do celular e avance pelos botões de cada tela.</div></div>
+</aside>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<style>
+:root{--orange:#FF6200;--orange-d:#CC4E00;--orange-l:#FFF0E6;--orange-ll:#FFF8F3;--navy:#1a2740;--navy-l:#253450;--green:#00A878;--green-l:#E6F7F3;--red:#E53935;--red-l:#FDECEA;--blue:#1a73e8;--blue-l:#E8F0FE;--bg:#F5F5F0;--white:#FFFFFF;--dark:#1a1a1a;--muted:#888;--border:#E8E8E0}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes prog{from{width:0}to{width:85%}}
+</style>
+<style>
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-live-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1px solid var(--green);background:var(--green-l);color:var(--green)}
+.context-header-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 20px;background:var(--white);border-bottom:1px solid var(--border)}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+</style>
+
+<script>
+const TOTAL = 6;
+let cur = 0;
+const BASE_LIMIT = 8000;
+const LIMIT_BY_BANKS = [8000, 9600, 12300, 15000, 16800, 18400, 20000];
+const CAPACITY_BY_BANKS = [5000, 5900, 7200, 8400, 9600, 10800, 12000];
+const TX_BY_BANKS = [0, 233, 521, 847, 1094, 1338, 1576];
+const scrEls = Array.from({length:TOTAL}, (_,i) => document.getElementById('s'+i));
+
+function money(value){return value.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});}
+function selectedBankCount(){return document.querySelectorAll('.bank-item.selected').length;}
+
+function syncBankScenario(){
+  const count=selectedBankCount();
+  const limit=LIMIT_BY_BANKS[count];
+  const capacity=CAPACITY_BY_BANKS[count];
+  const increase=Math.round(((limit-BASE_LIMIT)/BASE_LIMIT)*1000)/10;
+  const current=document.getElementById('currentLimitValue');
+  const hint=document.getElementById('potentialLimitHint');
+  const observed=document.getElementById('observedCapacity');
+  const observedSub=document.getElementById('observedCapacitySub');
+  const insight=document.getElementById('capacityInsight');
+  const institutions=document.getElementById('institutionCount');
+  const transactions=document.getElementById('transactionCount');
+  const offer=document.getElementById('offerValue');
+  const offerWas=document.getElementById('offerWas');
+  const disclaimer=document.getElementById('offerDisclaimer');
+  if(current) current.textContent=money(BASE_LIMIT);
+  if(hint) hint.textContent=count?`Com ${count} ${count===1?'banco':'bancos'}: limite simulado de ${money(limit)} →`:'Sem banco conectado, o limite permanece em R$ 8.000';
+  if(observed) observed.textContent=count?money(capacity):'Não calculada';
+  if(observedSub) observedSub.textContent=count?`estimada com transações de ${count} ${count===1?'banco':'bancos'}`:'faltam dados cross-bank autorizados';
+  if(insight) insight.innerHTML=count
+    ?`Os dados autorizados em <strong>${count} ${count===1?'instituição':'instituições'}</strong> ampliam a evidência sobre entradas e compromissos. A política simula um limite ${increase.toLocaleString('pt-BR')}% maior, sem substituir a análise de risco.`
+    :'Sem outra instituição autorizada, o motor não tem evidência nova sobre capacidade de pagamento. Por isso, <strong>o limite não aumenta</strong>.';
+  if(institutions) institutions.textContent=count?`${count} ${count===1?'instituição':'instituições'}`:'nenhuma instituição adicional';
+  if(transactions) transactions.textContent=TX_BY_BANKS[count].toLocaleString('pt-BR');
+  if(offer) offer.textContent=money(limit);
+  if(offerWas) offerWas.textContent=count?`antes: ${money(BASE_LIMIT)} · aumento de ${increase.toLocaleString('pt-BR')}%`:`limite mantido · nenhuma evidência adicional autorizada`;
+  if(disclaimer) disclaimer.textContent=count
+    ?`Demonstração com dados fictícios de transações em ${count} ${count===1?'banco':'bancos'}. O cenário ilustra a proposta de Real Capacidade de Pagamento, sem executar o modelo histórico. Os limites são ilustrativos e não constituem oferta de crédito.`
+    :'Sem bancos adicionais selecionados, a simulação preserva o limite ilustrativo atual. Nenhum dado real de cliente é utilizado e não há oferta de crédito.';
+}
+
+function renderAnalysisProgress(){
+  const names=[...document.querySelectorAll('.bank-item.selected .bank-name')].map(el=>el.textContent.trim());
+  const wrap=document.getElementById('analysisProgress');
+  const title=document.getElementById('analysisTitle');
+  const sub=document.getElementById('analysisSub');
+  if(!wrap)return;
+  if(!names.length){
+    title.textContent='Nenhum banco adicional conectado';
+    sub.textContent='A política atual será preservada';
+    wrap.innerHTML=`<div class="prog-step"><div class="prog-icon done">✓</div><div><div class="prog-label">Cadastro Itaú verificado</div><div class="prog-sub">nenhuma evidência cross-bank autorizada</div></div></div><div class="prog-step"><div class="prog-icon done">✓</div><div><div class="prog-label">Política de crédito preservada</div><div class="prog-sub">limite atual mantido em R$ 8.000</div></div></div>`;
+    return;
+  }
+  title.textContent='Calculando sua capacidade real';
+  sub.textContent=`Cruzando sinais autorizados de ${names.length} ${names.length===1?'banco':'bancos'}`;
+  wrap.innerHTML=names.map((name,index)=>`<div class="prog-step"><div class="prog-icon done">✓</div><div><div class="prog-label">${name} conectado</div><div class="prog-sub">${180+index*53} transações fictícias · 12 meses</div></div></div>`).join('')+`<div class="prog-step"><div class="prog-icon active">…</div><div><div class="prog-label">Reconstruindo capacidade de pagamento</div><div class="prog-sub">entradas · compromissos · regularidade</div></div></div><div class="prog-step"><div class="prog-icon wait">✓</div><div><div class="prog-label">Aplicando score à política de crédito</div><div class="prog-sub">decisão explicável · cenário simulado</div></div></div>`;
+}
+
+function go(n){
+  if(n < 0 || n >= TOTAL) return;
+  cur = n;
+  scrEls.forEach((s,i) => {
+    s.className = 'screen ' + (i===cur?'active':i<cur?'prev':'next');
+  });
+  const sb = document.getElementById('statusBar');
+  sb.className = 'status-bar' + (cur===3?' navy':([1,3].includes(cur)?'':cur===0?'':' orange'));
+  if(cur===3) sb.className='status-bar navy';
+  else if(cur===5) sb.className='status-bar';
+  else if(cur>0) sb.className='status-bar orange';
+  else sb.className='status-bar';
+  updateDots();
+  document.querySelectorAll('.itau-step').forEach((step,i)=>step.classList.toggle('active',i===cur));
+  if(cur===3) renderAnalysisProgress();
+  if(cur>=4) syncBankScenario();
+}
+
+function updateDots(){
+  document.getElementById('dots').innerHTML = Array.from({length:TOTAL},(_,i)=>
+    `<div style="width:${i===cur?20:7}px;height:7px;border-radius:4px;background:${i===cur?'#FF6200':'rgba(255,98,0,0.2)'};transition:all .3s"></div>`
+  ).join('');
+}
+
+function toggleBank(el){
+  el.classList.toggle('selected');
+  const check = el.querySelector('.bank-check');
+  check.textContent = el.classList.contains('selected') ? '✓' : '';
+  updateBankButton();
+  syncBankScenario();
+}
+
+function updateBankButton(){
+  const count=document.querySelectorAll('.bank-item.selected').length;
+  const button=document.getElementById('continueBanks');
+  if(!button)return;
+  button.textContent=count?`Continuar com ${count} ${count===1?'banco':'bancos'} →`:'Selecione pelo menos um banco';
+  button.disabled=count===0;
+  button.setAttribute('aria-label',button.textContent);
+  button.style.opacity='1';
+}
+
+function bnNav(el,label){
+  document.querySelectorAll('.bn-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+  const t = document.getElementById('toast');
+  t.textContent = label==='início' ? '🏠 Você já está na tela inicial.' : `A tela “${label}” não faz parte desta demonstração: o foco aqui é o fluxo de Open Finance.`;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+function accept(){
+  const t = document.getElementById('toast');
+  const limit=LIMIT_BY_BANKS[selectedBankCount()];
+  t.textContent = limit>BASE_LIMIT?`🎉 Oferta simulada: ${money(limit)}.`:'Limite atual mantido. Conecte bancos para uma nova análise.';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+function resetSimulation(){
+  document.querySelectorAll('.bank-item').forEach((bank,index)=>{
+    const selected=index<3;
+    bank.classList.toggle('selected',selected);
+    bank.querySelector('.bank-check').textContent=selected?'✓':'';
+  });
+  const toast=document.getElementById('toast');
+  toast.classList.remove('show');
+  toast.textContent='';
+  updateBankButton();
+  syncBankScenario();
+  document.querySelectorAll('.screen .content').forEach(panel=>{panel.scrollTop=0});
+  go(0);
+  setTimeout(()=>document.querySelector('.openfinance-cta')?.focus(),380);
+}
+
+updateDots();
+updateBankButton();
+syncBankScenario();
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

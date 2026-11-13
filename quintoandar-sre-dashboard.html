@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuintoAndar · SRE Live Dashboard</title>
+<meta name="description" content="Dashboard interativo de SRE e confiabilidade no contexto QuintoAndar.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/quintoandar-sre-dashboard.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-case-feedback" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="QuintoAndar · SRE Live Dashboard">
+<meta property="og:description" content="Dashboard interativo de SRE e confiabilidade no contexto QuintoAndar.">
+<meta property="og:url" content="https://datajen.com.br/quintoandar-sre-dashboard.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QuintoAndar · SRE Live Dashboard">
+<meta name="twitter:description" content="Dashboard interativo de SRE e confiabilidade no contexto QuintoAndar.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+:root{
+  --bg:#0c0a1a;--panel:#110f21;--card:#171430;--card2:#1e1b35;
+  --acc:#8b5cf6;--acc2:#7c3aed;--green:#10b981;--amber:#f59e0b;--red:#ef4444;--blue:#3b82f6;--cyan:#06b6d4;
+  --text:#e2e8f0;--sub:#7c8db5;--border:#1e1b35;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;font-size:13px;overflow-x:hidden;padding-top:44px}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.k8s-logo{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#326ce5,var(--acc));display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:900}
+.topbar-brand{font-weight:700;font-size:14px}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.pill{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.4px}
+.pill-live{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.pill-case{background:rgba(139,92,246,.12);color:var(--acc);border:1px solid rgba(139,92,246,.3);text-decoration:none;cursor:pointer}
+.pill-case:hover{background:rgba(139,92,246,.2)}
+.cluster-badge{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sub);background:var(--card);border:1px solid var(--border);border-radius:6px;padding:4px 10px}
+.cluster-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:breathe 2s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+
+/* HERO STATS */
+.hero{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:10px 20px;border-bottom:1px solid var(--border)}
+.hstat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;position:relative;overflow:hidden}
+.hstat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.hstat.g::before{background:var(--green)}
+.hstat.a::before{background:var(--amber)}
+.hstat.r::before{background:var(--red)}
+.hstat.b::before{background:var(--blue)}
+.hstat.p::before{background:var(--acc)}
+.hstat-val{font-size:22px;font-weight:900}
+.hstat-val.g{color:var(--green)}.hstat-val.a{color:var(--amber)}.hstat-val.r{color:var(--red)}.hstat-val.b{color:var(--blue)}.hstat-val.p{color:var(--acc)}
+.hstat-label{font-size:10px;color:var(--sub);font-weight:600;letter-spacing:.3px}
+.hstat-sub{font-size:10px;color:var(--sub)}
+
+/* MAIN GRID */
+.main{display:grid;grid-template-columns:1fr 230px 230px;gap:8px;padding:12px 20px;min-height:calc(100vh - 150px)}
+
+/* PODS SECTION */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.section-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.section-title{font-size:12px;font-weight:700;letter-spacing:.3px}
+.sec-badge{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:700}
+.sec-badge.g{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+.sec-badge.a{background:rgba(245,158,11,.08);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.sec-badge.r{background:rgba(239,68,68,.08);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+.section-body{padding:12px;flex:1;overflow-y:auto}
+
+/* POD GROUPS */
+.pod-group{margin-bottom:12px}
+.pod-group-name{font-size:10px;font-weight:700;letter-spacing:.6px;color:var(--sub);text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;justify-content:space-between}
+.pod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.pod{height:36px;border-radius:7px;border:1px solid;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;cursor:pointer;transition:all .2s;position:relative;flex-direction:column;gap:1px}
+.pod.running{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--green)}
+.pod.running:hover{background:rgba(16,185,129,.18);border-color:var(--green)}
+.pod.pending{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25);color:var(--amber)}
+.pod.crash{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25);color:var(--red);animation:crash-pulse 1.5s ease-in-out infinite}
+.pod.terminating{background:rgba(124,13,237,.08);border-color:rgba(139,92,246,.25);color:var(--acc)}
+@keyframes crash-pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.pod-name{font-size:8px;opacity:.7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:52px}
+
+/* SLO PANEL */
+.slo-item{margin-bottom:10px;padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border)}
+.slo-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.slo-name{font-size:11px;font-weight:700}
+.slo-pct{font-size:13px;font-weight:900}
+.slo-track{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;margin-bottom:4px}
+.slo-fill{height:100%;border-radius:3px;transition:width 1.5s ease}
+.slo-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--sub)}
+.slo-budget{font-weight:700}
+.slo-budget.g{color:var(--green)}.slo-budget.a{color:var(--amber)}.slo-budget.r{color:var(--red)}
+
+/* ALERTS */
+.alert-item{padding:9px 10px;border-radius:8px;margin-bottom:5px;border:1px solid;position:relative;overflow:hidden;transition:all .3s}
+.alert-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.alert-item.firing{background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.2);color:var(--red)}
+.alert-item.firing::before{background:var(--red)}
+.alert-item.warning{background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.2);color:var(--amber)}
+.alert-item.warning::before{background:var(--amber)}
+.alert-item.resolved{background:rgba(16,185,129,.06);border-color:rgba(16,185,129,.2);color:var(--sub)}
+.alert-item.resolved::before{background:var(--green)}
+.alert-name{font-size:11px;font-weight:700;margin-bottom:2px}
+.alert-desc{font-size:10px;opacity:.8}
+.alert-time{font-size:9px;opacity:.6;margin-top:3px}
+
+/* INCIDENT BUTTON */
+.incident-btn{width:100%;margin-top:8px;padding:9px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;color:var(--red);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.incident-btn:hover{background:rgba(239,68,68,.2)}
+.resolve-btn{width:100%;margin-top:6px;padding:9px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;color:var(--green);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;display:none}
+.resolve-btn:hover{background:rgba(16,185,129,.2)}
+
+/* MTTR COUNTER */
+.mttr-counter{display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px;text-align:center;margin-top:8px}
+.mttr-counter.show{display:block}
+.mttr-timer{font-size:22px;font-weight:900;color:var(--red);font-family:monospace}
+.mttr-label{font-size:10px;color:var(--sub);margin-top:2px}
+
+/* POD TOOLTIP */
+.pod-tip{position:fixed;z-index:999;background:#0c0a1a;border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:11px;pointer-events:none;display:none;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,.5);color:#e8ecf4}
+.pod-tip-name{font-weight:700;margin-bottom:6px;color:var(--acc)}
+.pod-tip-row{display:flex;justify-content:space-between;gap:16px;margin-bottom:3px;font-size:10px}
+.pod-tip-key{color:#9aa4bf}
+.pod-tip-val{font-weight:600;color:#f4f7ff}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+@media(max-width:680px){
+  .hero{grid-template-columns:repeat(3,1fr)}
+  .main{grid-template-columns:1fr}
+}
+
+/* RESP-quintoandar-sre-dashboard.html */
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:flex-start;gap:8px;padding:10px 14px}
+  .main{padding:8px 10px;gap:8px;height:auto}
+  .hero{flex-wrap:wrap;gap:8px}
+  .hero-item{min-width:calc(50% - 4px)}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="topbar-contrast-fix">
+/* O tema compartilhado clareia o fundo da topbar; o texto desta pagina era claro e sumia. */
+html[data-company-theme] .topbar .topbar-brand{color:#1a1a1a!important}
+html[data-company-theme] .topbar .pill-live{color:#046c4e!important;background:rgba(16,185,129,.16)!important}
+html[data-company-theme] .topbar .pill-case{color:#5b21b6!important}
+</style>
+<style id="quinto-sre-usability-upgrade">
+.plain-language{margin:0 20px 12px;padding:14px 16px;background:#f8f9ff;border:1px solid #b8c1f2;border-left:4px solid #4054b2;border-radius:10px;font-size:12px;line-height:1.68;color:#283052;box-shadow:0 8px 24px rgba(43,59,136,.08)}
+.plain-language .plain-label{display:inline-block;font-size:9px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:#4054b2;margin-bottom:5px}.plain-language b{color:#111a45!important}
+.sre-action-dock{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;margin:0 20px 12px;padding:15px 17px;border:1px solid rgba(64,84,178,.34);border-radius:12px;background:linear-gradient(120deg,#fff,#eef0ff);color:#151b3b;box-shadow:0 12px 32px rgba(29,39,92,.1)}
+.sre-action-dock strong{display:block;font-size:14px;margin-bottom:4px}.sre-action-dock p{font-size:11.5px;line-height:1.5;color:#596184}.sre-action-state{font:800 9px/1.3 monospace;letter-spacing:.12em;color:#4054b2;text-transform:uppercase;margin-top:6px}
+.sre-dock-actions{display:flex;gap:8px;align-items:center}.sre-dock-actions .incident-btn,.sre-dock-actions .resolve-btn{width:auto;min-width:190px;margin:0;padding:12px 15px;font-size:12px}.sre-dock-actions .incident-btn{background:#d93636;color:#fff;border-color:#b52020;box-shadow:0 9px 22px rgba(217,54,54,.25)}.sre-dock-actions .resolve-btn{background:#087f5b;color:#fff;border-color:#087f5b;box-shadow:0 9px 22px rgba(8,127,91,.22)}
+.incident-focus{animation:sreFocus 1s ease}@keyframes sreFocus{45%{box-shadow:0 0 0 5px rgba(217,54,54,.25)}}
+@media(max-width:760px){.plain-language,.sre-action-dock{margin-left:10px;margin-right:10px}.sre-action-dock{grid-template-columns:1fr}.sre-dock-actions{display:grid;grid-template-columns:1fr}.sre-dock-actions .incident-btn,.sre-dock-actions .resolve-btn{width:100%}}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="context-info-css">
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<link rel="stylesheet" href="flow-explorer.css?v=20261029-route-safe">
+<script>(function(){const copy={"Escolha uma empresa fictícia no seletor de empresas.":["Select a fictional company from the company selector.","Elige una empresa ficticia en el selector de empresas.","企業セレクターから架空の企業を選択します。"],"ERROR BUDGET · SERVIÇO":["SERVICE ERROR BUDGET","ERROR BUDGET · SERVICIO","サービスのエラーバジェット"],"SLO e error budget":["SLO and error budget","SLO y error budget","SLOとエラーバジェット"]};['en','es','ja'].forEach((lang,i)=>{const all=window.JEN_TRANSLATIONS||(window.JEN_TRANSLATIONS={});const dict=all[lang]||(all[lang]={});Object.entries(copy).forEach(([key,values])=>dict[key]=values[i]);});})();</script><script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">QuintoAndar · SRE Live Dashboard</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#quintoandar">Experi&ecirc;ncia QuintoAndar &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="k8s-logo">☸</div>
+    <div class="topbar-brand">QuintoAndar &nbsp;/&nbsp; SRE Live Dashboard</div>
+    <div class="cluster-badge"><div class="cluster-dot"></div>gke-qa-prod-cluster-01 · us-central1</div>
+  </div>
+  <div class="topbar-right">
+    <span class="pill pill-live">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+    <a href="experiencia.html#quintoandar" class="pill pill-case">← experiência completa</a>
+  </div>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este painel SRE representa a sustentação de serviços do QuintoAndar em Kubernetes, com monitoramento, SLOs, pods, alertas e runbooks, além do contexto de implantação e manutenção do Atlas. A simulação evidencia como detectar a degradação, localizar a causa e restaurar o serviço com uma resposta operacional rastreável.</p>
+  <span class="context-action"><b>O que faz:</b> SRE de Kubernetes: pods, alertas, SLOs, runbooks. Quando falha, mostra sintoma → causa → ação automática. <b>Experimente:</b> simule incidente, abra pods, execute runbook. <b>O que a demo mostra:</b> observabilidade e resposta a incidentes em um ambiente sintético, sem comprovar disponibilidade de produção.</span>
+</aside>
+
+<!-- HERO STATS -->
+<div class="hero">
+  <div class="hstat g">
+    <div class="hstat-val g" id="hMTTR">&lt; 15min</div>
+    <div class="hstat-label">ÚLTIMA RECUPERAÇÃO</div>
+    <div class="hstat-sub">na simulação atual</div>
+  </div>
+  <div class="hstat g">
+    <div class="hstat-val g" id="hSLA">99.7%</div>
+    <div class="hstat-label">SLA ATUAL</div>
+    <div class="hstat-sub">rolling 30 dias</div>
+  </div>
+  <div class="hstat b">
+    <div class="hstat-val b" id="hPods">16</div>
+    <div class="hstat-label">PODS RUNNING</div>
+    <div class="hstat-sub" id="hPodsTotal">de 17 total</div>
+  </div>
+  <div class="hstat p">
+    <div class="hstat-val p" id="hBudget">30%</div>
+    <div class="hstat-label">ERROR BUDGET · SERVIÇO</div>
+    <div class="hstat-sub">user-behavior-track · 30d</div>
+  </div>
+  <div class="hstat a">
+    <div class="hstat-val a" id="hAlerts">0</div>
+    <div class="hstat-label">ALERTAS ATIVOS</div>
+    <div class="hstat-sub" id="hAlertsDesc">todos resolvidos</div>
+  </div>
+</div>
+
+<!-- EXPLICAÇÃO EM LINGUAGEM SIMPLES -->
+<section class="plain-language">
+  <span class="plain-label">💡 Em linguagem simples</span><br>
+  Este é o painel de <b style="color:#dbe2f2">SRE</b> (Site Reliability Engineering), a prática de cuidar da confiabilidade dos dados como se fossem um produto. Traduzindo os números do topo:
+  <b style="color:#dbe2f2">MTTR</b> é o tempo médio para colocar um pipeline de volta no ar depois de uma falha (quanto menor, melhor);
+  <b style="color:#dbe2f2">SLA</b> é a meta de disponibilidade (99,7% significa fora do ar só algumas horas por mês);
+  <b style="color:#dbe2f2">Pods running</b> são as "caixinhas" de software rodando no Kubernetes;
+  <b style="color:#dbe2f2">Error budget</b> é a margem de erro permitida antes de estourar a meta; o percentual exibido no topo corresponde ao serviço user-behavior-track no período de 30 dias;
+  <b style="color:#dbe2f2">SLO e error budget</b> mostra a disponibilidade observada e a margem restante de cada serviço.
+  Fora do horário comercial, entra o <b style="color:#dbe2f2">plantão (on-call)</b>: ficar de prontidão para resolver incidentes seguindo os runbooks (os passo a passo documentados). Simulação didática, sem dados de clientes.
+</section>
+
+<section class="sre-action-dock" id="sreActionDock" aria-label="Simulação de incidente SRE">
+  <div>
+    <strong>Teste o plantão: provoque a falha e execute o runbook.</strong>
+    <p>O incidente derruba um pod, consome o error budget, abre um alerta e inicia a contagem de MTTR. A recuperação restaura todos os indicadores.</p>
+    <div class="sre-action-state" id="sreActionState" role="status" aria-live="polite" data-no-translate>Ambiente saudável · pronto para simulação</div>
+  </div>
+  <div class="sre-dock-actions">
+    <button class="incident-btn" id="incidentBtn" type="button" onclick="simulateIncident()">🔴 Simular incidente agora</button>
+    <button class="resolve-btn" id="resolveBtn" type="button" onclick="resolveIncident()">✅ Executar runbook e restaurar</button>
+  </div>
+</section>
+
+<section class="sre-task-guide" aria-label="Guia da investigação"><div><strong>Investigue um incidente de ponta a ponta</strong><p>1. Simule uma falha. 2. Selecione um pod para ler CPU, memória e reinícios. 3. Execute o runbook e acompanhe a recuperação.</p></div><div class="sre-task-actions"><button type="button" onclick="simulateIncident()">1 · Simular incidente</button><button type="button" onclick="document.getElementById('podsBody').scrollIntoView({behavior:'smooth',block:'center'})">2 · Investigar pods</button><button type="button" onclick="resolveIncident()">3 · Executar runbook</button></div></section><!-- MAIN GRID -->
+<div class="main">
+
+  <!-- PODS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">☸️ Kubernetes Pods · GKE</div>
+      <div class="sec-badge g" id="podsStatusBadge">HEALTHY</div>
+    </div>
+    <div class="section-body" id="podsBody">
+
+      <div class="pod-group">
+        <div class="pod-group-name">imoveis-ingestao <span id="pg0-status"></span></div>
+        <div class="pod-grid" id="pg0">
+          <div class="pod running" data-name="ingestao-0" data-cpu="23%" data-mem="1.2Gi" data-restart="0" data-uptime="14d3h" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">ingestao-0</div></div>
+          <div class="pod running" data-name="ingestao-1" data-cpu="31%" data-mem="1.4Gi" data-restart="0" data-uptime="14d3h" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">ingestao-1</div></div>
+          <div class="pod running" data-name="ingestao-2" data-cpu="19%" data-mem="0.9Gi" data-restart="0" data-uptime="6d12h" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">ingestao-2</div></div>
+          <div class="pod running" data-name="ingestao-hpa" data-cpu="11%" data-mem="0.7Gi" data-restart="0" data-uptime="2d1h" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">ingestao-hpa</div></div>
+        </div>
+      </div>
+
+      <div class="pod-group">
+        <div class="pod-group-name">user-behavior-track <span id="pg1-status"></span></div>
+        <div class="pod-grid" id="pg1">
+          <div class="pod running" data-name="behavior-0" data-cpu="44%" data-mem="2.1Gi" data-restart="0" data-uptime="22d" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">behavior-0</div></div>
+          <div class="pod running" data-name="behavior-1" data-cpu="38%" data-mem="1.9Gi" data-restart="0" data-uptime="22d" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">behavior-1</div></div>
+          <div class="pod running" data-name="behavior-2" data-cpu="29%" data-mem="1.6Gi" data-restart="1" data-uptime="4d8h" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">behavior-2</div></div>
+          <div class="pod pending" data-name="behavior-3" data-cpu="—" data-mem="—" data-restart="0" data-uptime="0m12s" onclick="showTip(event,this)"><div>⏳</div><div class="pod-name">behavior-3</div></div>
+        </div>
+      </div>
+
+      <div class="pod-group">
+        <div class="pod-group-name">pricing-model-feat <span id="pg2-status"></span></div>
+        <div class="pod-grid" id="pg2">
+          <div class="pod running" data-name="pricing-0" data-cpu="67%" data-mem="3.8Gi" data-restart="0" data-uptime="9d5h" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">pricing-0</div></div>
+          <div class="pod running" data-name="pricing-1" data-cpu="72%" data-mem="3.5Gi" data-restart="0" data-uptime="9d5h" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">pricing-1</div></div>
+          <div class="pod running" data-name="pricing-2" data-cpu="55%" data-mem="2.9Gi" data-restart="2" data-uptime="1d2h" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">pricing-2</div></div>
+        </div>
+      </div>
+
+      <div class="pod-group">
+        <div class="pod-group-name">search-index-build <span id="pg3-status"></span></div>
+        <div class="pod-grid" id="pg3">
+          <div class="pod running" data-name="search-0" data-cpu="52%" data-mem="4.2Gi" data-restart="0" data-uptime="30d" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">search-0</div></div>
+          <div class="pod running" data-name="search-1" data-cpu="48%" data-mem="3.9Gi" data-restart="0" data-uptime="30d" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">search-1</div></div>
+          <div class="pod running" data-name="search-2" data-cpu="61%" data-mem="4.0Gi" data-restart="0" data-uptime="5d" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">search-2</div></div>
+        </div>
+      </div>
+
+      <div class="pod-group">
+        <div class="pod-group-name">contract-process <span id="pg4-status"></span></div>
+        <div class="pod-grid" id="pg4">
+          <div class="pod running" data-name="contract-0" data-cpu="18%" data-mem="0.8Gi" data-restart="0" data-uptime="45d" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">contract-0</div></div>
+          <div class="pod running" data-name="contract-1" data-cpu="21%" data-mem="0.9Gi" data-restart="0" data-uptime="45d" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">contract-1</div></div>
+          <div class="pod running" data-name="contract-sidecar" data-cpu="4%" data-mem="0.1Gi" data-restart="0" data-uptime="45d" onclick="showTip(event,this)"><div>▶</div><div class="pod-name">contract-sc</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SLOs -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">🎯 SLO e error budget</div>
+      <div class="sec-badge g" id="sloBadge">DENTRO DO SLO</div>
+    </div>
+    <div class="section-body">
+      <div class="slo-item">
+        <div class="slo-header">
+          <div class="slo-name">imoveis-ingestao</div>
+          <div class="slo-pct" id="slo0" style="color:var(--green)">99.8%</div>
+        </div>
+        <div class="slo-track"><div class="slo-fill" id="slo0-fill" style="width:99.8%;background:var(--green)"></div></div>
+        <div class="slo-meta"><span>SLO: 99.5%</span><span class="slo-budget g" id="slo0-budget">Budget: 60% left</span></div>
+      </div>
+      <div class="slo-item">
+        <div class="slo-header">
+          <div class="slo-name">user-behavior-track</div>
+          <div class="slo-pct" id="slo1" style="color:var(--green)">99.3%</div>
+        </div>
+        <div class="slo-track"><div class="slo-fill" id="slo1-fill" style="width:99.3%;background:var(--green)"></div></div>
+        <div class="slo-meta"><span>SLO: 99.0%</span><span class="slo-budget g" id="slo1-budget">Budget: 30% left</span></div>
+      </div>
+      <div class="slo-item">
+        <div class="slo-header">
+          <div class="slo-name">pricing-model-feat</div>
+          <div class="slo-pct" id="slo2" style="color:var(--amber)">99.95%</div>
+        </div>
+        <div class="slo-track"><div class="slo-fill" id="slo2-fill" style="width:99.95%;background:var(--amber)"></div></div>
+        <div class="slo-meta"><span>SLO: 99.9%</span><span class="slo-budget a" id="slo2-budget">Budget: 50% left</span></div>
+      </div>
+      <div class="slo-item">
+        <div class="slo-header">
+          <div class="slo-name">search-index-build</div>
+          <div class="slo-pct" id="slo3" style="color:var(--green)">99.96%</div>
+        </div>
+        <div class="slo-track"><div class="slo-fill" id="slo3-fill" style="width:99.96%;background:var(--green)"></div></div>
+        <div class="slo-meta"><span>SLO: 99.5%</span><span class="slo-budget g" id="slo3-budget">Budget: 92% left</span></div>
+      </div>
+      <div class="slo-item">
+        <div class="slo-header">
+          <div class="slo-name">contract-process</div>
+          <div class="slo-pct" id="slo4" style="color:var(--green)">100%</div>
+        </div>
+        <div class="slo-track"><div class="slo-fill" id="slo4-fill" style="width:100%;background:var(--green)"></div></div>
+        <div class="slo-meta"><span>SLO: 99.9%</span><span class="slo-budget g" id="slo4-budget">Budget: 100% left</span></div>
+      </div>
+
+      <!-- MTTR -->
+      <div style="margin-top:12px;padding:10px 12px;background:var(--card2);border-radius:8px;border:1px solid var(--border)">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--sub);margin-bottom:6px">MTTR HISTÓRICO</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:var(--sub)">Média 30d</span><span style="color:var(--green);font-weight:700">&lt; 15 min</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:var(--sub)">Último incidente</span><span style="font-weight:600">12 min (search-0)</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:var(--sub)">Antes do SRE</span><span style="color:var(--red);font-weight:700">45 a 90 min</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERTS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">🔔 Prometheus Alerts</div>
+      <div class="sec-badge g" id="alertsBadge">0 FIRING</div>
+    </div>
+    <div class="section-body">
+      <div id="alertsFeed">
+        <div class="alert-item resolved">
+          <div class="alert-name">PipelineSLOEmRisco</div>
+          <div class="alert-desc">pricing-model-feat, budget esgotado (−30%)</div>
+          <div class="alert-time">⚠️ Em monitoramento · 3h atrás</div>
+        </div>
+        <div class="alert-item resolved">
+          <div class="alert-name">PipelineSemExecucao</div>
+          <div class="alert-desc">behavior-3 pod restart, auto-recovered</div>
+          <div class="alert-time">✅ Resolvido em 8min · 1d atrás</div>
+        </div>
+        <div class="alert-item resolved">
+          <div class="alert-name">PipelineLatenciaAlta</div>
+          <div class="alert-desc">search-index p95 latency spike</div>
+          <div class="alert-time">✅ Resolvido em 12min · 3d atrás</div>
+        </div>
+      </div>
+
+      <div class="mttr-counter" id="mttrCounter">
+        <div style="font-size:10px;color:var(--red);margin-bottom:4px;font-weight:700">INCIDENTE EM ANDAMENTO</div>
+        <div class="mttr-timer" id="mttrTimer">00:00</div>
+        <div class="mttr-label">MTTR em contagem</div>
+      </div>
+
+      <!-- PROM RULES -->
+      <div style="margin-top:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:monospace;font-size:10px;color:var(--sub);line-height:1.7">
+        <span style="color:var(--acc)">alert</span>: PipelineSLOEmRisco<br>
+        <span style="color:var(--sub)">  expr</span>: <span style="color:var(--amber)">slo_budget_remaining</span> &lt; <span style="color:var(--green)">0.10</span><br>
+        <span style="color:var(--sub)">  for</span>: <span style="color:var(--green)">5m</span><br>
+        <span style="color:var(--sub)">  labels</span>: {severity: <span style="color:var(--amber)">"warning"</span>}<br>
+        <span style="color:var(--sub)">  annotations</span>:<br>
+        <span style="color:var(--sub)">    runbook</span>: <span style="color:var(--cyan)">wiki/sre/runbooks</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="pod-tip" id="podTip">
+  <div class="pod-tip-name" id="tipName">pod-name</div>
+  <div class="pod-tip-row"><span class="pod-tip-key">Status</span><span class="pod-tip-val" id="tipStatus">Running</span></div>
+  <div class="pod-tip-row"><span class="pod-tip-key">CPU</span><span class="pod-tip-val" id="tipCPU">23%</span></div>
+  <div class="pod-tip-row"><span class="pod-tip-key">Memory</span><span class="pod-tip-val" id="tipMem">1.2Gi</span></div>
+  <div class="pod-tip-row"><span class="pod-tip-key">Restarts</span><span class="pod-tip-val" id="tipRestart">0</span></div>
+  <div class="pod-tip-row"><span class="pod-tip-key">Uptime</span><span class="pod-tip-val" id="tipUptime">14d3h</span></div>
+</div>
+
+<script>
+let incidentActive = false;
+let mttrStart = null;
+let mttrInterval = null;
+let liveInterval = null;
+
+// Pod tooltip
+function showTip(e, pod){
+  const tip = document.getElementById('podTip');
+  const cls = pod.classList.contains('running') ? 'Running' : pod.classList.contains('pending') ? 'Pending' : 'CrashLoopBackOff';
+  document.getElementById('tipName').textContent = pod.dataset.name;
+  document.getElementById('tipStatus').textContent = cls;
+  document.getElementById('tipCPU').textContent = pod.dataset.cpu;
+  document.getElementById('tipMem').textContent = pod.dataset.mem;
+  document.getElementById('tipRestart').textContent = pod.dataset.restart;
+  document.getElementById('tipUptime').textContent = pod.dataset.uptime;
+  tip.style.display = 'block';
+  tip.style.left = Math.min(e.clientX + 12, window.innerWidth - 220) + 'px';
+  tip.style.top  = Math.min(e.clientY + 8, window.innerHeight - 160) + 'px';
+}
+document.addEventListener('click', e => {
+  if(!e.target.closest('.pod')) document.getElementById('podTip').style.display = 'none';
+});
+
+// Incident simulation
+function updateIncidentSummary(phase){
+  const messages={pt:['Ambiente saudável · pronto para simulação','Incidente ativo · investigue o pod e execute o runbook','Ambiente restaurado · runbook concluído'],en:['Healthy environment · ready for simulation','Active incident · investigate the pod and run the runbook','Environment restored · runbook completed'],es:['Entorno saludable · listo para simular','Incidente activo · investiga el pod y ejecuta el runbook','Entorno restaurado · runbook completado'],ja:['正常 · シミュレーションを開始できます','障害発生中 · Podを調査しランブックを実行してください','復旧完了 · ランブック実行済み']};
+  const node=document.getElementById('sreActionState');node.dataset.phase=phase;node.textContent=(messages[(document.documentElement.lang||'pt').slice(0,2)]||messages.en)[phase];node.style.color=phase===1?'#ba2338':phase===2?'#087045':'';
+}
+document.addEventListener('jen:languagechange',()=>updateIncidentSummary(Number(document.getElementById('sreActionState').dataset.phase||0)));
+function simulateIncident(){
+  if(incidentActive) return;
+  incidentActive = true;
+  updateIncidentSummary(1);
+
+  // Pod goes crash
+  const crashPod = document.querySelector('#pg1 .pod.running') || document.querySelector('.pod.running');
+  if(crashPod){ crashPod.className = 'pod crash'; crashPod.innerHTML = '<div>💥</div><div class="pod-name">crash!</div>'; }
+
+  // SLO drops
+  setSLO(1, 98.8, 'a', 'Budget: 12% left', 'a');
+
+  // Hero updates
+  document.getElementById('hAlerts').textContent = '1';
+  document.getElementById('hAlerts').style.color = 'var(--red)';
+  document.getElementById('hAlertsDesc').textContent = 'ação requerida';
+  document.getElementById('hPods').textContent = String(document.querySelectorAll('.pod.running').length);
+  document.getElementById('hBudget').textContent = '-20%';
+  document.getElementById('hBudget').style.color = 'var(--red)';
+  document.getElementById('podsStatusBadge').className = 'sec-badge r';
+  document.getElementById('podsStatusBadge').textContent = 'INCIDENT';
+  document.getElementById('sloBadge').className = 'sec-badge r';
+  document.getElementById('sloBadge').textContent = 'SLO EM RISCO';
+  document.getElementById('alertsBadge').className = 'sec-badge r';
+  document.getElementById('alertsBadge').textContent = '1 FIRING';
+
+  // Add alert
+  const feed = document.getElementById('alertsFeed');
+  const a = document.createElement('div');
+  a.className = 'alert-item firing';
+  a.id = 'liveAlert';
+  a.innerHTML = `
+    <div class="alert-name">🔴 PipelineSLOEmRisco, FIRING</div>
+    <div class="alert-desc">user-behavior-track · CrashLoopBackOff · pod restartando</div>
+    <div class="alert-time">Agora · pager enviado · runbook: wiki/sre/runbooks/behavior</div>`;
+  feed.insertBefore(a, feed.firstChild);
+
+  // MTTR counter
+  mttrStart = Date.now();
+  const ctr = document.getElementById('mttrCounter');
+  ctr.classList.add('show');
+  mttrInterval = setInterval(()=>{
+    const elapsed = Math.floor((Date.now() - mttrStart) / 1000);
+    const m = Math.floor(elapsed/60);
+    const s = elapsed%60;
+    document.getElementById('mttrTimer').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }, 1000);
+
+  document.getElementById('incidentBtn').style.display = 'none';
+  document.getElementById('resolveBtn').style.display = 'block';
+}
+
+function resolveIncident(){
+  if(!incidentActive) return;
+  clearInterval(mttrInterval);
+
+  const elapsed = Math.floor((Date.now() - mttrStart) / 1000);
+  const m = Math.floor(elapsed/60);
+  const s = elapsed%60;
+  const timeStr = m > 0 ? `${m}min ${s}s` : `${s}s`;
+
+  // Restore pod
+  const crashPod = document.querySelector('.pod.crash');
+  if(crashPod){ crashPod.className='pod running'; crashPod.innerHTML='<div>▶</div><div class="pod-name">'+crashPod.dataset.name+'</div>'; }
+
+  // Restore SLO
+  setSLO(1, 99.1, 'g', 'Budget: 44% left', 'g');
+
+  // Hero restore
+  document.getElementById('hAlerts').textContent = '0';
+  document.getElementById('hAlerts').style.color = 'var(--amber)';
+  document.getElementById('hAlertsDesc').textContent = 'todos resolvidos';
+  document.getElementById('hPods').textContent = String(document.querySelectorAll('.pod.running').length);
+  document.getElementById('hBudget').textContent = '10%';
+  document.getElementById('hBudget').style.color = 'var(--acc)';
+  document.getElementById('podsStatusBadge').className = 'sec-badge g';
+  document.getElementById('podsStatusBadge').textContent = 'HEALTHY';
+  document.getElementById('sloBadge').className = 'sec-badge g';
+  document.getElementById('sloBadge').textContent = 'DENTRO DO SLO';
+  document.getElementById('alertsBadge').className = 'sec-badge g';
+  document.getElementById('alertsBadge').textContent = '0 FIRING';
+
+  // Update alert
+  const la = document.getElementById('liveAlert');
+  if(la){
+    la.className = 'alert-item resolved';
+    la.innerHTML = `
+      <div class="alert-name">✅ PipelineSLOEmRisco, RESOLVED</div>
+      <div class="alert-desc">user-behavior-track · pod restaurado · runbook executado</div>
+      <div class="alert-time">✅ Resolvido em ${timeStr} · ${elapsed < 900 ? "MTTR dentro da meta (&lt; 15min)" : "MTTR fora da meta (≥ 15min)"}</div>`;
+  }
+
+  // MTTR to hero
+  document.getElementById('hMTTR').textContent = timeStr;
+  document.getElementById('mttrCounter').classList.remove('show');
+  document.getElementById('incidentBtn').style.display = 'block';
+  document.getElementById('resolveBtn').style.display = 'none';
+  incidentActive = false;
+  updateIncidentSummary(2);
+}
+
+function setSLO(idx, val, valCls, budget, budgetCls){
+  const pct = document.getElementById('slo'+idx);
+  const fill = document.getElementById('slo'+idx+'-fill');
+  const bud = document.getElementById('slo'+idx+'-budget');
+  const colors = {g:'var(--green)',a:'var(--amber)',r:'var(--red)'};
+  pct.textContent = val.toFixed(2)+'%';
+  pct.style.color = colors[valCls];
+  fill.style.width = Math.min(val,100)+'%';
+  fill.style.background = colors[valCls];
+  const targets=[99.5,99,99.9,99.5,99.9];
+  const left=Math.round((1-(100-val)/(100-targets[idx]))*100);
+  bud.textContent=left>=0?'Budget: '+left+'% left':'Budget: esgotado ('+left+'%)';
+  bud.className = 'slo-budget ' + budgetCls;
+}
+
+// Live metrics jitter
+function jitter(){
+  if(incidentActive) return;
+  // Randomize CPU slightly on pods
+  const pods = document.querySelectorAll('.pod.running');
+  pods.forEach(p=>{
+    const match = p.dataset.cpu.match(/(\d+)/);
+    if(match){
+      const base = parseInt(match[1]);
+      const newVal = Math.max(2, Math.min(95, base + (Math.random()>.5?1:-1) * Math.floor(Math.random()*4)));
+      p.dataset.cpu = newVal + '%';
+    }
+  });
+}
+setInterval(jitter, 5000);
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#cetip-b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cetip (B3)</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

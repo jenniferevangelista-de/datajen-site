@@ -1,0 +1,26 @@
+.jen-assistant { max-height: calc(100dvh - 116px)!important; width: min(420px,calc(100vw - 28px))!important; }
+.jen-assistant :is(.cbody,.chat-body) { min-height: 0; overscroll-behavior: contain; }
+.jen-assistant :is(.m,.cm) { max-width: 94%!important; overflow-wrap: anywhere; }
+.jen-assistant .jen-copy { white-space: pre-line; line-height: 1.6; }
+.jen-assistant .jen-sources { display: grid; gap: 6px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line,#ddd); }
+.jen-assistant .jen-sources span { font: 600 10px/1.4 var(--sans,Arial,sans-serif); text-transform: uppercase; letter-spacing: .06em; color: var(--muted,#666); }
+.jen-assistant .jen-sources a { color: var(--ink,#171714); font-size: 11px; line-height: 1.5; text-decoration: underline; text-underline-offset: 3px; }
+.jen-assistant .jen-cta { display: inline-flex; align-items: center; min-height: 38px; padding: 7px 10px; margin-top: 10px; border: 1px solid var(--line,#ddd); border-radius: 8px; color: var(--ink,#171714); font-size: 12px; font-weight: 700; text-decoration: none; }
+.jen-assistant .jen-cta:hover { background: var(--paper-2,#eee); }
+.jen-assistant .jen-note { font-size: 10px; line-height: 1.5; color: var(--muted,#666); padding: 6px 2px; }
+.jen-assistant .jen-close { margin-left: auto; width: 36px; height: 36px; flex: none; border: 0; border-radius: 6px; background: transparent; color: inherit; font: 25px/1 Arial,sans-serif; cursor: pointer; }
+.jen-assistant .jen-close:hover { background: rgba(128,128,128,.15); }
+.jen-assistant :is(.cin,.chat-in) input { min-width: 0; }
+.jen-assistant button:disabled { opacity: .5; cursor: wait; }
+.jen-assistant [hidden]{display:none!important}
+.jen-launcher-callout {
+  position: fixed; right: 22px; bottom: 94px; z-index: 91;
+  max-width: calc(100vw - 44px); padding: 10px 14px;
+  border: 1px solid #ffffff40; border-radius: 12px 12px 3px 12px;
+  background: #181817; color: #fff; box-shadow: 0 6px 20px #0002;
+  font: 600 12px/1.4 var(--sans,Arial,sans-serif); cursor: pointer;
+}
+.jen-launcher-callout:hover { background: #31312e; }
+.jen-launcher-callout:focus-visible { outline: 3px solid var(--link,#0f62fe); outline-offset: 3px; }
+:is(#fab,#fabBtn,#chatFab)[aria-expanded="true"] + .jen-launcher-callout { display: none; }
+@media(max-width:560px) { .jen-assistant { left: 14px!important; right: 14px!important; width: auto!important; bottom: 82px!important; } .jen-assistant :is(.cin,.chat-in) input { font-size: 16px; } }

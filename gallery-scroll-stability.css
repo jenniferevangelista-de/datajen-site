@@ -1,0 +1,8 @@
+/* Keep expanded photos stable and reveal complete rows only once. */
+.mf-gal .mf-frame.jen-photo-entered{animation:none!important;translate:none}
+.mf-gal .mf-frame:not(:hover):not(:focus-visible){transform:none!important;will-change:auto}
+.mf-gal .mf-frame .jen-photo-sheen::after{animation:none!important}
+.home-row-group{opacity:1!important;transform:none!important;will-change:auto}
+.home-row-group>.motion-child{opacity:1;transform:none;transition:none}
+.home-row-item[data-gallery-enter=pending]{opacity:0!important;translate:0 18px}
+@media(prefers-reduced-motion:reduce){.home-row-item[data-gallery-enter=pending]{opacity:1!important;translate:none}}

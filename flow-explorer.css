@@ -1,0 +1,53 @@
+/* Shared, readable architecture exploration with real selection feedback. */
+.flow-explorer{--flow-brand:var(--company-brand,var(--acc,#0f62fe));min-width:0;max-width:100%;color:#17202b}
+.flow-hint{display:block!important;flex-basis:100%;margin:0 0 18px!important;padding:12px 16px;border:1px solid #cbd8e9;border-radius:12px;background:#f3f7fd;color:#253d5a!important;font:600 13px/1.6 Inter,Arial,sans-serif;white-space:normal}
+.flow-card-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.flow-card,.flow-interactive-node{cursor:pointer!important;white-space:normal!important;transition:box-shadow .18s,border-color .18s,transform .18s}
+.flow-card{display:flex;flex-direction:column;justify-content:center;gap:15px;min-height:135px;padding:18px 14px;border:1px solid #d0dae5;border-radius:16px;background:#fff;color:#1c2b3d;font:700 14px/1.5 Inter,Arial,sans-serif;text-align:center;min-width:0;overflow-wrap:anywhere}
+.flow-card-index{font:700 11px/1.2 'IBM Plex Mono',monospace;color:#4b6179;letter-spacing:.12em}
+.flow-interactive-node[aria-pressed=true]{border-color:var(--flow-brand)!important;box-shadow:0 0 0 2px color-mix(in srgb,var(--flow-brand) 22%,transparent),0 12px 24px #16345413;background:#fff!important;color:#1c2b3d!important}
+.flow-interactive-node:hover{transform:translateY(-3px);box-shadow:0 12px 22px #1634541c}
+.flow-interactive-node:focus-visible,.flow-detail button:focus-visible{outline:3px solid #0f62fe;outline-offset:4px}
+.flow-detail{display:grid!important;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;margin:22px 0 0;padding:24px;border:1px solid #cbd8e9;border-radius:16px;background:#fff;color:#17202b;white-space:normal;flex-basis:100%;min-width:0;width:100%;box-sizing:border-box}
+.flow-detail h3{font:700 22px/1.3 Georgia,serif!important;margin:10px 0 12px!important;color:#14345c!important}
+.flow-detail p{font:400 14px/1.8 Inter,Arial,sans-serif!important;color:#34465b!important;margin:0!important;max-width:70ch}
+.flow-detail-eyebrow{font:600 10px/1.5 'IBM Plex Mono',monospace;color:#4e6380;letter-spacing:.1em;text-transform:uppercase}
+.flow-detail dl{margin:10px 0 0}.flow-detail dl>div{padding:10px 0;border-bottom:1px solid #e1e7ee;display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px}.flow-detail dt{font:400 12px/1.6 Inter,Arial,sans-serif;color:#5c6c80}.flow-detail dd{margin:0;font:600 13px/1.6 Inter,Arial,sans-serif;overflow-wrap:anywhere}
+.flow-detail-controls{grid-column:1/-1;display:flex;gap:10px;justify-content:flex-end}.flow-detail button{padding:9px 14px;border:1px solid #b7c9df;border-radius:9px;background:#f4f8fd;color:#183d70;font:600 12px/1.5 Inter,Arial,sans-serif;cursor:pointer}
+.pipeline-section .pipe-row.flow-explorer{flex-wrap:wrap;overflow:visible;gap:8px}.pipeline-section .pipe-row .pipe-node{min-height:92px;flex:1 1 100px;display:grid;place-items:center;padding:12px;color:#183d70;background:#fff;border-color:#b5cae8}
+.pipeline-section .pipe-row .pipe-label{flex-basis:100%;margin-bottom:6px}.pipeline-section .pipe-arrow{color:#346ec1}
+.compact-event-log{margin-top:20px;background:#f5f7fa;border:1px solid #d4dce6;border-radius:12px;color:#283f58;overflow:hidden}.compact-event-log summary{padding:14px 18px;font:600 13px/1.5 Inter,Arial,sans-serif;cursor:pointer}.compact-event-log .log-body{max-height:240px;min-height:0}
+body:has(.pipeline-section)>.main{height:auto;min-height:0;grid-template-columns:1fr;gap:16px}.main>.compact-event-log{order:2}.main>.right{height:auto}
+.frame-expand{display:none!important}
+body[data-company="serasa"] .stage{grid-template-columns:380px minmax(0,1fr)!important;gap:38px!important;align-items:start!important}
+body[data-company="serasa"] .phone{width:380px!important;height:760px!important;min-height:0!important;border-radius:48px!important;padding:10px!important;background:#17151c!important;overflow:hidden!important}
+body[data-company="serasa"] .screen{border-radius:38px!important}
+.martech-start{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 26px;background:#edf4ff;border-bottom:1px solid #c4d5f2;color:#172f56}.martech-start strong{font:700 20px/1.4 Georgia,serif}.martech-start p{font:400 13px/1.7 Arial,sans-serif;margin:7px 0 0}.martech-start button,.bot-quick-actions button{padding:9px 12px;border:1px solid #9cbbe8;border-radius:9px;background:#fff;color:#164899;font-weight:600;cursor:pointer}
+.publisher-detail,.chart-selection{padding:14px 18px;background:#f0f5ff;color:#183d70;font:500 13px/1.7 Inter,Arial,sans-serif;border-bottom:1px solid #c7d8f0}.chart-selection{margin-bottom:14px;border-radius:8px;min-height:48px}
+.publisher-selectable{cursor:pointer}.publisher-selectable:focus-visible{outline:3px solid #0f62fe;outline-offset:-3px}.publisher-selectable[aria-pressed=true]{background:#e6f0ff!important}
+.bar-c{border:0;padding:0;appearance:none}.bar-c[aria-pressed=true]{outline:3px solid #173f7a;outline-offset:3px}.bar-c:hover::after{display:none}
+.bot-quick-actions{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:1px solid #c7d8f0}.bot-quick-actions button{font-size:11px;padding:6px 9px}.chatbot-card{scroll-margin-top:110px;border:2px solid #79a6ef!important}.chatbot-card .chat-head{background:#edf4ff!important}.chatbot-card .chat-feed{min-height:160px;max-height:300px}.chatbot-card .chat-status{color:#23533c!important}
+html[data-company-theme="dafiti"]{--acc:#9d174d!important;--acc2:#7c2249!important;--red:#b42335;--green:#13693e;--warn:#795900}
+html[data-company-theme="dafiti"] .modernization{background:#faf7fb!important;color:#24172f!important;border-bottom:1px solid #d5cbdc}
+html[data-company-theme="dafiti"] :is(.modern-story,.modern-proof){background:#fff!important;border-color:#d6c8de!important;color:#24172f!important}
+html[data-company-theme="dafiti"] .modern-story h2{color:#30163e!important}html[data-company-theme="dafiti"] .modern-story p{color:#4f4058!important}
+html[data-company-theme="dafiti"] :is(.modern-label,.inv-kicker,.sc-label){color:#77385c!important}
+html[data-company-theme="dafiti"] .proof-item{background:#f6f0f8!important;color:#251b2f!important}html[data-company-theme="dafiti"] .proof-item strong{color:#35203f!important}html[data-company-theme="dafiti"] .proof-item span{color:#5e4d66!important}
+html[data-company-theme="dafiti"] :is(.investigation-card,.stats-card){background:#fff!important;color:#2d2036!important;border-color:#d6c8de!important}
+html[data-company-theme="dafiti"] :is(.inv-title,.sc-num){color:#30163e!important}html[data-company-theme="dafiti"] :is(.inv-copy,.sc-lbl){color:#56455e!important}
+html[data-company-theme="dafiti"] .threshold-control{color:#412b4b;display:flex;flex-wrap:wrap;gap:8px;max-width:440px}.threshold-explainer{flex-basis:100%;font:400 12px/1.6 Inter,Arial,sans-serif;color:#4c3c57}
+.inv-action{color:#633379!important;background:#f5eff8!important;border-color:#9c7ead!important}.scan-btn{background:#9d174d!important;color:#fff!important}
+@media(max-width:800px){.flow-detail{grid-template-columns:1fr;padding:18px;gap:18px}.flow-card-row{grid-template-columns:repeat(2,minmax(0,1fr))}.flow-card{min-height:110px;padding:14px 10px}.flow-detail-controls{justify-content:space-between}.flow-detail-controls button{font-size:11px}.martech-start{flex-direction:column;align-items:stretch;padding:18px}.publisher-detail{font-size:12px}.flow-detail h3{font-size:20px!important}body[data-company="serasa"] .stage{grid-template-columns:minmax(0,1fr)!important}body[data-company="serasa"] .phone{width:min(380px,100%)!important;max-width:100%!important;justify-self:center}body[data-company="serasa"] .side{order:0!important}}
+@media(prefers-reduced-motion:reduce){.flow-interactive-node{transition:none}.flow-interactive-node:hover{transform:none}}
+
+.sre-task-guide{margin:20px;padding:22px;border:1px solid #b9c8ea;border-radius:16px;background:#f0f4ff;color:#182c57;display:grid;grid-template-columns:1fr 1fr;gap:18px}.sre-task-guide strong{font:700 20px/1.4 Georgia,serif}.sre-task-guide p{font:400 13px/1.7 Inter,Arial,sans-serif;margin:8px 0 0}.sre-task-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.sre-task-actions button{padding:10px 14px;border:1px solid #9caed9;border-radius:10px;background:#fff;color:#19356e;font-weight:600;cursor:pointer}.plain-language b{color:#223d66!important}@media(max-width:800px){.sre-task-guide{grid-template-columns:1fr;margin:14px;padding:18px}}
+
+/* A vertical flow uses intrinsic heights, never a row's 100% flex basis. */
+.pipe-steps.flow-explorer{height:auto!important;min-height:0!important;flex:0 0 auto!important}
+.pipe-steps.flow-explorer>.flow-hint,.pipe-steps.flow-explorer>.flow-detail,.pipe-steps.flow-explorer>.pipe-step{flex:0 0 auto!important}
+.pipe-steps .pipe-badge.idle{display:inline-flex;align-items:center;justify-content:center;gap:0;padding:3px 8px;min-height:0}
+
+/* Grid adapters reserve a complete row for their introduction and inspector. */
+.pipeline.flow-explorer>.flow-hint,.pipeline.flow-explorer>.flow-detail{grid-column:1/-1;min-width:0}
+.pipeline.flow-explorer>.flow-detail{width:100%;max-width:100%}
+.pipeline.flow-explorer>.pipe-step{min-width:0}

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<script>try{if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('embed-mode');if(window.self!==window.top)document.documentElement.classList.add('in-iframe');}catch(e){document.documentElement.classList.add('in-iframe');}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NavNext, Agente Heitor · Heineken</title>
+<meta name="description" content="Demonstração do NavNext e do agente Heitor no contexto Heineken.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/heineken-navnext-app.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="NavNext, Agente Heitor · Heineken">
+<meta property="og:description" content="Demonstração do NavNext e do agente Heitor no contexto Heineken.">
+<meta property="og:url" content="https://datajen.com.br/heineken-navnext-app.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NavNext, Agente Heitor · Heineken">
+<meta name="twitter:description" content="Demonstração do NavNext e do agente Heitor no contexto Heineken.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4f2ec;--ink:#1a1a1a;--muted:#66625a;--line:#e2ded2;--card:#fff;--hnk:#0b7a3e;--hnk2:#0a5c30;
+--serif:'Source Serif 4',serif;--sans:'Inter',sans-serif;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px 60px}
+
+.top{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.back{font-family:var(--mono);font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:7px 14px;transition:.25s}
+.back:hover{color:var(--ink);border-color:var(--ink)}
+.ttl{flex:1;min-width:0}
+.ttl h1{font-family:var(--serif);font-size:20px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ttl p{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.langs{display:flex;gap:2px}
+.langs button{background:none;border:1px solid transparent;font-size:15px;padding:4px 6px;border-radius:8px;cursor:pointer;opacity:.45;transition:.2s}
+.langs button.on{opacity:1;border-color:var(--line);background:var(--card)}
+.mode{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:4px}
+.mode button{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;background:none;border:none;color:var(--muted);padding:8px 18px;border-radius:99px;cursor:pointer;transition:.2s}
+.mode button.on{background:var(--hnk);color:#fff}
+
+.stage{display:grid;grid-template-columns:auto 1fr;gap:34px;margin-top:30px;align-items:start}
+@media(max-width:900px){.stage{grid-template-columns:1fr;justify-items:center}}
+
+/* ============ PHONE ============ */
+.phone{width:360px;height:700px;background:#111;border-radius:44px;padding:12px;box-shadow:0 34px 90px rgba(20,15,5,.35);position:relative;flex:none}
+.phone::before{content:'';position:absolute;top:22px;left:50%;transform:translateX(-50%);width:112px;height:26px;background:#111;border-radius:16px;z-index:5}
+.screen{width:100%;height:100%;border-radius:34px;overflow:hidden;display:flex;flex-direction:column;background:#e5ddd5;position:relative}
+
+/* whatsapp chat */
+.wa-head{background:var(--hnk2);color:#fff;padding:34px 14px 12px;display:flex;align-items:center;gap:10px;z-index:4}
+.wa-ava{width:38px;height:38px;border-radius:50%;background:linear-gradient(140deg,#0b7a3e,#063; );display:flex;align-items:center;justify-content:center;font-size:19px;flex:none;border:2px solid rgba(255,255,255,.35)}
+.wa-name{font-weight:700;font-size:14.5px;line-height:1.15}
+.wa-st{font-size:10.5px;opacity:.85}
+.wa-badge{margin-left:auto;font-family:var(--mono);font-size:8px;letter-spacing:.1em;background:rgba(255,255,255,.16);padding:4px 8px;border-radius:99px}
+.wa-body{flex:1;overflow-y:auto;padding:14px 12px 10px;display:flex;flex-direction:column;gap:8px;background-image:radial-gradient(circle at 20% 30%,rgba(11,122,62,.05),transparent 40%)}
+.msg{max-width:82%;padding:9px 12px;border-radius:12px;font-size:13.2px;line-height:1.5;position:relative;animation:pop .3s cubic-bezier(.16,1,.3,1)}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.97)}}
+.msg.bot{background:#fff;align-self:flex-start;border-top-left-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.msg.user{background:#d9fdd3;align-self:flex-end;border-top-right-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.msg .tm{display:block;font-size:9px;color:#999;text-align:right;margin-top:3px}
+.msg b{color:var(--hnk2)}
+.typing{background:#fff;align-self:flex-start;border-radius:12px;border-top-left-radius:3px;padding:12px 16px;display:flex;gap:5px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.typing i{width:7px;height:7px;border-radius:50%;background:#b5b0a6;animation:tp 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes tp{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+.quick{padding:8px 10px 12px;display:flex;gap:7px;flex-wrap:wrap;background:linear-gradient(transparent,#e5ddd5 30%)}
+.quick button{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--hnk2);background:#fff;border:1.5px solid var(--hnk);border-radius:99px;padding:8px 14px;cursor:pointer;transition:.2s;animation:pop .35s}
+.quick button:hover{background:var(--hnk);color:#fff;transform:translateY(-2px)}
+
+/* voice call */
+.call{position:absolute;inset:0;background:linear-gradient(170deg,#07240f,#0f0d08 70%);color:#eee;display:none;flex-direction:column;align-items:center;padding:70px 22px 30px;text-align:center}
+.call.on{display:flex}
+.call-ava{width:110px;height:110px;border-radius:50%;background:linear-gradient(140deg,#0b7a3e,#052e15);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;margin-top:12px}
+.call-ava::before,.call-ava::after{content:'';position:absolute;inset:-14px;border:2px solid rgba(95,211,138,.35);border-radius:50%;animation:ring 2.2s ease-out infinite}
+.call-ava::after{animation-delay:1.1s}
+@keyframes ring{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.5);opacity:0}}
+.call h3{font-family:var(--serif);font-size:23px;margin-top:22px}
+.call .cst{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:#5fd38a;margin-top:6px;text-transform:uppercase}
+.wave{display:flex;gap:4px;align-items:center;height:42px;margin-top:22px}
+.wave i{width:4px;border-radius:3px;background:#5fd38a;animation:wv 1s ease-in-out infinite}
+@keyframes wv{0%,100%{height:8px}50%{height:38px}}
+.transcript{margin-top:18px;flex:1;overflow:hidden;width:100%;display:flex;flex-direction:column;gap:8px;font-size:12.5px;text-align:left}
+.transcript .tl{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:8px 12px;line-height:1.5;animation:pop .4s}
+.transcript .tl.h b{color:#5fd38a}
+.transcript .tl.c{background:rgba(95,211,138,.12)}
+.transcript .tl.c b{color:#c8e66a}
+.call-actions{display:flex;gap:18px;margin-top:16px}
+.call-actions button{width:56px;height:56px;border-radius:50%;border:none;font-size:22px;cursor:pointer;transition:.2s}
+.call-actions .mute{background:rgba(255,255,255,.12);color:#fff}
+.call-actions .end{background:#e04545;color:#fff}
+.call-actions button:hover{transform:translateY(-3px)}
+
+/* ============ SIDE INFO ============ */
+.side h2{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.05;letter-spacing:-.015em}
+.side h2 em{font-style:italic;font-weight:400}
+.side .dek{color:var(--muted);font-size:15px;line-height:1.65;margin-top:12px;max-width:520px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.fact .v{font-family:var(--serif);font-weight:700;font-size:24px;color:var(--hnk2)}
+.fact .k{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px;line-height:1.5}
+.flowmap{margin-top:22px;background:#0f0d08;border-radius:16px;padding:18px;border:1px solid #2c2920}
+.flowmap .fl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#c8b26a;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.chips span{font-family:var(--mono);font-size:10px;color:#cfc7ae;background:#1b1810;border:1px solid #35311f;border-radius:99px;padding:6px 12px}
+.chips .arr{border:none;background:none;color:#c8b26a;padding:0 2px}
+.note{margin-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted);line-height:1.8}
+.note a{color:var(--hnk2);font-weight:700;text-decoration:none}
+@media(max-width:900px){.phone{width:340px;height:660px}}
+/* ===== PORTFOLIO NAV ===== */
+.porto-nav{position:sticky;top:0;z-index:200;background:rgba(244,242,236,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.1)}
+.porto-nav .in{max-width:1280px;margin:0 auto;padding:13px 32px;display:flex;align-items:center;gap:16px}
+.porto-wordmark{font-family:'Source Serif 4',serif;font-size:18px;font-weight:700;text-decoration:none;white-space:nowrap;color:#1a1a1a}
+.porto-wordmark .the{font-style:italic;font-weight:400;margin-right:4px}
+.nav-links{display:flex;gap:16px;list-style:none;flex:1;min-width:0;overflow:hidden}
+.nav-links a{font-size:13px;font-weight:600;color:#66625a;text-decoration:none;white-space:nowrap;transition:.2s}
+.nav-links a:hover{color:#1a1a1a}
+.lang-sw{display:flex;gap:2px}
+.lang-sw button{background:none;border:none;cursor:pointer;font-size:17px;padding:4px 5px;border-radius:8px;opacity:.45;transition:.2s;line-height:1}
+.lang-sw button:hover{opacity:.8;background:rgba(0,0,0,.06)}
+.lang-sw button.active{opacity:1;background:rgba(0,0,0,.06);box-shadow:0 0 0 1.5px rgba(0,0,0,.15)}
+.btn-nav{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;text-decoration:none;border-radius:99px;padding:8px 15px;white-space:nowrap;transition:.25s}
+.btn-nav.wa{border:1.5px solid #25d366;color:#25d366}
+.btn-nav.wa:hover{background:#25d366;color:#fff}
+.btn-nav.dark{background:#1a1a1a;color:#f4f2ec}
+.btn-nav.dark:hover{opacity:.85}
+.porto-back{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-decoration:none;color:#1a1a1a;border:1px solid rgba(0,0,0,.15);background:#fff;border-radius:99px;padding:8px 13px;white-space:nowrap;transition:.25s}
+.porto-back:hover{border-color:#1a1a1a}
+.nav-cases-li{position:relative}
+.nav-cases-toggle{cursor:pointer;white-space:nowrap}
+.nav-cases-drop{display:flex;flex-direction:column;gap:2px;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%) translateY(-6px);background:#fff;border:1.5px solid rgba(0,0,0,.1);border-radius:14px;padding:8px;min-width:240px;box-shadow:0 16px 40px rgba(0,0,0,.12);z-index:500;backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease,transform .2s ease}
+.nav-cases-li.open .nav-cases-drop{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-cases-drop a{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:#1a1a1a;text-decoration:none;padding:8px 12px;border-radius:8px;transition:.15s;white-space:nowrap}
+.nav-cases-drop a:hover{background:rgba(0,0,0,.06)}
+.ncd-num{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#66625a;letter-spacing:.1em;min-width:18px}
+.ncd-flag{font-size:13px;line-height:1;flex-shrink:0}
+.ncd-badge{margin-left:auto;font-size:9px;font-family:'IBM Plex Mono',monospace;font-weight:700;padding:2px 7px;border-radius:20px;background:#fef9e0;color:#8a6a00;border:1px solid #e6c840;letter-spacing:.06em}
+@media(max-width:1080px){.nav-links{display:none}}
+.nav-traj-li{position:relative}
+.nav-traj-toggle{cursor:pointer;white-space:nowrap}
+.nav-traj-drop{display:flex;flex-direction:column;gap:1px;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%) translateY(-6px);background:#fff;border:1.5px solid rgba(0,0,0,.1);border-radius:14px;padding:8px;min-width:220px;max-height:380px;overflow-y:auto;box-shadow:0 16px 40px rgba(0,0,0,.14);z-index:500;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease,transform .2s ease}
+.nav-traj-li.open .nav-traj-drop{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-traj-drop a{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:#1a1a1a;text-decoration:none;padding:7px 10px;border-radius:7px;transition:.15s;white-space:nowrap}
+.nav-traj-drop a:hover{background:rgba(0,0,0,.06)}
+.ncd-per{margin-left:auto;font-size:9px;font-family:'IBM Plex Mono',monospace;color:#999;padding-left:10px}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:768px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .nav-links,.lang-sw,.porto-back,.btn-nav,.btn{display:none!important}
+  .porto-nav .in{position:relative!important;justify-content:flex-start}
+  .porto-wordmark{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="nav-drop-fix">.nav-traj-drop a,.nav-cases-drop a,.nav-tree-drop a{color:#1a1a1a!important}.nav-traj-drop a:hover,.nav-cases-drop a:hover{color:#000!important}</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="context-popover-css">
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.tag-live-nav{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--hnk2);background:rgba(11,122,62,.1);border:1px solid rgba(11,122,62,.3);border-radius:99px;padding:6px 12px;white-space:nowrap}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+</style>
+<style id="global-nav-css">
+/* Mesma barra usada em todos os apps do portfolio. */
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+/* A barra .gn e fixed: reserva o espaco dela e some no modo embed. */
+body{padding-top:44px}
+html.in-iframe body,html.embed-mode body{padding-top:0}
+/* Modo embutido (dentro do experiencia-app): mostra só o chat do Heitor preenchendo o
+   celular, sem o nav do site, sem o cabeçalho de portfólio e sem moldura de celular interna. */
+html.in-iframe .gn,html.embed-mode .gn,
+html.in-iframe .context-popover,html.embed-mode .context-popover,
+html.in-iframe .mob-veil,html.embed-mode .mob-veil{display:none!important}
+/* do cabeçalho do app, mantém só o alternador Texto/Voz */
+html.in-iframe .top>*:not(.mode),html.embed-mode .top>*:not(.mode){display:none!important}
+html.in-iframe .top,html.embed-mode .top{margin-bottom:8px;justify-content:center}
+/* achata o próprio celular do app pra o chat preencher o container */
+html.in-iframe .wrap,html.embed-mode .wrap{padding:8px 10px;max-width:100%}
+html.in-iframe .stage,html.embed-mode .stage{display:block;margin:0}
+html.in-iframe .stage>*:not(.phone),html.embed-mode .stage>*:not(.phone){display:none!important}
+html.in-iframe .phone,html.embed-mode .phone{width:100%;max-width:100%;height:auto;min-height:78vh;background:transparent;border:0;border-radius:16px;padding:0;box-shadow:none}
+html.in-iframe .phone::before,html.embed-mode .phone::before{display:none!important}
+html.in-iframe .screen,html.embed-mode .screen{border-radius:14px;height:100%;min-height:78vh}
+@media(max-width:640px){.gn-back{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<nav class="gn" id="globalNav" aria-label="Navega&ccedil;&atilde;o do portf&oacute;lio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#heineken">Experi&ecirc;ncia Heineken &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="top">
+    <a class="back" id="backLink" href="experiencia.html#heineken">← case Heineken</a>
+    <div class="ttl">
+      <h1>NavNext, Agente Heitor</h1>
+      <p id="subT">AI TELESALES · VOZ + TEXTO · AZURE AI FOUNDRY</p>
+    </div>
+    <div class="mode" id="mode">
+      <button data-m="text" class="on" id="mTxt">💬 Texto</button>
+      <button data-m="voice" id="mVoz">📞 Voz</button>
+    </div>
+    <div class="langs" id="langs">
+      <button data-l="pt" class="on" aria-label="Português" title="Português">🇧🇷</button><button data-l="en" aria-label="English" title="English">🇺🇸</button><button data-l="es" aria-label="Español" title="Español">🇪🇸</button><button data-l="ja" aria-label="日本語" title="日本語">🇯🇵</button>
+    </div>
+    <div class="tag-live-nav">● DEMO AO VIVO · DADOS SINTÉTICOS</div>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+  </div>
+
+  <aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+    <h3>Reconstrução técnica independente</h3>
+    <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+    <div class="context-rule"></div>
+    <h3>Traduzindo para o dia a dia</h3>
+    <p>Simulador interativo do agente de IA NavNext: venda por WhatsApp e ligação por voz, piloto Brasil desenhado para escala global. A jornada evidencia como automação conversacional pode qualificar e converter leads sem perder o tom humano da marca.</p>
+    <span class="context-action"><b>O que faz:</b> Simula uma conversa completa com o agente de IA Heitor por WhatsApp e voz. <b>Experimente:</b> escolha um cenário de venda, acompanhe a conversa e a ligação. <b>O que a demo mostra:</b> uma conversa comercial simulada, não vendas realizadas nem confirmação de expansão do piloto.</span>
+  </aside>
+
+  <div class="stage">
+    <div class="phone">
+      <div class="screen">
+        <div class="wa-head">
+          <div class="wa-ava">🤖</div>
+          <div><div class="wa-name">Heitor · NAV Heineken</div><div class="wa-st" id="waSt">online · agente de IA</div></div>
+          <span class="wa-badge">WHATSAPP · BLIP</span>
+        </div>
+        <div class="wa-body" id="waBody"></div>
+        <div class="quick" id="quick"></div>
+
+        <div class="call" id="callScr">
+          <div class="call-ava">🤖</div>
+          <h3>Heitor, NAV Heineken</h3>
+          <div class="cst" id="callSt">CHAMADA EM ANDAMENTO · 00:00</div>
+          <div class="wave" id="wave"></div>
+          <div class="transcript" id="trans"></div>
+          <div class="call-actions">
+            <button class="mute" title="mute">🎙️</button>
+            <button class="end" id="endCall" title="encerrar">📵</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side">
+      <h2 id="sideH">Converse com o agente que <em>vende de verdade.</em></h2>
+      <p class="dek" id="sideD">Simulação fiel do NavNext: o agente de IA que faz telesales por WhatsApp (Blip + Meta) e por voz (Genesys + LiveKit + ElevenLabs) para a carteira NAV da Heineken, o mesmo fluxo aprovado no Architecture Committee.</p>
+      <div class="facts">
+        <div class="fact"><div class="v">+R$22MM</div><div class="k" id="f1">receita projetada / ano</div></div>
+        <div class="fact"><div class="v">160k</div><div class="k" id="f2">clientes na carteira NAV</div></div>
+        <div class="fact"><div class="v">&lt; 2s</div><div class="k" id="f3">latência-alvo de resposta</div></div>
+        <div class="fact"><div class="v">50k → 60k</div><div class="k" id="f4">alcance de clientes</div></div>
+      </div>
+      <div class="flowmap">
+        <div class="fl" id="flT">// PIPELINE EM TEMPO REAL</div>
+        <div class="chips" id="flowChips">
+          <span>Cliente</span><span class="arr">→</span><span id="entryChip">Blip · WhatsApp</span><span class="arr">→</span><span>Azure AI Foundry</span><span class="arr">→</span><span>Databricks · CosmosDB</span><span class="arr">→</span><span>Salesforce HITL</span>
+        </div>
+      </div>
+      <p class="note" id="noteT">* Dados ilustrativos. Human-in-the-loop: assuntos complexos vão para um consultor via Salesforce. <a href="experiencia.html#heineken">ver case completo →</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const I18N={
+ pt:{sub:'AI TELESALES · VOZ + TEXTO · AZURE AI FOUNDRY',st:'online · agente de IA',h:'Converse com o agente que <em>vende de verdade.</em>',d:'Simulação fiel do NavNext: o agente de IA que faz telesales por WhatsApp (Blip + Meta) e por voz (Genesys + LiveKit + ElevenLabs) para a carteira NAV da Heineken, o mesmo fluxo aprovado no Architecture Committee.',f1:'receita projetada / ano',f2:'clientes na carteira NAV',f3:'latência-alvo de resposta',f4:'alcance de clientes',fl:'// PIPELINE EM TEMPO REAL',note:'* Dados ilustrativos. Human-in-the-loop: assuntos complexos vão para um consultor via Salesforce. ',see:'ver case completo →',txt:'💬 Texto',voz:'📞 Voz',call:'CHAMADA EM ANDAMENTO',back:'← case Heineken'},
+ en:{sub:'AI TELESALES · VOICE + TEXT · AZURE AI FOUNDRY',st:'online · AI agent',h:'Chat with the agent that <em>actually sells.</em>',d:'Faithful NavNext simulation: the AI agent doing telesales via WhatsApp (Blip + Meta) and voice (Genesys + LiveKit + ElevenLabs) for Heineken\'s NAV portfolio, the flow approved by the Architecture Committee.',f1:'projected revenue / year',f2:'customers in NAV portfolio',f3:'response latency target',f4:'customer reach',fl:'// REAL-TIME PIPELINE',note:'* Illustrative data. Human-in-the-loop: complex matters go to a consultant via Salesforce. ',see:'view full case →',txt:'💬 Text',voz:'📞 Voice',call:'CALL IN PROGRESS',back:'← Heineken case'},
+ es:{sub:'AI TELESALES · VOZ + TEXTO · AZURE AI FOUNDRY',st:'en línea · agente de IA',h:'Habla con el agente que <em>vende de verdad.</em>',d:'Simulación fiel de NavNext: el agente de IA que hace televentas por WhatsApp (Blip + Meta) y voz (Genesys + LiveKit + ElevenLabs) para la cartera NAV de Heineken, el flujo aprobado por el Architecture Committee.',f1:'ingresos proyectados / año',f2:'clientes en la cartera NAV',f3:'latencia objetivo',f4:'alcance de clientes',fl:'// PIPELINE EN TIEMPO REAL',note:'* Datos ilustrativos. Human-in-the-loop: los temas complejos van a un consultor vía Salesforce. ',see:'ver caso completo →',txt:'💬 Texto',voz:'📞 Voz',call:'LLAMADA EN CURSO',back:'← caso Heineken'},
+ ja:{sub:'AIテレセールス · 音声+テキスト · AZURE AI FOUNDRY',st:'オンライン · AIエージェント',h:'本当に<em>売れる</em>エージェントと話そう。',d:'NavNextの忠実なシミュレーション：ハイネケンのNAVポートフォリオ向けに、WhatsApp（Blip + Meta）と音声（Genesys + LiveKit + ElevenLabs）でテレセールスを行うAIエージェント。',f1:'年間予測収益',f2:'NAVポートフォリオ顧客数',f3:'応答レイテンシ目標',f4:'顧客リーチ',fl:'// リアルタイム・パイプライン',note:'* データは例示です。複雑な案件はSalesforce経由で人間の担当者へ。 ',see:'ケース全体を見る →',txt:'💬 テキスト',voz:'📞 音声',call:'通話中',back:'← ハイネケンのケース'}
+};
+let lang=localStorage.getItem('jen_lang')||'pt';
+function applyLang(){
+  const t=I18N[lang]||I18N.pt;
+  subT.textContent=t.sub;waSt.textContent=t.st;sideH.innerHTML=t.h;sideD.textContent=t.d;
+  f1.textContent=t.f1;f2.textContent=t.f2;f3.textContent=t.f3;f4.textContent=t.f4;flT.textContent=t.fl;
+  noteT.innerHTML=t.note+'<a href="experiencia.html#heineken">'+t.see+'</a>';
+  mTxt.textContent=t.txt;mVoz.textContent=t.voz;backLink.textContent=t.back;
+  document.querySelectorAll('#langs button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
+}
+langs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;lang=b.dataset.l;try{localStorage.setItem('jen_lang',lang)}catch(_){};applyLang()});
+
+/* ===== CHAT FLOW (roteiro NAV: identidade → oferta → pagamento → HITL → upsell) ===== */
+const body=document.getElementById('waBody'),quick=document.getElementById('quick');
+const now=()=>{const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
+function addMsg(html,who){const m=document.createElement('div');m.className='msg '+who;m.innerHTML=html+`<span class="tm">${now()}${who==='user'?' ✓✓':''}</span>`;body.appendChild(m);body.scrollTop=body.scrollHeight}
+function typing(cb,delay=1100){
+  const t=document.createElement('div');t.className='typing';t.innerHTML='<i></i><i></i><i></i>';
+  body.appendChild(t);body.scrollTop=body.scrollHeight;
+  setTimeout(()=>{t.remove();cb()},delay);
+}
+function setQuick(opts){
+  quick.innerHTML='';
+  opts.forEach(o=>{const b=document.createElement('button');b.textContent=o.t;
+    b.onclick=()=>{addMsg(o.t,'user');quick.innerHTML='';typing(()=>FLOW[o.go]())};
+    quick.appendChild(b)});
+}
+const FLOW={
+ start(){addMsg('Oi! 👋 Aqui é o <b>Heitor</b>, consultor digital da <b>NAV Heineken</b>. Falo com o responsável pelo <b>Bar do Zé</b>?','bot');
+  setQuick([{t:'Sim, sou eu!',go:'offer'},{t:'Quem é você?',go:'who'}])},
+ who(){addMsg('Sou um agente de IA da Heineken e realizo o atendimento de pedidos com apoio da equipe NAV. Assuntos complexos são encaminhados a um consultor humano. Posso apresentar as ofertas disponíveis hoje?','bot');
+  setQuick([{t:'Pode mostrar!',go:'offer'},{t:'Falar com humano',go:'human'}])},
+ offer(){addMsg('Cadastro confirmado. Seu último pedido foi realizado há <b>15 dias</b>.<br><br>Oferta selecionada para o seu perfil:<br>🍺 <b>10 caixas de Heineken 330 ml + 2 caixas de Heineken 0.0</b><br>com <b>8% de desconto</b> no conjunto.','bot');
+  setQuick([{t:'Qual o preço?',go:'price'},{t:'Ver outras ofertas',go:'other'},{t:'Falar com humano',go:'human'}])},
+ other(){addMsg('Também estão disponíveis:<br>🍻 <b>Amstel 269 ml</b>, 15 caixas com 6% de desconto<br>🥤 <b>Heineken 0.0 long neck</b>, 8 caixas com 5% de desconto<br>🎉 Conjunto para eventos: <b>barril Heineken de 5 L</b> + copos personalizados<br><br>A oferta principal apresenta a melhor relação entre quantidade e preço.','bot');
+  setQuick([{t:'Qual o preço do combo?',go:'price'},{t:'Fechar o combo principal',go:'payment'}])},
+ price(){addMsg('O conjunto custa <b>R$ 892</b> <s style="color:#999">R$ 970</s>.<br>Economia de R$ 78, com entrega programada para <b>quinta-feira</b>.<br><br>O valor está dentro do limite de crédito aprovado.','bot');
+  setQuick([{t:'Fechar pedido! 🍺',go:'payment'},{t:'Falar com humano',go:'human'}])},
+ payment(){addMsg('Boa escolha! 🎉 Como prefere pagar?<br><br>💳 Cartão cadastrado<br>🧾 Boleto (7 dias)','bot');
+  setQuick([{t:'Boleto',go:'confirm'},{t:'Cartão',go:'confirm'}])},
+ confirm(){addMsg('<b>Pedido #8734 confirmado.</b><br><br>📦 10 caixas de Heineken 330 ml + 2 caixas de Heineken 0.0<br>💰 R$ 892 · entrega na <b>quinta-feira, até 14h</b><br>📧 Resumo enviado para o seu e-mail<br>📋 Pedido registrado automaticamente no SAP','bot');
+  setTimeout(()=>typing(()=>FLOW.upsell(),900),700)},
+ upsell(){addMsg('Aproveita que o caminhão já vai aí: quer completar com <b>Amstel 269ml com 5% off</b>? Seus clientes têm pedido bastante 📈','bot');
+  setQuick([{t:'Adiciona! +5cx',go:'upsellYes'},{t:'Não, obrigado',go:'bye'}])},
+ upsellYes(){addMsg('Fechou! +5cx Amstel no mesmo caminhão 🚚💨 Pedido atualizado: <b>R$ 1.104</b>. Você acabou de aproveitar o melhor preço do mês!','bot');
+  setTimeout(()=>typing(()=>FLOW.bye(),800),600)},
+ bye(){addMsg('Precisa de mais alguma coisa? Qualquer dúvida é só chamar, respondo em segundos, 24/7 😊🍺','bot');
+  setQuick([{t:'Recomeçar demo ↺',go:'restart'},{t:'Falar com humano',go:'human'}])},
+ human(){addMsg('O atendimento será transferido ao consultor <b>João (NAV)</b>, que receberá o contexto da conversa por meio do <b>Salesforce</b>. Esse fluxo demonstra a supervisão humana do agente.','bot');
+  setQuick([{t:'Retornar ao Heitor',go:'offer'},{t:'Reiniciar demonstração',go:'restart'}])},
+ restart(){body.innerHTML='';FLOW.start()}
+};
+FLOW.start();
+
+/* ===== MODE TOGGLE + VOICE ===== */
+const callScr=document.getElementById('callScr');
+let callTimer=null,callSec=0,transTimer=null;
+const wave=document.getElementById('wave');
+for(let i=0;i<26;i++){const b=document.createElement('i');b.style.animationDelay=(i*.07)+'s';b.style.animationDuration=(0.7+Math.random()*0.9)+'s';wave.appendChild(b)}
+const TRANS=[
+ {w:'h',t:'<b>Heitor:</b> Boa tarde! Aqui é o Heitor, da NAV Heineken. Falo com o Bar do Zé?'},
+ {w:'c',t:'<b>Cliente:</b> Oi! Sim, sou eu.'},
+ {w:'h',t:'<b>Heitor:</b> Ótimo! Seu último pedido foi há 15 dias. Tenho combo de Heineken 330ml com 8% off hoje. Posso detalhar?'},
+ {w:'c',t:'<b>Cliente:</b> Pode, qual o valor?'},
+ {w:'h',t:'<b>Heitor:</b> R$ 892 no combo, entrega quinta. Dentro do seu limite aprovado. Fechamos?'},
+ {w:'c',t:'<b>Cliente:</b> Fecha o pedido!'},
+ {w:'h',t:'<b>Heitor:</b> Pedido #8734 confirmado! Resumo no seu e-mail. Obrigado pela preferência! 🍺'}
+];
+function startCall(){
+  callScr.classList.add('on');callSec=0;
+  const trans=document.getElementById('trans');trans.innerHTML='';
+  const st=document.getElementById('callSt');
+  callTimer=setInterval(()=>{callSec++;const m=String(Math.floor(callSec/60)).padStart(2,'0'),s=String(callSec%60).padStart(2,'0');
+    st.textContent=(I18N[lang]||I18N.pt).call+` · ${m}:${s}`},1000);
+  let i=0;
+  (function next(){if(i>=TRANS.length)return;
+    const l=TRANS[i];const d=document.createElement('div');d.className='tl '+l.w;d.innerHTML=l.t;
+    trans.appendChild(d);while(trans.children.length>5)trans.firstChild.remove();
+    i++;transTimer=setTimeout(next,2600)})();
+}
+function endCall(){callScr.classList.remove('on');clearInterval(callTimer);clearTimeout(transTimer);
+  document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m==='text'))}
+document.getElementById('endCall').onclick=endCall;
+document.getElementById('mode').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#mode button').forEach(x=>x.classList.toggle('on',x===b));
+  const entry=document.getElementById('entryChip');
+  if(b.dataset.m==='voice'){startCall();entry.textContent='Genesys · LiveKit · ElevenLabs'}
+  else{endCall();entry.textContent='Blip · WhatsApp'}
+});
+applyLang();
+</script>
+<script>(function(){['.nav-cases-toggle','.nav-traj-toggle'].forEach(function(sel){var t=document.querySelector(sel);if(t){t.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var li=this.parentElement;li.classList.toggle('open');document.querySelectorAll('.nav-cases-li,.nav-traj-li').forEach(function(el){if(el!==li)el.classList.remove('open');});});}});document.addEventListener('click',function(){document.querySelectorAll('.nav-cases-li,.nav-traj-li').forEach(function(el){el.classList.remove('open');});});})();</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

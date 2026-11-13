@@ -1,0 +1,27 @@
+.of-dashboard{--of-ink:#252920;--of-muted:#646b60;--of-line:#ddd9cd;--of-orange:#c96118;margin:36px 0 0;border-color:#d7d4c8;background:radial-gradient(ellipse at 85% 0,#e7dfcd66,transparent 45%),#f4f2ec;box-shadow:0 15px 40px #43351d0b;color:var(--of-ink)}
+.of-dashboard:before{background-image:linear-gradient(#9e957509 1px,transparent 1px),linear-gradient(90deg,#9e957509 1px,transparent 1px)}
+.of-board-head h1,.of-dashboard .kpi-value,.of-panel h2,.of-focus-row strong,.of-ring-center strong{color:var(--of-ink)}
+.of-eyebrow,.of-dashboard .kpi-value span,.of-focus-row em,.of-alert>strong,.of-table td:last-child,.of-dashboard .of-bottom-link{color:#a95115}
+.of-dashboard .pitch-kpis .kpi{background:linear-gradient(125deg,#fffdf8,#f7f5ee)}
+.of-dashboard .kpi-label,.of-dashboard .kpi-sub,.of-alert p,.of-table th,.of-board-note,.of-flow-list li{color:var(--of-muted)}
+.of-panel{background:#fffdf8;border-color:var(--of-line)}.of-tag{color:#98511c;border-color:#d4ac7b66;background:#f4e6c955}
+.of-base-legend div{color:var(--of-muted)}.of-base-legend b{color:var(--of-ink)}.of-base-legend .of-pj{background:#89779d}
+.of-scenario{background:#faf8f1;color:#505d4b;border-radius:99px}.of-scenario[aria-pressed=true]{background:#f2dfc7;color:#8b4816;border-color:#bb7b3c80;box-shadow:0 0 0 2px #edb07718}
+.of-chart-legend .of-reference{background:#88749c}.of-ring-track{stroke:#dfd8ce}.of-ring-value{stroke:#d87829;filter:drop-shadow(0 0 4px #cf79222b)}
+.of-table td{color:#384735;border-color:#e6e1d5}.of-table button{text-decoration-color:#a6ad9b}.of-table tr.is-selected td{background:#efe7d4}.of-table tbody tr:hover td{background:#f4eee0}
+.of-flow-list li:before{color:#596c51;background:#f3f5eb;border-color:#cdd7c1}.of-flow-list li.is-active{color:#8f4d16}.of-flow-list li.is-active:before{background:#faedda;color:#8f4d16}.of-flow-list li.is-done:before{color:#326b48;background:#e7f1e5;border-color:#91b792}
+.of-run{color:#fffdf5;background:linear-gradient(110deg,#bb571a,#d87b2c);border-color:#bc6b2b;border-radius:99px}.of-replay{color:#705336;border-color:#cdbfa6;border-radius:99px;background:#f8f5ec}.of-board-note:before{border-color:#aaa48c;color:#716e57}
+.of-panel:hover{border-color:#bbad8a;box-shadow:0 6px 22px #80642d0a}.of-dashboard .kpi-label{padding-right:30px}.of-panel-head>div:not(.itau-motion-icon){min-width:0;flex:1}
+.itau-motion-icon{display:inline-grid;place-items:center;flex:none;width:30px;height:30px;border:1px solid #d7c9aa88;border-radius:10px;background:#f4ecd94d;color:#b96120;vertical-align:middle}
+.itau-motion-icon svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.of-dashboard .kpi>.itau-motion-icon{position:absolute;right:14px;top:13px;width:27px;height:27px}.of-panel-head>.itau-motion-icon{margin-top:1px}
+.pitch-context>.itau-motion-icon{margin:0 9px 10px 0}.pipe-icon>.itau-motion-icon,.bank-satellite .itau-motion-icon{background:none;border:0;width:30px;height:30px}
+.orbit-core>.itau-motion-icon{border:0;background:none;color:#fff;width:35px;height:35px}.orbit-core>.itau-motion-icon svg{width:31px;height:31px}
+.itau-icon-ready svg :is(path,rect,circle,polyline){stroke-dasharray:110;stroke-dashoffset:110;animation:itauIconDraw 1.4s ease forwards}
+.itau-icon-active:not(.itau-icon-static) svg{animation:itauIconBreathe 5s ease-in-out infinite}.pipe-step:hover .itau-motion-icon svg,.of-panel:hover>.of-panel-head>.itau-motion-icon svg{filter:drop-shadow(0 0 3px #d69a4044)}
+.of-flow-list li:after{content:'→';margin-left:auto;font-size:18px;color:#a36c28;opacity:.55}.of-flow-list li.is-active:after{animation:itauStepArrow 1s ease-in-out infinite}.of-flow-list li.is-done:after{content:'✓';color:#34704d;opacity:1}
+.of-board-mark{position:relative;overflow:hidden}.of-board-mark:after{content:'';position:absolute;inset:-30%;background:linear-gradient(110deg,transparent 35%,#ffffff38 50%,transparent 65%);transform:translateX(-120%);animation:itauMarkLight 9s ease-in-out infinite;pointer-events:none}
+@keyframes itauIconDraw{to{stroke-dashoffset:0}}@keyframes itauIconBreathe{0%,100%{translate:0 0}50%{translate:0 -2px}}@keyframes itauStepArrow{50%{translate:3px 0;opacity:1}}@keyframes itauMarkLight{0%,70%{transform:translateX(-120%)}95%,100%{transform:translateX(120%)}}
+@media(max-width:760px){.of-dashboard .pitch-kpis .kpi{padding-right:18px!important}.of-dashboard .kpi-label{padding-right:20px}.of-dashboard .kpi>.itau-motion-icon{right:8px;top:10px;width:23px;height:23px}.of-dashboard .kpi>.itau-motion-icon svg{width:18px;height:18px}.of-panel-head{flex-wrap:wrap}.of-panel-head>.itau-motion-icon{width:26px;height:26px}}
+@media(prefers-reduced-motion:reduce){.itau-motion-icon *,.of-board-mark:after,.of-flow-list li:after{animation:none!important;stroke-dashoffset:0!important}}
+body[data-motion=reduzido] .itau-motion-icon *,body[data-motion=reduzido] .of-board-mark:after,body[data-motion=reduzido] .of-flow-list li:after{animation:none!important;stroke-dashoffset:0!important}

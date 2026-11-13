@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Factory · Itaú Unibanco, Jennifer Evangelista</title>
+<meta name="description" content="Demonstração de Data Factory e engenharia de dados no contexto Itaú Unibanco.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/itau-data-factory-app.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Data Factory · Itaú Unibanco, Jennifer Evangelista">
+<meta property="og:description" content="Demonstração de Data Factory e engenharia de dados no contexto Itaú Unibanco.">
+<meta property="og:url" content="https://datajen.com.br/itau-data-factory-app.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Data Factory · Itaú Unibanco, Jennifer Evangelista">
+<meta name="twitter:description" content="Demonstração de Data Factory e engenharia de dados no contexto Itaú Unibanco.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#EC7000;--orange2:#c85c00;--orange-lt:#FFF3E8;--orange-md:#FFD9B3;--ink:#1A1209;--muted:#6B5B45;--line:#F0E6D8;--card:#FFFFFF;--bg:#FAFAF8;--serif:'Source Serif 4',serif;--sans:'Inter',sans-serif;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;padding-top:44px}
+
+/* TOPBAR */
+.topbar{background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 24px;height:56px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px;letter-spacing:-.01em;color:var(--ink)}
+.logo-badge{width:32px;height:32px;border-radius:8px;background:var(--orange);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800}
+.topbar-sep{flex:1}
+.back-btn{font-family:var(--mono);font-size:10px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:6px 14px;transition:.2s}
+.back-btn:hover{color:var(--ink);border-color:var(--ink)}
+.disclaimer{font-family:var(--mono);font-size:9.5px;color:var(--muted);background:var(--orange-lt);border:1px solid var(--orange-md);border-radius:6px;padding:5px 10px}
+
+/* LAYOUT */
+.shell{display:grid;grid-template-columns:220px 1fr 320px;height:calc(100vh - 56px);overflow:hidden}
+@media(max-width:1100px){.shell{grid-template-columns:200px 1fr}}
+@media(max-width:800px){.shell{grid-template-columns:1fr}}
+
+/* SIDEBAR */
+.sidebar{background:#fff;border-right:1px solid var(--line);overflow-y:auto;display:flex;flex-direction:column}
+.sidebar-section{padding:12px 0 4px}
+.sidebar-label{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:0 16px 6px;font-weight:700}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:8px 16px;font-size:13px;cursor:pointer;transition:.15s;color:var(--ink);border-left:2px solid transparent}
+.sidebar-item:hover{background:var(--orange-lt);color:var(--orange)}
+.sidebar-item.active{background:var(--orange-lt);color:var(--orange);border-left-color:var(--orange);font-weight:600}
+.sidebar-item .ico{font-size:15px;flex:none;width:20px}
+.sidebar-item .badge{margin-left:auto;font-family:var(--mono);font-size:8.5px;font-weight:700;background:var(--orange);color:#fff;border-radius:99px;padding:2px 7px}
+.proj-tag{font-family:var(--mono);font-size:8px;letter-spacing:.06em;background:var(--line);color:var(--muted);border-radius:4px;padding:2px 6px;margin-left:auto}
+
+/* MAIN EDITOR */
+.main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.editor-tabs{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--line);background:#fff;overflow-x:auto}
+.editor-tab{display:flex;align-items:center;gap:7px;padding:12px 16px;font-size:12px;font-weight:500;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;transition:.15s}
+.editor-tab.active{color:var(--orange);border-bottom-color:var(--orange);background:#fff}
+.editor-tab .dot{width:6px;height:6px;border-radius:50%}
+.editor-tab .dot.hql{background:#c25500}
+.editor-tab .dot.py{background:#3776ab}
+.editor-tab .dot.spark{background:#e25a1c}
+.tab-close{font-size:10px;opacity:.4;margin-left:2px}
+
+.editor-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.code-area{flex:1;background:#1a1209;font-family:var(--mono);font-size:12.5px;line-height:1.7;padding:20px 24px;overflow-y:auto;color:#e8dcc8;position:relative}
+.code-area .ln{color:#5a4e3a;user-select:none;display:inline-block;width:28px;text-align:right;margin-right:16px}
+.kw{color:#FF9A3C}
+.fn{color:#FFC57E}
+.str{color:#8BC99A}
+.cm{color:#6B5B45}
+.num{color:#7EC8E3}
+.op{color:#E8D5B0}
+
+/* GUARD RAILS */
+.guard-rail{background:#1a1209;border-top:1px solid #2e2318;padding:12px 20px;display:flex;align-items:flex-start;gap:12px}
+.gr-icon{font-size:16px;flex:none;margin-top:1px}
+.gr-title{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:4px}
+.gr-msg{font-size:12px;line-height:1.55;opacity:.85}
+.gr-action{margin-top:8px;display:flex;gap:8px}
+.gr-btn{font-family:var(--mono);font-size:10px;font-weight:700;padding:5px 12px;border-radius:6px;border:none;cursor:pointer;transition:.15s}
+.gr-blocked{background:#3d0f0f;color:#ff6b6b}
+.gr-fix{background:var(--orange);color:#fff}
+.gr-fix:hover{background:var(--orange2)}
+
+.run-bar{background:#fff;border-top:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:12px}
+.run-btn{display:flex;align-items:center;gap:7px;background:var(--orange);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+.run-btn:hover{background:var(--orange2);transform:translateY(-1px)}
+.run-btn:disabled{opacity:.5;cursor:wait;transform:none}
+.env-sel{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:7px 10px;background:#fff;cursor:pointer}
+.quota{font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:auto}
+.quota b{color:var(--orange);font-weight:700}
+
+/* RIGHT PANEL */
+.right{background:#fff;border-left:1px solid var(--line);overflow-y:auto;display:flex;flex-direction:column}
+@media(max-width:1100px){.right{display:none}}
+.panel-head{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted);padding:16px 16px 10px;border-bottom:1px solid var(--line)}
+.job-item{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.job-name{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--ink)}
+.job-meta{display:flex;align-items:center;gap:8px}
+.job-st{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:99px}
+.job-st.ok{background:#E3F5EC;color:#157A47}
+.job-st.run{background:#FFF3E8;color:var(--orange);animation:pulse 1.4s infinite}
+.job-st.blocked{background:#FDEAEA;color:#CC3333}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.job-proj{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.job-dur{font-family:var(--mono);font-size:9px;color:var(--muted);margin-left:auto}
+.pbar{height:3px;background:var(--line);border-radius:99px;margin-top:6px;overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:99px;background:var(--orange);transition:width .3s}
+
+.cost-card{margin:12px 16px;background:var(--orange-lt);border:1px solid var(--orange-md);border-radius:10px;padding:14px}
+.cost-val{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--orange)}
+.cost-label{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.cost-bars{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.cbar-row{display:flex;align-items:center;gap:8px;font-size:11px}
+.cbar-lbl{width:80px;color:var(--muted);font-family:var(--mono);font-size:9.5px;flex:none}
+.cbar-track{flex:1;height:5px;background:var(--line);border-radius:99px;overflow:hidden}
+.cbar-fill{height:100%;border-radius:99px;background:var(--orange)}
+.cbar-val{font-family:var(--mono);font-size:9px;color:var(--muted);flex:none}
+
+.cat-item{padding:10px 16px;border-bottom:1px solid var(--line);cursor:pointer;transition:.15s}
+.cat-item:hover{background:var(--orange-lt)}
+.cat-name{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink)}
+.cat-meta{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.cat-tag{font-family:var(--mono);font-size:8.5px;background:var(--line);color:var(--muted);border-radius:4px;padding:2px 6px}
+.cat-owner{font-family:var(--mono);font-size:8.5px;background:var(--orange-lt);color:var(--orange2);border-radius:4px;padding:2px 6px;font-weight:700}
+.cat-quality{font-family:var(--mono);font-size:8.5px;background:#E3F5EC;color:#157A47;border-radius:4px;padding:2px 6px;font-weight:700}
+
+/* STATUS BAR */
+.statusbar{background:#fff;border-top:1px solid var(--line);padding:6px 20px;display:flex;align-items:center;gap:16px;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.st-dot{width:6px;height:6px;border-radius:50%;background:#1FA463;box-shadow:0 0 5px #1fa46366}
+.st-sep{color:var(--line)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:12.5px;font-weight:700;padding:12px 22px;border-radius:10px;opacity:0;transition:.3s;pointer-events:none;z-index:200;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* HEADER HERO */
+.hero{background:linear-gradient(135deg,#1c0800,#EC7000);color:#fff;padding:28px 24px 22px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.hero h1{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.hero p{font-size:12px;opacity:.85;margin-top:6px;line-height:1.5;max-width:380px}
+.hero-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hbadge{font-family:var(--mono);font-size:9px;letter-spacing:.1em;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:4px;padding:3px 8px;color:#fff}
+.hero-stat{text-align:right;flex:none}
+.hero-stat .v{font-family:var(--serif);font-size:28px;font-weight:700;line-height:1;color:#FFD9B3}
+.hero-stat .l{font-family:var(--mono);font-size:9px;opacity:.8;letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+
+/* MAIN CONTENT WHEN NOT IN EDITOR MODE */
+.content-section{display:none;flex:1;overflow-y:auto;padding:20px}
+.content-section.active{display:block}
+
+/* RESP-itau-data-factory-app.html */
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:flex-start;gap:8px;padding:10px 14px}
+  .sidebar{display:none}
+  .detail-panel{display:none}
+  .shell{grid-template-columns:1fr;height:auto}
+  .canvas-area{overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="factory-interaction-upgrade">
+.factory-action-dock{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 16px;background:linear-gradient(110deg,#fff8f1,#fff);border-bottom:1px solid var(--orange-md)}
+.factory-action-dock strong{display:block;font-size:13px;margin-bottom:3px}.factory-action-dock p{font-size:11px;line-height:1.45;color:var(--muted)}
+.factory-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.factory-action{border:1px solid var(--orange-md);border-radius:8px;background:#fff;color:var(--orange2);padding:8px 11px;font:700 10px/1.2 var(--mono);cursor:pointer}
+.factory-action.primary{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 8px 20px rgba(236,112,0,.2)}
+.factory-action.danger{background:#fff4f2;color:#b42318;border-color:#f3b6ad}
+.factory-action.is-running{pointer-events:none;opacity:.75}
+.factory-onboarding{position:fixed;inset:44px 0 0;z-index:5000;background:linear-gradient(135deg,#170800 0%,#6f2600 55%,#ec7000 100%);display:grid;place-items:center;padding:24px;color:#fff}
+.factory-onboarding.hidden{display:none}.factory-gate{width:min(920px,100%);background:rgba(22,12,6,.9);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:clamp(24px,5vw,48px);box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.factory-gate small{font:700 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#ffd0aa}.factory-gate h1{font:700 clamp(30px,5vw,58px)/1 var(--serif);margin:12px 0}.factory-gate>p{max-width:680px;line-height:1.65;color:rgba(255,255,255,.76)}
+.login-form{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-top:24px}.login-field{background:#fff;border-radius:10px;padding:10px 13px;color:#302216}.login-field span{display:block;font:700 8px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#8e725b;margin-bottom:3px}.login-field b{font-size:13px}.gate-btn{border:0;border-radius:10px;background:#ec7000;color:#fff;padding:13px 20px;font-weight:800;cursor:pointer;box-shadow:0 10px 24px rgba(236,112,0,.28)}
+.project-gate{display:none}.project-gate.active{display:block}.project-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}.project-card{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:12px;padding:15px;text-align:left;cursor:pointer;transition:.2s}.project-card:hover,.project-card:focus-visible{background:#fff;color:#28170b;transform:translateY(-2px)}.project-card b{display:block;margin-bottom:5px}.project-card span{font:500 9px/1.5 var(--mono);opacity:.72}
+.workflow-board{background:#fff;border:1px solid var(--orange-md);border-radius:12px;padding:16px;margin-bottom:14px}.workflow-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.workflow-head h3{font-family:var(--serif);font-size:18px}.workflow-head p{font-size:11px;color:var(--muted);margin-top:3px}.workflow-run{border:0;border-radius:8px;background:var(--orange);color:#fff;padding:9px 13px;font:800 10px var(--mono);cursor:pointer}.workflow-nodes{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;position:relative}.workflow-nodes::before{content:'';position:absolute;left:7%;right:7%;top:28px;height:2px;background:linear-gradient(90deg,#ec7000,#ffb36b);z-index:0}.workflow-node{position:relative;z-index:1;border:1px solid var(--line);background:#fffaf5;border-radius:10px;padding:11px;text-align:center;cursor:pointer}.workflow-node i{display:grid;place-items:center;width:34px;height:34px;margin:0 auto 7px;border-radius:50%;background:#ec7000;color:#fff;font-style:normal;font-weight:800}.workflow-node b{display:block;font-size:11px}.workflow-node span{display:block;font:500 8px/1.4 var(--mono);color:var(--muted);margin-top:3px}.workflow-node.running{box-shadow:0 0 0 3px rgba(236,112,0,.18);animation:pulse 1s infinite}
+.catalog-layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:14px;align-items:start}
+.catalog-results{min-width:0}.catalog-detail{position:sticky;top:0;background:#fff;border:1px solid var(--orange-md);border-radius:12px;padding:16px;min-height:220px}
+.catalog-detail .empty{color:var(--muted);font-size:12px;line-height:1.6}.catalog-detail h3{font-family:var(--serif);font-size:19px;margin:8px 0 4px}.catalog-detail p{font-size:12px;line-height:1.55;color:var(--muted)}
+.catalog-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}.catalog-detail-grid div{background:var(--orange-lt);border:1px solid var(--orange-md);border-radius:8px;padding:9px}.catalog-detail-grid b{display:block;font:700 9px/1.2 var(--mono);color:var(--orange2);text-transform:uppercase;margin-bottom:3px}.catalog-detail-grid span{font-size:12px;font-weight:700}
+.cat-item{border-radius:8px;margin-bottom:6px;border:1px solid transparent}.cat-item:focus-visible,.cat-item.selected{background:var(--orange-lt);border-color:var(--orange)}
+.cost-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.7fr);gap:14px;align-items:start}
+.cost-projects,.cost-detail-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+.cost-project-switch{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0}.cost-project-btn{border:1px solid var(--orange-md);border-radius:9px;background:#fff;padding:11px;text-align:left;cursor:pointer}.cost-project-btn.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.cost-project-btn b{display:block;font-size:12px}.cost-project-btn span{display:block;font:500 9px/1.4 var(--mono);margin-top:3px;opacity:.75}
+.cost-service-row{display:grid;grid-template-columns:90px 1fr 48px auto;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:11px}.cost-service-row button{border:1px solid var(--orange-md);background:var(--orange-lt);color:var(--orange2);border-radius:6px;padding:5px 7px;font:700 9px var(--mono);cursor:pointer}
+.cost-result{font-family:var(--serif);font-size:34px;color:var(--orange);margin:8px 0}.incident-state{color:#b42318!important}.incident-state .st-dot{background:#e5483f;box-shadow:0 0 8px #e5483f}
+@media(max-width:900px){.factory-action-dock{grid-template-columns:1fr}.factory-actions{justify-content:flex-start}.catalog-layout,.cost-workspace{grid-template-columns:1fr}.catalog-detail{position:static}}
+@media(max-width:700px){.login-form{grid-template-columns:1fr}.project-grid{grid-template-columns:1fr 1fr}.workflow-nodes{grid-template-columns:1fr}.workflow-nodes::before{display:none}}
+@media(max-width:640px){.factory-actions{display:grid;grid-template-columns:1fr 1fr}.factory-action{white-space:normal}.cost-project-switch{grid-template-columns:1fr}}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style>
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+.pill-live-added{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:4px 10px;display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back primary" href="cases-itau.html">&#x1F948; &larr; Case Ita&uacute;</a>
+    <a class="gn-back" href="experiencia.html#itau-unibanco">Experi&ecirc;ncia Ita&uacute; &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<section class="factory-onboarding" id="factoryOnboarding" aria-label="Entrada do Data Factory">
+  <div class="factory-gate" id="loginGate">
+    <small>DEMONSTRAÇÃO INDEPENDENTE · DADOS SINTÉTICOS</small>
+    <h1>Explore a plataforma simulada.</h1>
+    <p>Uma porta única e segura para projetos, transformações, jobs, catálogo e custos, conectando Cloudera CDP, Hadoop on-premises e AWS sem exigir acesso direto a cada ambiente.</p>
+    <div class="login-form">
+      <div class="login-field"><span>usuária</span><b>jennifer.evangelista</b></div>
+      <div class="login-field"><span>autenticação</span><b>SSO corporativo · MFA validado</b></div>
+      <button class="gate-btn" type="button" onclick="openProjectGate()">Entrar na demonstração →</button>
+    </div>
+  </div>
+  <div class="factory-gate project-gate" id="projectGate">
+    <small>Workspace governado</small>
+    <h2>Escolha um projeto.</h2>
+    <p>Cada projeto reúne código, DAGs, lineage, catálogo, execução e custo da área responsável. O acesso continua controlado por domínio e ambiente.</p>
+    <div class="project-grid">
+      <button class="project-card" onclick="enterFactoryProject('risk')"><b>Risco de crédito PF</b><span>HQL · Spark · EMR · Keyspaces</span></button>
+      <button class="project-card" onclick="enterFactoryProject('limit')"><b>Limite dinâmico</b><span>Python · Aurora · Lambda</span></button>
+      <button class="project-card" onclick="enterFactoryProject('fraud')"><b>Antifraude ML</b><span>Spark · SageMaker · S3</span></button>
+      <button class="project-card" onclick="enterFactoryProject('obs')"><b>Observabilidade</b><span>CloudWatch · Grafana · SLO</span></button>
+    </div>
+  </div>
+</section>
+
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-badge">DF</div>
+    Data Factory
+  </div>
+  <div style="font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:4px">· Itaú Unibanco · Protótipo de Plataforma</div>
+  <div class="topbar-sep"></div>
+  <div class="disclaimer">Protótipo ilustrativo · todos os dados são fictícios</div>
+  <span class="pill-live-added">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+  <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+  <a class="back-btn" href="experiencia.html#itau-unibanco" style="margin-left:12px">← Voltar ao case</a>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Esta plataforma unifica execução, qualidade, catálogo e consumo de dados em ambientes Cloudera e AWS. A engenharia testa queries, aplica guard rails, acompanha jobs e torna custo e linhagem visíveis antes da publicação; para o negócio, evidencia se uma entrega está segura, governada e economicamente adequada para ser consumida.</p>
+  <span class="context-action"><b>O que faz:</b> Consulta executada com catálogo, governança e custo visíveis antes do processamento. Simule uma falha para compreender sua propagação. <b>Experimente:</b> execute uma consulta, simule um erro e abra o catálogo de consumo. <b>O que a demo mostra:</b> guard rails, rastreabilidade e rateio de custos em uma consulta simulada.</span>
+</aside>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div style="padding:14px 16px 10px;border-bottom:1px solid var(--line)">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">ÁREA CONSUMIDORA</div>
+      <select id="projSel" style="width:100%;font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-radius:6px;padding:7px 9px;background:#fff;color:var(--ink);cursor:pointer" onchange="switchProject(this.value)">
+        <option value="risk">risco-credito-pf</option>
+        <option value="limit">limite-dinamico</option>
+        <option value="fraud">antifraude-ml</option>
+        <option value="obs">observabilidade</option>
+      </select>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Workspace</div>
+      <div class="sidebar-item active" onclick="setTab('editor')" data-tab="editor">
+        <span class="ico">📄</span> score_features.hql
+        <span class="proj-tag">HQL</span>
+      </div>
+      <div class="sidebar-item" onclick="setTab('py')" data-tab="py">
+        <span class="ico">🐍</span> pipeline_batch.py
+        <span class="proj-tag">PY</span>
+      </div>
+      <div class="sidebar-item" onclick="setTab('spark')" data-tab="spark">
+        <span class="ico">⚡</span> feature_eng.py
+        <span class="proj-tag">SPARK</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Plataforma</div>
+      <div class="sidebar-item" onclick="showPanel('jobs')" data-panel="jobs">
+        <span class="ico">⚙️</span> Monitoramento de Jobs
+        <span class="badge" id="jobBadge">3</span>
+      </div>
+      <div class="sidebar-item" onclick="showPanel('catalog')" data-panel="catalog">
+        <span class="ico">🗂️</span> Catálogo de Dados
+      </div>
+      <div class="sidebar-item" onclick="showPanel('cost')" data-panel="cost">
+        <span class="ico">💰</span> Consumo por Área
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Ambiente de Execução</div>
+      <div class="sidebar-item"><span class="ico">🏷️</span> desenvolvimento <span class="proj-tag" style="background:#E3F5EC;color:#157A47">ativo</span></div>
+      <div class="sidebar-item"><span class="ico">🏷️</span> homologação</div>
+      <div class="sidebar-item"><span class="ico">🏷️</span> produção <span class="proj-tag" style="background:#FDEAEA;color:#CC3333">acesso restrito</span></div>
+    </div>
+
+    <div style="margin-top:auto;padding:12px 16px;border-top:1px solid var(--line)">
+      <div style="font-size:11px;color:var(--muted)">Sessão iniciada como</div>
+      <div style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink);margin-top:2px">jennifer.evangelista</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--orange);margin-top:2px">Tech Lead · risco-credito-pf</div>
+    </div>
+  </div>
+
+  <!-- MAIN EDITOR -->
+  <div class="main" id="mainArea">
+    <section class="factory-action-dock" aria-label="Ações da demonstração">
+      <div>
+        <strong>Teste a plataforma como uma pessoa engenheira de dados.</strong>
+        <p>Execute a query para acionar os guard rails, provoque uma falha controlada ou explore catálogo e custos por área.</p>
+      </div>
+      <div class="factory-actions">
+        <button class="factory-action primary" type="button" onclick="runCode()">▶ Executar query</button>
+        <button class="factory-action danger" id="factoryIncidentBtn" type="button" onclick="simulateFactoryIncident()">⚠ Simular falha</button>
+        <button class="factory-action" type="button" onclick="showPanel('catalog')">🗂 Abrir catálogo</button>
+        <button class="factory-action" type="button" onclick="showPanel('cost')">💰 Consumo por área</button>
+      </div>
+    </section>
+    <div id="heroArea" style="display:none">
+      <div class="hero">
+        <div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-bottom:8px">DATA FACTORY · ITAÚ UNIBANCO</div>
+          <h2>Plataforma Unificada<br>de Dados</h2>
+          <p>Camada de autosserviço governado que conecta Cloudera CDP, Hadoop on-premises e AWS. Em vez de depender de acessos manuais a cada plataforma, pessoas autorizadas encontram projetos, transformações, jobs e custos em uma jornada única, com guard rails, linhagem e rastreabilidade.</p>
+          <div class="hero-badges">
+            <span class="hbadge">Guard Rails Automáticos</span>
+            <span class="hbadge">Cloudera CDP</span>
+            <span class="hbadge">Hadoop</span>
+            <span class="hbadge">AWS</span>
+            <span class="hbadge">Data Mesh</span>
+            <span class="hbadge">Democratização segura</span>
+          </div>
+        </div>
+        <div class="hero-stat">
+          <div class="v">100%</div>
+          <div class="l">rastreabilidade<br>de workflows</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDITOR TABS -->
+    <div class="editor-tabs" id="editorTabs">
+      <div class="editor-tab active" data-file="hql" onclick="switchFile('hql')">
+        <span class="dot hql"></span> score_features.hql
+        <span class="tab-close">✕</span>
+      </div>
+      <div class="editor-tab" data-file="py" onclick="switchFile('py')">
+        <span class="dot py"></span> pipeline_batch.py
+        <span class="tab-close">✕</span>
+      </div>
+      <div class="editor-tab" data-file="spark" onclick="switchFile('spark')">
+        <span class="dot spark"></span> feature_eng.py
+        <span class="tab-close">✕</span>
+      </div>
+    </div>
+
+    <!-- CODE EDITOR -->
+    <div class="editor-wrap" id="editorPanel">
+      <div class="code-area" id="codeDisplay"></div>
+
+      <!-- GUARD RAIL PANEL -->
+      <div class="guard-rail" id="guardRail" style="display:none">
+        <span class="gr-icon" id="grIcon">🛡️</span>
+        <div style="flex:1">
+          <div class="gr-title" id="grTitle" style="color:#FF9A3C">GUARD RAIL · BLOQUEADO</div>
+          <div class="gr-msg" id="grMsg" style="color:#E8DCC8"></div>
+          <div class="gr-action" id="grAction"></div>
+        </div>
+      </div>
+
+      <!-- RUN BAR -->
+      <div class="run-bar">
+        <button class="run-btn" id="runBtn" onclick="runCode()">▶ Executar</button>
+        <select class="env-sel" id="envSel">
+          <option>dev · Hadoop</option>
+          <option>dev · AWS EMR</option>
+          <option>staging · Cloudera CDP</option>
+        </select>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">Validação de guard rails ativa</div>
+        <div class="quota">Consumo mensal: <b id="quotaVal">R$1.240</b> / R$5.000</div>
+      </div>
+    </div>
+
+    <!-- JOBS PANEL -->
+    <div class="content-section" id="jobsPanel">
+      <div style="padding:0 4px 16px;font-family:var(--serif);font-size:20px;font-weight:700">Monitoramento de Jobs</div>
+      <section class="workflow-board" aria-label="Fluxo de execução do projeto">
+        <div class="workflow-head"><div><h3 id="workflowTitle">DAG · risco-credito-pf</h3><p>Relação entre ingestão, qualidade, transformação, publicação e observabilidade.</p></div><button class="workflow-run" type="button" onclick="runWorkflow()">▶ Executar DAG</button></div>
+        <div class="workflow-nodes" id="workflowNodes"></div>
+      </section>
+      <div id="jobList"></div>
+    </div>
+
+    <!-- CATALOG PANEL -->
+    <div class="content-section" id="catalogPanel">
+      <div style="padding:0 4px 12px;font-family:var(--serif);font-size:20px;font-weight:700">Catálogo de Dados · risco-credito-pf</div>
+      <div style="display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin-bottom:16px">
+        <span>🔎</span>
+        <input id="catalogSearch" oninput="filterCatalog(this.value)" placeholder="Pesquisar por tabela, tecnologia ou responsável…" style="flex:1;border:none;outline:none;font-family:var(--sans);font-size:13px;color:var(--ink)">
+      </div>
+      <div class="catalog-layout">
+        <div class="catalog-results" id="catList"></div>
+        <aside class="catalog-detail" id="catalogDetail" aria-live="polite">
+          <div class="empty"><strong>Selecione uma tabela</strong><br>Veja qualidade, responsável, camada e linhagem sem sair do catálogo.</div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- COST PANEL -->
+    <div class="content-section" id="costPanel">
+      <div style="padding:0 4px 12px;font-family:var(--serif);font-size:20px;font-weight:700">Consumo por Área · FinOps operacional</div>
+      <div class="cost-workspace">
+        <section class="cost-projects">
+          <div style="font:700 10px/1.2 var(--mono);letter-spacing:.12em;color:var(--muted);text-transform:uppercase">Escolha a área consumidora</div>
+          <div class="cost-project-switch" id="costProjectSwitch"></div>
+          <div id="costServiceList"></div>
+        </section>
+        <aside class="cost-detail-card">
+          <div style="font:700 10px/1.2 var(--mono);letter-spacing:.12em;color:var(--muted);text-transform:uppercase">Previsão do mês</div>
+          <div class="cost-result" id="costWorkspaceTotal">R$1.240</div>
+          <p id="costWorkspaceCopy" style="font-size:12px;line-height:1.6;color:var(--muted)">Selecione uma área e teste uma otimização para observar a mudança de custo.</p>
+          <button class="factory-action primary" style="margin-top:14px" type="button" onclick="applyRecommendedOptimization()">Aplicar recomendação FinOps</button>
+        </aside>
+      </div>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="statusbar" id="statusBar">
+      <span class="st-dot"></span>
+      <span id="stMsg">Guard rails · operacional</span>
+      <span class="st-sep">|</span>
+      <span id="stEnv">Hadoop · cluster-prd-01</span>
+      <span class="st-sep">|</span>
+      <span id="stJobs">3 jobs em execução</span>
+      <span class="st-sep" style="margin-left:auto">|</span>
+      <span>UTF-8</span>
+      <span class="st-sep">|</span>
+      <span>HQL</span>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right" id="rightPanel">
+    <div class="panel-head">Execuções recentes · 24h</div>
+    <div id="jobsMini"></div>
+
+    <div class="panel-head" style="margin-top:4px">Consumo de infraestrutura · mês corrente</div>
+    <div class="cost-card">
+      <div class="cost-val" id="costVal">R$1.240</div>
+      <div class="cost-label">Área: risco-credito-pf</div>
+      <div class="cost-bars" id="costBars"></div>
+    </div>
+
+    <div class="panel-head" style="margin-top:4px">Acesso rápido ao catálogo</div>
+    <div id="catMini"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CODE = {
+  hql: `<span class="cm">-- score_features.hql · risco-credito-pf</span>
+<span class="cm">-- Guard Rails: validação automática ativa</span>
+
+<span class="kw">SELECT</span>
+  t.cpf_hash,
+  <span class="fn">AVG</span>(t.valor) <span class="kw">AS</span> media_valor_30d,
+  <span class="fn">COUNT</span>(*) <span class="kw">AS</span> qtd_transacoes_30d,
+  <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> t.tipo = <span class="str">'credito'</span> <span class="kw">THEN</span> t.valor <span class="kw">ELSE</span> <span class="num">0</span> <span class="kw">END</span>) <span class="kw">AS</span> receita_30d,
+  <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> t.tipo = <span class="str">'debito'</span>  <span class="kw">THEN</span> t.valor <span class="kw">ELSE</span> <span class="num">0</span> <span class="kw">END</span>) <span class="kw">AS</span> gasto_30d,
+  c.score_bureau,
+  c.limite_atual
+<span class="kw">FROM</span> transacoes t
+<span class="kw">INNER JOIN</span> clientes c <span class="kw">ON</span> t.cpf_hash = c.cpf_hash
+<span class="kw">WHERE</span>
+  t.data_particao <span class="kw">BETWEEN</span>
+    <span class="fn">DATE_SUB</span>(<span class="fn">CURRENT_DATE</span>(), <span class="num">30</span>) <span class="kw">AND</span> <span class="fn">CURRENT_DATE</span>()
+<span class="kw">GROUP BY</span>
+  t.cpf_hash, c.score_bureau, c.limite_atual`,
+
+  hql_bad: `<span class="cm">-- score_features.hql · risco-credito-pf</span>
+
+<span class="kw">SELECT</span> <span class="op">*</span>
+<span class="kw">FROM</span> transacoes t
+<span class="kw">CROSS JOIN</span> clientes c
+<span class="kw">WHERE</span> t.tipo = <span class="str">'credito'</span>`,
+
+  py: `<span class="cm"># pipeline_batch.py · risco-credito-pf</span>
+
+<span class="kw">import</span> boto3
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime, timedelta
+
+glue = boto3.client(<span class="str">'glue'</span>, region_name=<span class="str">'us-east-1'</span>)
+
+<span class="kw">def</span> <span class="fn">run_credit_pipeline</span>(project: str, env: str) -> dict:
+    <span class="str">"""Submete pipeline de crédito para AWS Glue com rastreabilidade."""</span>
+    job_name = <span class="fn">f</span><span class="str">"df-{project}-{env}-batch"</span>
+    run_id = glue.start_job_run(
+        JobName=job_name,
+        Arguments={
+            <span class="str">'--PROJECT'</span>: project,
+            <span class="str">'--ENV'</span>:     env,
+            <span class="str">'--DATE'</span>:    datetime.today().strftime(<span class="str">'%Y-%m-%d'</span>),
+            <span class="str">'--AREA'</span>:    <span class="str">'risco-credito-pf'</span>,
+        }
+    )[<span class="str">'JobRunId'</span>]
+    <span class="kw">return</span> {<span class="str">'job'</span>: job_name, <span class="str">'run_id'</span>: run_id, <span class="str">'status'</span>: <span class="str">'RUNNING'</span>}
+
+result = <span class="fn">run_credit_pipeline</span>(<span class="str">'score-features'</span>, <span class="str">'dev'</span>)`,
+
+  spark: `<span class="cm"># feature_eng.py · risco-credito-pf · PySpark</span>
+
+<span class="kw">from</span> pyspark.sql <span class="kw">import</span> SparkSession
+<span class="kw">from</span> pyspark.sql <span class="kw">import</span> functions <span class="kw">as</span> F
+
+spark = SparkSession.builder \\
+    .appName(<span class="str">"df-feature-eng-credito"</span>) \\
+    .getOrCreate()
+
+raw = spark.read.parquet(<span class="str">"s3://datalake-credit/raw/transacoes/"</span>)
+
+features = raw \\
+    .filter(F.col(<span class="str">"data_particao"</span>) >= F.date_sub(F.current_date(), <span class="num">30</span>)) \\
+    .groupBy(<span class="str">"cpf_hash"</span>) \\
+    .agg(
+        F.avg(<span class="str">"valor"</span>).alias(<span class="str">"media_valor_30d"</span>),
+        F.stddev(<span class="str">"valor"</span>).alias(<span class="str">"desvio_valor_30d"</span>),
+        F.count(<span class="str">"*"</span>).alias(<span class="str">"qtd_tx_30d"</span>),
+    ) \\
+    .withColumn(<span class="str">"dsr"</span>,
+        F.col(<span class="str">"gasto_30d"</span>) / F.col(<span class="str">"receita_30d"</span>))
+
+features.write \\
+    .mode(<span class="str">"overwrite"</span>) \\
+    .partitionBy(<span class="str">"data_particao"</span>) \\
+    .parquet(<span class="str">"s3://datalake-credit/features/score/"</span>)
+
+print(<span class="fn">f</span><span class="str">"Features geradas: {features.count()} clientes"</span>)`
+};
+
+const JOBS = [
+  {name:'df-score-features-dev',proj:'risco-credito-pf',st:'run',pct:67,dur:'4m 12s'},
+  {name:'df-antifraude-batch-dev',proj:'antifraude-ml',st:'ok',pct:100,dur:'12m 08s'},
+  {name:'df-limite-calc-staging',proj:'limite-dinamico',st:'ok',pct:100,dur:'8m 33s'},
+  {name:'df-obs-pipeline-dev',proj:'observabilidade',st:'run',pct:38,dur:'1m 55s'},
+  {name:'df-credito-features-prd',proj:'risco-credito-pf',st:'ok',pct:100,dur:'22m 01s'},
+];
+
+const CATALOG = [
+  {n:'gold.score_features_diario',rows:'42M',q:98,tags:['Parquet','PySpark'],owner:'jennifer.e'},
+  {n:'silver.transacoes_trusted',rows:'890M',q:99,tags:['HQL','particionado'],owner:'data-eng'},
+  {n:'gold.limite_dinamico_v2',rows:'28M',q:97,tags:['Python'],owner:'limite-team'},
+  {n:'bronze.clientes_raw',rows:'1.2B',q:94,tags:['Sqoop'],owner:'ingestion'},
+  {n:'gold.features_antifraude',rows:'15M',q:98,tags:['Spark'],owner:'fraude-team'},
+];
+
+const COSTS = {
+  risk:  {total:'R$1.240',items:[{l:'AWS EMR',p:52},{l:'S3 Storage',p:28},{l:'Keyspaces',p:12},{l:'Glue',p:8}]},
+  limit: {total:'R$890',  items:[{l:'AWS EMR',p:44},{l:'S3 Storage',p:30},{l:'Aurora',   p:18},{l:'Lambda',p:8}]},
+  fraud: {total:'R$2.100',items:[{l:'AWS EMR',p:61},{l:'Sagemaker',p:22},{l:'S3 Storage',p:12},{l:'Glue',p:5}]},
+  obs:   {total:'R$340',  items:[{l:'CloudWatch',p:55},{l:'S3 Storage',p:30},{l:'Lambda',p:15}]},
+};
+
+const COST_META = {
+  risk:{name:'Risco de crédito PF',amount:1240,owner:'risk-data-products'},
+  limit:{name:'Limite dinâmico',amount:890,owner:'limit-engine'},
+  fraud:{name:'Antifraude ML',amount:2100,owner:'fraud-intelligence'},
+  obs:{name:'Observabilidade',amount:340,owner:'platform-sre'}
+};
+const costSavings = {risk:0,limit:0,fraud:0,obs:0};
+
+let curFile = 'hql';
+let curProj = 'risk';
+let guardActive = false;
+const PROJECT_NAMES={risk:'risco-credito-pf',limit:'limite-dinamico',fraud:'antifraude-ml',obs:'observabilidade'};
+const WORKFLOW_STEPS=[['01','Ingestão','fontes e contratos'],['02','Qualidade','schema e regras'],['03','Transformação','HQL · Spark · Python'],['04','Publicação','catálogo e lineage'],['05','Observabilidade','SLO · logs · custo']];
+
+function openProjectGate(){document.getElementById('loginGate').style.display='none';document.getElementById('projectGate').classList.add('active');}
+function enterFactoryProject(project){
+  document.getElementById('factoryOnboarding').classList.add('hidden');
+  document.getElementById('projSel').value=project;
+  switchProject(project);
+  showPanel('jobs');
+  toast(`Projeto ${PROJECT_NAMES[project]} aberto · DAGs e transformações carregados`);
+}
+function renderWorkflowGraph(){
+  const title=document.getElementById('workflowTitle');const nodes=document.getElementById('workflowNodes');if(!title||!nodes)return;
+  title.textContent=`DAG · ${PROJECT_NAMES[curProj]}`;
+  nodes.innerHTML=WORKFLOW_STEPS.map(step=>`<button class="workflow-node" type="button" onclick="inspectWorkflowNode(this,'${step[1]}')"><i>${step[0]}</i><b>${step[1]}</b><span>${step[2]}</span></button>`).join('');
+}
+function inspectWorkflowNode(node,label){document.querySelectorAll('.workflow-node').forEach(n=>n.classList.remove('running'));node.classList.add('running');toast(`${label} · etapa vinculada ao projeto ${PROJECT_NAMES[curProj]}`);}
+function runWorkflow(){
+  const nodes=[...document.querySelectorAll('.workflow-node')];let index=0;
+  nodes.forEach(n=>n.classList.remove('running'));
+  const tick=()=>{if(index>0)nodes[index-1].classList.remove('running');if(index>=nodes.length){toast(`DAG ${PROJECT_NAMES[curProj]} concluída · lineage atualizado`);return;}nodes[index].classList.add('running');index++;setTimeout(tick,420)};tick();
+}
+
+function renderCode(key){
+  document.getElementById('codeDisplay').innerHTML =
+    CODE[key].split('\n').map((ln,i)=>`<span class="ln">${i+1}</span>${ln}`).join('\n');
+}
+
+function renderJobs(list, elId){
+  document.getElementById(elId).innerHTML = list.map(j=>`
+    <div class="job-item">
+      <div class="job-name">${j.name}</div>
+      <div class="job-meta">
+        <span class="job-st ${j.st}">${j.st==='ok'?'✓ OK':j.st==='run'?'● RUN':'✗ BLOCK'}</span>
+        <span class="job-proj">${j.proj}</span>
+        <span class="job-dur">${j.dur}</span>
+      </div>
+      <div class="pbar"><i style="width:${j.pct}%"></i></div>
+    </div>`).join('');
+}
+
+function renderCatalog(list, elId){
+  document.getElementById(elId).innerHTML = list.map(d=>`
+    <div class="cat-item" data-cat-index="${CATALOG.indexOf(d)}" role="button" tabindex="0" onclick="showCatalogDetail(${CATALOG.indexOf(d)})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showCatalogDetail(${CATALOG.indexOf(d)})}">
+      <div class="cat-name">${d.n}</div>
+      <div class="cat-meta">
+        <span class="cat-tag">${d.rows} rows</span>
+        ${d.tags.map(t=>`<span class="cat-tag">${t}</span>`).join('')}
+        <span class="cat-quality">qualidade ${d.q}%</span>
+        <span class="cat-owner">responsável: ${d.owner}</span>
+      </div>
+    </div>`).join('');
+}
+
+function filterCatalog(value){
+  const q=(value||'').trim().toLowerCase();
+  const filtered=CATALOG.filter(d=>[d.n,d.owner,...d.tags].join(' ').toLowerCase().includes(q));
+  renderCatalog(filtered,'catList');
+  if(!filtered.length){
+    document.getElementById('catList').innerHTML='<div style="padding:28px;text-align:center;color:var(--muted);font-size:12px">Nenhum ativo encontrado para esta busca.</div>';
+  }
+}
+
+function showCatalogDetail(index){
+  const d=CATALOG[index];
+  if(!d) return;
+  document.querySelectorAll('#catList .cat-item').forEach(item=>item.classList.toggle('selected',Number(item.dataset.catIndex)===index));
+  const layer=d.n.split('.')[0];
+  const domain=d.n.split('.')[1]||d.n;
+  const lineage=layer==='gold'?'bronze → silver → gold':layer==='silver'?'bronze → silver':'origem → bronze';
+  document.getElementById('catalogDetail').innerHTML=`
+    <div style="font:800 9px/1.2 var(--mono);letter-spacing:.14em;color:var(--orange);text-transform:uppercase">Ativo selecionado</div>
+    <h3>${domain}</h3><p>${d.n}</p>
+    <div class="catalog-detail-grid">
+      <div><b>Linhas</b><span>${d.rows}</span></div>
+      <div><b>Qualidade</b><span>${d.q}%</span></div>
+      <div><b>Responsável</b><span>${d.owner}</span></div>
+      <div><b>Camada</b><span>${layer.toUpperCase()}</span></div>
+    </div>
+    <div style="margin-top:12px;padding:10px;border-radius:8px;background:#1a1209;color:#eadbc8;font:500 10px/1.6 var(--mono)"><span style="color:#ff9a3c">lineage</span>: ${lineage}<br><span style="color:#8bc99a">tecnologias</span>: ${d.tags.join(' · ')}</div>`;
+}
+
+function renderCost(proj){
+  const c = COSTS[proj]||COSTS.risk;
+  document.getElementById('costVal').textContent = c.total;
+  document.getElementById('quotaVal').textContent = c.total;
+  document.getElementById('costBars').innerHTML = c.items.map(it=>`
+    <div class="cbar-row">
+      <span class="cbar-lbl">${it.l}</span>
+      <div class="cbar-track"><div class="cbar-fill" style="width:${it.p}%"></div></div>
+      <span class="cbar-val">${it.p}%</span>
+    </div>`).join('');
+}
+
+function formatBRL(value){return value.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});}
+
+function renderCostWorkspace(){
+  document.getElementById('costProjectSwitch').innerHTML=Object.entries(COST_META).map(([key,m])=>`
+    <button class="cost-project-btn ${key===curProj?'active':''}" type="button" onclick="selectCostProject('${key}')"><b>${m.name}</b><span>${m.owner}</span></button>`).join('');
+  const c=COSTS[curProj], meta=COST_META[curProj], saving=costSavings[curProj];
+  const adjusted=Math.round(meta.amount*(1-saving));
+  document.getElementById('costServiceList').innerHTML=c.items.map((it,i)=>`
+    <div class="cost-service-row"><b>${it.l}</b><div class="cbar-track"><div class="cbar-fill" style="width:${it.p}%"></div></div><span>${it.p}%</span><button type="button" onclick="optimizeCostService(${i})">Otimizar</button></div>`).join('');
+  document.getElementById('costWorkspaceTotal').textContent=formatBRL(adjusted);
+  document.getElementById('costWorkspaceCopy').innerHTML=saving
+    ?`Cenário otimizado em <b style="color:var(--green)">${Math.round(saving*100)}%</b>. Economia mensal simulada: <b style="color:var(--green)">${formatBRL(meta.amount-adjusted)}</b>.`
+    :`Custo atual simulado da área <b>${meta.name}</b>. Escolha um serviço ou aplique a recomendação completa.`;
+}
+
+function selectCostProject(proj){curProj=proj;renderCost(proj);renderCostWorkspace();}
+function optimizeCostService(index){
+  costSavings[curProj]=Math.min(.18,costSavings[curProj]+.03);
+  renderCostWorkspace();
+  toast(`${COSTS[curProj].items[index].l}: recomendação aplicada ao cenário`);
+}
+function applyRecommendedOptimization(){
+  costSavings[curProj]=Math.min(.18,costSavings[curProj]+.08);
+  renderCostWorkspace();
+  toast('Plano FinOps aplicado · previsão recalculada');
+}
+
+function switchFile(f){
+  curFile = f;
+  document.querySelectorAll('.editor-tab').forEach(t=>t.classList.toggle('active',t.dataset.file===f));
+  renderCode(f);
+  hideGuardRail();
+  showEditorPanel();
+}
+
+function switchProject(v){
+  curProj = v;
+  renderCost(v);
+  renderWorkflowGraph();
+}
+
+function showEditorPanel(){
+  document.getElementById('editorPanel').style.display='flex';
+  document.getElementById('jobsPanel').classList.remove('active');
+  document.getElementById('catalogPanel').classList.remove('active');
+  document.getElementById('costPanel').classList.remove('active');
+  document.querySelectorAll('.sidebar-item').forEach(el=>{
+    el.classList.toggle('active', el.dataset.tab==='editor');
+  });
+}
+
+function showPanel(name){
+  document.getElementById('editorPanel').style.display='none';
+  document.getElementById('jobsPanel').classList.toggle('active', name==='jobs');
+  document.getElementById('catalogPanel').classList.toggle('active', name==='catalog');
+  document.getElementById('costPanel').classList.toggle('active', name==='cost');
+  document.querySelectorAll('.sidebar-item[data-panel]').forEach(el=>el.classList.toggle('active',el.dataset.panel===name));
+  if(name==='catalog' && !document.querySelector('#catalogDetail h3')) showCatalogDetail(0);
+  if(name==='cost') renderCostWorkspace();
+  if(name==='jobs') renderWorkflowGraph();
+}
+
+let factoryIncidentActive=false;
+function simulateFactoryIncident(){
+  if(factoryIncidentActive){restoreFactoryIncident();return;}
+  factoryIncidentActive=true;
+  if(!JOBS.some(j=>j.name==='df-score-features-prd-incident')) JOBS.unshift({name:'df-score-features-prd-incident',proj:'risco-credito-pf',st:'blocked',pct:41,dur:'falha agora'});
+  renderJobs(JOBS,'jobsMini');renderJobs(JOBS,'jobList');showPanel('jobs');
+  const status=document.getElementById('statusBar');status.classList.add('incident-state');
+  document.getElementById('stMsg').textContent='Incidente · schema incompatível bloqueou o pipeline';
+  document.getElementById('stJobs').textContent='1 job bloqueado · ação requerida';
+  const btn=document.getElementById('factoryIncidentBtn');btn.textContent='✓ Restaurar pipeline';btn.classList.remove('danger');btn.classList.add('primary');
+  toast('Falha controlada criada · abra o job bloqueado para diagnosticar');
+}
+function restoreFactoryIncident(){
+  const index=JOBS.findIndex(j=>j.name==='df-score-features-prd-incident');if(index>=0) JOBS.splice(index,1);
+  factoryIncidentActive=false;renderJobs(JOBS,'jobsMini');renderJobs(JOBS,'jobList');
+  document.getElementById('statusBar').classList.remove('incident-state');
+  document.getElementById('stMsg').textContent='Guard rails · operacional';document.getElementById('stJobs').textContent='3 jobs em execução';
+  const btn=document.getElementById('factoryIncidentBtn');btn.textContent='⚠ Simular falha';btn.classList.add('danger');btn.classList.remove('primary');
+  toast('Pipeline restaurado · schema validado e reprocessamento iniciado');
+}
+
+function hideGuardRail(){
+  document.getElementById('guardRail').style.display='none';
+  guardActive = false;
+}
+
+function showGuardRail(type, title, msg, actions){
+  const el = document.getElementById('guardRail');
+  el.style.display='flex';
+  document.getElementById('grIcon').textContent = type==='block'?'🛡️':'✅';
+  document.getElementById('grTitle').textContent = title;
+  document.getElementById('grTitle').style.color = type==='block'?'#ff6b6b':'#5fd38a';
+  document.getElementById('grMsg').textContent = msg;
+  document.getElementById('grAction').innerHTML = actions.map(a=>`
+    <button class="gr-btn ${a.cls}" onclick="${a.fn}">${a.label}</button>`).join('');
+  guardActive = true;
+}
+
+function runCode(){
+  if(curFile === 'hql'){
+    renderCode('hql_bad');
+    setTimeout(()=>{
+      showGuardRail('block',
+        'GUARD RAIL · EXECUÇÃO BLOQUEADA',
+        'Padrões de risco detectados: SELECT * em tabela particionada e CROSS JOIN sem predicado de filtro. Esses padrões podem saturar os recursos compartilhados do cluster e impactar outras áreas consumidoras. É necessário revisar a query antes de prosseguir.',
+        [{label:'Visualizar sugestões de correção',cls:'gr-blocked',fn:'showFix()'},
+         {label:'Aplicar versão otimizada',cls:'gr-fix',fn:'applyFix()'}]
+      );
+    }, 600);
+    return;
+  }
+  const btn = document.getElementById('runBtn');
+  btn.disabled=true; btn.textContent='⏳ Validando…';
+  setTimeout(()=>{
+    btn.textContent='▶ Executando…';
+    setTimeout(()=>{
+      btn.disabled=false; btn.textContent='▶ Executar';
+      hideGuardRail();
+      toast('Job submetido com sucesso · ID: df-'+Math.random().toString(36).substr(2,8));
+    },1800);
+  },700);
+}
+
+function showFix(){
+  showGuardRail('block','GUARD RAIL · RECOMENDAÇÕES DE CORREÇÃO',
+    '1. Substitua SELECT * pelas colunas estritamente necessárias para a análise.\n2. Inclua filtro obrigatório por partição de data, queries sem particionamento percorrem toda a tabela.\n3. Substitua o CROSS JOIN por INNER JOIN com condição de junção explícita.',
+    [{label:'Aplicar otimizações sugeridas',cls:'gr-fix',fn:'applyFix()'}]);
+}
+
+function applyFix(){
+  renderCode('hql');
+  showGuardRail('ok','GUARD RAIL · APROVADO PARA EXECUÇÃO',
+    'A query foi revisada e atende aos padrões de qualidade da plataforma: particionamento por data aplicado corretamente, projeção de colunas explícita e JOIN com predicado válido. Prossiga com a execução.',
+    [{label:'▶ Executar query',cls:'gr-fix',fn:'executeFixed()'}]);
+}
+
+function executeFixed(){
+  const btn=document.getElementById('runBtn');
+  btn.disabled=true;btn.textContent='▶ Executando…';
+  hideGuardRail();
+  setTimeout(()=>{
+    btn.disabled=false;btn.textContent='▶ Executar';
+    toast('Execução concluída com êxito · 2,4M registros processados · duração: 1m 42s');
+  },1800);
+}
+
+function setTab(t){
+  document.querySelectorAll('.sidebar-item').forEach(el=>el.classList.toggle('active',el.dataset.tab===t));
+  showEditorPanel();
+}
+
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+// Init
+renderCode('hql');
+renderJobs(JOBS,'jobsMini');
+renderJobs(JOBS,'jobList');
+renderWorkflowGraph();
+renderCatalog(CATALOG,'catMini');
+renderCatalog(CATALOG,'catList');
+renderCost('risk');
+renderCostWorkspace();
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

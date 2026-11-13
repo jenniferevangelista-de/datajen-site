@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dafiti · Spark Migration Lab</title>
+<meta name="description" content="Demonstração móvel de modernização de pipelines com PySpark, Amazon EMR e S3 no contexto Dafiti.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/dafiti-spark-mobile.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Dafiti · Spark Migration Lab">
+<meta property="og:description" content="Demonstração móvel de modernização de pipelines com PySpark, Amazon EMR e S3 no contexto Dafiti.">
+<meta property="og:url" content="https://datajen.com.br/dafiti-spark-mobile.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dafiti · Spark Migration Lab">
+<meta name="twitter:description" content="Demonstração móvel de modernização de pipelines com PySpark, Amazon EMR e S3 no contexto Dafiti.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<style>
+:root{--ink:#241329;--muted:#76677d;--bg:#fff7fb;--card:#fff;--pink:#e91e8c;--purple:#7c3aed;--green:#059669;--red:#dc2626;--amber:#d97706;--line:#f0d8e8;--shadow:0 14px 34px rgba(97,27,78,.12)}*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}body{max-width:480px;margin:auto;min-height:100vh;padding-bottom:82px;background:radial-gradient(circle at 92% 4%,#f5d0fe 0,transparent 220px),linear-gradient(180deg,#fff8fc,#fff)}button,input{font:inherit}
+.appbar{position:sticky;top:0;z-index:12;display:flex;justify-content:space-between;align-items:center;padding:13px 17px;background:rgba(255,250,253,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.brand{display:flex;gap:10px;align-items:center}.mark{width:37px;height:37px;border-radius:12px;background:linear-gradient(135deg,var(--pink),var(--purple));display:grid;place-items:center;color:#fff;font-weight:950}.brand strong{font-size:14px;display:block}.brand small{font-size:9px;color:var(--muted)}.live{font-size:8px;font-weight:900;color:var(--green);border:1px solid #a7f3d0;background:#ecfdf5;padding:5px 7px;border-radius:999px}
+.screen{display:none;padding:16px}.screen.active{display:block;animation:in .28s ease}@keyframes in{from{opacity:.2;transform:translateY(7px)}to{opacity:1;transform:none}}.eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink);font-weight:900}.hero h1{font-size:27px;line-height:1.05;margin:7px 0 9px}.hero p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 7px 20px rgba(97,27,78,.055)}
+.workload{margin-top:15px;padding:14px}.workload-head{display:flex;justify-content:space-between;align-items:center}.workload-head strong{font-size:13px}.volume{font-size:10px;font-weight:850;color:var(--pink)}.workload input{width:100%;accent-color:var(--pink);margin:13px 0 3px}.scale{display:flex;justify-content:space-between;font-size:8px;color:var(--muted)}
+.architecture{display:grid;grid-template-columns:1fr 28px 1fr;align-items:stretch;margin-top:11px}.arch{padding:13px}.arch small{font-size:8px;color:var(--muted);font-weight:900;letter-spacing:.08em}.arch b{display:block;font-size:14px;margin:4px 0}.arch p{font-size:9px;color:var(--muted);line-height:1.45;margin:0}.arrow{display:grid;place-items:center;color:var(--pink);font-weight:950}.arch.spark{border-color:#e9b4d4;background:linear-gradient(145deg,#fff,#fff1f9)}
+.primary,.secondary{width:100%;border-radius:13px;padding:13px 14px;font-weight:900;cursor:pointer;margin-top:10px}.primary{border:0;color:#fff;background:linear-gradient(135deg,var(--pink),var(--purple));box-shadow:0 10px 22px rgba(233,30,140,.22)}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}.primary:active,.secondary:active{transform:scale(.98)}
+.race{margin-top:14px;padding:15px}.race-title{display:flex;justify-content:space-between;align-items:center}.race-title strong{font-size:13px}.race-title span{font-size:8px;color:var(--muted)}.lane{margin-top:14px}.lane-top{display:flex;justify-content:space-between;font-size:10px;font-weight:850}.track{height:12px;background:#f7e8f1;border-radius:999px;margin-top:6px;overflow:hidden}.fill{display:block;height:100%;width:0;border-radius:inherit;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}.legacy .fill{background:#94a3b8}.sparkLane .fill{background:linear-gradient(90deg,var(--pink),var(--purple))}.race-result{display:none;margin-top:13px;padding:11px;border-radius:11px;background:#fdf2f8;color:#9d174d;font-size:10px;line-height:1.5}.race-result.show{display:block}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.metric{padding:12px}.metric b{display:block;font-size:20px}.metric span{font-size:9px;color:var(--muted)}
+.pipeline{padding:14px;margin-top:14px}.pstep{display:grid;grid-template-columns:31px 1fr auto;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid #f5e6ef}.pstep:last-child{border:0}.picon{width:28px;height:28px;border-radius:9px;background:#fdf2f8;color:var(--pink);display:grid;place-items:center;font-size:12px}.pstep strong{font-size:11px;display:block}.pstep small{font-size:8px;color:var(--muted)}.pstate{font-size:8px;font-weight:900;color:#94a3b8}.pstep.run .picon{animation:pulse .7s infinite;background:#ede9fe;color:var(--purple)}.pstep.done .pstate{color:var(--green)}@keyframes pulse{50%{transform:scale(.86)}}
+.feed{display:grid;gap:9px;margin-top:14px}.alert{padding:13px;cursor:pointer;transition:.2s}.alert:active{transform:scale(.985)}.alert-top{display:flex;justify-content:space-between;gap:10px}.alert strong{font-size:12px}.score{font-size:9px;font-weight:900;padding:4px 6px;border-radius:999px;background:#fee2e2;color:var(--red)}.alert p{font-size:10px;color:var(--muted);line-height:1.45;margin:6px 0}.chips{display:flex;gap:5px;flex-wrap:wrap}.chip{font-size:8px;font-weight:850;padding:4px 6px;border-radius:999px;background:#fdf2f8;color:#9d174d}.alert.selected{border-color:#f472b6;box-shadow:0 0 0 2px rgba(244,114,182,.13)}
+.investigation{display:none;margin-top:11px;padding:14px}.investigation.show{display:block;animation:in .2s}.investigation h2{font-size:16px;margin:0 0 5px}.investigation p{font-size:10px;line-height:1.5;color:var(--muted)}.check{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f5e6ef;font-size:10px}.check:last-child{border:0}.check i{font-style:normal;color:var(--green)}
+.notice{font-size:9px;line-height:1.45;color:var(--muted);padding:11px 12px;margin-top:13px;border:1px dashed #e8bfd8;border-radius:11px;background:rgba(255,255,255,.58)}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);z-index:15;display:grid;grid-template-columns:repeat(4,1fr);padding:7px 8px calc(7px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line)}.navbtn{border:0;background:none;padding:6px 2px;color:#8d778b;font-size:9px;font-weight:800;cursor:pointer}.navbtn span{display:block;font-size:18px;margin-bottom:2px}.navbtn.active{color:var(--pink)}@media(min-width:481px){body{border-left:1px solid var(--line);border-right:1px solid var(--line)}}
+</style>
+
+<style id="mob-standalone-chrome">
+/* Estas paginas rodam dentro do mockup de celular em experiencia-app.html.
+   Quando abertas direto, ganham uma barra de retorno; dentro do iframe ela some. */
+.mob-standalone-bar{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:9px 16px;background:#12100b;border-bottom:1px solid rgba(255,255,255,.1);
+  font-family:Inter,system-ui,sans-serif}
+.mob-standalone-bar .msb-wm{font-weight:800;font-size:13px;letter-spacing:.03em;color:#f4f2ec;text-decoration:none;white-space:nowrap}
+.mob-standalone-bar .msb-wm i{font-style:italic;font-weight:400;font-size:10px;opacity:.5;margin-right:3px}
+.mob-standalone-bar .msb-live{display:inline-flex;align-items:center;gap:6px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:9.5px;font-weight:700;letter-spacing:.05em;color:#34d399;background:rgba(16,185,129,.14);
+  border:1px solid rgba(16,185,129,.32);border-radius:99px;padding:5px 11px;white-space:nowrap}
+.mob-standalone-bar .msb-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#34d399;animation:msbPulse 1.8s ease-in-out infinite}
+@keyframes msbPulse{0%,100%{opacity:1}50%{opacity:.35}}
+.mob-standalone-bar .msb-back{margin-left:auto;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.62);text-decoration:none;
+  padding:6px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.2);white-space:nowrap;transition:.2s}
+.mob-standalone-bar .msb-back:hover{color:#fff;border-color:rgba(255,255,255,.45)}
+html.in-iframe .mob-standalone-bar,html.embed-mode .mob-standalone-bar{display:none!important}
+@media(max-width:600px){.mob-standalone-bar{padding:8px 12px;gap:7px}.mob-standalone-bar .msb-live{font-size:8.5px;padding:4px 9px}.mob-standalone-bar .msb-back{flex:1 0 100%;margin-left:0;text-align:center}}
+</style>
+<script>
+if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('embed-mode');
+if(window.self!==window.top)document.documentElement.classList.add('in-iframe');
+</script>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<div class="mob-standalone-bar"><a class="msb-wm" href="index.html"><i>the</i>JEN NOTES</a><span class="msb-live">DEMO AO VIVO &middot; DADOS SINT&Eacute;TICOS</span><a class="msb-back" href="experiencia.html#dafiti">&larr; Experi&ecirc;ncia Dafiti</a></div>
+<header class="appbar"><div class="brand"><div class="mark">D</div><div><strong>Spark Migration Lab</strong><small>Dafiti · operação de dados</small></div></div><div class="live">● AWS LAB</div></header>
+<main>
+  <section class="screen active" data-screen="migration"><div class="hero"><div class="eyebrow">Modernização em movimento</div><h1>Da query gigante<br>ao pipeline distribuído.</h1><p>Jennifer levou Spark e AWS para ampliar a capacidade da engenharia. Ajuste o volume e compare a execução legada com PySpark no EMR.</p></div><article class="card workload"><div class="workload-head"><strong>Volume do lote</strong><span class="volume" id="volumeOut">500 milhões de linhas</span></div><input id="volume" type="range" min="100" max="900" step="100" value="500" aria-label="Volume do lote"><div class="scale"><span>100M</span><span>900M</span></div></article><div class="architecture"><article class="card arch"><small>ANTES</small><b>BigQuery SQL</b><p>processamento concentrado e consultas extensas</p></article><div class="arrow">→</div><article class="card arch spark"><small>MODERNIZADO</small><b>PySpark + EMR</b><p>particionamento, paralelismo e dados no S3</p></article></div><button class="primary" type="button" id="runRace">Executar comparativo</button><article class="card race"><div class="race-title"><strong>Corrida de processamento</strong><span>cenário ilustrativo</span></div><div class="lane legacy"><div class="lane-top"><span>BigQuery legado</span><b id="legacyTime">—</b></div><div class="track"><i class="fill" id="legacyFill"></i></div></div><div class="lane sparkLane"><div class="lane-top"><span>PySpark · EMR</span><b id="sparkTime">—</b></div><div class="track"><i class="fill" id="sparkFill"></i></div></div><div class="race-result" id="raceResult"></div></article><div class="notice">🔒 Tempos, volumes e resultados desta interface são sintéticos e servem para explicar as decisões de arquitetura sem expor dados da empresa.</div></section>
+
+  <section class="screen" data-screen="pipeline"><div class="hero"><div class="eyebrow">Execução observável</div><h2>Veja o Spark trabalhar.</h2><p>O lote percorre ingestão, transformação, qualidade e publicação com uma etapa visível por vez.</p></div><article class="card pipeline" id="pipeline"><div class="pstep"><div class="picon">S3</div><div><strong>Landing no Amazon S3</strong><small>partições por data e categoria</small></div><span class="pstate">AGUARDA</span></div><div class="pstep"><div class="picon">⚡</div><div><strong>PySpark no Amazon EMR</strong><small>shuffle, agregação e enriquecimento</small></div><span class="pstate">AGUARDA</span></div><div class="pstep"><div class="picon">✓</div><div><strong>Data quality</strong><small>schema, completude e distribuição</small></div><span class="pstate">AGUARDA</span></div><div class="pstep"><div class="picon">ML</div><div><strong>IsolationForest</strong><small>score de anomalia por SKU</small></div><span class="pstate">AGUARDA</span></div></article><button class="primary" type="button" id="runPipeline">Rodar pipeline Spark</button><div class="grid2"><article class="card metric"><b id="partitions">—</b><span>partições processadas</span></article><article class="card metric"><b id="alerts">—</b><span>alertas gerados</span></article></div></section>
+
+  <section class="screen" data-screen="alerts"><div class="hero"><div class="eyebrow">Investigação de anomalias</div><h2>Do score à hipótese.</h2><p>Toque em um alerta para entender o desvio e escolher a próxima verificação.</p></div><div class="feed"><article class="card alert" data-name="Blusa Cropped Listrada" data-kind="Pico de venda" data-score="0,97"><div class="alert-top"><strong>Blusa Cropped Listrada</strong><span class="score">0,97</span></div><p>201 vendas observadas para 47 esperadas.</p><div class="chips"><span class="chip">+328%</span><span class="chip">campanha?</span><span class="chip">estoque?</span></div></article><article class="card alert" data-name="Camiseta Básica Algodão" data-kind="Queda abrupta" data-score="0,96"><div class="alert-top"><strong>Camiseta Básica Algodão</strong><span class="score">0,96</span></div><p>6 vendas observadas para 95 esperadas.</p><div class="chips"><span class="chip">−94%</span><span class="chip">ruptura?</span><span class="chip">tracking?</span></div></article></div><article class="card investigation" id="investigation"><div class="eyebrow">Plano de investigação</div><h2 id="invTitle"></h2><p id="invText"></p><div class="check"><i>01</i><span>Conferir saldo físico, reservas e pedidos em trânsito.</span></div><div class="check"><i>02</i><span>Cruzar calendário de campanhas e mudança de preço.</span></div><div class="check"><i>03</i><span>Validar ingestão do evento e reprocessar somente a partição afetada.</span></div><button class="secondary" type="button" id="resolveAlert">Marcar investigação iniciada</button></article></section>
+
+  <section class="screen" data-screen="about"><div class="hero"><div class="eyebrow">Traduzindo para o dia a dia</div><h2>Mais escala, menos espera.</h2><p>A modernização divide um processamento grande entre vários executores, guarda dados em formatos eficientes no S3 e permite investigar desvios sem parar toda a operação.</p></div><div class="grid2"><article class="card metric"><b>PySpark</b><span>processamento distribuído</span></article><article class="card metric"><b>EMR</b><span>capacidade elástica</span></article><article class="card metric"><b>S3</b><span>armazenamento desacoplado</span></article><article class="card metric"><b>Airflow</b><span>orquestração rastreável</span></article></div></section>
+</main>
+<nav class="bottom" aria-label="Navegação do aplicativo"><button class="navbtn active" data-go="migration"><span>⇄</span>Migração</button><button class="navbtn" data-go="pipeline"><span>⚡</span>Pipeline</button><button class="navbtn" data-go="alerts"><span>!</span>Alertas</button><button class="navbtn" data-go="about"><span>✦</span>Entenda</button></nav>
+<script>
+const screens=[...document.querySelectorAll('.screen')],nav=[...document.querySelectorAll('.navbtn')],volume=document.getElementById('volume');function go(name){screens.forEach(s=>s.classList.toggle('active',s.dataset.screen===name));nav.forEach(b=>b.classList.toggle('active',b.dataset.go===name));scrollTo({top:0,behavior:'smooth'})}document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));volume.addEventListener('input',()=>document.getElementById('volumeOut').textContent=`${volume.value} milhões de linhas`);
+document.getElementById('runRace').addEventListener('click',()=>{const factor=Number(volume.value)/500,legacy=Math.round(480*factor),spark=Math.round(40*Math.pow(factor,.72));document.getElementById('legacyFill').style.width='100%';document.getElementById('sparkFill').style.width=Math.max(6,spark/legacy*100)+'%';document.getElementById('legacyTime').textContent=Math.round(legacy/60)+' min';document.getElementById('sparkTime').textContent=spark+' s';const r=document.getElementById('raceResult');r.classList.add('show');r.innerHTML=`No cenário de <b>${volume.value}M linhas</b>, o trabalho distribuído conclui em <b>${spark}s</b>, enquanto a referência legada leva aproximadamente <b>${Math.round(legacy/60)} min</b>. O ganho ilustrado vem de particionamento, paralelismo e formato colunar no S3.`;});
+const wait=ms=>new Promise(r=>setTimeout(r,ms));document.getElementById('runPipeline').addEventListener('click',async()=>{const steps=[...document.querySelectorAll('.pstep')],btn=document.getElementById('runPipeline');btn.disabled=true;steps.forEach(s=>{s.className='pstep';s.querySelector('.pstate').textContent='AGUARDA'});for(const s of steps){s.classList.add('run');s.querySelector('.pstate').textContent='RODANDO';await wait(600);s.classList.remove('run');s.classList.add('done');s.querySelector('.pstate').textContent='OK'}document.getElementById('partitions').textContent='96';document.getElementById('alerts').textContent='2';btn.disabled=false;btn.textContent='↻ Rodar novamente';});
+document.querySelectorAll('.alert').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.alert').forEach(x=>x.classList.remove('selected'));a.classList.add('selected');document.getElementById('invTitle').textContent=a.dataset.name;document.getElementById('invText').innerHTML=`<b>${a.dataset.kind}</b> com anomaly score <b>${a.dataset.score}</b>. O score prioriza a investigação, mas a decisão exige contexto de estoque, campanha e integridade do evento.`;document.getElementById('investigation').classList.add('show');}));document.getElementById('resolveAlert').addEventListener('click',e=>{e.currentTarget.textContent='✓ investigação iniciada';e.currentTarget.disabled=true;});
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

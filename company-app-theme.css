@@ -1,0 +1,491 @@
+:root{
+  --company-brand:#7047eb;
+  --company-accent:#c037ff;
+  --company-deep:#120822;
+  --company-light:#f4f0ff;
+  --company-bg:#f7f5fb;
+  --company-panel:#fff;
+  --company-card:#fff;
+  --company-card-2:#f4f0ff;
+  --company-border:rgba(112,71,235,.24);
+  --company-ink:#171714;
+  --company-muted:#676760;
+}
+
+.demo-integrity-banner{
+  display:flex;align-items:center;gap:8px;max-width:min(1280px,calc(100% - 24px));margin:8px auto 0;padding:7px 12px;font-size:9.5px;color:var(--company-muted);
+  background:color-mix(in srgb,var(--company-brand) 5%,var(--company-panel));
+  border:1px solid color-mix(in srgb,var(--company-brand) 14%,var(--company-border));
+  border-radius:12px;font-weight:500;letter-spacing:.01em;
+}
+.demo-integrity-banner span:last-child{opacity:.75}
+
+html[data-company-theme] { color-scheme: light; accent-color:var(--company-brand); }
+html[data-company-tone="dark"] { color-scheme: dark; }
+/* NÃO sobrescrever fundo/cor do body: cada app tem seu próprio design (uns claros, outros
+   escuros). Forçar um tom só deixava o texto do app invisível no fundo oposto.
+   Aqui aplicamos apenas um brilho sutil da marca, sem trocar o fundo nem a cor do texto. */
+html[data-company-theme] body{
+  background-attachment:fixed;
+}
+html[data-company-theme] body::before{
+  content:"";position:fixed;inset:0 0 auto;height:4px;z-index:9999;pointer-events:none;
+  background:linear-gradient(90deg,var(--company-brand) 0 72%,var(--company-accent) 72% 100%);
+  box-shadow:0 0 22px color-mix(in srgb,var(--company-brand) 48%,transparent);
+}
+
+html[data-company-theme] ::selection{background:var(--company-brand);color:#fff}
+html[data-company-theme] :focus-visible{outline:3px solid color-mix(in srgb,var(--company-accent) 78%,#fff);outline-offset:3px}
+html[data-company-theme] ::-webkit-scrollbar{width:11px;height:11px}
+html[data-company-theme] ::-webkit-scrollbar-track{background:var(--company-bg)}
+html[data-company-theme] ::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--company-brand) 58%,var(--company-panel));border:3px solid var(--company-bg);border-radius:99px}
+
+/* Barra do portfólio: mesma arquitetura, identidade da empresa aberta. */
+html[data-company-theme] .porto-nav{
+  background:color-mix(in srgb,var(--company-deep) 92%,transparent)!important;
+  border-color:color-mix(in srgb,var(--company-brand) 42%,transparent)!important;
+  box-shadow:0 12px 34px color-mix(in srgb,var(--company-deep) 30%,transparent)!important;
+}
+html[data-company-theme] .porto-nav .porto-wordmark,
+html[data-company-theme] .porto-nav .nav-links a,
+html[data-company-theme] .porto-nav .porto-back{color:#fff!important}
+html[data-company-theme] .porto-nav .porto-back{background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.22)!important}
+html[data-company-theme] .porto-nav .btn-nav.dark{background:#fff!important;color:var(--company-deep)!important}
+html[data-company-theme] .porto-nav .lang-sw button{color:#fff}
+html[data-company-theme] .porto-nav .nav-cases-drop,
+html[data-company-theme] .porto-nav .nav-traj-drop{background:var(--company-panel)!important;border-color:var(--company-border)!important}
+html[data-company-theme] .porto-nav .nav-cases-drop a,
+html[data-company-theme] .porto-nav .nav-traj-drop a{color:var(--company-ink)!important}
+html[data-company-theme] .porto-nav .nav-cases-drop a:hover,
+html[data-company-theme] .porto-nav .nav-traj-drop a:hover{background:color-mix(in srgb,var(--company-brand) 11%,transparent)!important}
+
+html[data-company-theme] .topbar,
+html[data-company-theme] .app-topbar,
+html[data-company-theme] .appbar,
+html[data-company-theme] .toolbar{
+  background:color-mix(in srgb,var(--company-panel) 92%,transparent)!important;
+  border-color:var(--company-border)!important;
+  backdrop-filter:blur(18px) saturate(1.2);
+}
+html[data-company-theme] .gn{background:color-mix(in srgb,var(--company-deep) 96%,#050505)!important;border-color:color-mix(in srgb,var(--company-brand) 40%,transparent)!important}
+html[data-company-theme] .gn-cta,
+html[data-company-theme] .primary-btn,
+html[data-company-theme] .btn-primary,
+html[data-company-theme] .run-btn,
+html[data-company-theme] .action-btn{
+  background:linear-gradient(135deg,var(--company-brand),color-mix(in srgb,var(--company-brand) 68%,var(--company-accent)))!important;
+  border-color:color-mix(in srgb,var(--company-brand) 74%,#fff)!important;
+  color:#fff!important;
+  box-shadow:0 8px 24px color-mix(in srgb,var(--company-brand) 24%,transparent)!important;
+}
+html[data-company-theme] .card,
+html[data-company-theme] .panel,
+html[data-company-theme] .kpi,
+html[data-company-theme] .metric-card,
+html[data-company-theme] .det-block,
+html[data-company-theme] .pnode-inner{
+  border-color:var(--company-border)!important;
+}
+html[data-company-theme] .card:hover,
+html[data-company-theme] .panel:hover,
+html[data-company-theme] .kpi:hover,
+html[data-company-theme] .metric-card:hover{
+  border-color:color-mix(in srgb,var(--company-brand) 60%,var(--company-border))!important;
+}
+html[data-company-theme] button,
+html[data-company-theme] .btn,
+html[data-company-theme] [role="button"]{transition:transform .2s ease,border-color .2s ease,background-color .2s ease,box-shadow .2s ease}
+html[data-company-theme] button:hover,
+html[data-company-theme] .btn:hover,
+html[data-company-theme] [role="button"]:hover{transform:translateY(-1px)}
+html[data-company-theme] .active,
+html[data-company-theme] [aria-selected="true"]{--active-brand:var(--company-brand)}
+html[data-company-theme] input,
+html[data-company-theme] select,
+html[data-company-theme] textarea{border-color:var(--company-border);accent-color:var(--company-brand)}
+
+.tech-disclaimer{
+  max-width:min(1280px,calc(100% - 24px));margin:8px auto 0!important;padding:7px 12px!important;font-size:9.5px!important;line-height:1.35!important;
+  border:1px solid!important;border-radius:12px!important;
+}
+html[data-company-theme] .tech-disclaimer{
+  background:color-mix(in srgb,var(--company-brand) 9%,var(--company-panel))!important;
+  border-color:color-mix(in srgb,var(--company-brand) 24%,transparent)!important;
+  color:var(--company-muted)!important;
+}
+html[data-company-theme] .tech-disclaimer strong{color:var(--company-brand)!important;font-weight:600!important;font-size:10px!important;letter-spacing:.01em!important}
+
+body[data-glow="off"]::before{box-shadow:none!important}
+body[data-glow="off"] *{text-shadow:none!important}
+body[data-glass="off"] .porto-nav,
+body[data-glass="off"] .topbar,
+body[data-glass="off"] .app-topbar,
+body[data-glass="off"] .toolbar{backdrop-filter:none!important}
+body[data-typo="moderna"]{font-family:Inter,system-ui,sans-serif!important}
+body[data-motion="reduzido"] *,
+body[data-motion="reduzido"] *::before,
+body[data-motion="reduzido"] *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+@media(prefers-reduced-motion:reduce){
+  html[data-company-theme] *,html[data-company-theme] *::before,html[data-company-theme] *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+
+/* Heineken: identidade verde SEM trocar o fundo do app (forçar escuro deixava texto invisível). */
+html[data-company-theme="heineken"] .hein-badge{background:linear-gradient(145deg,#00a550,#087a42)!important;box-shadow:0 0 0 1px rgba(255,255,255,.18),0 8px 22px rgba(0,165,80,.32)}
+html[data-company-theme="heineken"] .pipeline-wrap,
+html[data-company-theme="heineken"] .detail-section,
+html[data-company-theme="heineken"] .impact-body,
+html[data-company-theme="heineken"] .sec-title-wrap,
+html[data-company-theme="heineken"] .sec-tabs{max-width:1500px;margin-left:auto;margin-right:auto}
+html[data-company-theme="heineken"] .detail-grid{
+  grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr)!important;
+  grid-template-areas:"story metrics" "code code"!important;
+  gap:16px!important;
+}
+html[data-company-theme="heineken"] .detail-grid>.det-block:nth-child(1){grid-area:story}
+html[data-company-theme="heineken"] .detail-grid>.det-block:nth-child(2){grid-area:metrics}
+html[data-company-theme="heineken"] .detail-grid>.det-block:nth-child(3){grid-area:code}
+html[data-company-theme="heineken"] .detail-grid>.det-block:nth-child(3) .code-block{max-height:390px;overflow:auto;background:#020d08!important;border-color:rgba(0,165,80,.28)!important}
+html[data-company-theme="heineken"] .det-block,
+html[data-company-theme="heineken"] .pnode-inner,
+html[data-company-theme="heineken"] .kpi,
+html[data-company-theme="heineken"] .card,
+html[data-company-theme="heineken"] .tcard,
+html[data-company-theme="heineken"] .quote{
+  /* só a borda/sombra da identidade: o fundo fica com o design próprio de cada app */
+  border-color:rgba(76,200,128,.28)!important;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+html[data-company-theme="heineken"] .pnode.active .pnode-inner{box-shadow:0 0 0 1px var(--node-color,var(--company-brand)),0 12px 30px rgba(0,165,80,.14)!important}
+html[data-company-theme="heineken"] .sec-tab.active{background:linear-gradient(135deg,#00a550,#087a42)!important;border-color:#55c98a!important;box-shadow:0 8px 26px rgba(0,165,80,.25)}
+html[data-company-theme="heineken"] .tag-live{background:rgba(0,165,80,.14)!important;border-color:rgba(85,201,138,.38)!important}
+
+@media(max-width:760px){
+  html[data-company-theme="heineken"] .detail-grid{grid-template-columns:1fr!important;grid-template-areas:"story" "metrics" "code"!important}
+  html[data-company-theme] .porto-nav .in{padding:10px 12px!important;gap:8px!important;width:100%;max-width:100%;overflow:hidden}
+  html[data-company-theme] .porto-nav .porto-wordmark{font-size:15px!important;min-width:max-content}
+  html[data-company-theme] .porto-nav .lang-sw button:not(.active){display:none!important}
+  html[data-company-theme] .porto-nav .btn-nav{font-size:10.5px!important;padding:7px 10px!important;gap:4px!important}
+  html[data-company-theme] .porto-nav .porto-back{display:none!important}
+  html[data-company-theme="heineken"] .metrics-strip{overflow-x:auto!important;scroll-snap-type:x proximity}
+  html[data-company-theme="heineken"] .metrics-strip .ms-item{min-width:145px;scroll-snap-align:start}
+}
+
+/* ============================================================
+   CAMADA DE INTERAÇÃO (compartilhada por todos os apps/dashboards).
+   Regra de ouro: só realce, elevação e movimento. NUNCA troca
+   background-color nem color, para não dessincronizar fundo/texto.
+   ============================================================ */
+
+/* --- superfícies reagem ao mouse --- */
+html[data-company-theme] .card,
+html[data-company-theme] .panel,
+html[data-company-theme] .kpi,
+html[data-company-theme] .dd-panel,
+html[data-company-theme] .metric-card,
+html[data-company-theme] .det-block,
+html[data-company-theme] .pnode-inner,
+html[data-company-theme] .tcard,
+html[data-company-theme] .fact,
+html[data-company-theme] .ms-item{
+  transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .26s ease,border-color .26s ease;
+}
+html[data-company-theme] .card:hover,
+html[data-company-theme] .panel:hover,
+html[data-company-theme] .kpi:hover,
+html[data-company-theme] .dd-panel:hover,
+html[data-company-theme] .metric-card:hover,
+html[data-company-theme] .det-block:hover,
+html[data-company-theme] .tcard:hover,
+html[data-company-theme] .fact:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 36px color-mix(in srgb,var(--company-brand) 20%,transparent);
+  border-color:color-mix(in srgb,var(--company-brand) 58%,transparent)!important;
+}
+
+/* --- ícones ganham vida --- */
+html[data-company-theme] .node-icon,
+html[data-company-theme] .fi-icon,
+html[data-company-theme] .gmeet-icon,
+html[data-company-theme] .empty-icon,
+html[data-company-theme] .card-preview-icon,
+html[data-company-theme] .hein-badge,
+html[data-company-theme] [class$="-icon"],
+html[data-company-theme] [class*="-icon "]{
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1),filter .28s ease;
+}
+html[data-company-theme] .card:hover .node-icon,
+html[data-company-theme] .card:hover [class$="-icon"],
+html[data-company-theme] .pnode:hover .node-icon,
+html[data-company-theme] .fi-item:hover .fi-icon,
+html[data-company-theme] .dd-panel:hover [class$="-icon"],
+html[data-company-theme] [class$="-icon"]:hover{
+  transform:scale(1.16) rotate(-5deg);
+  filter:drop-shadow(0 5px 12px color-mix(in srgb,var(--company-brand) 50%,transparent));
+}
+
+/* --- botões: microinteração completa --- */
+html[data-company-theme] button,
+html[data-company-theme] .btn,
+html[data-company-theme] [role="button"]{
+  cursor:pointer;
+  transition:transform .18s cubic-bezier(.22,1,.36,1),box-shadow .22s,filter .22s,border-color .22s;
+}
+html[data-company-theme] button:hover,
+html[data-company-theme] .btn:hover,
+html[data-company-theme] [role="button"]:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.07) saturate(1.05);
+  box-shadow:0 8px 22px color-mix(in srgb,var(--company-brand) 26%,transparent);
+}
+html[data-company-theme] button:active,
+html[data-company-theme] .btn:active,
+html[data-company-theme] [role="button"]:active{transform:translateY(0) scale(.97)}
+html[data-company-theme] button:disabled{cursor:not-allowed;filter:saturate(.4) opacity(.6);transform:none!important}
+
+/* --- badges "ao vivo" pulsam --- */
+@keyframes companyLivePulse{
+  0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--company-brand) 45%,transparent)}
+  60%{box-shadow:0 0 0 7px transparent}
+}
+html[data-company-theme] .live-badge,
+html[data-company-theme] .tag-live,
+html[data-company-theme] .pill-live,
+html[data-company-theme] .dd-live-dot{animation:companyLivePulse 2.1s ease-out infinite}
+
+/* --- números de KPI respondem --- */
+html[data-company-theme] .val,
+html[data-company-theme] .kv,
+html[data-company-theme] .ms-v,
+html[data-company-theme] .bav{transition:transform .2s cubic-bezier(.34,1.56,.64,1),text-shadow .25s}
+html[data-company-theme] .kpi:hover .val,
+html[data-company-theme] .kpi:hover .kv,
+html[data-company-theme] .ms-item:hover .ms-v,
+html[data-company-theme] .dd-panel:hover .val{
+  transform:scale(1.06);
+  text-shadow:0 3px 16px color-mix(in srgb,var(--company-brand) 42%,transparent);
+}
+
+/* --- linhas de tabela e itens de lista reagem --- */
+html[data-company-theme] tbody tr,
+html[data-company-theme] .dag-table tr,
+html[data-company-theme] .alert-item,
+html[data-company-theme] .cf-row,
+html[data-company-theme] .fi-item{transition:background-color .18s ease,transform .18s ease}
+html[data-company-theme] tbody tr:hover,
+html[data-company-theme] .alert-item:hover,
+html[data-company-theme] .cf-row:hover,
+html[data-company-theme] .fi-item:hover{
+  background:color-mix(in srgb,var(--company-brand) 9%,transparent);
+  transform:translateX(3px);
+}
+
+/* --- abas / chips selecionáveis --- */
+html[data-company-theme] .sec-tab,
+html[data-company-theme] .filter-btn,
+html[data-company-theme] .mode button,
+html[data-company-theme] .tab{transition:transform .2s,box-shadow .22s,border-color .22s,filter .2s}
+html[data-company-theme] .sec-tab:hover,
+html[data-company-theme] .filter-btn:hover,
+html[data-company-theme] .mode button:hover{transform:translateY(-2px);filter:brightness(1.06)}
+
+/* --- foco visível para teclado --- */
+html[data-company-theme] button:focus-visible,
+html[data-company-theme] a:focus-visible,
+html[data-company-theme] [role="button"]:focus-visible{
+  outline:3px solid color-mix(in srgb,var(--company-brand) 70%,#fff);
+  outline-offset:3px;border-radius:6px;
+}
+
+/* ============================================================
+   SISTEMA EDITORIAL ÚNICO DOS APPS
+   Heitor mantém o layout autoral original e funciona como referência.
+   Nos demais, a base é clara, legível e colorida pela marca da empresa.
+   ============================================================ */
+html[data-app-ui="editorial"] body{
+  background:
+    radial-gradient(900px 520px at 100% -12%,color-mix(in srgb,var(--company-brand) 10%,transparent),transparent 62%),
+    radial-gradient(760px 430px at -10% 108%,color-mix(in srgb,var(--company-accent) 8%,transparent),transparent 58%),
+    var(--company-bg)!important;
+  color:var(--company-ink)!important;
+}
+html[data-app-ui="editorial"] .tech-disclaimer{display:none!important}
+html[data-app-ui="editorial"] .topbar,
+html[data-app-ui="editorial"] .app-topbar,
+html[data-app-ui="editorial"] .appbar,
+html[data-app-ui="editorial"] .toolbar,
+html[data-app-ui="editorial"] .dd-header{
+  background:color-mix(in srgb,var(--company-panel) 94%,transparent)!important;
+  color:var(--company-ink)!important;
+  border-color:var(--company-border)!important;
+  box-shadow:0 10px 30px color-mix(in srgb,var(--company-deep) 8%,transparent);
+}
+html[data-app-ui="editorial"] .card,
+html[data-app-ui="editorial"] .panel,
+html[data-app-ui="editorial"] .dd-panel,
+html[data-app-ui="editorial"] .metric-card,
+html[data-app-ui="editorial"] .entity-box,
+html[data-app-ui="editorial"] .sources-section,
+html[data-app-ui="editorial"] .pipe-step,
+html[data-app-ui="editorial"] .result,
+html[data-app-ui="editorial"] .sample-btn,
+html[data-app-ui="editorial"] .qtype-btn{
+  background:color-mix(in srgb,var(--company-card) 96%,var(--company-light))!important;
+  color:var(--company-ink)!important;
+  border-color:var(--company-border)!important;
+}
+
+.everyday-translation{
+  position:relative;z-index:24;display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;
+  max-width:min(1280px,calc(100% - 24px));margin:8px auto 0;padding:8px 10px;
+  border:1px solid color-mix(in srgb,var(--company-brand) 12%,var(--company-border));
+  border-radius:12px;background:rgba(0,0,0,.02);
+  color:var(--company-ink);box-shadow:none;
+  font-family:Inter,system-ui,sans-serif;
+}
+.everyday-icon{width:24px;height:24px;display:grid;place-items:center;border-radius:4px;background:var(--company-brand);color:#fff;font-size:12px;box-shadow:none;animation:none;flex-shrink:0}
+.everyday-translation strong{display:block;margin:0;color:var(--company-brand);font:600 8px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;opacity:.55}
+.everyday-translation p{margin:0;color:var(--company-muted);font-size:10.5px;line-height:1.35;opacity:.82}
+.everyday-action{display:none}
+.everyday-action::before{display:none}
+@keyframes everydayIcon{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(7deg)}}
+@keyframes everydayArrow{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+html[data-app-ui="editorial"] .jen-interactive{cursor:pointer!important;transition:filter .2s ease,box-shadow .2s ease,transform .2s ease!important}
+html[data-app-ui="editorial"] .jen-interactive:hover{filter:saturate(1.12) brightness(1.02)}
+html[data-app-ui="editorial"] .jen-primary-action{
+  position:relative!important;overflow:visible!important;isolation:isolate;
+  box-shadow:0 9px 26px color-mix(in srgb,var(--company-brand) 28%,transparent)!important;
+}
+html[data-app-ui="editorial"] .jen-start-here{animation:companyStartPulse 2.2s ease-in-out infinite}
+.jen-click-badge{
+  display:inline-flex;align-items:center;justify-content:center;margin-left:8px;padding:3px 7px;
+  border-radius:999px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.42);
+  color:inherit;font:800 8px/1 'IBM Plex Mono',monospace;letter-spacing:.09em;vertical-align:middle;white-space:nowrap;
+}
+.jen-compact-control .jen-click-badge{position:absolute;right:-7px;top:-11px;margin:0;background:var(--company-brand);border-color:#fff;color:#fff;box-shadow:0 6px 16px color-mix(in srgb,var(--company-brand) 32%,transparent)}
+@keyframes companyStartPulse{
+  0%,100%{box-shadow:0 9px 26px color-mix(in srgb,var(--company-brand) 25%,transparent),0 0 0 0 color-mix(in srgb,var(--company-brand) 38%,transparent)}
+  55%{box-shadow:0 13px 34px color-mix(in srgb,var(--company-brand) 33%,transparent),0 0 0 8px transparent}
+}
+@keyframes companyClickPop{0%{transform:scale(1)}45%{transform:scale(.95)}100%{transform:scale(1)}}
+html[data-app-ui="editorial"] .jen-was-clicked{animation:companyClickPop .4s cubic-bezier(.2,.8,.2,1)!important}
+
+@media(max-width:640px){
+  .everyday-translation{grid-template-columns:36px minmax(0,1fr);gap:11px;width:calc(100% - 16px);padding:12px 11px;margin:8px auto;border-radius:13px}
+  .everyday-icon{width:34px;height:34px;border-radius:10px;font-size:15px}
+  .everyday-translation p{font-size:12.5px}.everyday-action{font-size:11px}
+  .jen-click-badge{font-size:7px;padding:3px 5px;margin-left:5px}
+}
+
+@media(max-width:760px){
+  html[data-company-theme]:not([data-app-ui="editorial"]) .porto-nav .in,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .topbar,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .app-topbar,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .appbar,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .toolbar{
+    padding-left:12px!important;
+    padding-right:12px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .demo-integrity-banner,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .everyday-translation{
+    width:calc(100% - 12px)!important;
+    max-width:calc(100% - 12px)!important;
+    margin:6px auto 0!important;
+    padding:8px 10px!important;
+    border-radius:11px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .demo-integrity-banner{
+    font-size:8.9px!important;
+    gap:6px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .demo-integrity-banner strong{
+    font-size:8.5px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .everyday-translation{
+    grid-template-columns:30px minmax(0,1fr)!important;
+    gap:8px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .everyday-icon{
+    width:30px!important;
+    height:30px!important;
+    border-radius:9px!important;
+    font-size:13px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .everyday-translation strong{
+    font-size:7.5px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .everyday-translation p{
+    font-size:11.5px!important;
+    line-height:1.42!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .card,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .panel,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .metric-card,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .kpi,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .det-block,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .pnode-inner,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .tcard,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .fact,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .ms-item,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .loan-card,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .step,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .result,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .plain,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .block,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .offer-card{
+    border-radius:14px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .card,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .panel,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .metric-card,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .kpi,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .det-block,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .pnode-inner,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .tcard,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .fact,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .ms-item,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .loan-card,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .step,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .result,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .plain,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .block,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .offer-card{
+    padding:12px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .hero,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .section-head,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .app-intro{
+    padding-left:12px!important;
+    padding-right:12px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .hero h1,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .app-intro-t{
+    font-size:20px!important;
+    line-height:1.08!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .hero p,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .app-intro-m{
+    font-size:13px!important;
+    line-height:1.46!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .grid2,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .g2,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .g3,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .g4,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .g32,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .loan-cards,
+  html[data-company-theme]:not([data-app-ui="editorial"]) .features-grid{
+    grid-template-columns:1fr!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .topbar{
+    flex-wrap:wrap!important;
+    gap:8px!important;
+  }
+  html[data-company-theme]:not([data-app-ui="editorial"]) .topbar > *{
+    min-width:0;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .everyday-icon,.everyday-action::before,html[data-app-ui="editorial"] .jen-start-here{animation:none!important}
+}

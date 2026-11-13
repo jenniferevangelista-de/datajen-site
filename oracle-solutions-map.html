@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oracle · Mapa de Soluções por Conta</title>
+<meta name="description" content="Demonstração de mapa de soluções e oportunidades por conta no contexto Oracle.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/oracle-solutions-map.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Oracle · Mapa de Soluções por Conta">
+<meta property="og:description" content="Demonstração de mapa de soluções e oportunidades por conta no contexto Oracle.">
+<meta property="og:url" content="https://datajen.com.br/oracle-solutions-map.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Oracle · Mapa de Soluções por Conta">
+<meta name="twitter:description" content="Demonstração de mapa de soluções e oportunidades por conta no contexto Oracle.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+:root{
+  --bg:#07050c;--panel:#0f0b17;--card:#161020;--card2:#1c1428;
+  --acc:#e8422e;
+  --green:#22c55e;--green-bg:rgba(34,197,94,.14);--green-bd:rgba(34,197,94,.35);
+  --amber:#f59e0b;--amber-bg:rgba(245,158,11,.13);--amber-bd:rgba(245,158,11,.35);
+  --red:#f87171;  --red-bg:rgba(248,113,113,.12);  --red-bd:rgba(248,113,113,.35);
+  --blue:#60a5fa;  --blue-bg:rgba(96,165,250,.1);   --blue-bd:rgba(96,165,250,.35);
+  --muted:#3d3050;--sub:#7c6fa0;--text:#ede9f6;--border:#231a35;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;font-size:14px;overflow-x:hidden;padding-top:44px}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 24px;background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.oracle-dot{width:28px;height:28px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0;box-shadow:0 0 12px rgba(232,66,46,.4)}
+.topbar-title{font-size:15px;font-weight:800}
+.topbar-sub{font-size:11px;color:var(--sub)}
+.pill-sim{background:rgba(232,66,46,.12);color:var(--acc);border:1px solid rgba(232,66,46,.3);border-radius:20px;font-size:10px;font-weight:700;padding:3px 10px;letter-spacing:.06em}
+.back-link{margin-left:auto;font-size:11px;color:var(--sub);border:1px solid var(--border);border-radius:20px;padding:5px 12px;text-decoration:none;transition:.2s}
+.back-link:hover{color:var(--text);border-color:var(--sub)}
+
+/* METHODOLOGY BANNER */
+.method-bar{background:rgba(96,165,250,.06);border-bottom:1px solid rgba(96,165,250,.15);padding:0}
+.method-toggle{display:flex;align-items:center;gap:10px;padding:10px 24px;cursor:pointer;user-select:none;transition:.2s}
+.method-toggle:hover{background:rgba(96,165,250,.05)}
+.method-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
+.method-hint{font-size:11px;color:var(--sub);flex:1}
+.method-arrow{font-size:11px;color:var(--sub);transition:.3s}
+.method-body{display:none;padding:0 24px 18px;border-top:1px solid rgba(96,165,250,.12)}
+.method-body.open{display:block}
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+.dim-list{display:flex;flex-direction:column;gap:8px}
+.dim-row{display:flex;align-items:center;gap:10px}
+.dim-bar-wrap{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.dim-bar{height:100%;border-radius:3px;background:var(--blue)}
+.dim-name{font-size:12px;color:var(--sub);min-width:140px}
+.dim-desc{font-size:10px;color:rgba(124,111,160,.55);margin:-4px 0 4px 140px}
+.dim-pct{font-size:11px;font-weight:700;color:var(--blue);min-width:32px;text-align:right}
+.score-formula{margin-top:14px;font-family:monospace;font-size:10px;color:var(--sub);background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;padding:8px 10px;line-height:1.5}
+
+/* sim disclaimer */
+.sim-banner{display:flex;gap:10px;align-items:flex-start;background:rgba(245,196,0,.07);border:1px solid rgba(245,196,0,.25);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:11px;color:var(--sub);line-height:1.65}
+.sim-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.sim-banner strong{color:#f5c400}
+
+/* example box */
+.example-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.ex-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-bottom:14px}
+.ex-dim-block{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.ex-dim-block:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ex-dim-head{display:flex;align-items:baseline;gap:6px;margin-bottom:5px;flex-wrap:wrap}
+.ex-dim-name{font-size:11px;font-weight:700;color:var(--text);min-width:120px;flex-shrink:0}
+.ex-dim-rule{font-size:10px;color:var(--sub);flex:1;font-style:italic}
+.ex-contrib{font-family:monospace;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap}
+.ex-dim-detail{display:flex;flex-wrap:wrap;gap:4px}
+.ex-tag{font-family:monospace;font-size:9.5px;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.tag-s{background:rgba(72,199,142,.15);color:#48c78e}
+.tag-p{background:rgba(255,183,43,.15);color:#ffb72b}
+.tag-c{background:rgba(220,80,80,.15);color:#e06060}
+.tag-pen{background:rgba(220,80,80,.1);color:#e06060}
+.tag-info{background:rgba(124,111,160,.12);color:var(--sub)}
+.tag-eq{background:rgba(100,160,255,.1);color:var(--blue);font-weight:700}
+
+.ex-total{display:flex;align-items:baseline;gap:8px;padding-top:10px;margin-top:10px;border-top:1.5px solid var(--border);font-size:11px}
+.ex-total-label{color:var(--sub);font-weight:700;min-width:80px;flex-shrink:0}
+.ex-total-val{color:var(--text);font-family:monospace;font-size:11px}
+
+/* LEGEND + FILTERS */
+.controls{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--border);background:var(--panel)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;padding:10px 24px;flex:1}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--sub)}
+.leg-swatch{width:22px;height:14px;border-radius:4px;flex-shrink:0}
+.leg-swatch.adotado{background:var(--green-bg);border:1.5px solid var(--green-bd)}
+.leg-swatch.parcial{background:var(--amber-bg);border:1.5px solid var(--amber-bd)}
+.leg-swatch.contratado{background:var(--red-bg);border:1.5px solid var(--red-bd)}
+.leg-swatch.oportunidade{background:transparent;border:1.5px dashed var(--blue-bd)}
+.leg-swatch.na{background:rgba(35,26,53,.6);border:1px solid var(--border)}
+.filters{display:flex;gap:6px;padding:10px 16px;border-left:1px solid var(--border)}
+.filter-btn{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid var(--border);background:transparent;color:var(--sub);cursor:pointer;transition:.2s;white-space:nowrap}
+.filter-btn:hover,.filter-btn.active{background:rgba(232,66,46,.1);border-color:var(--acc);color:var(--text)}
+
+/* LAYOUT */
+.wrap{display:flex;height:calc(100vh - 160px);overflow:hidden}
+
+/* TABLE */
+.map-container{flex:1;overflow:auto;padding:20px 24px}
+.map-table{border-collapse:separate;border-spacing:5px;min-width:960px}
+
+.map-table thead th{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--sub);padding:0 4px 10px;text-align:center;position:sticky;top:0;background:var(--bg);z-index:5;white-space:nowrap}
+.map-table thead th.corner{text-align:left;position:sticky;left:0;z-index:10;background:var(--bg);min-width:210px}
+.th-icon{font-size:18px;display:block;margin-bottom:3px}
+
+.account-label{position:sticky;left:0;z-index:4;background:var(--bg);padding:0 6px 0 0}
+.account-inner{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:.2s;min-width:200px}
+.account-inner:hover{border-color:rgba(232,66,46,.5);background:var(--card2)}
+.account-inner.selected{border-color:var(--acc);background:var(--card2);box-shadow:0 0 0 1px rgba(232,66,46,.2)}
+.acc-icon{font-size:18px}
+.acc-name{font-size:13px;font-weight:700;flex:1}
+.acc-score{font-size:13px;font-weight:900;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.score-hi{background:rgba(34,197,94,.15);color:var(--green)}
+.score-med{background:rgba(245,158,11,.13);color:var(--amber)}
+.score-lo{background:rgba(248,113,113,.13);color:var(--red)}
+
+/* CELLS */
+.cell{width:92px;height:62px;border-radius:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:transform .15s,box-shadow .15s;position:relative;border:1.5px solid transparent}
+.cell:hover{transform:scale(1.07);z-index:3;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.cell.adotado{background:var(--green-bg);border-color:var(--green-bd)}
+.cell.parcial{background:var(--amber-bg);border-color:var(--amber-bd)}
+.cell.contratado{background:var(--red-bg);border-color:var(--red-bd)}
+.cell.oportunidade{background:transparent;border:1.5px dashed var(--blue-bd)}
+.cell.na{background:rgba(35,26,53,.35);border-color:var(--border)}
+.cell-emoji{font-size:18px;line-height:1}
+.cell-status{font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.cell.adotado .cell-status{color:var(--green)}
+.cell.parcial .cell-status{color:var(--amber)}
+.cell.contratado .cell-status{color:var(--red)}
+.cell.oportunidade .cell-status{color:var(--blue);opacity:.7}
+.cell.na .cell-status{color:var(--muted)}
+
+.cell-tooltip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1230;border:1px solid var(--border);border-radius:10px;padding:9px 13px;font-size:11px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:30;text-align:center;min-width:150px;box-shadow:0 8px 28px rgba(0,0,0,.6)}
+.cell:hover .cell-tooltip{opacity:1}
+.ct-solution{font-weight:700;color:var(--text);margin-bottom:3px}
+.ct-status{font-size:10px;margin-bottom:2px;font-weight:700}
+.ct-status.adotado{color:var(--green)}
+.ct-status.parcial{color:var(--amber)}
+.ct-status.contratado{color:var(--red)}
+.ct-status.oportunidade{color:var(--blue)}
+.ct-status.na{color:var(--sub)}
+
+/* DETAIL PANEL */
+.detail{width:360px;flex-shrink:0;border-left:1px solid var(--border);overflow-y:auto;padding:20px}
+.detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--sub);text-align:center;gap:12px}
+.de-icon{font-size:42px;opacity:.25}
+.de-hint{font-size:12px;line-height:1.7;max-width:200px}
+
+.det-icon{font-size:32px;margin-bottom:8px}
+.det-name{font-size:20px;font-weight:900;margin-bottom:4px}
+.det-sub{font-size:12px;color:var(--sub);margin-bottom:10px}
+.det-score-row{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.det-score-big{font-size:36px;font-weight:900;line-height:1}
+.det-score-label{font-size:11px;color:var(--sub)}
+.det-score-status{font-size:13px;font-weight:700}
+
+.score-dims{margin-bottom:16px}
+.sd-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.sd-title::after{content:'Como foi calculado ↓';font-size:9px;color:rgba(124,111,160,.5);letter-spacing:.04em;font-weight:400}
+.sd-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sd-name{font-size:11px;color:var(--sub);min-width:90px}
+.sd-bar-bg{flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden}
+.sd-bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.sd-val{font-size:12px;font-weight:800;min-width:28px;text-align:right}
+.sd-weight{font-size:9px;color:rgba(124,111,160,.45);min-width:28px;text-align:right}
+
+.det-divider{border:none;border-top:1px solid var(--border);margin:14px 0}
+.det-section{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-bottom:10px}
+
+.sol-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.sol-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;border:1px solid var(--border);background:var(--card)}
+.sol-ico{font-size:16px}
+.sol-name{font-size:12px;font-weight:600;flex:1}
+.sol-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.badge-adotado{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd)}
+.badge-parcial{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd)}
+.badge-contratado{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd)}
+.badge-oportunidade{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd)}
+
+.risk-block{background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.risk-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.risk-item{font-size:12px;color:var(--text);padding:4px 0;line-height:1.55;display:flex;gap:8px}
+.risk-item::before{content:'⚠';font-size:10px;color:var(--red);flex-shrink:0;margin-top:2px}
+.opp-block{background:rgba(96,165,250,.05);border:1px solid rgba(96,165,250,.2);border-radius:10px;padding:12px 14px}
+.opp-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.opp-item{font-size:12px;color:var(--text);padding:4px 0;line-height:1.55;display:flex;gap:8px}
+.opp-item::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0}
+
+@media(max-width:960px){
+  .wrap{flex-direction:column;height:auto}
+  .detail{width:100%;border-left:none;border-top:1px solid var(--border);max-height:none}
+  .map-container{overflow-x:auto;min-height:0}
+}
+</style>
+
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="topbar-contrast-fix">
+/* O tema compartilhado clareia o fundo da topbar; o texto desta pagina era claro e sumia. */
+html[data-company-theme] .topbar .topbar-title{color:#1a1a1a!important}
+</style>
+<style id="oracle-usability-fixes">
+/* A camada editorial torna a página clara. Estes componentes ainda carregavam
+   superfícies do tema escuro original, criando popovers sem contraste. */
+html[data-app-ui="editorial"] .method-bar,
+html[data-app-ui="editorial"] .controls,
+html[data-app-ui="editorial"] .detail,
+html[data-app-ui="editorial"] .map-container{background:#fffaf8;color:#211713}
+html[data-app-ui="editorial"] .method-bar,
+html[data-app-ui="editorial"] .controls{border-color:#ead8d2}
+html[data-app-ui="editorial"] .method-body{background:#fff;border-color:#ead8d2}
+html[data-app-ui="editorial"] .method-toggle:hover{background:#fff1ef}
+html[data-app-ui="editorial"] .method-hint,
+html[data-app-ui="editorial"] .leg-item,
+html[data-app-ui="editorial"] .de-hint{color:#675853}
+html[data-app-ui="editorial"] .example-box,
+html[data-app-ui="editorial"] .sol-item,
+html[data-app-ui="editorial"] .score-formula,
+html[data-app-ui="editorial"] .slo-item{background:#fff;border-color:#ead8d2;color:#211713}
+html[data-app-ui="editorial"] .account-label,
+html[data-app-ui="editorial"] .map-table thead th{background:#fffaf8}
+html[data-app-ui="editorial"] .account-inner{background:#fff;border-color:#ead8d2;color:#211713}
+html[data-app-ui="editorial"] .account-inner:hover,
+html[data-app-ui="editorial"] .account-inner.selected{background:#fff1ef;border-color:#c74634}
+html[data-app-ui="editorial"] .detail{border-color:#ead8d2;box-shadow:-12px 0 28px rgba(64,27,18,.07)}
+html[data-app-ui="editorial"] .det-name,
+html[data-app-ui="editorial"] .sol-name,
+html[data-app-ui="editorial"] .risk-item,
+html[data-app-ui="editorial"] .opp-item{color:#211713}
+html[data-app-ui="editorial"] .det-sub,
+html[data-app-ui="editorial"] .det-score-label,
+html[data-app-ui="editorial"] .sd-name{color:#675853}
+html[data-app-ui="editorial"] .cell-tooltip{
+  background:#fff;color:#211713;border-color:#dcbdb5;z-index:500;
+  box-shadow:0 16px 38px rgba(64,27,18,.2)
+}
+html[data-app-ui="editorial"] .ct-solution{color:#211713}
+.map-table td{position:relative}
+.cell:hover{z-index:220}
+.map-container{isolation:isolate}
+.oracle-onboarding{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;
+  margin:14px 24px;padding:16px 18px;border:1px solid rgba(199,70,52,.28);
+  border-radius:14px;background:linear-gradient(120deg,#fff,#fff1ef);color:#211713;
+  box-shadow:0 12px 32px rgba(77,30,20,.08)
+}
+.oracle-onboarding strong{display:block;font-size:15px;margin-bottom:4px}
+.oracle-onboarding p{font-size:12px;line-height:1.55;color:#675853;max-width:760px}
+.oracle-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.oracle-action{
+  border:1px solid #d9bbb4;border-radius:9px;background:#fff;color:#6b241b;
+  padding:10px 14px;font:800 11px/1.1 var(--font);cursor:pointer
+}
+.oracle-action.primary{background:linear-gradient(135deg,#c74634,#e96b59);color:#fff;border-color:#c74634;box-shadow:0 8px 20px rgba(199,70,52,.24)}
+.detail.flash{animation:oraclePanelFlash .7s ease}
+@keyframes oraclePanelFlash{0%{box-shadow:-12px 0 28px rgba(64,27,18,.07)}45%{box-shadow:0 0 0 5px rgba(199,70,52,.24),-12px 0 28px rgba(64,27,18,.12)}100%{box-shadow:-12px 0 28px rgba(64,27,18,.07)}}
+@media(max-width:760px){
+  .oracle-onboarding{grid-template-columns:1fr;margin:10px;padding:14px}
+  .oracle-actions{justify-content:stretch}.oracle-action{flex:1}
+  .filters{overflow-x:auto}.legend{min-width:620px}
+}
+</style>
+<style id="responsive-audit-fix">
+html,body{max-width:100%;overflow-x:hidden}
+@media(max-width:760px){
+  .controls{flex-direction:column;align-items:stretch;max-width:100%}.legend{min-width:0!important;width:100%;padding:10px 12px;gap:8px 12px}.leg-item{font-size:10px;flex:1 1 150px}
+  .filters{width:100%;max-width:100%;padding:9px 10px;border-left:0;border-top:1px solid var(--border);overflow-x:auto}.filter-btn{flex:0 0 auto}
+  .wrap{max-width:100%;overflow:hidden}.map-container{width:100%;max-width:100%;padding:12px 10px;overflow:auto}.detail{padding:16px 12px}
+}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Oracle · Mapa de Soluções por Conta</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+<style id="context-info-css">
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+.context-live-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.05em;color:#b91c1c;background:#fee2e2;border:1px solid rgba(185,28,28,.3);border-radius:99px;padding:6px 12px;white-space:nowrap}
+.context-live-badge .context-live-dot{width:6px;height:6px;border-radius:50%;background:#dc2626;animation:contextPulse 2s infinite}
+@keyframes contextPulse{0%,100%{opacity:1}50%{opacity:.35}}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#oracle">Experi&ecirc;ncia Oracle &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+
+<div class="topbar">
+  <div class="oracle-dot">O</div>
+  <span class="topbar-title">Mapa de Soluções por Conta</span>
+  <span class="topbar-sub">· carteira de 8 bancos · setor financeiro</span>
+  <span class="pill-sim">SIMULAÇÃO</span>
+  <span class="context-live-badge"><span class="context-live-dot"></span> DEMO AO VIVO · DADOS SINTÉTICOS</span>
+  <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+  <a class="back-link" href="experiencia.html#oracle">← Voltar ao case</a>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este mapa de soluções transforma o portfólio de contas em uma visão de risco, adoção e oportunidade. Ao abrir uma conta, sinais técnicos e comerciais são conectados à causa e ao próximo passo; para o negócio, evidencia onde priorizar Customer Success, remover bloqueios e propor novos produtos Oracle com fundamento.</p>
+  <span class="context-action"><b>O que faz:</b> Mapa de risco/oportunidade de toda a carteira Oracle. Clique em conta, veja score, causa técnica, próximo passo. <b>Experimente:</b> filtre por risco, explore conta, veja metodologia. <b>O que a demo mostra:</b> priorização de contas fictícias por critérios explicáveis, sem garantir renovação ou redução de churn.</span>
+</aside>
+
+<!-- METHODOLOGY -->
+<div class="method-bar">
+  <div class="method-toggle" onclick="toggleMethod(this)">
+    <span class="method-label">📐 Como o Health Score foi composto?</span>
+    <span class="method-hint">Clique para ver a lógica das 5 dimensões aplicada à Conta A sintética</span>
+    <span class="method-arrow">▼</span>
+  </div>
+  <div class="method-body" id="methodBody">
+    <!-- disclaimer -->
+    <div class="sim-banner">
+      <span class="sim-icon">⚠️</span>
+      <span>Este Health Score é uma <strong>simulação didática criada para o portfólio</strong>. Não representa metodologia oficial da Oracle nem utiliza dados de clientes. Pesos, regras e contas são inteiramente sintéticos e apenas demonstram uma forma de organizar a análise técnica.</span>
+    </div>
+
+    <div class="method-grid">
+      <!-- LEFT: pesos -->
+      <div>
+        <div style="font-size:11px;color:var(--sub);margin-bottom:14px;line-height:1.7">
+          Nesta demonstração, o indicador varia de <strong style="color:var(--text)">0 a 100</strong> e consolida cinco dimensões ponderadas.
+          Abaixo de <strong style="color:var(--amber)">65</strong> a conta entrava em acompanhamento ativo.
+        </div>
+        <div class="dim-list">
+          <div class="dim-row"><span class="dim-name">📦 Adoção</span><div class="dim-bar-wrap"><div class="dim-bar" style="width:35%"></div></div><span class="dim-pct">35%</span></div>
+          <div class="dim-desc">Soluções contratadas efetivamente em uso</div>
+          <div class="dim-row"><span class="dim-name">🛡️ Estabilidade</span><div class="dim-bar-wrap"><div class="dim-bar" style="width:25%"></div></div><span class="dim-pct">25%</span></div>
+          <div class="dim-desc">Incidentes e indisponibilidades nos últimos 90 dias</div>
+          <div class="dim-row"><span class="dim-name">📈 Consumo</span><div class="dim-bar-wrap"><div class="dim-bar" style="width:20%"></div></div><span class="dim-pct">20%</span></div>
+          <div class="dim-desc">Utilização efetiva vs. capacidade contratada</div>
+          <div class="dim-row"><span class="dim-name">🎫 Suporte</span><div class="dim-bar-wrap"><div class="dim-bar" style="width:10%"></div></div><span class="dim-pct">10%</span></div>
+          <div class="dim-desc">Chamados resolvidos no SLA, ponderados por severidade</div>
+          <div class="dim-row"><span class="dim-name">⚡ Evolução</span><div class="dim-bar-wrap"><div class="dim-bar" style="width:10%"></div></div><span class="dim-pct">10%</span></div>
+          <div class="dim-desc">Avanço no roadmap técnico e adoção de novas capacidades</div>
+        </div>
+        <div class="score-formula">Score = Adoção×35% + Estab×25% + Consumo×20% + Suporte×10% + Evolução×10%</div>
+      </div>
+
+      <!-- RIGHT: exemplo inteiramente sintético -->
+      <div class="example-box">
+        <div class="ex-title">Exemplo simulado · Conta A · score = 72</div>
+
+        <!-- Adoção -->
+        <div class="ex-dim-block">
+          <div class="ex-dim-head"><span class="ex-dim-name">📦 Adoção</span><span class="ex-dim-rule">soluções adotadas ÷ contratadas</span><span class="ex-contrib">75 × 0,35 = <strong>26,25</strong></span></div>
+          <div class="ex-dim-detail">
+            <span class="ex-tag tag-s">4 adotadas ×100 = 400</span>
+            <span class="ex-tag tag-p">1 parcial ×50 = 50</span>
+            <span class="ex-tag tag-c">1 não impl. ×0 = 0</span>
+            <span class="ex-tag tag-eq">(400+50+0) ÷ 6 = <strong>75</strong></span>
+          </div>
+        </div>
+
+        <!-- Estabilidade -->
+        <div class="ex-dim-block">
+          <div class="ex-dim-head"><span class="ex-dim-name">🛡️ Estabilidade</span><span class="ex-dim-rule">100 − penalidades por incidente</span><span class="ex-contrib">80 × 0,25 = <strong>20,00</strong></span></div>
+          <div class="ex-dim-detail">
+            <span class="ex-tag tag-pen">1 incidente recorrente −10</span>
+            <span class="ex-tag tag-pen">1 falha de disponibilidade −10</span>
+            <span class="ex-tag tag-eq">100 − 10 − 10 = <strong>80</strong></span>
+          </div>
+        </div>
+
+        <!-- Consumo -->
+        <div class="ex-dim-block">
+          <div class="ex-dim-head"><span class="ex-dim-name">📈 Consumo</span><span class="ex-dim-rule">utilização efetiva ÷ contratada × 100</span><span class="ex-contrib">70 × 0,20 = <strong>14,00</strong></span></div>
+          <div class="ex-dim-detail">
+            <span class="ex-tag tag-eq">70 ÷ 100 × 100 = <strong>70</strong></span>
+          </div>
+        </div>
+
+        <!-- Suporte -->
+        <div class="ex-dim-block">
+          <div class="ex-dim-head"><span class="ex-dim-name">🎫 Suporte</span><span class="ex-dim-rule">pontos no SLA ÷ pontos totais × 100</span><span class="ex-contrib">80 × 0,10 = <strong>8,00</strong></span></div>
+          <div class="ex-dim-detail">
+            <span class="ex-tag tag-info">pesos: crítico=5 · alta=3 · normal=1</span>
+            <span class="ex-tag tag-eq">8 pts no SLA ÷ 10 pts totais × 100 = <strong>80</strong></span>
+          </div>
+        </div>
+
+        <!-- Evolução -->
+        <div class="ex-dim-block">
+          <div class="ex-dim-head"><span class="ex-dim-name">⚡ Evolução</span><span class="ex-dim-rule">100 − (meses parado ×10) − sem next action</span><span class="ex-contrib">35 × 0,10 = <strong>3,50</strong></span></div>
+          <div class="ex-dim-detail">
+            <span class="ex-tag tag-pen">OCI sem avanço: 6 meses ×−10 = −60</span>
+            <span class="ex-tag tag-pen">sem next action formalizada: −5</span>
+            <span class="ex-tag tag-eq">100 − 60 − 5 = <strong>35</strong></span>
+          </div>
+        </div>
+
+        <div class="ex-total">
+          <span class="ex-total-label">Score final</span>
+          <span class="ex-total-val">26,25 + 20,00 + 14,00 + 8,00 + 3,50 = <strong>71,75 ≈ 72</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="oracle-onboarding" aria-label="Como explorar o mapa Oracle">
+  <div>
+    <strong>Comece por uma conta e transforme sinais em próximo passo.</strong>
+    <p>Abra a Conta A para ver score, adoção, riscos e oportunidades reunidos no mesmo painel. Use os filtros para comparar a carteira e a metodologia para entender como a leitura foi composta.</p>
+  </div>
+  <div class="oracle-actions">
+    <button class="oracle-action primary" type="button" onclick="openOracleAccount('conta-a')">▶ Explorar Conta A</button>
+    <button class="oracle-action" type="button" onclick="openOracleMethod()">📐 Ver metodologia</button>
+  </div>
+</section>
+
+<div class="controls">
+  <div class="legend">
+    <span class="leg-item"><span class="leg-swatch adotado"></span>Implantado e adotado</span>
+    <span class="leg-item"><span class="leg-swatch parcial"></span>Implantado · baixa adoção</span>
+    <span class="leg-item"><span class="leg-swatch contratado"></span>Contratado · não implantado</span>
+    <span class="leg-item"><span class="leg-swatch oportunidade"></span>Oportunidade identificada</span>
+    <span class="leg-item"><span class="leg-swatch na"></span>Fora do escopo</span>
+  </div>
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">Todas</button>
+    <button class="filter-btn" data-filter="risco">Com risco</button>
+    <button class="filter-btn" data-filter="oportunidade">Com oportunidade</button>
+    <button class="filter-btn" data-filter="alto">Score alto</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="map-container">
+    <table class="map-table" id="mapTable"></table>
+  </div>
+  <div class="detail" id="detailPanel">
+    <div class="detail-empty">
+      <div class="de-icon">🏦</div>
+      <div class="de-hint">Clique em qualquer banco para ver soluções, score detalhado, riscos e oportunidades</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SOLUTIONS=[
+  {key:'db',   label:'Oracle DB',       icon:'🗄️', desc:'Banco de dados principal'},
+  {key:'em',   label:'Enterprise Mgr',  icon:'📊', desc:'Monitoramento centralizado'},
+  {key:'rac',  label:'Oracle RAC',      icon:'⚡', desc:'Alta disponibilidade'},
+  {key:'dg',   label:'Data Guard',      icon:'🛡️', desc:'Continuidade e recuperação'},
+  {key:'gg',   label:'GoldenGate',      icon:'🔄', desc:'Replicação em tempo real'},
+  {key:'exa',  label:'Exadata',         icon:'🚀', desc:'Hardware de alto desempenho'},
+  {key:'oci',  label:'OCI',             icon:'☁️', desc:'Oracle Cloud Infrastructure'},
+  {key:'auto', label:'Autonomous DB',   icon:'🤖', desc:'Banco gerenciado e automático'},
+];
+
+const ACCOUNTS=[
+  {id:'conta-a',name:'Conta A',icon:'🏦',score:72,
+   cells:{db:'S',em:'S',rac:'S',dg:'S',gg:'P',exa:'N',oci:'C',auto:'O'},
+   risks:['GoldenGate contratado mas subutilizado: replicação manual ainda ativa em 2 ambientes','OCI contratado há 6 meses sem nenhum workload migrado: risco de não renovação'],
+   opps:['Oracle Autonomous DB: 3 bases legadas compatíveis para migração sem reescrita','Exadata: volume transacional crescente indica necessidade de hardware dedicado'],
+  },
+  {id:'b2',name:'Conta B',icon:'🏛️',score:88,
+   cells:{db:'S',em:'S',rac:'S',dg:'S',gg:'S',exa:'S',oci:'S',auto:'P'},
+   risks:['Autonomous DB implantado mas DBA ainda faz tarefas manuais que deveriam ser automáticas'],
+   opps:['Ampliar workloads analíticos no Autonomous DB: estimativa de 40% de redução de DBA ops'],
+  },
+  {id:'b3',name:'Conta C',icon:'🏢',score:55,
+   cells:{db:'S',em:'P',rac:'C',dg:'S',gg:'N',exa:'N',oci:'O',auto:'O'},
+   risks:['Enterprise Manager com cobertura parcial: 40% das instâncias fora do monitoramento','Oracle RAC contratado há 4 meses sem implantação: alta disponibilidade ainda manual'],
+   opps:['OCI: ambientes dev e homologação como primeiro passo de cloud (baixo risco)','Oracle RAC: implantação pendente bloqueando o SLA de disponibilidade já contratado'],
+  },
+  {id:'b4',name:'Conta D',icon:'🏗️',score:81,
+   cells:{db:'S',em:'S',rac:'S',dg:'S',gg:'N',exa:'S',oci:'O',auto:'N'},
+   risks:['Nenhum risco crítico identificado no período'],
+   opps:['OCI: expansão analítica com Exadata Cloud para workloads de crescimento projetado'],
+  },
+  {id:'b5',name:'Conta E',icon:'🏦',score:63,
+   cells:{db:'S',em:'S',rac:'P',dg:'P',gg:'N',exa:'N',oci:'C',auto:'O'},
+   risks:['Oracle RAC com 2 nós quando o volume exige 4: performance degradada em picos de transação','Data Guard sem teste de failover documentado nos últimos 6 meses: risco de continuidade'],
+   opps:['Autonomous Database: banco analítico candidato à migração sem reescrita de aplicação','OCI contratado: identificar time de cloud e definir ambientes não críticos para iniciar'],
+  },
+  {id:'b6',name:'Conta F',icon:'🏛️',score:77,
+   cells:{db:'S',em:'S',rac:'S',dg:'S',gg:'O',exa:'N',oci:'S',auto:'P'},
+   risks:['Autonomous DB em uso mas DBA ainda realiza tarefas operacionais que são automáticas'],
+   opps:['GoldenGate: integração em tempo real com CRM identificada como demanda recorrente do time'],
+  },
+  {id:'b7',name:'Conta G',icon:'🏢',score:91,
+   cells:{db:'S',em:'S',rac:'S',dg:'S',gg:'S',exa:'S',oci:'S',auto:'S'},
+   risks:['Nenhum risco identificado: conta com maior cobertura e adoção da carteira inteira'],
+   opps:['Ampliar GoldenGate para novos fluxos entre sistemas regulatórios: expansão natural'],
+  },
+  {id:'b8',name:'Conta H',icon:'🏗️',score:48,
+   cells:{db:'S',em:'C',rac:'N',dg:'C',gg:'N',exa:'N',oci:'O',auto:'O'},
+   risks:['Enterprise Manager contratado sem implantação: monitoramento atual é manual e reativo','Data Guard contratado sem configuração: banco crítico sem proteção contra falha de instância','Conta com maior risco de não renovação: retorno percebido pelo cliente está muito baixo'],
+   opps:['Data Guard: implantação prioritária antes da renovação, protege o banco principal','Enterprise Manager: setup inicial em 1 semana mostra valor imediato ao cliente'],
+  },
+];
+
+const SL={S:'Implantado e adotado',P:'Implantado · baixa adoção',C:'Contratado · não implantado',O:'Oportunidade identificada',N:'Fora do escopo'};
+const SC={S:'adotado',P:'parcial',C:'contratado',O:'oportunidade',N:'na'};
+const SI={S:'✓',P:'~',C:'○',O:'◎',N:'·'};
+const SB={S:'badge-adotado',P:'badge-parcial',C:'badge-contratado',O:'badge-oportunidade',N:''};
+function sc(s){return s>=80?'score-hi':s>=65?'score-med':'score-lo';}
+
+let activeFilter='all', selectedId=null;
+
+function renderTable(){
+  const tbl=document.getElementById('mapTable');
+  const filtered=ACCOUNTS.filter(a=>{
+    if(activeFilter==='all') return true;
+    if(activeFilter==='risco') return a.score<70;
+    if(activeFilter==='oportunidade') return Object.values(a.cells).includes('O');
+    if(activeFilter==='alto') return a.score>=80;
+    return true;
+  });
+  let h='<thead><tr><th class="corner">Conta · Health Score</th>';
+  SOLUTIONS.forEach(s=>{h+=`<th><span class="th-icon">${s.icon}</span>${s.label}</th>`;});
+  h+='</tr></thead><tbody>';
+  filtered.forEach(a=>{
+    const sel=a.id===selectedId?' selected':'';
+    h+=`<tr><td class="account-label"><div class="account-inner${sel}" onclick="selectAccount('${a.id}')">
+      <span class="acc-icon">${a.icon}</span>
+      <span class="acc-name">${a.name}</span>
+      <span class="acc-score ${sc(a.score)}">${a.score}</span>
+    </div></td>`;
+    SOLUTIONS.forEach(s=>{
+      const v=a.cells[s.key], cls=SC[v], ico=SI[v];
+      let statusText=v==='S'?'Adotado':v==='P'?'Parcial':v==='C'?'Contratado':v==='O'?'Oport.':'';
+      h+=`<td style="text-align:center"><div class="cell ${cls}" onclick="selectAccount('${a.id}')">
+        <span class="cell-emoji">${v==='N'?'·':s.icon}</span>
+        ${statusText?`<span class="cell-status">${statusText}</span>`:''}
+        <div class="cell-tooltip">
+          <div class="ct-solution">${s.label}</div>
+          <div class="ct-status ${cls}">${SL[v]}</div>
+        </div>
+      </div></td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody>';
+  tbl.innerHTML=h;
+}
+
+function selectAccount(id){
+  selectedId=id; renderTable();
+  const a=ACCOUNTS.find(x=>x.id===id);
+  if(!a) return;
+  const panel=document.getElementById('detailPanel');
+  const scLabel=a.score>=80?'Saudável':a.score>=65?'Atenção':'Risco';
+  const scColor=a.score>=80?'var(--green)':a.score>=65?'var(--amber)':'var(--red)';
+
+  // score context: count cells by status to explain score narratively
+  const cells=Object.values(a.cells);
+  const nS=cells.filter(c=>c==='S').length;
+  const nP=cells.filter(c=>c==='P').length;
+  const nC=cells.filter(c=>c==='C').length;
+  const nO=cells.filter(c=>c==='O').length;
+  const scoreContext=`<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:12px;line-height:1.7;color:var(--sub)">
+    Avaliação por <strong style="color:var(--text)">5 dimensões</strong> com pesos diferentes (Adoção 35%, Estabilidade 25%, Consumo 20%, Suporte 10%, Evolução 10%).
+    Nesta conta: <strong style="color:var(--green)">${nS} adotadas</strong>${nP?`, <strong style="color:var(--amber)">${nP} parcial</strong>`:''}${nC?`, <strong style="color:var(--red)">${nC} não implantada${nC>1?'s':''}</strong>`:''}${nO?`, <strong style="color:var(--blue)">${nO} oportunidade${nO>1?'s':''}</strong>`:''}
+   : o que se reflete diretamente no score.
+  </div>`;
+
+  let solRows=SOLUTIONS.map(s=>{
+    const v=a.cells[s.key];
+    if(v==='N') return '';
+    return `<div class="sol-item">
+      <span class="sol-ico">${s.icon}</span>
+      <span class="sol-name">${s.label}</span>
+      <span class="sol-badge ${SB[v]}">${SL[v].split('·')[0].trim()}</span>
+    </div>`;
+  }).join('');
+
+  let riskRows=a.risks.map(r=>`<div class="risk-item">${r}</div>`).join('');
+  let oppRows=a.opps.map(o=>`<div class="opp-item">${o}</div>`).join('');
+
+  panel.innerHTML=`
+    <div class="det-icon">${a.icon}</div>
+    <div class="det-name">${a.name}</div>
+    <div class="det-sub">Setor financeiro · carteira Oracle</div>
+    <div class="det-score-row">
+      <span class="det-score-big" style="color:${scColor}">${a.score}</span>
+      <div>
+        <div class="det-score-status" style="color:${scColor}">${scLabel}</div>
+        <div class="det-score-label">Health Score /100</div>
+      </div>
+    </div>
+    ${scoreContext}
+    <hr class="det-divider">
+    <div class="det-section">Soluções Oracle</div>
+    <div class="sol-list">${solRows}</div>
+    <div class="risk-block"><div class="risk-title">⚠ Riscos identificados</div>${riskRows}</div>
+    <div class="opp-block"><div class="opp-title">→ Oportunidades mapeadas</div>${oppRows}</div>`;
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter=btn.dataset.filter;
+    renderTable();
+  });
+});
+
+function toggleMethod(el){
+  const body=document.getElementById('methodBody');
+  const arrow=el.querySelector('.method-arrow');
+  body.classList.toggle('open');
+  arrow.style.transform=body.classList.contains('open')?'rotate(180deg)':'';
+}
+
+function openOracleAccount(id){
+  selectAccount(id);
+  const panel=document.getElementById('detailPanel');
+  panel.classList.remove('flash');
+  void panel.offsetWidth;
+  panel.classList.add('flash');
+  if(window.innerWidth<960) panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function openOracleMethod(){
+  const body=document.getElementById('methodBody');
+  const toggle=document.querySelector('.method-toggle');
+  if(!body.classList.contains('open')) toggleMethod(toggle);
+  body.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+renderTable();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

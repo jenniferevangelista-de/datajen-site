@@ -1,0 +1,23 @@
+/* Keep the page visible around embedded apps, like a transparent PNG. */
+:root.app-preview-transparent,
+:root.app-preview-transparent body {
+  background: transparent !important;
+  background-image: none !important;
+}
+:root.app-preview-transparent body::before,
+:root.app-preview-transparent body::after {
+  display: none !important;
+}
+:root.app-preview-transparent :is(.app-stage,.phone-wrap,.itau-demo-shell) {
+  background: transparent !important;
+  background-image: none !important;
+}
+:root.app-preview-transparent .phone {
+  box-shadow: 0 10px 24px rgb(0 0 0 / 18%), 0 0 0 2px #171717 !important;
+}
+/* Remove rectangular iframe shadows; the phone keeps its own frame and shadow. */
+.mock-frame,
+.mock-frame iframe {
+  background: transparent !important;
+  box-shadow: none !important;
+}

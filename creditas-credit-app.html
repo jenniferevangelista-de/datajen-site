@@ -1,0 +1,1249 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Creditas · Credit Risk Analyzer</title>
+<meta name="description" content="Demonstração interativa de análise de risco de crédito no contexto Creditas.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/creditas-credit-app.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Creditas · Credit Risk Analyzer">
+<meta property="og:description" content="Demonstração interativa de análise de risco de crédito no contexto Creditas.">
+<meta property="og:url" content="https://datajen.com.br/creditas-credit-app.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Creditas · Credit Risk Analyzer">
+<meta name="twitter:description" content="Demonstração interativa de análise de risco de crédito no contexto Creditas.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+:root{
+  --bg:#f2f8f3;--panel:#ffffff;--card:#ffffff;--card2:#e9f4ec;
+  --acc:#0ca154;--acc2:#068a46;--green:#0ca154;--amber:#b45309;--red:#dc2626;--blue:#2563eb;
+  --text:#152619;--sub:#587a63;--border:#d7e8db;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;font-size:16px;overflow-x:hidden;padding-top:44px}
+
+/* TOP BAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.topbar-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
+.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--acc)}
+.topbar-pills{display:flex;gap:8px}
+.pill{padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600;letter-spacing:.5px}
+.pill-live{background:rgba(12,161,84,.15);color:var(--green);border:1px solid rgba(12,161,84,.3)}
+.pill-case{background:rgba(12,161,84,.12);color:var(--acc);border:1px solid rgba(12,161,84,.3);text-decoration:none;cursor:pointer}
+.pill-case:hover{background:rgba(12,161,84,.2)}
+
+/* MAIN LAYOUT */
+.main{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 49px)}
+
+/* LEFT PANEL: FORM */
+.left{padding:20px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:16px;overflow-y:auto;max-height:calc(100vh - 49px)}
+
+.section-title{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--sub);text-transform:uppercase;margin-bottom:8px}
+
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:14px;font-weight:500;color:var(--sub)}
+.form-group select,.form-group input[type=range]{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:9px 12px;font-size:15px;outline:none;appearance:none;cursor:pointer}
+.form-group select:focus,.form-group input:focus{border-color:var(--acc)}
+.form-group input[type=range]{padding:4px 2px;background:transparent;border:none;accent-color:var(--acc)}
+.form-group input[type=range]::-webkit-slider-runnable-track{height:5px;background:#26372b;border:1px solid #132218;border-radius:999px}
+.form-group input[type=range]::-moz-range-track{height:5px;background:#26372b;border:1px solid #132218;border-radius:999px}
+.form-group input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:17px;height:17px;margin-top:-7px;border:3px solid #fff;border-radius:50%;background:var(--acc);box-shadow:0 0 0 1px #132218,0 3px 9px rgba(0,0,0,.2)}
+.form-group input[type=range]::-moz-range-thumb{width:13px;height:13px;border:3px solid #fff;border-radius:50%;background:var(--acc);box-shadow:0 0 0 1px #132218,0 3px 9px rgba(0,0,0,.2)}
+
+.slider-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#26372b;font-weight:650}
+.slider-val{color:#006e3e;font-weight:850;font-size:16px}
+
+/* LOAN TYPE CARDS */
+.loan-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.loan-card{padding:10px 6px;border-radius:8px;border:2px solid var(--border);text-align:center;cursor:pointer;transition:all .2s;background:var(--card)}
+.loan-card:hover{border-color:var(--acc);background:rgba(12,161,84,.06)}
+.loan-card.active{border-color:var(--acc);background:rgba(12,161,84,.12)}
+.loan-card .icon{font-size:24px;margin-bottom:4px}
+.loan-card .lname{font-size:13px;font-weight:600;color:var(--text)}
+.loan-card .lrate{font-size:12px;color:var(--sub);margin-top:2px}
+
+.analyze-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;border-radius:10px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.analyze-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(12,161,84,.35)}
+.analyze-btn:active{transform:translateY(0)}
+.analyze-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* FINOPS BOX */
+.finops-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.finops-row{display:flex;justify-content:space-between;align-items:center}
+.finops-label{font-size:13px;color:var(--sub)}
+.finops-val{font-size:14px;font-weight:700}
+.finops-val.green{color:var(--green)}
+.finops-val.red{color:var(--red);text-decoration:line-through;opacity:.6}
+.finops-savings{background:rgba(12,161,84,.08);border-radius:7px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(12,161,84,.2)}
+.finops-savings-label{font-size:13px;color:var(--green)}
+.finops-savings-val{font-size:16px;font-weight:800;color:var(--green)}
+
+/* RIGHT: PIPELINE + RESULT */
+.right{padding:20px;display:flex;flex-direction:column;gap:18px;overflow-y:auto;max-height:calc(100vh - 49px)}
+
+/* PIPELINE */
+.pipeline-header{display:flex;justify-content:space-between;align-items:center}
+.pipeline-timer{font-size:13px;color:var(--sub);display:flex;align-items:center;gap:6px}
+.timer-badge{background:rgba(37,99,235,.15);color:var(--blue);border:1px solid rgba(37,99,235,.3);border-radius:12px;padding:3px 10px;font-size:13px;font-weight:700;font-family:monospace;min-width:58px;text-align:center}
+
+.pipeline{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.step{border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all .3s}
+.step-header{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card)}
+.step-icon{font-size:20px;width:28px;text-align:center;flex-shrink:0}
+.step-info{flex:1}
+.step-name{font-size:15px;font-weight:600}
+.step-desc{font-size:13px;color:var(--sub);margin-top:1px}
+.step-badge{padding:3px 8px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:.3px;flex-shrink:0}
+.step-badge.idle{background:var(--card2);color:var(--sub)}
+.step-badge.running{background:rgba(180,83,9,.15);color:var(--amber);border:1px solid rgba(180,83,9,.3);animation:pulse 1s ease-in-out infinite}
+.step-badge.done{background:rgba(12,161,84,.12);color:var(--green);border:1px solid rgba(12,161,84,.2)}
+.step-badge.err{background:rgba(220,38,38,.1);color:var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+.step-body{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease}
+.step.open .step-body{max-height:220px;padding:10px 14px}
+.step-log{font-family:monospace;font-size:13px;color:var(--sub);line-height:1.7;display:flex;flex-direction:column;gap:2px}
+.log-line{display:flex;gap:8px}
+.log-ts{color:rgba(12,161,84,.5);flex-shrink:0;min-width:56px}
+.log-ok{color:var(--green)}
+.log-info{color:var(--blue)}
+.log-warn{color:var(--amber)}
+
+/* INTRO + EXPLICAÇÕES */
+.app-intro{padding:14px 24px;background:linear-gradient(90deg,rgba(12,161,84,.08),transparent);border-bottom:1px solid var(--border)}
+.app-intro-t{font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px}
+.app-intro-m{font-size:14px;color:var(--sub);line-height:1.55;max-width:940px}
+.app-intro-note{margin-top:9px;font-size:13.5px;color:var(--sub);line-height:1.55;background:rgba(12,161,84,.06);border:1px solid rgba(12,161,84,.22);border-left:3px solid var(--green);border-radius:7px;padding:9px 12px;max-width:940px}
+.app-intro-note b{color:var(--green)}
+.step-why{font-size:13.5px;line-height:1.55;color:var(--sub);padding:9px 14px 11px 52px;background:rgba(21,38,25,.025);border-top:1px dashed var(--border)}
+.step-why b{color:var(--text);font-weight:600}
+.step-why .wtag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--acc);margin-right:5px}
+
+/* PROGRESS BAR */
+.progress-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin:2px 0 6px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--green));border-radius:2px;transition:width .6s ease;width:0}
+
+/* RESULT PANEL */
+.result{display:none;border:1px solid var(--border);border-radius:12px;flex-shrink:0}
+.result.show{display:block}
+.result-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--card)}
+.result-title{font-size:16px;font-weight:700}
+
+.result-body{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* SCORE RING */
+.score-section{display:flex;flex-direction:column;align-items:center;gap:10px}
+.score-ring-wrap{position:relative;width:110px;height:110px}
+.score-ring-wrap svg{transform:rotate(-90deg)}
+.score-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-number{font-size:28px;font-weight:800}
+.score-label{font-size:12px;color:var(--sub);font-weight:600;letter-spacing:.5px}
+
+.decision-badge{padding:8px 20px;border-radius:20px;font-size:15px;font-weight:700;letter-spacing:.5px}
+.decision-badge.aprovado{background:rgba(12,161,84,.15);color:var(--green);border:1px solid rgba(12,161,84,.3)}
+.decision-badge.analise{background:rgba(180,83,9,.15);color:var(--amber);border:1px solid rgba(180,83,9,.3)}
+.decision-badge.reprovado{background:rgba(220,38,38,.1);color:var(--red);border:1px solid rgba(220,38,38,.2)}
+
+/* OFFER CARD */
+.offer-card{background:rgba(12,161,84,.06);border:1px solid rgba(12,161,84,.2);border-radius:10px;padding:14px}
+.offer-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(21,38,25,.07)}
+.offer-row:last-child{border:none}
+.offer-key{font-size:13px;color:var(--sub)}
+.offer-val{font-size:15px;font-weight:700;color:var(--text)}
+.offer-val.highlight{color:var(--acc);font-size:18px}
+
+/* FEATURES GRID */
+.features-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.feature-chip{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center}
+.feature-chip .fv{font-size:18px;font-weight:800;color:var(--blue)}
+.feature-chip .fl{font-size:12px;color:var(--sub);margin-top:3px}
+
+/* QUERY SPEED BAR */
+.speed-section{grid-column:1/-1}
+.speed-bars{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.speed-row{display:flex;align-items:center;gap:8px}
+.speed-label{font-size:13px;color:var(--sub);width:80px;flex-shrink:0}
+.speed-track{flex:1;height:18px;background:var(--card2);border-radius:4px;overflow:hidden}
+.speed-bar{height:100%;min-width:54px;border-radius:4px;display:flex;align-items:center;padding-left:8px;font-size:12px;font-weight:700;transition:width 1.2s ease;white-space:nowrap}
+.speed-bar.before{background:rgba(220,38,38,.3);color:var(--red);width:0}
+.speed-bar.after{background:rgba(12,161,84,.3);color:var(--green);width:0}
+
+/* IDLE STATE */
+.idle-state{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:50px 20px;color:var(--sub);text-align:center}
+.idle-icon{font-size:46px;opacity:.3}
+.idle-text{font-size:15px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--panel)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .main{grid-template-columns:1fr}
+  .left{max-height:none;border-right:none;border-bottom:1px solid var(--border)}
+  .right{max-height:none}
+  .result-body{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* RESP-creditas-credit-app.html */
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 14px}
+  .main{height:auto}
+  .left,.right{max-height:none;overflow-y:visible}
+  .left{border-right:none;border-bottom:1px solid var(--border)}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:13px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:13.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:12px;padding:9px 14px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="creditas-layout-fix">
+/* O app deve ocupar o fluxo real da página. As colunas com altura presa à
+   viewport deixavam uma grande área vazia quando o navegador restaurava o
+   scroll ou quando a camada editorial era inserida depois do carregamento. */
+body{
+  min-height:0!important;
+  padding-top:44px!important;
+}
+.topbar{
+  position:relative!important;
+  top:auto!important;
+  min-height:50px;
+  padding:9px 20px!important;
+}
+
+/* Topo contínuo: sem "ilhas" estreitas cercadas por faixas vazias. */
+body .demo-integrity-banner{
+  width:100%!important;
+  margin:0!important;
+  padding:8px 24px!important;
+  border-left:0!important;
+  border-right:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body .everyday-translation{
+  width:100%!important;
+  margin:0!important;
+  padding:11px 24px!important;
+  grid-template-columns:38px minmax(0,1fr)!important;
+  gap:12px!important;
+  border-left:0!important;
+  border-right:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body .everyday-icon{
+  width:36px!important;
+  height:36px!important;
+  border-radius:10px!important;
+}
+body .everyday-translation strong{margin-bottom:3px!important}
+body .everyday-translation p{font-size:13.5px!important;line-height:1.42!important}
+body .everyday-action{margin-top:5px!important}
+
+.app-intro{
+  display:grid;
+  grid-template-columns:minmax(210px,280px) minmax(0,1fr);
+  align-items:center;
+  gap:16px;
+  padding:10px 24px!important;
+  background:#f8fbf9!important;
+}
+.app-intro-t{margin:0!important}
+.app-intro-m{max-width:none!important;line-height:1.42!important}
+.tech-disclaimer{display:none!important}
+
+.main{
+  min-height:0!important;
+  height:auto!important;
+  align-items:start;
+}
+.left,.right{
+  max-height:none!important;
+  height:auto!important;
+  overflow:visible!important;
+  padding:15px 18px!important;
+}
+.left{gap:12px!important;background:#f8fbf9}
+.right{gap:12px!important;background:#fff}
+.form-group{gap:7px}
+.form-group label{color:#26372b;font-weight:750}
+.loan-card{padding:9px 5px}
+.finops-box{padding:12px}
+.step-header{padding:9px 12px}
+.step-why{padding:8px 12px 9px 49px;line-height:1.45}
+.idle-state{padding:28px 18px!important}
+
+@media(max-width:900px) and (min-width:701px){
+  .main{grid-template-columns:300px minmax(0,1fr)!important}
+  .left,.right{padding:14px!important}
+  .step-header{padding:9px 11px}
+  .step-why{padding:8px 11px 10px 46px}
+}
+
+@media(max-width:700px){
+  .topbar{
+    flex-wrap:wrap;
+    align-items:center;
+    gap:7px 10px;
+    padding:9px 12px!important;
+  }
+  .topbar-brand{width:100%;font-size:15px}
+  .topbar-pills{margin-left:auto}
+  .pill{padding:4px 9px;font-size:11px}
+  body .demo-integrity-banner{
+    padding:8px 12px!important;
+  }
+  body .everyday-translation{
+    padding:11px 12px!important;
+    grid-template-columns:34px minmax(0,1fr)!important;
+    gap:9px!important;
+  }
+  body .everyday-icon{
+    width:32px!important;
+    height:32px!important;
+  }
+  body .everyday-translation p{font-size:12px!important;line-height:1.44!important}
+  .app-intro{
+    display:block;
+    padding:9px 12px!important;
+    background:#f8fbf9!important;
+  }
+  .app-intro-t{margin-bottom:3px!important;font-size:14px!important}
+  .app-intro-m{font-size:12.5px!important;line-height:1.45!important}
+  .main{grid-template-columns:1fr!important}
+  .left,.right{padding:12px!important;gap:10px!important}
+  .form-group{gap:5px}
+  .form-group label{font-size:13px}
+  .slider-row{font-size:11px;color:#1e3022}
+  .slider-val{font-size:14px}
+  .loan-cards{gap:8px}
+  .loan-card{padding:8px 4px;border-radius:10px}
+  .loan-card .lname{font-size:12px}
+  .loan-card .lrate{font-size:10px}
+  .analyze-btn{padding:12px 14px;font-size:15px}
+  .finops-box{padding:11px}
+  .step-header{padding:8px 10px}
+  .step-name{font-size:14px}
+  .step-desc{font-size:12px}
+  .step-why{padding:8px 10px 9px 45px;font-size:12px}
+  .result-header{padding:12px 14px}
+  .result-body{gap:12px;padding:14px}
+  .score-ring-wrap{width:96px;height:96px}
+  .score-number{font-size:24px}
+  .features-grid{gap:6px}
+  .feature-chip{padding:9px 8px}
+  .feature-chip .fv{font-size:16px}
+  .feature-chip .fl{font-size:11px}
+  .idle-state{padding:20px 12px!important}
+}
+</style>
+<style id="context-info-css">
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<script>
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('pageshow', function () {
+  if (!location.hash) requestAnimationFrame(function () { window.scrollTo(0, 0); });
+});
+</script>
+<h1 class="sr-only">Creditas · Credit Risk Analyzer</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:16px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:12px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:15px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:14px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:12px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:13px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:18px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:16px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:20px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:17px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:11.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:15px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:16px;flex-shrink:0}
+.mob-sub .mp{font-size:12px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:15px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:17px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:18px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:15px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:16px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:12px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:25px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:12.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#creditas">Experi&ecirc;ncia Creditas &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="brand-dot"></div>
+    Creditas &nbsp;/&nbsp; Credit Risk Analyzer
+  </div>
+  <div class="topbar-pills">
+    <span class="pill pill-live">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+    <a href="experiencia.html#creditas" class="pill pill-case">← case completo</a>
+  </div>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este simulador recria a análise de crédito da Creditas. Entradas como produto, renda, histórico e comportamento viram features em PySpark, passam por modelo de risco e política de crédito e resultam em aprovação, limite e taxa explicáveis; para o negócio, evidencia como combinar agilidade comercial com controle de risco e justificativa da decisão.</p>
+  <span class="context-action"><b>O que faz:</b> Transforma dados do cliente (renda, score, comportamento) em decisão de crédito explicável. <b>Experimente:</b> ajuste inputs, veja como cada um altera a taxa e limite, abra a lógica. <b>O que a demo mostra:</b> como entradas alteram uma política de crédito ilustrativa. Não executa análise nem aprovação real.</span>
+</aside>
+
+<div class="app-intro">
+  <div class="app-intro-t">Simulador de análise de crédito</div>
+  <div class="app-intro-m">Escolha o tipo de crédito, ajuste valor, renda, histórico e transações e clique em <b>Analisar crédito</b>. O painel acompanha a preparação dos dados, a estimativa de risco e a política que transforma o score em decisão, limite e taxa. Todos os valores são sintéticos.</div>
+</div>
+
+<div class="main">
+
+  <!-- LEFT: FORM -->
+  <div class="left">
+
+    <div>
+      <div class="section-title">Tipo de crédito</div>
+      <div class="loan-cards" id="loanCards">
+        <div class="loan-card active" data-type="auto" onclick="selectLoan(this,'auto')">
+          <div class="icon">🚗</div>
+          <div class="lname">Auto</div>
+          <div class="lrate">a partir 0,99%/m</div>
+        </div>
+        <div class="loan-card" data-type="home" onclick="selectLoan(this,'home')">
+          <div class="icon">🏠</div>
+          <div class="lname">Home Equity</div>
+          <div class="lrate">a partir 0,69%/m</div>
+        </div>
+        <div class="loan-card" data-type="payroll" onclick="selectLoan(this,'payroll')">
+          <div class="icon">💼</div>
+          <div class="lname">Consignado</div>
+          <div class="lrate">a partir 1,05%/m</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Valor solicitado</label>
+      <div class="slider-row"><span>R$ 5.000</span><span class="slider-val" id="amountVal">R$ 80.000</span><span>R$ 300.000</span></div>
+      <input type="range" id="amount" min="5000" max="300000" step="5000" value="80000"
+             oninput="document.getElementById('amountVal').textContent='R$ '+parseInt(this.value).toLocaleString('pt-BR')">
+    </div>
+
+    <div class="form-group">
+      <label>Renda mensal declarada</label>
+      <div class="slider-row"><span>R$ 2k</span><span class="slider-val" id="incomeVal">R$ 12.000</span><span>R$ 50k</span></div>
+      <input type="range" id="income" min="2000" max="50000" step="500" value="12000"
+             oninput="document.getElementById('incomeVal').textContent='R$ '+parseInt(this.value).toLocaleString('pt-BR')">
+    </div>
+
+    <div class="form-group">
+      <label>Histórico de crédito (score Serasa)</label>
+      <div class="slider-row"><span>300</span><span class="slider-val" id="scoreVal">720</span><span>1.000</span></div>
+      <input type="range" id="credit" min="300" max="1000" step="10" value="720"
+             oninput="document.getElementById('scoreVal').textContent=this.value">
+    </div>
+
+    <div class="form-group">
+      <label>Transações nos últimos 90 dias</label>
+      <div class="slider-row"><span>0</span><span class="slider-val" id="txVal">84</span><span>500</span></div>
+      <input type="range" id="txcount" min="0" max="500" step="1" value="84"
+             oninput="document.getElementById('txVal').textContent=this.value">
+    </div>
+
+    <div class="form-group">
+      <label>Diversidade de categorias de gasto</label>
+      <div class="slider-row"><span>1</span><span class="slider-val" id="divVal">7</span><span>15</span></div>
+      <input type="range" id="diversity" min="1" max="15" step="1" value="7"
+             oninput="document.getElementById('divVal').textContent=this.value">
+    </div>
+
+    <button class="analyze-btn" id="analyzeBtn" onclick="startAnalysis()">⚡ Analisar crédito</button>
+
+    <!-- FINOPS -->
+    <div class="finops-box">
+      <div class="section-title" style="margin-bottom:4px">FinOps · data lake metrics</div>
+      <div style="font-size:13px;color:var(--sub);line-height:1.5;margin-bottom:4px">FinOps é a prática de controlar o custo da nuvem. Guardar os dados em Parquet comprimido faz cada consulta varrer bem menos, máquinas Spot no EMR baratearam o processamento e o arquivamento automático reduziu o armazenamento. Números ilustrativos.</div>
+      <div class="finops-row">
+        <span class="finops-label">Storage (13 TB)</span>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span class="finops-val red">R$ 18.400/m</span>
+          <span style="color:var(--sub)">→</span>
+          <span class="finops-val green">R$ 11.960/m</span>
+        </div>
+      </div>
+      <div class="finops-row">
+        <span class="finops-label">Eficiência de leitura</span>
+        <span class="finops-val green">menos bytes por consulta</span>
+      </div>
+      <div class="finops-row">
+        <span class="finops-label">Parquet + Snappy vs CSV</span>
+        <span class="finops-val green">−90% scan</span>
+      </div>
+      <div class="finops-row">
+        <span class="finops-label">Spot instances (EMR)</span>
+        <span class="finops-val green">−70% compute</span>
+      </div>
+      <div class="finops-savings">
+        <span class="finops-savings-label">Economia total mensal</span>
+        <span class="finops-savings-val">−35% custo</span>
+      </div>
+    </div>
+
+  </div><!-- /left -->
+
+  <!-- RIGHT: PIPELINE + RESULT -->
+  <div class="right">
+
+    <div class="pipeline-header">
+      <div>
+        <div class="section-title" style="margin-bottom:2px">Pipeline de análise de risco</div>
+        <div style="font-size:14px;color:var(--sub)">AWS Glue · EMR Spark · Redshift Spectrum</div>
+      </div>
+      <div class="pipeline-timer">
+        <span>Latência:</span>
+        <span class="timer-badge" id="timerBadge">: </span>
+      </div>
+    </div>
+
+    <div class="app-intro-note" style="margin:0;background:rgba(12,161,84,.06);border-color:rgba(12,161,84,.22);border-left-color:var(--acc);max-width:none">🛠️ <b style="color:var(--acc)">Como foi construído:</b> os jobs eram empacotados em contêineres <b style="color:var(--text)">Docker</b> e rodavam em <b style="color:var(--text)">Kubernetes</b> e em clusters <b style="color:var(--text)">EMR</b>, orquestrados pelo <b style="color:var(--text)">Airflow</b>, com toda a infraestrutura criada por código com <b style="color:var(--text)">Terraform</b> (a chamada Infraestrutura como Código). Assim dava para subir e desligar ambiente sob demanda e pagar só pelo que era usado.</div>
+
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+    <div class="pipeline" id="pipeline">
+      <div class="step" id="step0">
+        <div class="step-header">
+          <div class="step-icon">📥</div>
+          <div class="step-info">
+            <div class="step-name">Ingestão · S3 Parquet</div>
+            <div class="step-desc">Lê histórico de transações (90 dias) do data lake</div>
+          </div>
+          <div class="step-badge idle" id="badge0">IDLE</div>
+        </div>
+        <div class="step-why"><span class="wtag">O ponto de partida</span> Lê o histórico de transações (90 dias) guardado no data lake (o Amazon <b>S3</b>), já no formato <b>Parquet</b>, que é comprimido e rápido de ler. As tabelas eram gerenciadas com <b>Apache Hudi</b>: ele permite inserir e atualizar registros novos sem reprocessar a tabela inteira (o que se chama ingestão incremental) e ainda guarda o histórico de versões do dado.</div>
+        <div class="step-body">
+          <div class="step-log" id="log0"></div>
+        </div>
+      </div>
+
+      <div class="step" id="step1">
+        <div class="step-header">
+          <div class="step-icon">⚙️</div>
+          <div class="step-info">
+            <div class="step-name">Feature Engineering · PySpark</div>
+            <div class="step-desc">VectorAssembler: DSR, tx_count, stddev, diversity_score</div>
+          </div>
+          <div class="step-badge idle" id="badge1">IDLE</div>
+        </div>
+        <div class="step-why"><span class="wtag">Prepara os dados</span> Transforma os dados crus em números que o modelo consegue entender, as chamadas <b>features</b>: o DSR (a fatia da renda já comprometida com dívidas), a quantidade de transações, a variação dos gastos e a diversidade de categorias. Feito em <b>PySpark</b> para processar um volume enorme de dados em paralelo, em vários computadores ao mesmo tempo.</div>
+        <div class="step-body">
+          <div class="step-log" id="log1"></div>
+        </div>
+      </div>
+
+      <div class="step" id="step2">
+        <div class="step-header">
+          <div class="step-icon">🤖</div>
+          <div class="step-info">
+            <div class="step-name">Modelo de risco · GBTClassifier</div>
+            <div class="step-desc">Árvores de decisão combinadas para estimar risco de inadimplência</div>
+          </div>
+          <div class="step-badge idle" id="badge2">IDLE</div>
+        </div>
+        <div class="step-why"><span class="wtag">O cérebro da decisão</span> <b>GBT</b> significa Gradient-Boosted Trees. Em vez de depender de uma única regra, o algoritmo combina várias árvores de decisão; cada nova árvore corrige parte do erro das anteriores. O conjunto estima a probabilidade de inadimplência, que é convertida em score: quanto maior o risco, menor o score. Nesta reconstrução, o processamento é representado com a <b>MLlib</b>, biblioteca de machine learning do Spark, e dados sintéticos.</div>
+        <div class="step-body">
+          <div class="step-log" id="log2"></div>
+        </div>
+      </div>
+
+      <div class="step" id="step3">
+        <div class="step-header">
+          <div class="step-icon">📊</div>
+          <div class="step-info">
+            <div class="step-name">Política de Crédito · Redshift Spectrum</div>
+            <div class="step-desc">Consulta histórico de pagamentos e bureau de crédito</div>
+          </div>
+          <div class="step-badge idle" id="badge3">IDLE</div>
+        </div>
+        <div class="step-why"><span class="wtag">Cruza com o histórico</span> Confere o resultado contra o histórico de pagamentos da pessoa e o bureau de crédito (tipo Serasa). O <b>Redshift Spectrum</b> consegue consultar esses dados direto no S3, sem precisar copiá-los para outro banco antes, o que economiza tempo e custo.</div>
+        <div class="step-body">
+          <div class="step-log" id="log3"></div>
+        </div>
+      </div>
+
+      <div class="step" id="step4">
+        <div class="step-header">
+          <div class="step-icon">✅</div>
+          <div class="step-info">
+            <div class="step-name">Decisão · Motor de Crédito</div>
+            <div class="step-desc">Compila score final, limite aprovado e taxa personalizada</div>
+          </div>
+          <div class="step-badge idle" id="badge4">IDLE</div>
+        </div>
+        <div class="step-why"><span class="wtag">A resposta final</span> Junta tudo (o score do modelo e a política de crédito) e devolve a decisão: aprovado ou não, com o limite, a taxa mensal e a parcela estimada. É o resultado que aparece no card à direita quando a análise termina.</div>
+        <div class="step-body">
+          <div class="step-log" id="log4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDLE STATE -->
+    <div class="idle-state" id="idleState">
+      <div class="idle-icon">🔍</div>
+      <div class="idle-text">Configure os parâmetros e clique em<br><strong>"Analisar crédito"</strong> para rodar o pipeline</div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result" id="resultPanel">
+      <div class="result-header">
+        <div class="result-title">Resultado da análise de crédito</div>
+        <div id="decisBadge" class="decision-badge aprovado">APROVADO</div>
+      </div>
+      <div class="result-body">
+        <!-- SCORE RING -->
+        <div class="score-section">
+          <svg id="scoreRing" width="110" height="110">
+            <circle cx="55" cy="55" r="44" fill="none" stroke="#e9f4ec" stroke-width="9"/>
+            <circle id="scoreArc" cx="55" cy="55" r="44" fill="none" stroke="#0ca154" stroke-width="9"
+              stroke-linecap="round" stroke-dasharray="276.5 276.5" stroke-dashoffset="276.5"
+              style="transition:stroke-dashoffset 1.2s ease,stroke .4s"/>
+          </svg>
+          <div class="score-ring-wrap" style="position:absolute;pointer-events:none"><!-- spacer --></div>
+          <div id="scoreNum" style="font-size:30px;font-weight:800;color:var(--green);margin-top:-8px">: </div>
+          <div style="font-size:12px;color:var(--sub);font-weight:600;letter-spacing:.5px">RISK SCORE</div>
+          <div id="decisBadge2" class="decision-badge aprovado" style="font-size:14px;padding:5px 14px">APROVADO</div>
+        </div>
+
+        <!-- OFFER CARD -->
+        <div class="offer-card">
+          <div class="offer-row">
+            <span class="offer-key">Valor aprovado</span>
+            <span class="offer-val highlight" id="approvedAmt">: </span>
+          </div>
+          <div class="offer-row">
+            <span class="offer-key">Taxa mensal</span>
+            <span class="offer-val" id="offerRate">: </span>
+          </div>
+          <div class="offer-row">
+            <span class="offer-key">Prazo máximo</span>
+            <span class="offer-val" id="offerTerm">: </span>
+          </div>
+          <div class="offer-row">
+            <span class="offer-key">DSR calculado</span>
+            <span class="offer-val" id="offerDSR">: </span>
+          </div>
+          <div class="offer-row">
+            <span class="offer-key">Garantia</span>
+            <span class="offer-val" id="offerCollateral">: </span>
+          </div>
+          <div class="offer-row">
+            <span class="offer-key">Parcela estimada</span>
+            <span class="offer-val" id="offerInstall">: </span>
+          </div>
+        </div>
+
+        <!-- FEATURES GRID -->
+        <div class="features-grid">
+          <div class="feature-chip">
+            <div class="fv" id="ftx">: </div>
+            <div class="fl">tx / 90 dias</div>
+          </div>
+          <div class="feature-chip">
+            <div class="fv" id="fdsr">: </div>
+            <div class="fl">DSR ratio</div>
+          </div>
+          <div class="feature-chip">
+            <div class="fv" id="fdiv">: </div>
+            <div class="fl">diversidade</div>
+          </div>
+          <div class="feature-chip">
+            <div class="fv" id="fstd">: </div>
+            <div class="fl">stddev R$</div>
+          </div>
+        </div>
+
+        <!-- SPEED COMPARISON -->
+        <div class="speed-section">
+          <div class="section-title">Volume lido por consulta · antes vs depois</div>
+          <div class="speed-bars">
+            <div class="speed-row">
+              <span class="speed-label">Antes (CSV)</span>
+              <div class="speed-track"><div class="speed-bar before" id="barBefore">varredura ampla</div></div>
+            </div>
+            <div class="speed-row">
+              <span class="speed-label">Depois (Parquet)</span>
+              <div class="speed-track"><div class="speed-bar after" id="barAfter">−90% scan</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /result -->
+
+  </div><!-- /right -->
+</div>
+
+<script>
+let currentLoan = 'auto';
+let running = false;
+
+const loanConfig = {
+  auto:    {label:'Veículo',  baseRate:0.99, maxTerm:60, ltv:0.8},
+  home:    {label:'Imóvel',   baseRate:0.69, maxTerm:240,ltv:0.6},
+  payroll: {label:'Salário',  baseRate:1.05, maxTerm:84, ltv:null}
+};
+
+function selectLoan(el, type){
+  document.querySelectorAll('.loan-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  currentLoan = type;
+}
+
+function fmtBRL(n){return 'R$ '+Math.round(n).toLocaleString('pt-BR')}
+
+// Pipeline step data
+const steps = [
+  {
+    logs:[
+      {ts:'0.00s',cls:'log-info',txt:'spark.read.parquet("s3://creditas-datalake/trusted/transactions/")'},
+      {ts:'0.40s',cls:'',       txt:'Partições lidas: data=2024-10, data=2024-11, data=2024-12'},
+      {ts:'1.20s',cls:'log-ok', txt:'✓ {TX_COUNT} transações carregadas, scan via Parquet: −90% vs CSV'},
+      {ts:'2.10s',cls:'log-ok', txt:'✓ Predicate pushdown ativo, somente colunas e partições necessárias'}
+    ]
+  },
+  {
+    logs:[
+      {ts:'2.30s',cls:'log-info',txt:'groupBy("cpf").agg(count, avg, stddev, sum_credit, sum_debit, countDistinct)'},
+      {ts:'3.10s',cls:'',       txt:'Calculando DSR = total_spend / total_income → {DSR_VAL}'},
+      {ts:'4.20s',cls:'',       txt:'diversity_score: {DIV_VAL} categorias únicas de merchant'},
+      {ts:'5.80s',cls:'log-ok', txt:'✓ VectorAssembler → feature vector dim=4 gerado para {CPF_COUNT} clientes'}
+    ]
+  },
+  {
+    logs:[
+      {ts:'6.00s',cls:'log-info',txt:'GBTClassifier.load("s3://creditas-datalake/models/gbt_credit_v3.bin")'},
+      {ts:'7.10s',cls:'',       txt:'Inferência em batch, {CPF_COUNT} registros via EMR Spot (−70% custo)'},
+      {ts:'8.80s',cls:'',       txt:'Score de propensão ao default calculado: {SCORE_PROB}'},
+      {ts:'10.40s',cls:'log-ok',txt:'✓ Risco score: {RISK_SCORE} / 1000, threshold de aprovação: 500'}
+    ]
+  },
+  {
+    logs:[
+      {ts:'10.60s',cls:'log-info',txt:'Redshift Spectrum: SELECT * FROM bureau.historico WHERE cpf={CPF}'},
+      {ts:'12.10s',cls:'',       txt:'Query federada S3, dados históricos sem mover para cluster'},
+      {ts:'14.20s',cls:'',       txt:'Score bureau Serasa: {BUREAU_SCORE} · pagamentos em dia: {PAY_PCT}%'},
+      {ts:'16.10s',cls:'log-ok', txt:'✓ Política de crédito: {POLICY_RESULT}'}
+    ]
+  },
+  {
+    logs:[
+      {ts:'16.40s',cls:'log-info',txt:'Motor de crédito: compila score final + limite + taxa personalizada'},
+      {ts:'17.10s',cls:'',       txt:'Limite calculado: min(requested={REQ}, max_by_income={MAX_INC})'},
+      {ts:'17.60s',cls:'',       txt:'Taxa personalizada: base {BASE_RATE}% + spread_risco {SPREAD}%'},
+      {ts:'18.00s',cls:'log-ok', txt:'✓ {DECISION}, execução demonstrativa concluída com rastreabilidade'}
+    ]
+  }
+];
+
+let vars = {};
+
+function computeVars(){
+  const amount   = +document.getElementById('amount').value;
+  const income   = +document.getElementById('income').value;
+  const bureau   = +document.getElementById('credit').value;
+  const txcount  = +document.getElementById('txcount').value;
+  const diversity= +document.getElementById('diversity').value;
+  const loan     = loanConfig[currentLoan];
+
+  // DSR = assume spend = 40-70% of income based on diversity
+  const spendRatio = 0.7 - (diversity / 15) * 0.3;
+  const totalSpend = income * spendRatio;
+  const dsr = totalSpend / income;
+
+  // Stddev: correlated with tx diversity
+  const stddev = Math.round(income * 0.1 + diversity * 150 + txcount * 5);
+
+  // Risk score: 0-1000, higher=better
+  let score = 0;
+  score += (bureau - 300) / 700 * 400;      // bureau contributes 40%
+  score += Math.min(txcount / 200, 1) * 150; // tx count contributes 15%
+  score += Math.min(diversity / 10, 1) * 150; // diversity 15%
+  score += Math.max(0, 1 - dsr) * 200;       // DSR contributes 20%
+  score += Math.min(income / 20000, 1) * 100; // income 10%
+  score = Math.round(Math.min(Math.max(score, 150), 980));
+
+  const approved = score >= 500;
+  const marginal = score >= 400 && score < 500;
+
+  // Max loan by income: PV = max_payment * (1-(1+r)^-n)/r
+  const r = loan.baseRate / 100;
+  const maxPayment = income * 0.3;
+  const maxByIncome = Math.round(maxPayment * (1 - Math.pow(1 + r, -loan.maxTerm)) / r);
+  const approvedAmt = approved ? Math.min(amount, maxByIncome) : (marginal ? Math.min(amount * 0.5, maxByIncome * 0.7) : 0);
+
+  // Rate: base + spread based on score
+  const spread = Math.max(0, (700 - score) / 700 * 2.5);
+  const rate = (loan.baseRate + spread).toFixed(2);
+
+  const installment = approved && approvedAmt > 0
+    ? approvedAmt * (parseFloat(rate)/100 * Math.pow(1+parseFloat(rate)/100, loan.maxTerm)) / (Math.pow(1+parseFloat(rate)/100,loan.maxTerm)-1)
+    : 0;
+
+  const payPct = Math.round(70 + (bureau - 300) / 700 * 28);
+  const probDefault = (1 - score/1000).toFixed(3);
+
+  vars = {
+    TX_COUNT: (txcount * 1000 + 250000).toLocaleString('pt-BR'),
+    DSR_VAL: dsr.toFixed(3),
+    DIV_VAL: diversity,
+    CPF_COUNT: '1',
+    SCORE_PROB: probDefault,
+    RISK_SCORE: score,
+    CPF: '***.***.***-**',
+    BUREAU_SCORE: bureau,
+    PAY_PCT: payPct,
+    POLICY_RESULT: approved ? 'DENTRO dos limites de crédito' : (marginal ? 'MARGINAL, análise manual' : 'FORA dos limites de crédito'),
+    REQ: fmtBRL(amount),
+    MAX_INC: fmtBRL(maxByIncome),
+    BASE_RATE: loan.baseRate.toFixed(2),
+    SPREAD: spread.toFixed(2),
+    DECISION: approved ? 'CRÉDITO APROVADO' : (marginal ? 'ANÁLISE MANUAL REQUERIDA' : 'CRÉDITO REPROVADO'),
+    // result fields
+    score, approved, marginal, approvedAmt, rate, loan, dsr, installment,
+    txcount, diversity, stddev, amount
+  };
+}
+
+function fillTemplate(tmpl){
+  return tmpl.replace(/\{(\w+)\}/g, (_, k) => vars[k] !== undefined ? vars[k] : `{${k}}`);
+}
+
+async function stepRun(idx, progressStart, progressEnd){
+  const stepEl  = document.getElementById('step'+idx);
+  const badgeEl = document.getElementById('badge'+idx);
+  const logEl   = document.getElementById('log'+idx);
+
+  stepEl.classList.add('open');
+  badgeEl.className = 'step-badge running';
+  badgeEl.textContent = 'RUNNING';
+
+  const logs = steps[idx].logs;
+  const totalMs = parseFloat(logs[logs.length-1].ts) * 1000 / 18 * 1100; // scale to ~real
+  const stepDuration = 900 + idx * 150;
+
+  logEl.innerHTML = '';
+  for(let i=0;i<logs.length;i++){
+    await delay(stepDuration / logs.length);
+    const line = document.createElement('div');
+    line.className = 'log-line';
+    line.innerHTML = `<span class="log-ts">${logs[i].ts}</span><span class="${logs[i].cls}">${fillTemplate(logs[i].txt)}</span>`;
+    logEl.appendChild(line);
+    logEl.scrollTop = 9999;
+
+    // Update progress
+    const prog = progressStart + (progressEnd - progressStart) * (i+1) / logs.length;
+    document.getElementById('progressFill').style.width = prog + '%';
+  }
+
+  badgeEl.className = 'step-badge done';
+  badgeEl.textContent = 'DONE';
+}
+
+function delay(ms){ return new Promise(r=>setTimeout(r,ms)) }
+
+let timerInterval = null;
+function startTimer(){
+  let ms = 0;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{
+    ms += 50;
+    document.getElementById('timerBadge').textContent = (ms/1000).toFixed(1)+'s';
+  }, 50);
+}
+function stopTimer(){
+  clearInterval(timerInterval);
+  document.getElementById('timerBadge').textContent = '18.0s ⚡';
+}
+
+async function startAnalysis(){
+  if(running) return;
+  running = true;
+  computeVars();
+
+  document.getElementById('analyzeBtn').disabled = true;
+  document.getElementById('analyzeBtn').textContent = '⏳ Analisando...';
+  document.getElementById('idleState').style.display = 'none';
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('progressFill').style.width = '0%';
+
+  // Reset steps
+  for(let i=0;i<5;i++){
+    const s = document.getElementById('step'+i);
+    s.classList.remove('open');
+    document.getElementById('badge'+i).className = 'step-badge idle';
+    document.getElementById('badge'+i).textContent = 'IDLE';
+    document.getElementById('log'+i).innerHTML = '';
+  }
+
+  startTimer();
+  const progs = [0,20,40,60,80,100];
+  for(let i=0;i<5;i++){
+    await stepRun(i, progs[i], progs[i+1]);
+    await delay(120);
+  }
+  stopTimer();
+
+  showResult();
+
+  document.getElementById('analyzeBtn').disabled = false;
+  document.getElementById('analyzeBtn').textContent = '⚡ Analisar crédito';
+  running = false;
+}
+
+function showResult(){
+  const v = vars;
+  const panel = document.getElementById('resultPanel');
+  panel.classList.add('show');
+
+  // Decision
+  const status = v.approved ? 'aprovado' : (v.marginal ? 'analise' : 'reprovado');
+  const label  = v.approved ? 'APROVADO' : (v.marginal ? 'ANÁLISE' : 'REPROVADO');
+  ['decisBadge','decisBadge2'].forEach(id=>{
+    const el = document.getElementById(id);
+    el.className = 'decision-badge ' + status;
+    el.textContent = label;
+  });
+
+  // Score ring
+  const circ = 2 * Math.PI * 44;
+  const frac = v.score / 1000;
+  const arc = document.getElementById('scoreArc');
+  const col = v.score >= 700 ? '#0ca154' : v.score >= 500 ? '#b45309' : '#dc2626';
+  arc.setAttribute('stroke', col);
+  setTimeout(()=>{
+    arc.style.strokeDashoffset = circ * (1 - frac);
+  }, 100);
+
+  document.getElementById('scoreNum').textContent = v.score;
+  document.getElementById('scoreNum').style.color = col;
+
+  // Offer
+  document.getElementById('approvedAmt').textContent = v.approvedAmt > 0 ? fmtBRL(v.approvedAmt) : 'R$:';
+  document.getElementById('offerRate').textContent   = v.rate + '% /mês';
+  document.getElementById('offerTerm').textContent   = v.loan.maxTerm + ' meses';
+  document.getElementById('offerDSR').textContent    = (v.dsr * 100).toFixed(1) + '%';
+  document.getElementById('offerCollateral').textContent = v.loan.label;
+  document.getElementById('offerInstall').textContent = v.installment > 0 ? fmtBRL(v.installment) + '/mês' : ': ';
+
+  // Feature chips
+  document.getElementById('ftx').textContent  = v.txcount;
+  document.getElementById('fdsr').textContent = (v.dsr*100).toFixed(0) + '%';
+  document.getElementById('fdiv').textContent = v.diversity;
+  document.getElementById('fstd').textContent = 'R$' + Math.round(v.stddev/1000) + 'k';
+
+  // Speed bars
+  setTimeout(()=>{
+    document.getElementById('barBefore').style.width = '100%';
+    document.getElementById('barAfter').style.width  = '7.5%';
+  }, 300);
+
+  // Scroll to result
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

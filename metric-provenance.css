@@ -1,0 +1,11 @@
+/* Context stays next to the figure, without changing the figure or its size. */
+.metric-origin{display:block!important;width:fit-content;max-width:100%;margin-top:8px;padding:3px 7px;border:1px solid currentColor;border-radius:6px;font:600 10px/1.45 var(--sans,Arial,sans-serif);letter-spacing:.02em;text-transform:none;white-space:normal;overflow-wrap:anywhere;opacity:.88;color:inherit}
+.metric-origin[data-kind="unconfirmed"]{border-style:dashed}
+.metric-legend{box-sizing:border-box;max-width:calc(100% - 32px);width:1320px;margin:16px auto;padding:12px 16px;border:1px solid var(--line,var(--border,#aaa6));border-radius:12px;background:var(--paper,var(--bg2,transparent));color:var(--ink,var(--text,inherit));font:400 12px/1.6 var(--sans,Arial,sans-serif);text-align:left;overflow-wrap:anywhere}
+.metric-legend strong{display:block;font-weight:700;margin-bottom:4px}
+.metric-legend{min-width:0;width:min(1320px,calc(100% - 32px));max-width:calc(100% - 32px);justify-self:center}
+.metric-legend p{margin:0!important;font:inherit!important;color:inherit!important}
+.hero .metric-origin{color:inherit}
+.metric-origin+*{min-width:0}
+.detail-page--experience .metric-legend{margin-block:12px}
+@media(max-width:560px){.metric-legend{padding:10px 12px;font-size:11px}.metric-origin{font-size:10px;letter-spacing:0}}

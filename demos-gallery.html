@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jennifer Evangelista · Interactive Demos</title>
+<meta name="description" content="Galeria de demonstrações interativas de engenharia de dados, cloud, observabilidade, FinOps e IA de Jennifer Evangelista.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/demos-gallery.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Jennifer Evangelista · Interactive Demos">
+<meta property="og:description" content="Galeria de demonstrações interativas de engenharia de dados, cloud, observabilidade, FinOps e IA de Jennifer Evangelista.">
+<meta property="og:url" content="https://datajen.com.br/demos-gallery.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jennifer Evangelista · Interactive Demos">
+<meta name="twitter:description" content="Galeria de demonstrações interativas de engenharia de dados, cloud, observabilidade, FinOps e IA de Jennifer Evangelista.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+<style>
+:root{
+  --bg:#04060f;--panel:#07091a;--card:#0c0e22;
+  --text:#e8eeff;--sub:#6b7aaa;--border:#141830;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden;padding-top:44px}
+
+/* HEADER */
+.header{padding:40px 40px 0;text-align:center;position:relative}
+.back-link{position:absolute;left:40px;top:44px;font-size:12px;color:var(--sub);text-decoration:none;border:1px solid var(--border);padding:5px 12px;border-radius:20px;transition:all .2s}
+.back-link:hover{color:var(--text);border-color:var(--sub)}
+.header-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sub);margin-bottom:10px}
+.header-title{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;margin-bottom:12px;letter-spacing:-.5px}
+.header-title span{background:linear-gradient(135deg,#6366f1,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header-sub{font-size:15px;color:var(--sub);max-width:560px;margin:0 auto 36px;line-height:1.6}
+.header-stats{display:flex;justify-content:center;gap:32px;margin-bottom:50px;flex-wrap:wrap}
+.hs{text-align:center}
+.hs-num{font-size:28px;font-weight:900;background:linear-gradient(135deg,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hs-lbl{font-size:10px;color:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+/* FILTER TABS */
+.filters{display:flex;justify-content:center;gap:6px;margin-bottom:32px;flex-wrap:wrap;padding:0 20px}
+.filter-btn{padding:6px 16px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--sub);transition:all .18s}
+.filter-btn:hover,.filter-btn.active{background:rgba(99,102,241,.15);color:#a5b4fc;border-color:rgba(99,102,241,.4)}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:0 40px 60px;max-width:1300px;margin:0 auto}
+
+/* CARD */
+.demo-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;text-decoration:none;display:flex;flex-direction:column}
+.demo-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.5);border-color:rgba(255,255,255,.12)}
+.card-preview{height:130px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.card-preview-bg{position:absolute;inset:0;opacity:.15}
+.card-preview-icon{font-size:48px;position:relative;z-index:1;filter:drop-shadow(0 4px 16px rgba(0,0,0,.4))}
+.card-preview-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.08) 1px,transparent 1px);background-size:20px 20px;z-index:0}
+.card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column}
+.card-company{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.card-title{font-size:14px;font-weight:800;margin-bottom:6px;line-height:1.3;color:var(--text)}
+.card-desc{font-size:11px;color:var(--sub);line-height:1.5;flex:1;margin-bottom:12px}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.tag{padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;background:rgba(255,255,255,.06);color:var(--sub);border:1px solid rgba(255,255,255,.07)}
+.card-btn{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:700;transition:opacity .2s}
+.card-btn:hover{opacity:.85}
+.card-btn-arrow{font-size:14px}
+
+/* YEAR BADGE */
+.year-badge{position:absolute;top:10px;right:10px;padding:2px 8px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);border-radius:5px;font-size:9px;font-weight:700;color:rgba(255,255,255,.5);z-index:2}
+
+/* TICKER */
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 0;overflow:hidden;margin-bottom:0;background:var(--panel)}
+.ticker-inner{display:flex;gap:40px;white-space:nowrap;animation:ticker 30s linear infinite}
+.ticker-item{font-size:11px;color:var(--sub);font-weight:600}
+.ticker-item span{color:rgba(255,255,255,.3)}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+@media(max-width:640px){.grid{padding:0 12px 40px;grid-template-columns:1fr}.header{padding:24px 20px 0}.back-link{display:none}.header-stats{gap:20px}}
+
+/* RESP-demos-gallery.html */
+@media(max-width:640px){
+  .header{padding:20px 16px}
+  .header h1{font-size:22px}
+  .back-link{left:16px;top:52px;font-size:10px;padding:4px 10px}
+}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.09);border-bottom:2px solid rgba(99,102,241,.22);padding:11px 28px;font-size:11px;color:rgba(180,190,230,.85);line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:11.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:10px;padding:9px 14px}}
+</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+
+/* NAV V3 FLOATING PILL (mesma estética da home) */
+body{padding-top:98px}
+.gn{
+  position:fixed;top:14px;left:clamp(10px,2.2vw,42px);right:clamp(10px,2.2vw,42px);width:auto;z-index:150;
+  background:transparent;border:0;backdrop-filter:none;box-shadow:none;
+}
+.gn .gi{
+  max-width:1740px;min-height:68px;height:auto;margin:0 auto;padding:0;
+  display:grid;grid-template-columns:72px minmax(0,1fr);align-items:stretch;gap:4px;
+}
+.gn-logo{
+  min-width:72px;min-height:68px;padding:0;display:grid;place-items:center;
+  color:#fff;background:#242424;border:1px solid rgba(255,255,255,.05);border-radius:5px;
+  box-shadow:0 14px 35px rgba(0,0,0,.16);
+}
+.gn-logo .gn-name{font-family:'Inter',sans-serif;font-size:17px;line-height:.79;letter-spacing:-.08em;font-weight:900;text-align:center}
+.gn>.gi>.v3-nav-bar{
+  min-width:0;min-height:68px;padding:0 12px;display:flex;align-items:center;gap:6px;
+  background:rgba(24,24,24,.96);border:1px solid rgba(255,255,255,.05);border-radius:5px;
+  box-shadow:0 14px 35px rgba(0,0,0,.16);backdrop-filter:blur(18px);
+}
+.gn-links{height:68px;align-items:stretch;margin:0 auto 0 0;gap:0}
+.gn-links li,.gn-drop-li{display:flex;align-items:stretch}
+.gn-links li>a,.gn-links .gn-btn{padding:0 clamp(12px,1.35vw,22px);border-radius:0;font-size:14px;font-weight:600;display:flex;align-items:center;height:100%}
+.gn-links li>a:hover,.gn-links .gn-btn:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-cta{margin-left:auto;min-height:44px;padding:10px 18px}
+@media(max-width:1380px){
+  .gn-links li>a,.gn-links .gn-btn{padding-inline:11px;font-size:13px}
+  .gn>.gi>.v3-nav-bar{padding-inline:8px}
+}
+@media(max-width:1240px){
+  .mob-hamburger{display:flex!important;color:#fff}
+  .gn-links{display:none!important}
+  .gn>.gi>.v3-nav-bar{justify-content:flex-start}
+  .gn-cta{margin-left:auto}
+}
+@media(max-width:768px){
+  body{padding-top:76px}
+  .gn{top:8px;left:8px;right:8px}
+  .gn .gi{min-height:58px;grid-template-columns:60px minmax(0,1fr);gap:3px}
+  .gn-logo{min-width:60px;min-height:58px}
+  .gn>.gi>.v3-nav-bar{min-height:58px;padding:0 10px}
+  .gn-cta{display:none}
+  .gn-logo .gn-name{font-size:15px}
+}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <a class="gn-logo" href="index.html" aria-label="JEN NOTES, início"><span class="gn-name">JEN<br>NOTES</span></a>
+    <div class="v3-nav-bar">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <ul class="gn-links">
+      <li><a href="index.html#conquistas">Conquistas</a></li>
+      <li class="gn-drop-li">
+        <button class="gn-btn" aria-haspopup="true">Cases &#x25BE;</button>
+        <div class="gn-drop">
+          <a href="cases.html">&#x1F680; Endeavor &middot; Sprinklr &rsaquo; PolitiCard</a>
+          <a href="cases-petrobras.html">&#x26FD; Petrobras &rsaquo; BR PAY</a>
+          <a href="cases-itau.html">&#x1F947; Ita&uacute; &rsaquo; Open Finance</a>
+          <a href="cases-fiap.html">&#x1F393; FIAP &rsaquo; IA</a>
+        </div>
+      </li>
+      <li class="gn-drop-li">
+        <button class="gn-btn" aria-haspopup="true">Trajetória &#x25BE;</button>
+        <div class="gn-drop">
+          <a href="experiencia.html#heineken"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+          <a href="experiencia.html#carrefour"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+          <a href="experiencia.html#itau-unibanco"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&uacute; Unibanco</a>
+          <a href="experiencia.html#creditas"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+          <a href="experiencia.html#quintoandar"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+          <a href="experiencia.html#cogna-educacao"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna Educa&ccedil;&atilde;o</a>
+          <a href="experiencia.html#serasa-experian"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa Experian</a>
+          <a href="experiencia.html#dafiti"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+          <a href="experiencia.html#oracle"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+          <a href="experiencia.html#ibm"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+          <a href="experiencia.html#santander"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+          <a href="experiencia.html#b3"><span class="ncd-flag"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+        </div>
+      </li>
+      <li><a href="index.html#competencias">Compet&ecirc;ncias</a></li>
+      <li><a href="index.html#servicos">Servi&ccedil;os</a></li>
+      <li><a href="index.html#contato">Contato</a></li>
+    </ul>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+    </div>
+  </div>
+</nav>
+
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner"></div>
+</div>
+
+<div class="header">
+  <a href="index.html" class="back-link">← portfolio</a>
+  <div class="header-eyebrow">Jennifer Evangelista · 10+ anos</div>
+  <h1 class="header-title">13 demos <span>interativos</span></h1>
+  <p class="header-sub">Cada empresa tem um app dedicado que demonstra o problema técnico resolvido: ao vivo, no navegador, sem instalação.</p>
+  <div class="header-stats">
+    <div class="hs"><div class="hs-num">13</div><div class="hs-lbl">apps interativos</div></div>
+    <div class="hs"><div class="hs-num">10+</div><div class="hs-lbl">anos de dados</div></div>
+    <div class="hs"><div class="hs-num">2 PB</div><div class="hs-lbl">dados prod</div></div>
+    <div class="hs"><div class="hs-num">+R$22M</div><div class="hs-lbl">impacto/ano</div></div>
+  </div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filter('all',this)">Todos</button>
+  <button class="filter-btn" onclick="filter('ia',this)">IA & LLM</button>
+  <button class="filter-btn" onclick="filter('pipeline',this)">Pipeline & ETL</button>
+  <button class="filter-btn" onclick="filter('ml',this)">Machine Learning</button>
+  <button class="filter-btn" onclick="filter('platform',this)">Plataforma</button>
+  <button class="filter-btn" onclick="filter('fintech',this)">Fintech & Banco</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const DEMOS=[
+  {
+    company:'Heineken',period:'2025 a atual',
+    title:'NavNext · Agente de IA Heitor',
+    desc:'Simulador do agente de telesales por voz + WhatsApp: fluxo de conversa completo com o Agente Heitor, aprovado no Architecture Committee para +R$22MM/ano.',
+    url:'heineken-navnext-app.html',
+    icon:'🤖',color:'#218838',btnBg:'#218838',
+    tags:['Azure AI Foundry','LLM','ElevenLabs','LiveKit'],
+    cats:['ia','platform']
+  },
+  {
+    company:'Itaú Unibanco',period:'2020 a 2024',
+    title:'Real Capacidade de Pagamento · Open Finance',
+    desc:'6 telas de app bancário navegáveis: conecte Open Finance, veja o modelo XGBoost calcular seu real limite de crédito cross-bank: hackathon finalista.',
+    url:'itau-openfinance-app.html',
+    icon:'🏦',color:'#e65100',btnBg:'#e65100',
+    tags:['Open Finance','XGBoost','Kafka','AWS'],
+    cats:['fintech','ml']
+  },
+  {
+    company:'Creditas',period:'2021',
+    title:'Credit Risk Analyzer',
+    desc:'Ajuste renda, score e garantia: pipeline ML de 18 etapas roda ao vivo com GBTClassifier, feature engineering PySpark e resultado de aprovação/recusa.',
+    url:'creditas-credit-app.html',
+    icon:'💳',color:'#ff6b35',btnBg:'#ff6b35',
+    tags:['PySpark','GBTClassifier','FinOps'],
+    cats:['ml','fintech']
+  },
+  {
+    company:'Serasa Experian',period:'2021',
+    title:'Query Engine · 31 Fontes',
+    desc:'Selecione uma empresa, veja 31 fontes de dados sendo consultadas em cascata (bureaus, BACEN, judiciário) e receba relatório em < 2min: era 30min.',
+    url:'serasa-query-engine.html',
+    icon:'🔍',color:'#00b4d8',btnBg:'#0077a8',
+    tags:['Elasticsearch','Python','APIs externas'],
+    cats:['platform','pipeline']
+  },
+  {
+    company:'QuintoAndar',period:'2021',
+    title:'SRE Live Dashboard',
+    desc:'Grid de pods Kubernetes, SLO burn rate por pipeline, feed de alertas Prometheus: simule um incidente e veja o MTTR contando em tempo real.',
+    url:'quintoandar-sre-dashboard.html',
+    icon:'🏠',color:'#8b5cf6',btnBg:'#7c3aed',
+    tags:['Kubernetes','Prometheus','SRE','SLO'],
+    cats:['platform']
+  },
+  {
+    company:'IBM',period:'2017',
+    title:'Projeto MarTech · APIs Amazon',
+    desc:'Reconstrução técnica desenvolvida dentro da experiência IBM: métricas de publishers, CTR, ROAS, latência e chatbot KPI em cenário sintético.',
+    url:'jellyfish-martech-app.html',
+    icon:'📊',color:'#f59e0b',btnBg:'#d97706',
+    tags:['Amazon Ads','Node.js','WebSocket'],
+    cats:['platform','pipeline']
+  },
+  {
+    company:'Cogna Educação',period:'2019 a 2020',
+    title:'Financial Data Validator',
+    desc:'Pipeline raw→trusted→curated com Pytest multi-estágio: execute o ciclo normal ou simule um erro e veja o validador bloquear o FP&A com alerta SNS.',
+    url:'cogna-data-validator.html',
+    icon:'✅',color:'#059669',btnBg:'#047857',
+    tags:['PySpark','Pytest','Airflow','AWS SNS'],
+    cats:['pipeline','platform']
+  },
+  {
+    company:'Dafiti',period:'2018',
+    title:'ML Anomaly Detector',
+    desc:'IsolationForest por SKU: teste 3 cenários (dia normal, Black Friday, campanha) e veja o modelo detectar anomalias de venda com alerta Slack automático.',
+    url:'dafiti-anomaly-detector.html',
+    icon:'🛍️',color:'#e91e8c',btnBg:'#c41570',
+    tags:['scikit-learn','IsolationForest','Spark EMR'],
+    cats:['ml','pipeline']
+  },
+  {
+    company:'IBM · Santander',period:'2017',
+    title:'NRT CRM Integration',
+    desc:'Envie um evento CRM e assista cada hop (MQ→Flume→Kafka→Storm→ES→Camel) com latência por salto: D+1 para < 5min, 288× de melhoria.',
+    url:'ibm-crm-integration.html',
+    icon:'⚡',color:'#0f62fe',btnBg:'#0043ce',
+    tags:['Kafka','Storm','Apache Camel','Flume'],
+    cats:['pipeline']
+  },
+  {
+    company:'Oracle',period:'2022',
+    title:'Customer Success Health Score',
+    desc:'Calcule o risco de churn de um cliente enterprise em tempo real: ajuste utilização, tickets e treinamentos: o mesmo modelo Python usado em EBRs Oracle.',
+    url:'oracle-cs-health.html',
+    icon:'🎯',color:'#c74634',btnBg:'#a33829',
+    tags:['Python','Oracle Cloud','Customer Success'],
+    cats:['ml','platform']
+  },
+  {
+    company:'Santander',period:'2017',
+    title:'Santander Big Data Pipeline',
+    desc:'Ingestão batch de 6 tabelas Oracle → HDFS → Spark → Hive/Impala: acompanhe cada job Sqoop com checkpoint incremental no ambiente de Big Data do Banco Santander.',
+    url:'santander-big-data-pipeline.html',
+    icon:'⚙️',color:'#2563eb',btnBg:'#1d4ed8',
+    tags:['Sqoop','Spark','Cloudera CDP','Hive'],
+    cats:['pipeline','platform']
+  },
+  {
+    company:'B3',period:'2016 a 2017',
+    title:'Automação Estatística & Plataforma Hadoop',
+    desc:'Reconstrução didática do apoio à plataforma Cloudera: PL/SQL, Spotfire, consultas Hive/Impala, HDFS, Sentry e Kerberos com dados sintéticos.',
+    url:'cetip-hadoop-admin.html',
+    icon:'🗄️',color:'#16a34a',btnBg:'#15803d',
+    tags:['PL/SQL','Spotfire','Cloudera'],
+    cats:['platform']
+  },
+  {
+    company:'Carrefour',period:'2020 a 2021',
+    title:'Data Catalog Live',
+    desc:'Catalogue um dataset ao vivo: detecta schema, gera tags automáticas, classifica PII, calcula score de qualidade e envia notificação de governança.',
+    url:'carrefour-datacatalog-app.html',
+    icon:'🛒',color:'#1565c0',btnBg:'#0d47a1',
+    tags:['Data Catalog','Governança','PII','Python'],
+    cats:['platform','pipeline']
+  },
+];
+
+let activeCat='all';
+
+function filter(cat, btn){
+  activeCat=cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+}
+
+function renderGrid(){
+  const grid=document.getElementById('grid');
+  const visible=activeCat==='all' ? DEMOS : DEMOS.filter(d=>d.cats.includes(activeCat));
+  grid.innerHTML='';
+  visible.forEach(d=>{
+    const card=document.createElement('a');
+    card.href=d.url;
+    card.className='demo-card';
+    card.innerHTML=`
+      <div class="card-preview" style="background:${d.color}22">
+        <div class="card-preview-bg" style="background:${d.color}"></div>
+        <div class="card-preview-dots"></div>
+        <div class="card-preview-icon">${d.icon}</div>
+        <div class="year-badge">${d.period}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-company" style="color:${d.color}">${d.company}</div>
+        <div class="card-title">${d.title}</div>
+        <div class="card-desc">${d.desc}</div>
+        <div class="card-tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="card-btn" style="background:${d.btnBg}22;border:1px solid ${d.btnBg}44;color:${d.color}">
+          <span>Abrir demo ao vivo</span>
+          <span class="card-btn-arrow">→</span>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// Ticker
+const tickerItems=DEMOS.map(d=>`<span class="ticker-item">${d.icon} <span>${d.company}</span> · ${d.title}</span>`);
+const doubled=[...tickerItems,...tickerItems];
+document.getElementById('tickerInner').innerHTML=doubled.join('');
+
+renderGrid();
+</script>
+
+
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose">&#x2715;</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">&#x1F3E0; In&#xED;cio</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Compet&#xEA;ncias</a>
+      <a href="index.html#servicos">Servi&#xE7;os</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajet&#xF3;ria <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#heineken"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#21468B"/><rect width="22" height="10" fill="#fff"/><rect width="22" height="5" fill="#AE1C28"/></svg></span> Heineken</a>
+        <a href="experiencia.html#carrefour"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#fff"/><rect width="7.33" height="15" fill="#0055A4"/><rect x="14.66" width="7.34" height="15" fill="#EF4135"/></svg></span> Carrefour</a>
+        <a href="experiencia.html#itau-unibanco"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Ita&#xFA; Unibanco</a>
+        <a href="experiencia.html#creditas"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Creditas</a>
+        <a href="experiencia.html#quintoandar"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> QuintoAndar</a>
+        <a href="experiencia.html#cogna-educacao"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> Cogna</a>
+        <a href="experiencia.html#serasa-experian"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Serasa</a>
+        <a href="experiencia.html#dafiti"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#FFCE00"/><rect width="22" height="10" fill="#DD0000"/><rect width="22" height="5" fill="#000"/></svg></span> Dafiti</a>
+        <a href="experiencia.html#oracle"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> Oracle</a>
+        <a href="experiencia.html#ibm"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#B22234"/><g fill="#fff"><rect y="2.3" width="22" height="1.15"/><rect y="4.6" width="22" height="1.15"/><rect y="6.9" width="22" height="1.15"/><rect y="9.2" width="22" height="1.15"/><rect y="11.5" width="22" height="1.15"/><rect y="13.8" width="22" height="1.2"/></g><rect width="9.5" height="8.05" fill="#3C3B6E"/></svg></span> IBM</a>
+        <a href="experiencia.html#santander"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#AA151B"/><rect y="3.75" width="22" height="7.5" fill="#F1BF00"/></svg></span> Santander</a>
+        <a href="experiencia.html#b3"><span class="mf"><svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009C3B"/><path d="M11 2.2 19.2 7.5 11 12.8 2.8 7.5Z" fill="#FFDF00"/><circle cx="11" cy="7.5" r="3.1" fill="#002776"/></svg></span> B3</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases premiados <span class="mob-chev">&#x203A;</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">&#x1F680; Endeavor &#xB7; PolitiCard</a>
+        <a href="cases-petrobras.html">&#x26FD; Petrobras &#xB7; BR PAY</a>
+        <a href="cases-itau.html">&#x1F947; Ita&#xFA; &#xB7; Open Finance</a>
+        <a href="cases-fiap.html">&#x1F393; FIAP &#xB7; IA</a>
+        <a href="demos-gallery.html">&#x1F4BB; Demos interativos</a>
+      </div>
+    
+            <div class="mob-pi-wrap">
+        <div class="mob-pi-track" id="piTrack">
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/ada.webp" alt="Ada Lovelace" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Ada Lovelace</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: tenha vis&#xE3;o de futuro e olhe al&#xE9;m do &#xF3;bvio. Escreveu o primeiro algoritmo da hist&#xF3;ria.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/grace.webp" alt="Grace Hopper" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Grace Hopper</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: simplifique o complexo e torne o conhecimento acess&#xED;vel. Criou o primeiro compilador.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/joan.webp" alt="Joan Clarke" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Joan Clarke</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: talento n&#xE3;o tem g&#xEA;nero. Decifrou comunica&#xE7;&#xF5;es nazistas com Alan Turing na 2&#xAA; Guerra.</div>
+            </div>
+          </div>
+          <div class="mob-pi-slide">
+            <img loading="lazy" decoding="async" src="pioneers/eniac.webp" alt="Mulheres do ENIAC" class="mob-pi-img" draggable="false">
+            <div class="mob-pi-tint"></div>
+            <div class="mob-pi-txt">
+              <div class="mob-pi-lbl">&#x2736; Quem me inspira</div>
+              <div class="mob-pi-nm">Mulheres do ENIAC</div>
+              <div class="mob-pi-ls">Sua li&#xE7;&#xE3;o: em 1945, seis mulheres programaram o primeiro computador eletr&#xF4;nico de grande escala da hist&#xF3;ria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="mob-pi-nav">
+          <button class="mob-pi-dot is-on" data-go="0"></button>
+          <button class="mob-pi-dot" data-go="1"></button>
+          <button class="mob-pi-dot" data-go="2"></button>
+          <button class="mob-pi-dot" data-go="3"></button>
+        </div>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!%20Vim%20pelo%20seu%20site%20e%20quero%20conversar." rel="noopener">&#x1F4AC; WhatsApp</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger, .hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.mob-pi-wrap');
+  if(!wrap)return;
+  if(wrap._piTm){clearInterval(wrap._piTm);wrap._piTm=null;}
+  var track=wrap.querySelector('.mob-pi-track');
+  var dots=wrap.querySelectorAll('.mob-pi-dot');
+  var n=wrap.querySelectorAll('.mob-pi-slide').length,cur=0;
+  function go(i){cur=(i+n)%n;track.style.transform=cur?'translateX(-'+(cur*100)+'%)':'translateX(0%)';dots.forEach(function(d,j){d.classList.toggle('is-on',j===cur)});}
+  dots.forEach(function(d){d.addEventListener('click',function(){go(+this.dataset.go);clearInterval(wrap._piTm);});});
+  var tx0=0;
+  wrap.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;clearInterval(wrap._piTm);},{passive:true});
+  wrap.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>36)go(cur+(dx<0?1:-1));},{passive:true});
+  wrap._piTm=setInterval(function(){go(cur+1);},4500);
+})();
+</script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+<style id="gallery-footer-css">
+.porto-footer{background:var(--panel);border-top:1px solid var(--border);font-family:var(--font)}
+.porto-footer .fin{max-width:1360px;margin:0 auto;padding:24px 32px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.porto-footer .fl{font-size:12px;color:var(--sub)}
+.porto-footer .wm{text-decoration:none;color:var(--text);display:flex;align-items:baseline;gap:4px}
+.porto-footer .wm .the{font-style:italic;font-size:13px;opacity:.55}
+.porto-footer .wm .nm{font-weight:800;font-size:15px;letter-spacing:.04em}
+</style>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+  <script src="nav-scroll.js?v=20261021-2"></script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Creditas · Data Platform Interativa</title>
+<meta name="description" content="Demonstração interativa de uma plataforma de dados no contexto Creditas.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/creditas-dataplatform-app.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Creditas · Data Platform Interativa">
+<meta property="og:description" content="Demonstração interativa de uma plataforma de dados no contexto Creditas.">
+<meta property="og:url" content="https://datajen.com.br/creditas-dataplatform-app.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Creditas · Data Platform Interativa">
+<meta name="twitter:description" content="Demonstração interativa de uma plataforma de dados no contexto Creditas.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+:root{
+  --bg:#f2f8f3;--panel:#ffffff;--card:#ffffff;--card2:#e9f4ec;
+  --acc:#0ca154;--acc2:#068a46;--accsoft:#d9efe1;--accdim:rgba(12,161,84,.1);
+  --amber:#b45309;--ambersoft:#fef3c7;--red:#dc2626;--redsoft:#feecec;--blue:#2563eb;--bluesoft:#e8effd;
+  --text:#152619;--sub:#587a63;--border:#d7e8db;
+  --shadow:0 10px 34px rgba(18,70,38,.09);
+  --mono:'JetBrains Mono','Cascadia Code',Consolas,monospace;
+  --font:'Inter',system-ui,sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;overflow-x:hidden;line-height:1.65;padding-top:44px}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(800px 480px at 90% -5%,rgba(12,161,84,.09),transparent 60%),
+  radial-gradient(700px 400px at -5% 105%,rgba(12,161,84,.07),transparent 55%);
+  pointer-events:none;z-index:0}
+
+/* ===== animações dos ícones ===== */
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes wiggle{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes ringpulse{0%{box-shadow:0 0 0 0 rgba(12,161,84,.45)}100%{box-shadow:0 0 0 12px rgba(12,161,84,0)}}
+.sec-emoji{display:inline-block;font-size:46px;animation:floaty 3s ease-in-out infinite;filter:drop-shadow(0 6px 12px rgba(18,70,38,.18))}
+.concept .ic,.lay .ic{display:inline-block;animation:floaty 3.4s ease-in-out infinite}
+.concept:nth-child(2) .ic{animation-delay:.4s}
+.concept:nth-child(3) .ic{animation-delay:.8s}
+.concept:nth-child(4) .ic{animation-delay:1.2s}
+.lay:nth-child(2) .ic{animation-delay:.5s}
+.lay:nth-child(3) .ic{animation-delay:1s}
+.biz .bic{display:inline-block;font-size:30px;animation:wiggle 2.6s ease-in-out infinite}
+.brand-dot{animation:ringpulse 2s ease-out infinite}
+.tab.on .tico{display:inline-block;animation:bounce 1.6s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 26px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;flex-wrap:wrap}
+.tb-brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:17px;letter-spacing:-.2px}
+.brand-dot{width:12px;height:12px;border-radius:50%;background:var(--acc)}
+.tb-sub{font-size:12.5px;color:var(--sub);font-weight:500}
+.pill{padding:9px 20px;border-radius:99px;font-size:13.5px;font-weight:700;text-decoration:none;transition:.2s}
+.pill-back{background:var(--acc);color:#fff;box-shadow:0 6px 18px rgba(12,161,84,.3)}
+.pill-back:hover{background:var(--acc2);transform:translateY(-1px)}
+
+/* TABS */
+.tabs{display:flex;gap:9px;padding:14px 26px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:59px;z-index:99;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;display:flex;align-items:center;gap:7px;padding:11px 19px;border-radius:99px;border:1.5px solid var(--border);background:#fff;color:var(--sub);font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.22s;font-family:var(--font)}
+.tab:hover{border-color:var(--acc);color:var(--text);transform:translateY(-1px)}
+.tab.on{background:var(--acc);border-color:var(--acc);color:#fff;box-shadow:0 6px 20px rgba(12,161,84,.3)}
+
+.wrap{max-width:1100px;margin:0 auto;padding:36px 26px 90px;position:relative;z-index:1}
+.sec{display:none;animation:fade .4s ease}
+.sec.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.sec-head{margin-bottom:22px;display:flex;gap:20px;align-items:flex-start}
+.sec-head .txt{flex:1}
+.sec-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--acc2);margin-bottom:9px;font-weight:700}
+.sec-h{font-family:var(--serif);font-size:34px;font-weight:700;line-height:1.15;margin-bottom:11px;letter-spacing:-.4px}
+.sec-h em{font-style:italic;color:var(--acc2)}
+.sec-d{color:var(--sub);font-size:16.5px;max-width:800px;line-height:1.65}
+@media(max-width:640px){.sec-head{flex-direction:column;gap:10px}.sec-emoji{font-size:38px}}
+
+/* TRADUÇÃO PARA NEGÓCIO */
+.biz{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#fffbe8,#fef6d8);border:1.5px solid #f3dfa0;border-radius:22px;padding:20px 24px;margin-bottom:22px;box-shadow:var(--shadow)}
+.biz .btxt{flex:1}
+.biz .bt{font-size:11.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--amber);margin-bottom:7px}
+.biz p{font-size:15.5px;line-height:1.7;color:#4a3a10}
+.biz p b{color:#92600a}
+
+/* DESAFIO / DECISÃO / RESULTADO */
+.pdr{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin:22px 0 26px}
+.pdr .b{background:var(--card);border:1.5px solid var(--border);border-radius:22px;padding:22px;position:relative;transition:.25s;box-shadow:var(--shadow)}
+.pdr .b:hover{transform:translateY(-4px)}
+.pdr .b.bp{border-top:4px solid var(--red)}
+.pdr .b.bd{border-top:4px solid var(--blue)}
+.pdr .b.br{border-top:4px solid var(--acc)}
+.pdr .num{font-family:var(--mono);font-size:26px;font-weight:800;opacity:.14;position:absolute;top:16px;right:20px}
+.pdr .tag{font-size:11.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:10px}
+.pdr .t-p{color:var(--red)}.pdr .t-d{color:var(--blue)}.pdr .t-r{color:var(--acc2)}
+.pdr p{font-size:14.5px;line-height:1.65;color:var(--text)}
+@media(max-width:860px){.pdr{grid-template-columns:1fr}}
+
+/* PANELS */
+.panel{background:var(--card);border:1.5px solid var(--border);border-radius:24px;padding:26px;margin-bottom:22px;box-shadow:var(--shadow)}
+.panel-t{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--acc2);margin-bottom:16px}
+.btn{display:inline-block;background:var(--acc);border:none;color:#fff;padding:13px 22px;border-radius:99px;font-size:14.5px;font-weight:700;cursor:pointer;transition:.2s;font-family:var(--font);box-shadow:0 6px 18px rgba(12,161,84,.28)}
+.btn:hover{background:var(--acc2);transform:translateY(-2px);box-shadow:0 10px 24px rgba(12,161,84,.35)}
+.btn.alt{background:var(--red);box-shadow:0 6px 18px rgba(220,38,38,.25)}
+.btn.alt:hover{background:#b91c1c;box-shadow:0 10px 24px rgba(220,38,38,.32)}
+.btn.ghost{background:#fff;border:1.5px solid var(--border);color:var(--sub);box-shadow:none}
+.btn.ghost:hover{border-color:var(--sub);color:var(--text);background:#fff;box-shadow:none}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--sub);margin:18px 0 9px}
+
+/* partition grid */
+.pgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;margin:14px 0 20px}
+.pcell{aspect-ratio:1;border-radius:12px;background:var(--card2);border:1.5px solid var(--border);transition:.18s;font-size:10.5px;color:var(--sub);display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font-family:var(--mono)}
+.pcell.scan{background:var(--redsoft);border-color:var(--red);color:var(--red)}
+.pcell.hit{background:var(--accsoft);border-color:var(--acc);color:var(--acc2);box-shadow:0 4px 14px rgba(12,161,84,.25);font-weight:700}
+.colchips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.colchip{font-family:var(--mono);font-size:12.5px;padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:#fff;color:var(--sub);transition:.18s}
+.colchip.read{border-color:var(--acc);color:var(--acc2);background:var(--accsoft);font-weight:700}
+.colchip.skip{opacity:.35;text-decoration:line-through}
+.result-line{font-family:var(--mono);font-size:14px;margin-top:16px;padding:16px 20px;border-radius:16px;background:var(--card2);border:1.5px solid var(--border);min-height:54px;line-height:1.7}
+.result-line b{color:var(--acc2)}
+.result-line .bad{color:var(--red)}
+
+/* CONCEITOS */
+.concepts{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:22px}
+.concept{background:var(--card);border:1.5px solid var(--border);border-radius:22px;padding:22px;transition:.25s;box-shadow:var(--shadow)}
+.concept:hover{transform:translateY(-4px);border-color:var(--acc)}
+.concept .ic{font-size:30px;margin-bottom:10px}
+.concept h4{font-size:17px;font-weight:800;margin-bottom:8px;letter-spacing:-.2px}
+.concept h4 small{display:block;font-family:var(--mono);font-size:11.5px;color:var(--sub);font-weight:500;letter-spacing:.6px;margin-top:4px}
+.concept p{font-size:14.5px;color:var(--sub);line-height:1.68}
+.concept p b{color:var(--acc2)}
+@media(max-width:860px){.concepts{grid-template-columns:1fr}}
+
+/* hudi files */
+.files{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:13px;margin:16px 0}
+.file{background:var(--card2);border:1.5px solid var(--border);border-radius:16px;padding:14px;transition:.28s;font-family:var(--mono);font-size:12.5px}
+.file .fn{color:var(--sub);font-size:10.5px;margin-bottom:9px}
+.file .rec{padding:6px 10px;border-radius:10px;margin-bottom:6px;background:#fff;color:var(--text);border:1px solid var(--border)}
+.file.rewrite{border-color:var(--red);background:var(--redsoft);animation:pulse2 .5s ease 2}
+.file.touched{border-color:var(--acc);background:var(--accsoft);box-shadow:0 8px 22px rgba(12,161,84,.22)}
+.file .rec.upd{background:var(--acc);color:#fff;font-weight:700;border-color:var(--acc)}
+@keyframes pulse2{50%{transform:scale(1.04)}}
+.timeline{margin-top:16px}
+.commit{display:flex;gap:10px;align-items:center;font-family:var(--mono);font-size:12.5px;padding:9px 14px;border-left:3px solid var(--acc);margin-left:6px;color:var(--sub)}
+.commit b{color:var(--acc2)}
+.commit .new{color:var(--amber)}
+
+/* GE */
+.toggles{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.tgl{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:99px;padding:12px 19px;font-size:14px;font-weight:600;cursor:pointer;user-select:none;transition:.2s;box-shadow:var(--shadow)}
+.tgl:hover{border-color:var(--sub);transform:translateY(-1px)}
+.tgl.on{border-color:var(--red);background:var(--redsoft);color:var(--red)}
+.dtable{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px;margin:12px 0}
+.dtable th{text-align:left;color:var(--sub);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;border-bottom:1.5px solid var(--border)}
+.dtable td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text)}
+.dtable td.bad{color:var(--red);font-weight:700}
+.checks{display:grid;gap:9px;margin-top:16px}
+.chk{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;padding:12px 16px;border-radius:14px;background:var(--card2);border:1.5px solid var(--border);opacity:.4;transition:.3s}
+.chk.run{opacity:1}
+.chk.pass{border-color:var(--acc);color:var(--acc2);background:var(--accsoft)}
+.chk.fail{border-color:var(--red);color:var(--red);background:var(--redsoft)}
+.gate{margin-top:16px;padding:18px 22px;border-radius:18px;font-weight:700;font-size:15px;display:none;line-height:1.65}
+.gate.ok{display:block;background:var(--accsoft);border:1.5px solid var(--acc);color:var(--acc2)}
+.gate.block{display:block;background:var(--redsoft);border:1.5px solid var(--red);color:var(--red)}
+
+/* 3 camadas */
+.scen{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.layers3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.lay{background:var(--card2);border:1.5px solid var(--border);border-radius:20px;padding:20px;transition:.3s;opacity:.55}
+.lay.hot{opacity:1;border-color:var(--acc);background:var(--accsoft);transform:translateY(-5px);box-shadow:0 14px 32px rgba(12,161,84,.2)}
+.lay .ic{font-size:30px}
+.lay .tt{font-weight:800;font-size:15.5px;margin:9px 0 6px}
+.lay .dd{font-size:13.5px;color:var(--sub);line-height:1.62}
+.lay.hot .dd{color:var(--text)}
+.scen-out{margin-top:18px;padding:18px 22px;border-radius:18px;background:var(--card2);border:1.5px solid var(--border);font-size:15px;line-height:1.72;display:none}
+.scen-out.show{display:block;animation:fade .35s ease}
+.scen-out b{color:var(--acc2)}
+@media(max-width:860px){.layers3{grid-template-columns:1fr}}
+.resp-t{width:100%;border-collapse:collapse;font-size:14px;margin-top:22px}
+.resp-t th{text-align:left;color:var(--sub);font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:10px 13px;border-bottom:1.5px solid var(--border)}
+.resp-t td{padding:12px 13px;border-bottom:1px solid var(--border);line-height:1.58}
+.resp-t td:first-child{font-weight:700;color:var(--acc2);white-space:nowrap}
+
+/* lakeFS */
+.crit{border:1.5px solid var(--border);border-radius:18px;margin-bottom:11px;overflow:hidden;transition:.2s;background:#fff;box-shadow:var(--shadow)}
+.crit:hover{border-color:var(--sub)}
+.crit.open{border-color:var(--acc)}
+.crit-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 21px;cursor:pointer;font-size:15.5px;font-weight:700;user-select:none}
+.crit-h .st{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.8px;color:var(--sub);flex:none}
+.crit.open .crit-h{color:var(--acc2)}
+.crit-b{display:none;padding:16px 21px;font-size:14.5px;color:var(--sub);line-height:1.72;border-top:1.5px solid var(--border);background:var(--card2)}
+.crit.open .crit-b{display:block}
+.crit-b b{color:var(--text)}
+.verdict{display:none;margin-top:22px;background:linear-gradient(135deg,#e6f7ec,#d4f0de);border:1.5px solid var(--acc);border-radius:24px;padding:28px;box-shadow:0 14px 40px rgba(12,161,84,.15)}
+.verdict.show{display:block;animation:fade .4s ease}
+.verdict h4{font-family:var(--serif);color:var(--acc2);font-size:21px;margin-bottom:12px}
+.verdict p{font-size:15px;line-height:1.78;color:var(--text);margin-bottom:11px}
+.verdict .pr{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--sub);border-left:3px solid var(--acc);padding-left:16px}
+
+/* terminal (fica escuro de propósito, é um terminal) */
+.term{background:#0c1810;border:none;border-radius:18px;padding:20px;font-family:var(--mono);font-size:13px;line-height:1.75;min-height:230px;max-height:380px;overflow-y:auto;white-space:pre-wrap;color:#cfe8d6;box-shadow:inset 0 2px 14px rgba(0,0,0,.4)}
+.term .g{color:#4ade80}.term .y{color:#fbbf24}.term .c{color:#67e8f9}.term .dim{color:#6f8f7a}
+.ws{display:flex;gap:10px;margin-bottom:14px}
+.wsb{padding:9px 18px;border-radius:99px;border:1.5px solid var(--border);background:#fff;color:var(--sub);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--mono);transition:.2s}
+.wsb.on{border-color:var(--acc);color:#fff;background:var(--acc);box-shadow:0 6px 16px rgba(12,161,84,.28)}
+
+/* resultado */
+.mtiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin:22px 0}
+.mt{background:var(--card);border:1.5px solid var(--border);border-radius:22px;padding:24px;transition:.25s;box-shadow:var(--shadow)}
+.mt:hover{transform:translateY(-4px);border-color:var(--acc)}
+.mt .v{font-size:29px;font-weight:800;color:var(--acc2);font-family:var(--mono);letter-spacing:-.5px}
+.mt .k{font-size:13.5px;color:var(--sub);margin-top:8px;line-height:1.58}
+.res-p{background:linear-gradient(135deg,#e6f7ec,#d4f0de);border:1.5px solid var(--acc);border-radius:24px;padding:28px;font-size:16.5px;line-height:1.85;box-shadow:0 14px 40px rgba(12,161,84,.12)}
+.res-p b{color:var(--acc2)}
+
+.disclaimer{margin-top:44px;padding:16px 22px;border:1.5px dashed var(--border);border-radius:18px;color:var(--sub);font-size:13px;line-height:1.6;text-align:center;background:#fff}
+
+body .demo-integrity-banner,body .everyday-translation{display:none!important}
+.context-info-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#334155;padding:7px 11px;font:700 11px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.context-info-btn:hover,.context-info-btn[aria-expanded="true"]{border-color:#7c3aed;color:#6d28d9;background:#f7f3ff}
+.context-info-btn .info-dot{display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#ede9fe;color:#6d28d9;font-size:11px}
+.context-popover{position:fixed;z-index:300;top:102px;right:20px;width:min(390px,calc(100vw - 28px));padding:15px;border:1px solid #d8dce8;border-radius:14px;background:rgba(255,255,255,.98);color:#20242d;box-shadow:0 18px 55px rgba(15,23,42,.18);display:none}
+.context-popover.open{display:block;animation:popIn .18s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.context-popover h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5b21b6;margin:0 0 5px}
+.context-popover p{font-size:12px;line-height:1.5;color:#596273;margin:0}
+.context-popover .context-rule{height:1px;background:#eceef4;margin:12px 0}
+.context-popover .context-action{display:block;margin-top:6px;color:#145edb;font-weight:750}
+.pill{padding:9px 20px;border-radius:99px;font-size:13.5px;font-weight:700;text-decoration:none;transition:.2s}
+.pill-live{background:rgba(16,185,129,.12);color:#0ca154;border:1px solid rgba(16,185,129,.3);display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:7px 14px}
+@media(max-width:640px){
+  .sec-h{font-size:26px}
+  .sec-d{font-size:15px}
+  .pgrid{grid-template-columns:repeat(6,1fr)}
+  .wrap{padding:24px 16px 60px}
+  .panel{padding:20px}
+}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<h1 class="sr-only">Creditas · Data Platform Interativa</h1>
+
+<style id="global-nav-css">
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-links{display:flex;align-items:center;gap:0;list-style:none;margin:0 0 0 auto;padding:0}
+.gn-links li>a,.gn-btn{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:6px;transition:color .15s,background .15s;white-space:nowrap;background:none;border:none;cursor:pointer;font-family:inherit;line-height:1}
+.gn-links li>a:hover,.gn-btn:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gn-drop-li{position:relative}
+.gn-drop{position:absolute;top:calc(100% + 4px);left:0;background:#0f111c;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:5px;min-width:215px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;z-index:10000;display:flex;flex-direction:column;gap:1px;max-height:72vh;overflow-y:auto}
+.gn-drop-li:hover .gn-drop,.gn-drop-li:focus-within .gn-drop{opacity:1;pointer-events:auto;transform:translateY(0)}
+.gn-drop a{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12px;transition:background .1s,color .1s}
+.gn-drop a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gn-per{margin-left:auto;font-size:10px;opacity:.4;white-space:nowrap}
+.gn-div{border:none;border-top:1px solid rgba(255,255,255,.07);margin:3px 4px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+@media(max-width:640px){.gn-links{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:640px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .gn-cta,.gn-back,.gn-links{display:none!important}
+  .gn .gi{position:relative!important;justify-content:flex-start}
+  .gn-logo{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<nav class="gn" id="globalNav" aria-label="Navegação do portfólio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <a class="gn-back" href="experiencia.html#creditas">Experi&ecirc;ncia Creditas &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+
+<div class="topbar">
+  <div class="tb-brand"><span class="brand-dot"></span> Creditas · Data Platform <span class="tb-sub">demonstração interativa do case</span></div>
+  <div style="display:flex;align-items:center;gap:10px;margin-left:auto">
+    <span class="pill pill-live">● DEMO AO VIVO · DADOS SINTÉTICOS</span>
+    <button class="context-info-btn" id="contextInfoBtn" type="button" aria-expanded="false" aria-controls="contextPopover"><span class="info-dot">i</span> Sobre esta demo</button>
+    <a class="pill pill-back" href="experiencia.html#creditas">← Voltar ao case completo</a>
+  </div>
+</div>
+
+<aside class="context-popover" id="contextPopover" aria-label="Contexto da demonstração">
+  <h3>Reconstrução técnica independente</h3>
+  <p>Interface inspirada em padrões públicos do setor e em problemas reais do case. Nomes, valores e interações são sintéticos; nenhuma informação confidencial foi utilizada.</p>
+  <div class="context-rule"></div>
+  <h3>Traduzindo para o dia a dia</h3>
+  <p>Este laboratório explica a modernização de um data lake de crédito: Parquet particionado reduz leitura desnecessária, Hudi processa apenas mudanças, Great Expectations bloqueia dado inválido e Terraform reproduz a infraestrutura. O produto evidencia quais escolhas diminuem custo e reprocessamento e aumentam qualidade, recuperação e previsibilidade operacional.</p>
+  <span class="context-action"><b>O que faz:</b> Mostra escolhas de arquitetura que reduzem custo (Parquet, Hudi), bloqueiam dados ruins (Great Expectations) e reproduzem ambiente (Terraform). <b>Experimente:</b> compare CSV vs Parquet, teste cada decisão. <b>O que a demo mostra:</b> comparação didática entre formatos, controles de qualidade e reprocessamento. Percentuais da interface são simulados.</span>
+</aside>
+
+<div class="tabs" id="tabs">
+  <button class="tab on" data-s="s1"><span class="tico">🏗️</span> Data Lake</button>
+  <button class="tab" data-s="s2"><span class="tico">📥</span> Apache Hudi</button>
+  <button class="tab" data-s="s3"><span class="tico">✅</span> Great Expectations</button>
+  <button class="tab" data-s="s4"><span class="tico">🔐</span> 3 Camadas</button>
+  <button class="tab" data-s="s5"><span class="tico">🔬</span> POC lakeFS</button>
+  <button class="tab" data-s="s6"><span class="tico">📦</span> Terraform IaC</button>
+  <button class="tab" data-s="s7"><span class="tico">★</span> Resultado</button>
+</div>
+
+<div class="wrap">
+
+<!-- ==================== S1 · DATA LAKE ==================== -->
+<section class="sec on" id="s1">
+  <div class="sec-head">
+    <span class="sec-emoji">🏗️</span>
+    <div class="txt">
+      <div class="sec-eyebrow">Decisão 01 · Reestruturação do Data Lake</div>
+      <h2 class="sec-h">A mesma consulta, <em>200× menos dados lidos.</em></h2>
+      <p class="sec-d">Formato colunar (Parquet), compressão (Snappy) e particionamento alinhado às consultas. A arquitetura reduz bytes lidos, evita varreduras desnecessárias e torna custo e latência mais previsíveis.</p>
+    </div>
+  </div>
+  <div class="biz"><span class="bic">💡</span><div class="btxt">
+    <div class="bt">Traduzindo para o dia a dia</div>
+    <p>Era um <b>depósito de 13 TB sem etiquetas</b>: para achar qualquer coisa, era preciso revirar tudo. A reorganização transformou o depósito em um <b>mercado com corredores identificados</b>: a consulta vai direto à prateleira certa (partição) e pega só os itens da lista (colunas). Na prática, menos dados são lidos e cada consulta consome somente o necessário.</p>
+  </div></div>
+  <div class="pdr">
+    <div class="b bp"><span class="num">01</span><div class="tag t-p">Desafio</div><p>13 TB sem padrão: arquivos de todo tipo, sem particionamento, e cada consulta lia o volume inteiro mesmo precisando de uma fatia.</p></div>
+    <div class="b bd"><span class="num">02</span><div class="tag t-d">Decisão</div><p>Três zonas (Raw, Trusted, Refined), conversão para Parquet com Snappy e particionamento por data e produto, seguindo os filtros mais usados.</p></div>
+    <div class="b br"><span class="num">03</span><div class="tag t-r">Resultado</div><p>Cada consulta lê só a fatia necessária: menos partições, menos colunas, menos bytes varridos e custo por execução mais controlado.</p></div>
+  </div>
+  <div class="panel">
+    <div class="panel-t">Teste você mesma · "score médio do produto AUTO no último mês"</div>
+    <div class="row">
+      <button class="btn alt" onclick="runOldLake()">▶ Lake antigo · CSV sem partição</button>
+      <button class="btn" onclick="runNewLake()">▶ Lake novo · Parquet particionado</button>
+      <button class="btn ghost" onclick="resetLake()">↺ limpar</button>
+    </div>
+    <div class="lbl">Partições · 12 meses × 2 produtos · cada quadrado é uma "gaveta" de dados no S3</div>
+    <div class="pgrid" id="pgrid"></div>
+    <div class="lbl">Colunas da tabela · Parquet lê só as necessárias · CSV é obrigado a ler todas</div>
+    <div class="colchips" id="colchips"></div>
+    <div class="result-line" id="lakeOut">Clique em um dos dois botões acima e compare quanto cada modo precisa ler para dar a mesma resposta.</div>
+  </div>
+</section>
+
+<!-- ==================== S2 · HUDI ==================== -->
+<section class="sec" id="s2">
+  <div class="sec-head">
+    <span class="sec-emoji">📥</span>
+    <div class="txt">
+      <div class="sec-eyebrow">Decisão 02 · Processamento Incremental</div>
+      <h2 class="sec-h">Apache Hudi: atualizar <em>sem reprocessar tudo.</em></h2>
+      <p class="sec-d">Arquivos no S3 são imutáveis: não existe "editar". O Apache Hudi é a camada que resolve isso. Os cartões abaixo explicam como, e a simulação mostra a diferença na prática.</p>
+    </div>
+  </div>
+  <div class="biz"><span class="bic">📖</span><div class="btxt">
+    <div class="bt">Traduzindo para o dia a dia</div>
+    <p>Corrigir um registro no data lake era como <b>reimprimir um livro inteiro para consertar uma linha</b>. Com o Hudi, cada registro tem um "endereço" (a chave) e só a <b>página certa é trocada</b>. E o livro ainda ganha um histórico de edições: dá para saber o que mudou, quando mudou e ler só as páginas alteradas.</p>
+  </div></div>
+  <div class="pdr">
+    <div class="b bp"><span class="num">01</span><div class="tag t-p">Desafio</div><p>Para corrigir um único registro era preciso reescrever partições inteiras ou a tabela toda: horas de reprocessamento para mudanças pequenas.</p></div>
+    <div class="b bd"><span class="num">02</span><div class="tag t-d">Decisão</div><p>Apache Hudi nas tabelas que mudam com frequência: registros identificados por chave, atualização pontual (upsert) e leitura só do que mudou.</p></div>
+    <div class="b br"><span class="num">03</span><div class="tag t-r">Resultado</div><p>Reprocessamentos completos eliminados: só os arquivos afetados são reescritos e os pipelines seguintes processam apenas o delta.</p></div>
+  </div>
+
+  <div class="concepts">
+    <div class="concept"><div class="ic">🔑</div><h4>Upsert por chave <small>insert + update na mesma operação</small></h4>
+      <p>Cada registro tem uma <b>record key</b>, como o número do contrato. Se a chave já existe na tabela, o Hudi atualiza; se não existe, insere. Se chegam duas versões do mesmo registro, um campo de desempate (a data de atualização) decide qual vence.</p></div>
+    <div class="concept"><div class="ic">🕐</div><h4>Timeline de commits <small>o histórico da tabela</small></h4>
+      <p>Toda gravação vira um <b>commit com data e hora</b> em uma linha do tempo. Isso dá auditoria (o que mudou e quando), permite voltar a estados anteriores e é a base da leitura incremental.</p></div>
+    <div class="concept"><div class="ic">⚡</div><h4>Leitura incremental <small>ler só o que mudou</small></h4>
+      <p>Em vez de varrer a tabela inteira, o consumidor pergunta: <b>"o que mudou desde o commit X?"</b> e recebe só a diferença. Os pipelines seguintes processam as mudanças, não o histórico completo.</p></div>
+    <div class="concept"><div class="ic">📄</div><h4>Copy-on-Write <small>o modo usado neste case</small></h4>
+      <p>Na gravação, o Hudi localiza <b>somente os arquivos que contêm as chaves afetadas</b> e reescreve só esses. A leitura continua sendo Parquet puro e rápido: ideal para cargas analíticas, onde se lê muito mais do que se escreve.</p></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-t">Teste você mesma · chegou atualização do contrato C-103, score recalculado</div>
+    <div class="row">
+      <button class="btn alt" onclick="hudiWithout()">▶ Sem Hudi · reescrever a tabela</button>
+      <button class="btn" onclick="hudiWith()">▶ Com Hudi · upsert por chave</button>
+      <button class="btn ghost" onclick="hudiIncr()" id="incrBtn" disabled>🔎 Ler só o que mudou</button>
+      <button class="btn ghost" onclick="hudiReset()">↺ reset</button>
+    </div>
+    <div class="files" id="hudiFiles"></div>
+    <div class="result-line" id="hudiOut">A tabela tem 6 arquivos Parquet, 2 contratos por arquivo. Clique em um modo e veja quantos arquivos cada abordagem precisa reescrever.</div>
+    <div class="timeline" id="hudiTl">
+      <div class="lbl">Timeline de commits · o histórico da tabela</div>
+      <div class="commit"><b>20220901104500</b> · commit · carga inicial · 12 registros</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== S3 · GREAT EXPECTATIONS ==================== -->
+<section class="sec" id="s3">
+  <div class="sec-head">
+    <span class="sec-emoji">✅</span>
+    <div class="txt">
+      <div class="sec-eyebrow">Decisão 03 · Qualidade Automatizada</div>
+      <h2 class="sec-h">O portão que <em>barra dado ruim.</em></h2>
+      <p class="sec-d">Nenhum lote entra na camada de consumo sem passar nos contratos de dados do Great Expectations. Injete defeitos e veja o pipeline reagir.</p>
+    </div>
+  </div>
+  <div class="biz"><span class="bic">🏭</span><div class="btxt">
+    <div class="bt">Traduzindo para o dia a dia</div>
+    <p>É um <b>inspetor de qualidade na esteira da fábrica</b>: cada lote de dados passa por uma bateria de testes antes de chegar "à loja" (os relatórios e modelos de crédito). Se um lote vem com defeito, <b>a esteira para na hora</b> e o lote vai para a quarentena. Antes, o defeito só era descoberto quando o cliente reclamava.</p>
+  </div></div>
+  <div class="pdr">
+    <div class="b bp"><span class="num">01</span><div class="tag t-p">Desafio</div><p>Dados inválidos avançavam sem ninguém perceber, até aparecerem errados em um relatório ou dentro de um modelo de risco.</p></div>
+    <div class="b bd"><span class="num">02</span><div class="tag t-d">Decisão</div><p>Great Expectations no meio do pipeline: regras declaradas (os "contratos") validadas em cada lote, antes da promoção para consumo.</p></div>
+    <div class="b br"><span class="num">03</span><div class="tag t-r">Resultado</div><p>Dado corrompido parou de chegar à camada de consumo. Qualidade virou etapa automática do fluxo, não conferência manual.</p></div>
+  </div>
+  <div class="panel">
+    <div class="panel-t">Teste você mesma · injete defeitos no lote e tente promover</div>
+    <div class="toggles">
+      <div class="tgl" id="tglNull" onclick="tglFlip(this)">💉 CPF nulo em 2 registros</div>
+      <div class="tgl" id="tglRange" onclick="tglFlip(this)">💉 Score 1.240 · fora de 0 a 1000</div>
+      <div class="tgl" id="tglVol" onclick="tglFlip(this)">💉 Volume 40% abaixo do esperado</div>
+    </div>
+    <table class="dtable" id="geTable"></table>
+    <div class="row">
+      <button class="btn" onclick="runGE()">▶ Rodar pipeline · promover para consumo</button>
+    </div>
+    <div class="checks" id="geChecks">
+      <div class="chk" id="c1">colunas obrigatórias existem · cpf_hash, score, dsr</div>
+      <div class="chk" id="c2">nenhum CPF nulo · campo crítico preenchido</div>
+      <div class="chk" id="c3">score dentro do intervalo · 0 a 1000</div>
+      <div class="chk" id="c4">volume do lote compatível com o padrão histórico</div>
+    </div>
+    <div class="gate" id="geGate"></div>
+  </div>
+</section>
+
+<!-- ==================== S4 · 3 CAMADAS ==================== -->
+<section class="sec" id="s4">
+  <div class="sec-head">
+    <span class="sec-emoji">🔐</span>
+    <div class="txt">
+      <div class="sec-eyebrow">Decisão 04 · Proteção em Três Níveis</div>
+      <h2 class="sec-h">Hudi, Versioning e Lifecycle: <em>cada um no seu nível.</em></h2>
+      <p class="sec-d">Três ferramentas que parecem concorrentes, mas protegem coisas diferentes. Dispare um incidente e veja qual camada responde, e por que as outras não resolveriam.</p>
+    </div>
+  </div>
+  <div class="biz"><span class="bic">🚗</span><div class="btxt">
+    <div class="bt">Traduzindo para o dia a dia</div>
+    <p>É como a segurança de um carro: <b>cinto, airbag e seguro</b>. O cinto (Hudi) organiza e segura os dados no dia a dia. O airbag (S3 Versioning) salva quando acontece um acidente: alguém apagou ou sobrescreveu um arquivo. E o seguro (Lifecycle) cuida do custo: define por quanto tempo vale a pena guardar as versões antigas. <b>Um não substitui o outro</b>, e é por isso que os três existem juntos.</p>
+  </div></div>
+  <div class="pdr">
+    <div class="b bp"><span class="num">01</span><div class="tag t-p">Desafio</div><p>Proteger o lake contra três riscos diferentes: arquivo sobrescrito por engano, registros que precisam ser atualizados e custo crescente das versões antigas.</p></div>
+    <div class="b bd"><span class="num">02</span><div class="tag t-d">Decisão</div><p>Cada risco com a ferramenta do seu nível: Hudi no lógico (registros), S3 Versioning no físico (arquivos), Lifecycle na retenção e no custo.</p></div>
+    <div class="b br"><span class="num">03</span><div class="tag t-r">Resultado</div><p>Recuperação garantida, atualização pontual e custo sob controle, sem uma ferramenta invadindo o papel da outra.</p></div>
+  </div>
+  <div class="panel">
+    <div class="panel-t">Teste você mesma · dispare um cenário</div>
+    <div class="scen">
+      <button class="btn alt" onclick="scen(1)">🧨 Arquivo sobrescrito por engano</button>
+      <button class="btn" onclick="scen(2)">🔁 Chegou atualização de registros</button>
+      <button class="btn ghost" onclick="scen(3)">💸 Versões antigas acumulando custo</button>
+    </div>
+    <div class="layers3">
+      <div class="lay" id="layHudi"><div class="ic">📥</div><div class="tt">Apache Hudi · nível lógico</div><div class="dd">Entende a tabela: chaves, commits, quais arquivos formam o estado válido. Faz a atualização pontual e a leitura incremental.</div></div>
+      <div class="lay" id="layVer"><div class="ic">🛟</div><div class="tt">S3 Versioning · nível físico</div><div class="dd">Entende o arquivo: sobrescreveu ou apagou? A versão anterior fica guardada, pronta para restaurar.</div></div>
+      <div class="lay" id="layLife"><div class="ic">⏳</div><div class="tt">S3 Lifecycle · retenção e custo</div><div class="dd">Entende o tempo: decide quanto tempo as versões antigas vivem e quando descem para armazenamento mais barato.</div></div>
+    </div>
+    <div class="scen-out" id="scenOut"></div>
+    <table class="resp-t">
+      <tr><th>Camada</th><th>O que ela faz</th><th>O que ela NÃO faz</th></tr>
+      <tr><td>Apache Hudi</td><td>Atualiza registros por chave, guarda o histórico, lê só o que mudou</td><td>Não protege o arquivo físico contra sobrescrita</td></tr>
+      <tr><td>S3 Versioning</td><td>Recupera arquivos sobrescritos ou excluídos</td><td>Não entende tabela, chave nem registro</td></tr>
+      <tr><td>S3 Lifecycle</td><td>Define retenção e custo para cada versão ao longo do tempo</td><td>Não recupera objetos sozinho; trabalha em conjunto com o S3 Versioning</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ==================== S5 · POC LAKEFS ==================== -->
+<section class="sec" id="s5">
+  <div class="sec-head">
+    <span class="sec-emoji">🔬</span>
+    <div class="txt">
+      <div class="sec-eyebrow">Decisão 05 · Avaliação de Tecnologia</div>
+      <h2 class="sec-h">POC lakeFS: a maturidade de <em>dizer não.</em></h2>
+      <p class="sec-d">O lakeFS prometia versionamento estilo Git para o data lake. Uma prova de conceito com 5 critérios respondeu se valia introduzir mais uma ferramenta na plataforma.</p>
+    </div>
+  </div>
+  <div class="biz"><span class="bic">🚙</span><div class="btxt">
+    <div class="bt">Traduzindo para o dia a dia</div>
+    <p>Foi um <b>test-drive completo antes de decidir não comprar o carro</b>. A ferramenta era boa e cheia de recursos, mas o que a plataforma realmente precisava (recuperar arquivos apagados por engano) <b>já era resolvido pelo que a AWS oferece de fábrica</b>. Adotar mesmo assim significaria pagar para sempre a manutenção de algo que não seria usado.</p>
+  </div></div>
+  <div class="pdr">
+    <div class="b bp"><span class="num">01</span><div class="tag t-p">Desafio</div><p>Recursos sofisticados à disposição versus o custo permanente de operar mais uma ferramenta. Adotar ou não?</p></div>
+    <div class="b bd"><span class="num">02</span><div class="tag t-d">Decisão</div><p>Prova de conceito com 5 critérios objetivos, comparando o ganho de cada recurso com o custo de sustentar a ferramenta.</p></div>
+    <div class="b br"><span class="num">03</span><div class="tag t-r">Resultado</div><p>A necessidade era recuperar arquivos, e isso o stack nativo já fazia. lakeFS arquivado como opção futura, não como carência atual.</p></div>
+  </div>
+  <div class="panel">
+    <div class="panel-t">Os 5 critérios da POC · clique para abrir cada avaliação</div>
+    <div class="crit" onclick="critOpen(this)"><div class="crit-h">1 · Precisamos de "ramificações" de dados para experimentos? <span class="st">abrir ›</span></div>
+      <div class="crit-b"><b>Avaliação:</b> branches de dados servem para testar grandes mudanças em paralelo sem afetar a produção. Os pipelines da Creditas não tinham essa demanda: não havia experimentação paralela nem publicação via merge. <b>Veredito parcial: recurso sem uso previsto.</b></div></div>
+    <div class="crit" onclick="critOpen(this)"><div class="crit-h">2 · Precisamos recuperar arquivos apagados ou sobrescritos? <span class="st">abrir ›</span></div>
+      <div class="crit-b"><b>Avaliação:</b> sim, essa era a necessidade número um. Mas o S3 Versioning, nativo da AWS, já guarda a versão anterior de qualquer arquivo sobrescrito ou apagado. <b>Veredito parcial: já resolvido sem ferramenta nova.</b></div></div>
+    <div class="crit" onclick="critOpen(this)"><div class="crit-h">3 · Como fica a integração com o restante da AWS? <span class="st">abrir ›</span></div>
+      <div class="crit-b"><b>Avaliação:</b> Glue, EMR, Athena e Redshift conversam diretamente com o S3. O lakeFS entraria como intermediário no caminho de todos eles, um pedágio a mais em cada integração. <b>Veredito parcial: atrito de integração.</b></div></div>
+    <div class="crit" onclick="critOpen(this)"><div class="crit-h">4 · Quanto custa operar mais essa ferramenta? <span class="st">abrir ›</span></div>
+      <div class="crit-b"><b>Avaliação:</b> mais um serviço para instalar, monitorar, escalar e manter, com banco de metadados próprio que vira ponto crítico. Para um time enxuto, custo alto pelo benefício. <b>Veredito parcial: complexidade não justificada.</b></div></div>
+    <div class="crit" onclick="critOpen(this)"><div class="crit-h">5 · E o custo de guardar as versões? <span class="st">abrir ›</span></div>
+      <div class="crit-b"><b>Avaliação:</b> versões ocupam espaço em qualquer solução. Com S3 Versioning + Lifecycle, o custo já era controlado por regra automática, sem camada extra para administrar. <b>Veredito parcial: empate técnico, vantagem operacional do nativo.</b></div></div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" onclick="showVerdict()">⚖️ Ver a decisão final</button>
+    </div>
+    <div class="verdict" id="verdict">
+      <h4>Decisão: manter S3 Versioning + Lifecycle + Apache Hudi</h4>
+      <p>O lakeFS não foi descartado por ser ruim: ele oferecia <b>mais recursos do que a plataforma precisava</b>. A combinação nativa já entregava recuperação de arquivos, atualização incremental, histórico e retenção controlada, com integração direta à AWS e menor custo de manutenção. O lakeFS ficou registrado como alternativa para o futuro, caso surja demanda concreta por experimentação paralela de dados.</p>
+      <p class="pr">"Arquitetura não é escolher a ferramenta mais sofisticada. É atender ao que o negócio precisa com o melhor equilíbrio entre capacidade, custo e manutenção."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== S6 · IAC ==================== -->
+<section class="sec" id="s6">
+  <div class="sec-head">
+    <span class="sec-emoji">📦</span>
+    <div class="txt">
+      <div class="sec-eyebrow">Decisão 06 · Infraestrutura como Código</div>
+      <h2 class="sec-h">Nada criado na mão: <em>tudo nasce do código.</em></h2>
+      <p class="sec-d">Armazenamento, versionamento, regras de custo e cluster de processamento declarados em Terraform. Rode o plano e veja o ambiente inteiro nascer, e renascer idêntico.</p>
+    </div>
+  </div>
+  <div class="biz"><span class="bic">🧁</span><div class="btxt">
+    <div class="bt">Traduzindo para o dia a dia</div>
+    <p>É a diferença entre cozinhar de cabeça e ter a <b>receita escrita</b>. Sem receita, cada ambiente saía diferente e ninguém sabia o que tinha sido mudado. Com a infraestrutura escrita em código, <b>qualquer ambiente é recriado idêntico</b>, toda mudança fica registrada e passa por revisão antes de valer, como acontece com qualquer código.</p>
+  </div></div>
+  <div class="pdr">
+    <div class="b bp"><span class="num">01</span><div class="tag t-p">Desafio</div><p>Configurações manuais divergiam entre ambientes, sem histórico de quem mudou o quê. Recriar o ambiente era artesanato.</p></div>
+    <div class="b bd"><span class="num">02</span><div class="tag t-d">Decisão</div><p>100% da infraestrutura declarada em Terraform, jobs empacotados em Docker, rodando em Kubernetes ou EMR conforme o tipo de carga.</p></div>
+    <div class="b br"><span class="num">03</span><div class="tag t-r">Resultado</div><p>Ambientes reproduzíveis e auditáveis: a mesma declaração recria tudo idêntico, e cada mudança passa por revisão.</p></div>
+  </div>
+  <div class="panel">
+    <div class="panel-t">Teste você mesma · o mesmo código em qualquer ambiente</div>
+    <div class="ws">
+      <button class="wsb on" id="wsDev" onclick="wsSel('dev')">ambiente: dev</button>
+      <button class="wsb" id="wsProd" onclick="wsSel('prod')">ambiente: prod</button>
+    </div>
+    <div class="row" style="margin-bottom:14px">
+      <button class="btn ghost" onclick="tfPlan()">1 · terraform plan · ver o que será criado</button>
+      <button class="btn" onclick="tfApply()" id="applyBtn" disabled>2 · terraform apply · criar tudo</button>
+      <button class="btn ghost" onclick="tfReplay()" id="replayBtn" disabled>3 · rodar de novo · provar que nada muda</button>
+    </div>
+    <div class="term" id="term"><span class="dim"># Exemplo didático (dados e nomes fictícios)
+# Passo 1: clique em "terraform plan" para ver o que o código declara.</span></div>
+  </div>
+</section>
+
+<!-- ==================== S7 · RESULTADO ==================== -->
+<section class="sec" id="s7">
+  <div class="sec-head">
+    <span class="sec-emoji">🏆</span>
+    <div class="txt">
+      <div class="sec-eyebrow">O que ficou de pé</div>
+      <h2 class="sec-h">Resultado: números que <em>o negócio sente.</em></h2>
+      <p class="sec-d">O que a plataforma entregou depois das seis decisões, em produção e sem interromper quem consumia os dados.</p>
+    </div>
+  </div>
+  <div class="mtiles">
+    <div class="mt"><div class="v">13 TB</div><div class="k">de data lake reestruturado em produção, sem interromper os consumidores</div></div>
+    <div class="mt"><div class="v">leitura seletiva</div><div class="k">menos partições, menos colunas e menos bytes lidos por consulta</div></div>
+    <div class="mt"><div class="v">−35%</div><div class="k">custo de armazenamento: compressão, compactação e regras de custo por idade do dado</div></div>
+    <div class="mt"><div class="v">0 reproc.</div><div class="k">reprocessamentos completos eliminados nas tabelas com Hudi: só a diferença é processada</div></div>
+    <div class="mt"><div class="v">100% IaC</div><div class="k">infraestrutura declarada em Terraform: reproduzível, versionada e revisável</div></div>
+    <div class="mt"><div class="v">1 POC</div><div class="k">lakeFS avaliado com critérios objetivos e arquivado: decisão fundamentada</div></div>
+  </div>
+  <div class="res-p">
+    O data lake de 13 TB passou a operar com <b>leitura seletiva, menor volume varrido e custo de armazenamento 35% menor</b>. A qualidade virou etapa automática do fluxo: com o Great Expectations validando cada lote antes da promoção, <b>dado inválido parou de chegar às análises e aos modelos de risco</b>. O Apache Hudi permite atualizações incrementais nas tabelas configuradas para isso; o S3 Versioning permite recuperar versões preservadas, conforme ativação, permissões e retenção e o Lifecycle manteve o custo dessa proteção sob controle. A POC do lakeFS confirmou a maturidade da decisão: <b>nenhuma camada além do necessário</b>. Tudo sobre uma infraestrutura 100% escrita em código, reproduzível em qualquer ambiente.
+  </div>
+</section>
+
+<div class="disclaimer">⚠️ Simulação didática com dados e nomes fictícios. Nenhum trecho contém credenciais, recursos internos, dados de clientes ou informações sensíveis da Creditas ou de qualquer outra empresa.</div>
+</div>
+
+<script>
+/* ---------- tabs ---------- */
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.sec').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');document.getElementById(b.dataset.s).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ---------- S1 · lake ---------- */
+const MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const COLS=['cpf_hash','contrato_id','produto','score','dsr','renda','valor','prazo','taxa','uf','canal','data'];
+const pg=document.getElementById('pgrid'),cc=document.getElementById('colchips');
+let lakeBusy=false;
+function buildLake(){
+  pg.innerHTML='';
+  for(let p=0;p<2;p++)for(let m=0;m<12;m++){
+    const c=document.createElement('div');c.className='pcell';
+    c.dataset.m=m;c.dataset.p=p;c.textContent=MESES[m];pg.appendChild(c);
+  }
+  cc.innerHTML=COLS.map(c=>`<span class="colchip">${c}</span>`).join('');
+}
+buildLake();
+function resetLake(){if(lakeBusy)return;buildLake();document.getElementById('lakeOut').innerHTML='Clique em um dos dois botões acima e compare quanto cada modo precisa ler para dar a mesma resposta.'}
+function runOldLake(){
+  if(lakeBusy)return;lakeBusy=true;buildLake();
+  const cells=[...pg.children];const out=document.getElementById('lakeOut');
+  [...cc.children].forEach(ch=>ch.classList.add('read'));
+  let i=0,gb=0;
+  out.innerHTML='<span class="bad">▶ varredura completa iniciada: neste cenário, CSV não particionado e sem seleção colunar exige varredura completa; CSV pode ser comprimido e particionado em outras arquiteturas...</span>';
+  const iv=setInterval(()=>{
+    if(i>=cells.length){clearInterval(iv);lakeBusy=false;
+      out.innerHTML='<span class="bad">✗ Leu as 24 partições e as 12 colunas · ~1.900 GB escaneados</span> · e a consulta só precisava de 2 partições e 3 colunas.';
+      return;}
+    cells[i].classList.add('scan');gb+=79;
+    out.innerHTML=`<span class="bad">▶ lendo tudo... ${i+1} de 24 partições · ${gb} GB já lidos</span>`;
+    i++;
+  },90);
+}
+function runNewLake(){
+  if(lakeBusy)return;lakeBusy=true;buildLake();
+  const cells=[...pg.children];const out=document.getElementById('lakeOut');
+  const need=['score','produto','data'];
+  [...cc.children].forEach(ch=>{ch.classList.add(need.includes(ch.textContent)?'read':'skip')});
+  out.innerHTML='▶ o filtro "produto AUTO + último mês" descarta 22 das 24 partições antes mesmo de ler qualquer dado...';
+  setTimeout(()=>{
+    cells.filter(c=>c.dataset.p==='0'&&(c.dataset.m==='10'||c.dataset.m==='11')).forEach(c=>c.classList.add('hit'));
+    setTimeout(()=>{lakeBusy=false;
+      out.innerHTML='<b>✓ Leu só 2 partições e 3 colunas · ~9 GB escaneados</b> · mesma resposta, cerca de 200× menos dados lidos.';
+    },600);
+  },700);
+}
+
+/* ---------- S2 · hudi ---------- */
+const HREC=[['C-101','712'],['C-102','645'],['C-103','580'],['C-104','699'],['C-105','731'],['C-106','602'],['C-107','688'],['C-108','655'],['C-109','710'],['C-110','593'],['C-111','677'],['C-112','641']];
+const hf=document.getElementById('hudiFiles');
+let hudiDone=false;
+function buildHudi(){
+  hf.innerHTML='';
+  for(let f=0;f<6;f++){
+    const d=document.createElement('div');d.className='file';d.id='hf'+f;
+    d.innerHTML=`<div class="fn">part-000${f}.parquet · 120 MB</div>`+
+      HREC.slice(f*2,f*2+2).map(r=>`<div class="rec" data-k="${r[0]}">${r[0]} · score ${r[1]}</div>`).join('');
+    hf.appendChild(d);
+  }
+}
+buildHudi();
+function hudiReset(){buildHudi();hudiDone=false;document.getElementById('incrBtn').disabled=true;
+  document.getElementById('hudiOut').innerHTML='A tabela tem 6 arquivos Parquet, 2 contratos por arquivo. Clique em um modo e veja quantos arquivos cada abordagem precisa reescrever.';
+  document.getElementById('hudiTl').innerHTML='<div class="lbl">Timeline de commits · o histórico da tabela</div><div class="commit"><b>20220901104500</b> · commit · carga inicial · 12 registros</div>';}
+function hudiWithout(){
+  buildHudi();hudiDone=false;document.getElementById('incrBtn').disabled=true;
+  const out=document.getElementById('hudiOut');
+  out.innerHTML='<span class="bad">▶ sem chave de registro não dá para saber onde C-103 está: é preciso reescrever a tabela inteira...</span>';
+  let f=0;
+  const iv=setInterval(()=>{
+    if(f>=6){clearInterval(iv);
+      out.innerHTML='<span class="bad">✗ Os 6 arquivos foram reescritos · na escala do case: <b style="color:var(--red)">13 TB reprocessados, ~45 min</b></span> · tudo isso para mudar 1 registro.';
+      return;}
+    document.getElementById('hf'+f).classList.add('rewrite');f++;
+  },260);
+}
+function hudiWith(){
+  buildHudi();
+  const out=document.getElementById('hudiOut');
+  out.innerHTML='▶ upsert: o índice do Hudi procura a chave C-103 e encontra o arquivo exato onde ela mora...';
+  setTimeout(()=>{
+    const file=document.getElementById('hf1');file.classList.add('touched');
+    const rec=file.querySelector('[data-k="C-103"]');rec.classList.add('upd');rec.textContent='C-103 · score 618 ✎';
+    const tl=document.getElementById('hudiTl');
+    tl.innerHTML+='<div class="commit"><b>20220901161230</b> · commit · <span class="new">upsert · 1 registro · 1 arquivo reescrito</span></div>';
+    out.innerHTML='<b>✓ Só 1 dos 6 arquivos foi reescrito (Copy-on-Write) · 120 MB, ~2 min</b> · os outros 5 nem foram tocados. Um novo commit entrou na timeline.';
+    hudiDone=true;document.getElementById('incrBtn').disabled=false;
+  },900);
+}
+function hudiIncr(){
+  if(!hudiDone)return;
+  document.getElementById('hudiOut').innerHTML='<b>🔎 "O que mudou desde o último commit?"</b> Resposta: <b>1 registro</b> (C-103, score 618). O próximo pipeline processa só esse registro, em vez de varrer os 12.';
+}
+
+/* ---------- S3 · GE ---------- */
+const GEROWS=[['a4f8…','C-101','712','0.31','R$ 48.000'],['b2c1…','C-102','645','0.44','R$ 22.500'],['c9d3…','C-103','580','0.52','R$ 61.200'],['d1e7…','C-104','699','0.28','R$ 35.900'],['e6f2…','C-105','731','0.19','R$ 87.400'],['f3a9…','C-106','602','0.47','R$ 15.800']];
+function tglFlip(el){el.classList.toggle('on');renderGE();resetChecks();}
+function renderGE(){
+  const nul=document.getElementById('tglNull').classList.contains('on');
+  const rng=document.getElementById('tglRange').classList.contains('on');
+  const vol=document.getElementById('tglVol').classList.contains('on');
+  const rows=GEROWS.slice(0,vol?4:6).map((r,i)=>{
+    let cpf=r[0],score=r[2];
+    let cpfBad=false,scBad=false;
+    if(nul&&(i===1||i===3)){cpf='NULL';cpfBad=true}
+    if(rng&&i===2){score='1240';scBad=true}
+    return `<tr><td class="${cpfBad?'bad':''}">${cpf}</td><td>${r[1]}</td><td class="${scBad?'bad':''}">${score}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`;
+  }).join('');
+  document.getElementById('geTable').innerHTML='<tr><th>cpf_hash</th><th>contrato</th><th>score</th><th>dsr</th><th>valor</th></tr>'+rows+
+    (vol?'<tr><td colspan="5" style="color:var(--amber);font-size:11.5px">⚠ lote com 4 registros · esperado: mínimo 6 (padrão histórico)</td></tr>':'');
+}
+function resetChecks(){['c1','c2','c3','c4'].forEach(id=>{const e=document.getElementById(id);e.className='chk';e.innerHTML=e.innerHTML.replace(/^[✓✗] /,'')});document.getElementById('geGate').className='gate'}
+renderGE();
+function runGE(){
+  resetChecks();
+  const nul=document.getElementById('tglNull').classList.contains('on');
+  const rng=document.getElementById('tglRange').classList.contains('on');
+  const vol=document.getElementById('tglVol').classList.contains('on');
+  const res=[[true,'c1'],[!nul,'c2'],[!rng,'c3'],[!vol,'c4']];
+  let i=0;
+  const iv=setInterval(()=>{
+    if(i>=res.length){clearInterval(iv);
+      const fail=res.some(r=>!r[0]);
+      const g=document.getElementById('geGate');
+      if(fail){g.className='gate block';g.innerHTML='⛔ Promoção BLOQUEADA · o lote foi isolado em quarentena para análise · a camada de consumo permanece intacta: nenhum modelo ou relatório recebeu dado inválido.'}
+      else{g.className='gate ok';g.innerHTML='✓ Todos os contratos cumpridos · lote promovido para a camada de consumo, disponível para relatórios e modelos de risco.'}
+      return;}
+    const [ok,id]=res[i];const e=document.getElementById(id);
+    e.classList.add('run',ok?'pass':'fail');
+    e.innerHTML=(ok?'✓ ':'✗ ')+e.innerHTML;
+    i++;
+  },420);
+}
+
+/* ---------- S4 · cenários ---------- */
+function scen(n){
+  ['layHudi','layVer','layLife'].forEach(id=>document.getElementById(id).classList.remove('hot'));
+  const out=document.getElementById('scenOut');out.classList.add('show');
+  if(n===1){document.getElementById('layVer').classList.add('hot');
+    out.innerHTML='🧨 Um job com bug sobrescreveu o arquivo <b>part-0003.parquet</b> com conteúdo vazio. Quem salva: <b>S3 Versioning</b>. A versão anterior do arquivo continua guardada: um restore a traz de volta em segundos. O Hudi não ajudaria aqui, ele confia no arquivo físico que está no bucket.';}
+  if(n===2){document.getElementById('layHudi').classList.add('hot');
+    out.innerHTML='🔁 Chegaram 40 mil registros atualizados de contratos existentes. Quem resolve: <b>Apache Hudi</b>. Atualização por chave, reescrita só dos arquivos afetados, novo commit na timeline. O S3 Versioning não entende registros, só arquivos inteiros: sem o Hudi seria reescrita em massa.';}
+  if(n===3){document.getElementById('layLife').classList.add('hot');
+    out.innerHTML='💸 Tabelas que mudam todo dia geram versões antigas todo dia, e cada versão ocupa espaço pago. Quem cuida: <b>S3 Lifecycle</b>. Regra declarada: versões recentes ficam disponíveis na janela de recuperação, as antigas descem para armazenamento mais barato e expiram após o prazo, alinhado à retenção do Hudi para não apagar nada dentro da janela de rollback.';}
+}
+
+/* ---------- S5 · lakeFS ---------- */
+function critOpen(el){el.classList.toggle('open');const st=el.querySelector('.st');st.textContent=el.classList.contains('open')?'fechar ˅':'abrir ›'}
+function showVerdict(){document.getElementById('verdict').classList.add('show');document.getElementById('verdict').scrollIntoView({behavior:'smooth',block:'nearest'})}
+
+/* ---------- S6 · terraform ---------- */
+let ws='dev',planned=false,applied=false;
+function wsSel(w){ws=w;planned=false;applied=false;
+  document.getElementById('wsDev').classList.toggle('on',w==='dev');
+  document.getElementById('wsProd').classList.toggle('on',w==='prod');
+  document.getElementById('applyBtn').disabled=true;document.getElementById('replayBtn').disabled=true;
+  term.innerHTML='<span class="dim"># Exemplo didático (dados e nomes fictícios)\n# ambiente: '+w+' · Passo 1: clique em "terraform plan".</span>';}
+const term=document.getElementById('term');
+function tline(html){term.innerHTML+='\n'+html;term.scrollTop=term.scrollHeight}
+function tfPlan(){
+  term.innerHTML='<span class="dim"># Exemplo didático (dados e nomes fictícios)</span>';
+  tline('<span class="c">$ terraform plan</span>  <span class="dim">· ambiente: '+ws+'</span>');
+  const suf=ws==='dev'?'-dev':'-prod';
+  const emr=ws==='dev'?'2× m5.xlarge · spot':'6× m5.2xlarge · spot + reserved';
+  const lines=[
+    '<span class="g">+ aws_s3_bucket.datalake</span>            <span class="dim">"lake-exemplo'+suf+'" · o armazenamento</span>',
+    '<span class="g">+ aws_s3_bucket_versioning.lake</span>     <span class="dim">ligado · o "airbag" dos arquivos</span>',
+    '<span class="g">+ aws_s3_bucket_lifecycle.versions</span>  <span class="dim">versões antigas: 30d → barato · 90d → expira</span>',
+    '<span class="g">+ aws_s3_bucket_lifecycle.tiering</span>   <span class="dim">dados frios: 90d → IA · 180d → Glacier</span>',
+    '<span class="g">+ aws_emr_cluster.etl</span>               <span class="dim">'+emr+' · o processamento</span>',
+    '<span class="g">+ aws_iam_role.pipeline</span>             <span class="dim">permissões mínimas · glue + emr + s3</span>',
+    '<span class="g">+ kubernetes_namespace.jobs</span>         <span class="dim">jobs Docker · cota por squad</span>',
+  ];
+  let i=0;const iv=setInterval(()=>{
+    if(i>=lines.length){clearInterval(iv);
+      tline('');tline('<span class="y">Plan: 7 to add, 0 to change, 0 to destroy.</span>');
+      tline('<span class="dim"># 7 recursos serão criados. Passo 2: clique em "terraform apply".</span>');
+      planned=true;document.getElementById('applyBtn').disabled=false;
+      return;}
+    tline(lines[i]);i++;
+  },230);
+}
+function tfApply(){
+  if(!planned)return;
+  tline('');tline('<span class="c">$ terraform apply -auto-approve</span>');
+  const names=['aws_s3_bucket.datalake','aws_s3_bucket_versioning.lake','aws_s3_bucket_lifecycle.versions','aws_s3_bucket_lifecycle.tiering','aws_emr_cluster.etl','aws_iam_role.pipeline','kubernetes_namespace.jobs'];
+  let i=0;const iv=setInterval(()=>{
+    if(i>=names.length){clearInterval(iv);
+      tline('');tline('<span class="g">Apply complete! Resources: 7 added, 0 changed, 0 destroyed.</span>');
+      tline('<span class="dim"># o ambiente '+ws+' inteiro nasceu do código. Nada foi clicado em console.</span>');
+      applied=true;document.getElementById('replayBtn').disabled=false;
+      return;}
+    tline('<span class="g">✓</span> '+names[i]+' <span class="dim">criado</span>');i++;
+  },260);
+}
+function tfReplay(){
+  if(!applied)return;
+  tline('');tline('<span class="c">$ terraform plan</span>  <span class="dim">· rodando de novo, mesmo código</span>');
+  setTimeout(()=>{
+    tline('<span class="g">No changes.</span> <span class="dim">A infraestrutura já está exatamente como o código descreve.</span>');
+    tline('<span class="y">Plan: 0 to add, 0 to change, 0 to destroy.</span>');
+    tline('<span class="dim"># é isso que "reproduzível" significa: rodar de novo nunca cria diferença.</span>');
+  },700);
+}
+</script>
+<script>
+(function(){
+  var contextInfoBtn=document.getElementById('contextInfoBtn');
+  var contextPopover=document.getElementById('contextPopover');
+  if(contextInfoBtn&&contextPopover){
+    var closeContext=function(){contextPopover.classList.remove('open');contextInfoBtn.setAttribute('aria-expanded','false')};
+    contextInfoBtn.addEventListener('click',function(event){event.stopPropagation();var isOpen=contextPopover.classList.toggle('open');contextInfoBtn.setAttribute('aria-expanded',String(isOpen))});
+    contextPopover.addEventListener('click',function(event){event.stopPropagation()});
+    document.addEventListener('click',closeContext);
+    document.addEventListener('keydown',function(event){if(event.key==='Escape')closeContext()});
+  }
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><script id="transparent-app-preview">if(self!==top||new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('app-preview-transparent');</script><link rel="stylesheet" href="app-preview-transparent.css?v=20261030-transparent1"><script>if(self===top&&!document.documentElement.matches('.embed-mode,.in-iframe')&&!new URLSearchParams(location.search).has('embed')){document.documentElement.classList.add('jen-navigation-enabled');setTimeout(()=>{if(!document.documentElement.classList.contains('jen-page-leaving'))document.documentElement.classList.add('jen-page-ready');},4000);}</script><link rel="stylesheet" href="navigation-transition.css?v=20261030-cover2"><script id="initial-page-shell">if(self===top&&!document.documentElement.matches('.in-iframe,.embed-mode')){document.documentElement.classList.add('has-portfolio-nav','detail-document');}</script><style>html.has-portfolio-nav body{padding-top:var(--portfolio-nav-offset,86px)!important;overflow-x:clip}html.detail-document body{box-sizing:border-box;width:min(100%,1400px);margin-inline:auto}html.has-portfolio-nav #globalNav,html.has-portfolio-nav body>nav:not(.portfolio-nav):not(.bottom):not(.bottomnav):not(.case-rail):not(.nav):not(.top),html.has-portfolio-nav .mob-standalone-bar{display:none!important}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Iara · Node-RED Flow Simulation</title>
+<meta name="description" content="Simulação interativa do fluxo Node-RED da Iara, chatbot de beleza FIAP e Natura.">
+<meta name="author" content="Jennifer Evangelista">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#1a1a1a">
+<link rel="canonical" href="https://datajen.com.br/iara-nodered-flow.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="accessibility.css">
+<link rel="stylesheet" href="portfolio-nav.css?v=20261030-separated-actions">
+<script src="accessibility.js" defer></script>
+<script src="portfolio-translation-loader.js?v=20261028-flow-ux" defer></script>
+<script src="publication-copy-i18n.js?v=20261023-audit5" defer></script>
+<link rel="stylesheet" href="metric-provenance.css?v=20261023-audit5">
+<script src="metric-provenance.js?v=20261029-route-safe" defer></script>
+<script src="portfolio-i18n.js?v=20261030-language-split2" defer></script>
+<script src="portfolio-nav.js?v=20261030-separated-actions" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Jennifer Evangelista — The Jen Notes">
+<meta property="og:title" content="Iara · Node-RED Flow Simulation">
+<meta property="og:description" content="Simulação interativa do fluxo Node-RED da Iara, chatbot de beleza FIAP e Natura.">
+<meta property="og:url" content="https://datajen.com.br/iara-nodered-flow.html">
+<meta property="og:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+<meta property="og:image:alt" content="Jennifer Evangelista, engenheira e arquiteta de dados">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Iara · Node-RED Flow Simulation">
+<meta name="twitter:description" content="Simulação interativa do fluxo Node-RED da Iara, chatbot de beleza FIAP e Natura.">
+<meta name="twitter:image" content="https://datajen.com.br/img/foto-jennifer.webp">
+
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%}
+body{background:#f8f6f1;font-family:'Courier New',monospace;min-height:100vh;overflow-x:hidden}
+
+/* ===== PORTFOLIO NAVIGATION ===== */
+:root{--ink:#1a1a1a;--paper:#f8f6f1;--card:#fff;--line:#e8e4dc;--muted:#888;--paper-2:#f0ede4}
+.porto-nav{position:sticky;top:0;z-index:50;font-family:'Inter',sans-serif}
+.porto-nav .in{max-width:1360px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:16px}
+.porto-wordmark{text-decoration:none;display:flex;align-items:baseline;gap:6px;white-space:nowrap}
+.porto-wordmark .the{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:15px}
+.porto-wordmark .name{font-weight:800;font-size:17px;letter-spacing:.04em}
+.porto-breadcrumb{font-family:'IBM Plex Mono',monospace;font-size:11px;display:flex;align-items:center;gap:8px;margin-left:20px}
+.porto-breadcrumb a{text-decoration:none;transition:.2s}
+.porto-breadcrumb .sep{color:#ccc}
+.porto-back{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:99px;font-family:'Inter',sans-serif;transition:.2s}
+/* Override company theme para manter nav com cor do portfolio */
+#nav-portfolio,html[data-company-theme] #nav-portfolio{
+  background:rgba(244,242,236,.95)!important;
+  border-bottom:1px solid #e8e4dc!important;
+  box-shadow:none!important;
+  backdrop-filter:blur(12px);
+}
+html[data-company-theme] #nav-portfolio .porto-wordmark,
+html[data-company-theme] #nav-portfolio .porto-wordmark .the,
+html[data-company-theme] #nav-portfolio .porto-wordmark .name{color:#1a1a1a!important}
+html[data-company-theme] #nav-portfolio .porto-breadcrumb,
+html[data-company-theme] #nav-portfolio .porto-breadcrumb a,
+html[data-company-theme] #nav-portfolio .porto-breadcrumb .sep{color:#888!important}
+html[data-company-theme] #nav-portfolio .porto-back{
+  color:#888!important;background:transparent!important;
+  border:1.5px solid #e8e4dc!important;
+}
+
+/* ===== COMPACT HEADER ===== */
+.app-header{background:#f8f6f1;border-bottom:1px solid #e8e4dc;padding:10px 24px;font-family:'Inter',sans-serif}
+.app-header-in{max-width:1360px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.app-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#aaa;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.app-eyebrow .dot{color:#ddd}
+.app-origin{display:inline-flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#999;border:1px solid #e8e4dc;border-radius:99px;padding:2px 8px 2px 5px;background:#fff}
+.app-title{font-family:'Source Serif 4',Georgia,serif;font-size:17px;font-weight:700;color:#1a1a1a;line-height:1;white-space:nowrap}
+.app-title-sep{color:#ddd;font-size:14px;flex-shrink:0}
+.app-desc{font-size:12px;color:#7b756a;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.app-chips{display:flex;gap:6px;flex-wrap:nowrap;margin-left:auto;flex-shrink:0}
+.app-chip{font-family:'IBM Plex Mono',monospace;font-size:9px;padding:3px 9px;border-radius:20px;background:#fff;border:1px solid #e8e4dc;color:#aaa;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+@media(max-width:768px){
+  .app-header{padding:8px 16px}
+  .app-chips{display:none}
+  .app-desc{display:none}
+}
+
+/* ===== NODE-RED STAGE ===== */
+.nr-stage{
+  background:#161616;
+  font-family:'IBM Plex Mono',monospace;
+}
+.nr-app{
+  width:100%;display:flex;flex-direction:column;
+}
+
+/* NODE-RED TITLE BAR */
+.nr-header{
+  background:#111;height:40px;
+  display:flex;align-items:center;
+  padding:0 16px;flex-shrink:0;gap:0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nr-dots{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.nr-dot{width:11px;height:11px;border-radius:50%}
+.nr-dot.r{background:#ff5f57}
+.nr-dot.y{background:#febc2e}
+.nr-dot.g{background:#28c840}
+.nr-logo{
+  margin:0 auto;
+  color:rgba(255,255,255,.65);font-size:12px;
+  display:flex;align-items:center;gap:7px;
+  letter-spacing:.02em;
+}
+.nr-logo-icon{
+  width:16px;height:16px;border-radius:3px;
+  background:#8f1000;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:900;color:#fff;letter-spacing:0;
+  flex-shrink:0;
+}
+.nr-tabs{display:flex;gap:0;margin-left:auto;flex-shrink:0}
+.nr-tab{
+  padding:0 14px;height:40px;display:flex;align-items:center;
+  font-size:11px;color:rgba(255,255,255,.4);cursor:pointer;
+  border-left:1px solid rgba(255,255,255,.06);
+  transition:.15s;
+}
+.nr-tab:hover{color:rgba(255,255,255,.7)}
+.nr-tab.active{color:rgba(255,255,255,.9);background:rgba(255,255,255,.04)}
+.nr-actions{display:flex;gap:8px;align-items:center;margin-left:12px}
+.nr-btn{
+  padding:4px 12px;border-radius:4px;border:none;
+  font-size:11px;cursor:pointer;font-family:'IBM Plex Mono',monospace;
+  letter-spacing:.02em;transition:.15s;
+}
+.nr-btn.deploy{
+  background:#8f1000;color:rgba(255,255,255,.92);font-weight:600;
+  border:1px solid #b31400;
+}
+.nr-btn.deploy:hover{background:#a81200}
+
+/* MAIN LAYOUT */
+.nr-main{display:flex;min-height:320px;overflow:hidden}
+
+/* PALETTE */
+.nr-palette{
+  width:160px;background:#181818;
+  border-right:1px solid rgba(255,255,255,.07);
+  padding:8px 0;flex-shrink:0;overflow-y:auto;
+}
+.palette-section{margin-bottom:6px}
+.palette-title{
+  font-size:9px;color:rgba(255,255,255,.3);
+  padding:6px 12px 3px;text-transform:uppercase;letter-spacing:.12em;
+}
+.palette-node{
+  margin:2px 8px;padding:5px 8px;border-radius:4px;
+  font-size:10px;color:rgba(255,255,255,.55);cursor:default;
+  border-left:2px solid;background:rgba(255,255,255,.025);
+  letter-spacing:.01em;
+}
+.palette-node.ibm{border-color:#3b82f6}
+.palette-node.func{border-color:#f97316}
+.palette-node.http{border-color:#ef4444}
+.palette-node.tmpl{border-color:#14b8a6}
+.palette-node.sw{border-color:#eab308}
+.palette-node.dbg{border-color:#22c55e}
+
+/* CANVAS AREA */
+.nr-canvas-wrap{
+  flex:1;overflow:visible;position:relative;
+  background:#1e1e1e;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size:20px 20px;
+  min-width:0;
+}
+.nr-canvas{position:relative;width:820px;height:380px;margin:16px;flex-shrink:0}
+.nr-canvas svg.wires{position:absolute;inset:0;pointer-events:none;z-index:1}
+.nr-canvas svg.packets{position:absolute;inset:0;pointer-events:none;z-index:3}
+
+/* FLOW LABELS */
+.flow-label{
+  position:absolute;font-size:9px;color:rgba(255,255,255,.22);
+  letter-spacing:.12em;text-transform:uppercase;
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* NODES — real Node-RED pill style */
+.nr-node{
+  position:absolute;z-index:2;height:34px;
+  border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;user-select:none;
+  background:#2a2a2a;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 2px 8px rgba(0,0,0,.4);
+  transition:box-shadow .2s,border-color .2s,filter .15s;
+  font-family:'IBM Plex Mono',monospace;
+}
+.nr-node:hover{border-color:rgba(255,255,255,.22);box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.nr-node .node-accent{
+  position:absolute;left:0;top:0;bottom:0;width:10px;
+  border-radius:16px 0 0 16px;flex-shrink:0;
+}
+.nr-node .port-in{
+  position:absolute;left:-5px;top:50%;transform:translateY(-50%);
+  width:8px;height:8px;background:#555;border-radius:1px;
+  border:1px solid rgba(255,255,255,.1);
+}
+.nr-node .port-out{
+  position:absolute;right:-5px;top:50%;transform:translateY(-50%);
+  width:8px;height:8px;background:#555;border-radius:1px;
+  border:1px solid rgba(255,255,255,.1);
+}
+.nr-node .port-out.p1{top:34%}
+.nr-node .port-out.p2{top:66%}
+.nr-node.active{
+  border-color:rgba(255,255,255,.5);
+  box-shadow:0 0 0 2px rgba(255,255,255,.18),0 0 20px rgba(255,255,255,.12);
+  filter:brightness(1.25);
+}
+.nr-node.done{filter:brightness(1.06)}
+.nr-node .nd-label{
+  font-size:10.5px;line-height:1.15;text-align:center;
+  padding:0 14px 0 16px;color:rgba(255,255,255,.85);font-weight:500;
+}
+.nr-node .nd-sub{font-size:8.5px;opacity:.5;font-weight:400;display:block}
+
+/* NODE ACCENT COLORS */
+.nc-http .node-accent{background:#ef4444}
+.nc-func .node-accent{background:#f97316}
+.nc-switch .node-accent{background:#eab308}
+.nc-watson .node-accent{background:#3b82f6}
+.nc-tmpl .node-accent{background:#14b8a6}
+.nc-debug .node-accent{background:#22c55e}
+
+/* WIRE STYLES */
+.wire{fill:none;stroke:rgba(255,255,255,.18);stroke-width:1.5}
+.wire.photo-wire{stroke:rgba(255,255,255,.18)}
+.wire.text-wire{stroke:rgba(255,255,255,.18)}
+.wire.photo-wire.lit{stroke:#38bdf8;stroke-width:2;filter:url(#glow)}
+.wire.text-wire.lit{stroke:#fb923c;stroke-width:2;filter:url(#glow)}
+
+/* DEBUG PANEL — agora como strip horizontal abaixo do canvas */
+.nr-debug{
+  background:#111;border-top:1px solid rgba(255,255,255,.06);
+  display:flex;flex-direction:row;align-items:stretch;min-height:80px;max-height:120px;
+}
+.debug-header{
+  background:#0d0d0d;padding:10px 14px;
+  border-right:1px solid rgba(255,255,255,.06);
+  display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;
+  min-width:90px;flex-shrink:0;
+}
+.debug-header span{
+  color:rgba(255,255,255,.35);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+}
+.debug-clear{
+  background:none;border:none;color:rgba(255,255,255,.2);
+  cursor:pointer;font-size:10px;font-family:'IBM Plex Mono',monospace;
+  transition:.15s;padding:0;
+}
+.debug-clear:hover{color:rgba(255,255,255,.5)}
+.debug-log{flex:1;overflow-y:auto;overflow-x:hidden;padding:10px 14px;font-family:'IBM Plex Mono',monospace;display:flex;flex-wrap:wrap;gap:0 24px;align-content:flex-start}
+.debug-log::-webkit-scrollbar{height:2px;width:2px}
+.debug-log::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1)}
+.log-entry{margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.04);min-width:180px;flex:1}
+.log-time{font-size:8px;color:rgba(255,255,255,.22);margin-bottom:2px}
+.log-node{font-size:8.5px;color:rgba(255,255,255,.38);margin-bottom:3px}
+.log-body{font-size:9.5px;color:rgba(255,255,255,.65);line-height:1.55;word-break:break-all;white-space:pre-wrap;max-height:72px;overflow:hidden}
+.log-body.json{color:#67e8f9}
+.log-body.out{color:#fdba74}
+
+/* CONTROL BAR */
+.nr-controls{
+  background:#161616;border-top:1px solid rgba(255,255,255,.07);
+  padding:6px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.inject-btn{
+  padding:7px 16px;border-radius:20px;border:1px solid;
+  font-size:11px;font-weight:600;cursor:pointer;
+  font-family:'IBM Plex Mono',monospace;letter-spacing:.02em;
+  transition:opacity .15s,transform .1s;
+  display:flex;align-items:center;gap:6px;
+}
+.inject-btn:hover{opacity:.88}
+.inject-btn:active{opacity:.7;transform:scale(.97)}
+.inject-btn.photo{background:#0c4a6e;color:#7dd3fc;border-color:#0369a1}
+.inject-btn.photo:hover{background:#075985}
+.inject-btn.text{background:#431407;color:#fdba74;border-color:#7c2d12}
+.inject-btn.text:hover{background:#7c2d12}
+.inject-btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.inject-btn.compact{padding:5px 11px;font-size:10px;border-radius:16px}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;background:#22c55e;
+  display:inline-block;margin-right:5px;
+  box-shadow:0 0 6px #22c55e;
+}
+.status-txt{font-size:10px;color:rgba(255,255,255,.35);font-family:'IBM Plex Mono',monospace}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.nr-palette{display:none}}
+@media(max-width:768px){
+  .nr-tabs{display:none}
+  .nr-logo span{display:none}
+  .inject-btn.compact{padding:4px 8px;font-size:9px}
+}
+@media(max-width:560px){
+  .nr-controls{padding:6px 12px}
+  .nr-debug{max-height:120px}
+}
+
+/* FOOTER */
+.porto-footer{background:#f8f6f1;border-top:1.5px solid #1a1a1a;font-family:'Inter',sans-serif}
+.porto-footer .fin{max-width:1360px;margin:0 auto;padding:24px 32px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.porto-footer .fl{font-size:12px;color:#888}
+.porto-footer .wm{text-decoration:none;color:#1a1a1a;display:flex;align-items:baseline;gap:4px}
+.porto-footer .wm .the{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:13px}
+.porto-footer .wm .nm{font-weight:800;font-size:14px;letter-spacing:.06em}
+
+html.embed-mode,html.embed-mode body{width:100%;height:100%;overflow:hidden}
+html.embed-mode body{background:#101311;display:flex;flex-direction:column}
+html.embed-mode .gn,
+html.embed-mode .app-header,
+html.embed-mode .porto-footer,
+html.embed-mode .demo-integrity-banner,
+html.embed-mode .everyday-translation,
+html.embed-mode .tech-disclaimer,
+html.embed-mode .mob-veil{display:none!important}
+html.embed-mode .nr-stage{flex:1;height:100%;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+html.embed-mode .nr-app{flex:1;min-height:0;display:flex;flex-direction:column}
+html.embed-mode .nr-main{flex:1;min-height:0}
+html.embed-mode .nr-canvas-wrap{flex:1;overflow:auto}
+
+/* === HAMBURGER DRAWER UNIVERSAL === */
+.mob-hamburger{display:none;background:none;border:none;cursor:pointer;padding:5px 7px;color:inherit;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;flex-shrink:0;transition:.2s}
+.mob-hamburger:hover{opacity:.7}
+.hbi{display:flex;flex-direction:column;gap:5px;width:20px}
+.hbi span{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .28s cubic-bezier(.22,1,.36,1),opacity .2s,width .2s}
+.hbi span:nth-child(3){width:13px}
+.mob-hamburger.is-open .hbi span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.is-open .hbi span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.is-open .hbi span:nth-child(3){width:20px;transform:translateY(-7px) rotate(-45deg)}
+.mob-veil{position:fixed;inset:0;z-index:9998;visibility:hidden;opacity:0;transition:visibility .3s,opacity .3s;pointer-events:none}
+.mob-veil.open{visibility:visible;opacity:1;pointer-events:auto}
+.mob-veil-bg{position:absolute;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mob-panel{position:absolute;top:0;left:0;bottom:0;width:min(300px,82vw);background:#f4f2ec;display:flex;flex-direction:column;box-shadow:8px 0 40px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.mob-veil.open .mob-panel{transform:translateX(0)}
+.mob-ph{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.1)}
+.mob-ph a{font-family:Georgia,serif;font-size:16px;font-weight:700;text-decoration:none;color:#1a1a0f;letter-spacing:-.01em}
+.mob-ph a .the{font-style:italic;font-weight:400;margin-right:3px;font-size:14px}
+.mob-pclose{background:none;border:none;cursor:pointer;color:#1a1a0f;font-size:18px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1;padding:0}
+.mob-pclose:hover{background:rgba(0,0,0,.08)}
+.mob-pb{flex:1;overflow-y:auto;padding:8px 0 12px;overscroll-behavior:contain}
+.mob-pb a{display:flex;align-items:center;gap:12px;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;text-decoration:none;padding:12px 22px;transition:.15s;letter-spacing:-.01em}
+.mob-pb a:hover{background:rgba(0,0,0,.05);padding-left:27px}
+.mob-sep{height:1px;background:rgba(0,0,0,.1);margin:6px 18px}
+.mob-lbl{font-size:9.5px;font-family:monospace;font-weight:700;letter-spacing:.14em;color:#888;padding:12px 22px 3px;text-transform:uppercase}
+.mob-sub{font-size:13px!important;font-weight:500!important;padding:8px 22px 8px 34px!important}
+.mob-sub:hover{padding-left:38px!important}
+.mob-sub .mf{font-size:14px;flex-shrink:0}
+.mob-sub .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+.mob-pf{padding:14px 18px;border-top:1px solid rgba(0,0,0,.1);display:flex;flex-direction:column;gap:9px}
+.mob-pf a{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;border-radius:99px;padding:10px 14px;transition:.25s}
+.mob-pf .mpwa{border:1.5px solid #16a34a;color:#16a34a}
+.mob-pf .mpwa:hover{background:#16a34a;color:#fff}
+.mob-pf .mpcv{background:#1a1a0f;color:#f4f2ec}
+.mob-pf .mpcv:hover{opacity:.85}
+@media(max-width:768px){
+  .mob-hamburger{display:flex!important;flex-shrink:0}
+  .porto-back{display:none!important}
+  .porto-nav .in{position:relative!important;justify-content:flex-start}
+  .porto-wordmark{position:absolute!important;left:50%!important;transform:translateX(-50%)!important;white-space:nowrap!important}
+  .app-header{padding:14px 16px}
+  .app-header-in{padding:0}
+  .app-title{font-size:22px}
+  .app-desc{font-size:13px}
+  .app-chips{gap:6px}
+  .app-chip{font-size:9px;padding:3px 10px}
+}
+
+.mob-acc-btn{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:15px;font-weight:600;color:#1a1a0f;background:none;border:none;cursor:pointer;padding:13px 22px;transition:.15s;letter-spacing:-.01em;text-align:left;border-radius:0;font-family:inherit}
+.mob-acc-btn:hover{background:rgba(0,0,0,.05)}
+.mob-chev{font-size:16px;font-weight:400;transition:transform .28s cubic-bezier(.22,1,.36,1);display:inline-block;color:#888;line-height:1}
+.mob-acc-btn.open .mob-chev{transform:rotate(90deg)}
+.mob-acc-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.mob-acc-body.open{max-height:700px}
+.mob-acc-body a{font-size:13px!important;font-weight:500!important;padding:9px 22px 9px 36px!important}
+.mob-acc-body a:hover{background:rgba(0,0,0,.05);padding-left:40px!important}
+.mob-acc-body a .mf{font-size:14px;flex-shrink:0}
+.mob-acc-body a .mp{font-size:10px;font-family:monospace;color:#999;margin-left:auto;padding-left:6px}
+
+.mob-pi-wrap{margin:8px 0 0;overflow:hidden;position:relative;height:220px;user-select:none;-webkit-user-select:none}
+.mob-pi-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.25,1,.5,1)}
+.mob-pi-slide{width:100%;flex-shrink:0;position:relative;overflow:hidden}
+.mob-pi-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.mob-pi-tint{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 52%,transparent 100%)}
+.mob-pi-txt{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.06) 75%,transparent 100%);padding:16px 16px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;pointer-events:none}
+.mob-pi-lbl{font-size:8px;letter-spacing:.2em;color:rgba(255,255,255,.82);font-family:monospace;font-weight:700;text-transform:uppercase}
+.mob-pi-nm{font-size:23px;font-weight:800;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+.mob-pi-ls{font-size:10.5px;color:rgba(255,255,255,.92);line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-shadow:0 1px 5px rgba(0,0,0,1)}
+.mob-pi-nav{position:absolute;bottom:11px;right:14px;display:flex;gap:5px;align-items:center}
+.mob-pi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);border:none;padding:0;cursor:pointer;transition:all .25s cubic-bezier(.25,1,.5,1)}
+.mob-pi-dot.is-on{width:20px;border-radius:3px;background:#fff}
+</style>
+
+<script>if(window.self!==window.top||new URLSearchParams(window.location.search).get('embed')==='1')document.documentElement.classList.add('embed-mode')</script>
+<style id="gn-cta-css">
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff !important;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+</style>
+<style id="tech-disclaimer-css">
+.tech-disclaimer{display:block;background:rgba(99,102,241,.07);border-bottom:1px solid rgba(99,102,241,.18);padding:8px 18px;font-size:10px;color:rgba(180,190,230,.76);line-height:1.45;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tech-disclaimer strong{color:#a5b4fc;font-weight:700;font-size:10.5px}
+@media(max-width:640px){.tech-disclaimer{font-size:9px;padding:7px 12px}}
+</style>
+<link rel="stylesheet" href="company-app-theme.css?v=20261023-audit5">
+<style id="nav-drop-fix">.nav-traj-drop a,.nav-cases-drop a,.nav-tree-drop a{color:#1a1a1a!important}.nav-traj-drop a:hover,.nav-cases-drop a:hover{color:#000!important}</style>
+<style id="nav-flag-svg">.ncd-flag svg,.mf svg{width:19px;height:13px;border-radius:2px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}.ncd-flag,.mf{display:inline-flex;align-items:center}</style>
+<style id="global-nav-css">
+/* Mesma barra usada em todos os apps do portfolio. */
+.gn{position:fixed;top:0;left:0;right:0;width:100%;z-index:9999;background:rgba(8,10,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);font-family:'Inter',system-ui,sans-serif;box-shadow:0 2px 20px rgba(0,0,0,.35)}
+.gn .gi{display:flex;align-items:center;gap:2px;padding:0 20px;height:44px;max-width:1600px;margin:0 auto}
+.gn-logo{text-decoration:none;font-weight:700;letter-spacing:.01em;white-space:nowrap;color:#fff;line-height:1;font-size:14px}
+.gn-logo .gn-the{color:rgba(255,255,255,.28);margin-right:1px;font-weight:300;font-size:10px;letter-spacing:.1em;text-transform:none;vertical-align:1px}
+.gn-cta{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#6366f1,#a855f7);color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;white-space:nowrap;margin-left:12px;transition:opacity .15s;letter-spacing:.01em}
+.gn-cta:hover{opacity:.82}
+.gn-back{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-decoration:none;padding:4px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.15);transition:.2s;white-space:nowrap;letter-spacing:.02em;margin-left:8px}.gn-back:hover{color:#fff;border-color:rgba(255,255,255,.4)}.gn-back.primary{color:#FF6200;border-color:rgba(255,98,0,.4);background:rgba(255,98,0,.1)}.gn-back.primary:hover{background:rgba(255,98,0,.22)}
+.gn-live-badge{display:inline-flex;align-items:center;gap:6px;margin-left:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.05em;color:#34d399;background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.32);border-radius:99px;padding:5px 11px;white-space:nowrap}
+.gn-live-badge .dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:gnLivePulse 1.8s ease-in-out infinite}
+@keyframes gnLivePulse{0%,100%{opacity:1}50%{opacity:.35}}
+/* A barra .gn e fixed: reserva o espaco dela e some no modo embed. */
+body{padding-top:44px}
+html.in-iframe body,html.embed-mode body{padding-top:0}
+html.in-iframe .gn,html.embed-mode .gn{display:none!important}
+@media(max-width:640px){.gn-back,.gn-live-badge{display:none}.gn-cta{font-size:11px;padding:5px 11px}}
+</style>
+<link rel="stylesheet" href="detail-polish.css?v=20261030-compact-index">
+<script src="detail-navigation.js?v=20261029-clean-url"></script>
+<link rel="stylesheet" href="portfolio-resources.css?v=20261027-resume-nav">
+<script src="portfolio-explore.js?v=20261030-launcher2" defer></script><style id="stable-navigation-paint">body.detail-page--app.has-portfolio-nav{--portfolio-nav-offset:var(--portfolio-nav-height,62px)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}</style><script src="navigation-transition.js?v=20261030-cover2" defer></script><link rel="stylesheet" href="portfolio-journey.css?v=20261030-discreet5">
+<script src="portfolio-journey.js?v=20261030-discreet5" defer></script>
+<link rel="stylesheet" href="portfolio-event-links.css?v=20261030-links3">
+<script src="portfolio-event-links.js?v=20261030-gallery4" defer></script>
+</head>
+<body><div class="jen-page-transition" aria-hidden="true" data-no-translate><strong>JEN<br>NOTES</strong><span class="jen-page-transition-line"></span></div><script src="company-app-theme.js?v=20261029-first-paint"></script><script>if(document.documentElement.classList.contains('has-portfolio-nav'))document.body.classList.add("has-portfolio-nav","detail-page","detail-page--app");</script>
+<!-- PORTO NAV -->
+<nav class="gn" id="globalNav" aria-label="Navega&ccedil;&atilde;o do portf&oacute;lio">
+  <div class="gi">
+    <button class="mob-hamburger" aria-label="Menu"><span class="hbi"><span></span><span></span><span></span></span></button>
+    <a class="gn-logo" href="index.html"><span class="gn-the">the </span>JEN NOTES</a>
+    <span class="gn-live-badge"><span class="dot"></span> DEMO AO VIVO &middot; DADOS SINT&Eacute;TICOS</span>
+    <a class="gn-back" href="cases-fiap.html">Case FIAP &times; Natura &rarr;</a>
+    <a class="gn-cta" href="index.html#contato" title="Me chame: jenniferevangelista.code@gmail.com &middot; +55 11 98843-2930">&#x1F4AC; Me chame</a>
+  </div>
+</nav>
+
+<!-- COMPACT HEADER -->
+<section class="app-header">
+  <div class="app-header-in">
+    <div class="app-eyebrow">
+      <span class="app-origin">
+        <svg viewBox="0 0 20 14" width="14" height="10" style="display:inline-block;vertical-align:middle;border-radius:2px;flex-shrink:0"><rect width="20" height="14" fill="#009C3B"/><polygon points="10,2 18.5,7 10,12 1.5,7" fill="#FFDF00"/><circle cx="10" cy="7" r="3" fill="#002776"/></svg>
+        2017
+      </span>
+      SIMULADOR
+    </div>
+    <h1 class="app-title">Iara · Node-RED</h1>
+    <span class="app-title-sep">·</span>
+    <p class="app-desc">Fluxo do chatbot Iara: entra foto ou texto, o Node-RED decide o caminho e devolve a resposta pronta para o canal.</p>
+    <div class="app-chips">
+      <span class="app-chip">Node-RED</span>
+      <span class="app-chip">IBM Watson</span>
+      <span class="app-chip">Bluemix</span>
+      <span class="app-chip">FB Messenger</span>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE -->
+<section class="nr-stage">
+<div class="nr-app">
+
+<!-- HEADER -->
+<div class="nr-header">
+  <div class="nr-dots" aria-hidden="true"><span class="nr-dot r"></span><span class="nr-dot y"></span><span class="nr-dot g"></span></div>
+  <div class="nr-logo">
+    <div class="nr-logo-icon">NR</div>
+    <span>Node-RED · Iara · Natura · 2017</span>
+  </div>
+  <div class="nr-tabs">
+    <div class="nr-tab active">Fluxo Principal</div>
+    <div class="nr-tab">Fluxo Debug</div>
+    <div class="nr-tab">Config</div>
+  </div>
+  <div class="nr-actions">
+    <button class="inject-btn photo compact" id="btnPhoto" onclick="runFlow('photo')">📷 Simular foto</button>
+    <button class="inject-btn text compact" id="btnText" onclick="runFlow('text')">💬 Simular texto</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="nr-main">
+
+  <!-- PALETTE -->
+  <div class="nr-palette">
+    <div class="palette-section">
+      <div class="palette-title">Input</div>
+      <div class="palette-node http">http in</div>
+      <div class="palette-node http">mqtt in</div>
+      <div class="palette-node http">inject</div>
+    </div>
+    <div class="palette-section">
+      <div class="palette-title">IBM Watson</div>
+      <div class="palette-node ibm">visual recog.</div>
+      <div class="palette-node ibm">conversation</div>
+      <div class="palette-node ibm">tone analyzer</div>
+    </div>
+    <div class="palette-section">
+      <div class="palette-title">Function</div>
+      <div class="palette-node func">function</div>
+      <div class="palette-node sw">switch</div>
+      <div class="palette-node tmpl">template</div>
+      <div class="palette-node func">change</div>
+    </div>
+    <div class="palette-section">
+      <div class="palette-title">Output</div>
+      <div class="palette-node http">http response</div>
+      <div class="palette-node dbg">debug</div>
+      <div class="palette-node http">http request</div>
+    </div>
+  </div>
+
+  <!-- CANVAS -->
+  <div class="nr-canvas-wrap">
+    <div class="nr-canvas" id="canvas">
+
+      <!-- FLOW LABELS -->
+      <div class="flow-label" style="left:12px;top:38px">// flow 1 · recepção &amp; roteamento</div>
+      <div class="flow-label" style="left:12px;top:168px">// flow 2 · análise visual (foto)</div>
+      <div class="flow-label" style="left:12px;top:298px">// flow 3 · diálogo (texto)</div>
+
+      <!-- SVG WIRES -->
+      <svg class="wires" id="wireSvg" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Row 1 horizontal -->
+        <path class="wire" id="w12" d="M 150 77 L 160 77"/>
+        <path class="wire" id="w23" d="M 300 77 L 310 77"/>
+        <!-- Switch → Watson VR (photo, cross-flow) -->
+        <path class="wire photo-wire" id="w34" d="M 450 71 L 462 71 L 462 155 L 6 155 L 6 207 L 10 207"/>
+        <!-- Switch → Watson Conv (text, cross-flow) -->
+        <path class="wire text-wire" id="w39" d="M 450 83 L 472 83 L 472 285 L 6 285 L 6 337 L 10 337"/>
+        <!-- Row 2 wires (photo) -->
+        <path class="wire photo-wire" id="w45" d="M 150 207 L 160 207"/>
+        <path class="wire photo-wire" id="w56" d="M 300 207 L 310 207"/>
+        <path class="wire photo-wire" id="w67" d="M 450 207 L 460 207"/>
+        <path class="wire photo-wire" id="w78" d="M 600 207 L 610 207"/>
+        <!-- Row 3 wires (text) -->
+        <path class="wire text-wire" id="w910" d="M 150 337 L 160 337"/>
+        <path class="wire text-wire" id="w1011" d="M 300 337 L 310 337"/>
+        <path class="wire text-wire" id="w1112" d="M 450 337 L 460 337"/>
+        <path class="wire text-wire" id="w1213" d="M 600 337 L 610 337"/>
+      </svg>
+
+      <!-- SVG PACKETS (animated dots) -->
+      <svg class="packets" id="pktSvg" xmlns="http://www.w3.org/2000/svg">
+        <circle id="pkt" r="5" fill="#fff" opacity="0" style="filter:drop-shadow(0 0 4px #fff)"/>
+      </svg>
+
+      <!-- ROW 1 NODES -->
+      <div class="nr-node nc-http" id="n1" style="left:15px;top:60px;width:130px" onclick="inspect(1)">
+        <div class="node-accent"></div><div class="port-out"></div>
+        <div class="nd-label">FB Webhook<span class="nd-sub">http in · /webhook</span></div>
+      </div>
+      <div class="nr-node nc-func" id="n2" style="left:165px;top:60px;width:130px" onclick="inspect(2)">
+        <div class="node-accent"></div><div class="port-in"></div><div class="port-out"></div>
+        <div class="nd-label">Normalizar msg<span class="nd-sub">function</span></div>
+      </div>
+      <div class="nr-node nc-switch" id="n3" style="left:315px;top:60px;width:130px" onclick="inspect(3)">
+        <div class="node-accent"></div><div class="port-in"></div>
+        <div class="port-out p1" title="saída 1: foto"></div>
+        <div class="port-out p2" title="saída 2: texto"></div>
+        <div class="nd-label">foto ou texto?<span class="nd-sub">switch · msg.type</span></div>
+      </div>
+
+      <!-- ROW 2 NODES (photo) -->
+      <div class="nr-node nc-watson" id="n4" style="left:15px;top:190px;width:130px" onclick="inspect(4)">
+        <div class="node-accent"></div><div class="port-in"></div><div class="port-out"></div>
+        <div class="nd-label">Watson VR<span class="nd-sub">visual recognition</span></div>
+      </div>
+      <div class="nr-node nc-func" id="n5" style="left:165px;top:190px;width:130px" onclick="inspect(5)">
+        <div class="node-accent"></div><div class="port-in"></div><div class="port-out"></div>
+        <div class="nd-label">Extrair features<span class="nd-sub">function</span></div>
+      </div>
+      <div class="nr-node nc-func" id="n6" style="left:315px;top:190px;width:130px" onclick="inspect(6)">
+        <div class="node-accent"></div><div class="port-in"></div><div class="port-out"></div>
+        <div class="nd-label">Match catálogo<span class="nd-sub">function</span></div>
+      </div>
+      <div class="nr-node nc-tmpl" id="n7" style="left:465px;top:190px;width:130px" onclick="inspect(7)">
+        <div class="node-accent"></div><div class="port-in"></div><div class="port-out"></div>
+        <div class="nd-label">Format card<span class="nd-sub">template · FB</span></div>
+      </div>
+      <div class="nr-node nc-http" id="n8" style="left:615px;top:190px;width:110px" onclick="inspect(8)">
+        <div class="node-accent"></div><div class="port-in"></div>
+        <div class="nd-label">FB Reply<span class="nd-sub">http response</span></div>
+      </div>
+
+      <!-- ROW 3 NODES (text) -->
+      <div class="nr-node nc-watson" id="n9" style="left:15px;top:320px;width:130px" onclick="inspect(9)">
+        <div class="node-accent"></div><div class="port-in"></div><div class="port-out"></div>
+        <div class="nd-label">Watson Conv<span class="nd-sub">conversation</span></div>
+      </div>
+      <div class="nr-node nc-func" id="n10" style="left:165px;top:320px;width:130px" onclick="inspect(10)">
+        <div class="node-accent"></div><div class="port-in"></div><div class="port-out"></div>
+        <div class="nd-label">Parse intent<span class="nd-sub">function · NLU</span></div>
+      </div>
+      <div class="nr-node nc-func" id="n11" style="left:315px;top:320px;width:130px" onclick="inspect(11)">
+        <div class="node-accent"></div><div class="port-in"></div><div class="port-out"></div>
+        <div class="nd-label">Recomendar<span class="nd-sub">function</span></div>
+      </div>
+      <div class="nr-node nc-tmpl" id="n12" style="left:465px;top:320px;width:130px" onclick="inspect(12)">
+        <div class="node-accent"></div><div class="port-in"></div><div class="port-out"></div>
+        <div class="nd-label">Format msg<span class="nd-sub">template</span></div>
+      </div>
+      <div class="nr-node nc-http" id="n13" style="left:615px;top:320px;width:110px" onclick="inspect(13)">
+        <div class="node-accent"></div><div class="port-in"></div>
+        <div class="nd-label">FB Reply<span class="nd-sub">http response</span></div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /nr-main -->
+
+<!-- DEBUG PANEL (horizontal strip abaixo do canvas) -->
+<div class="nr-debug">
+  <div class="debug-header">
+    <span>DEBUG</span>
+    <button class="debug-clear" onclick="clearLog()">limpar ✕</button>
+  </div>
+  <div class="debug-log" id="debugLog">
+    <div style="color:#555;font-size:10px;padding:2px 0">Simule foto ou texto para ver o fluxo, os nós acionados e a resposta final.</div>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="nr-controls">
+  <span><span class="status-dot"></span><span class="status-txt">Conectado ao IBM Bluemix</span></span>
+  <span class="status-txt" id="statusTxt" style="margin-left:auto">pronto para simulação...</span>
+</div>
+
+</div><!-- /nr-app -->
+</section><!-- /nr-stage -->
+
+<!-- PORTO FOOTER -->
+<footer class="site-footer">
+  <div class="in">
+    <div class="footer-brand">
+      <a class="wordmark" href="index.html#top"><span class="the">the</span><span class="name">JEN<br>NOTES</span></a>
+      <p>Engenharia de dados, arquitetura e liderança para decisões que chegam à produção.</p>
+    </div>
+    <nav class="footer-links" aria-label="Navegação do rodapé">
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#trajetoria">Trajetória</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#eventos">Eventos</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="footer-bottom">
+      <div class="l">Jennifer Evangelista · Especialista em Engenharia de Dados</div>
+      <div class="l">Desenvolvido por Jennifer Evangelista · © 2026 Todos os direitos reservados.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+let running = false;
+
+const PHOTO_FLOW = [
+  {nodes:['n1'], wires:[], delay:400, log:{node:'FB Webhook',body:'POST /webhook\n{"type":"image","url":"https://cdn.facebook.com/photo.jpg","from":"user_123"}',cls:'json'}},
+  {nodes:['n2'], wires:['w12'], delay:350, log:{node:'Normalizar msg',body:'msg.type = "image"\nmsg.userId = "user_123"\nmsg.imageUrl = "cdn.facebook..."',cls:'json'}},
+  {nodes:['n3'], wires:['w23'], delay:350, log:{node:'Switch foto/txt?',body:'msg.type === "image" → saída 1\nroteando para Watson VR...',cls:''}},
+  {nodes:['n4'], wires:['w34'], delay:900, log:{node:'Watson Visual Recognition',body:'{\n  "hair_type": "afro_natural",\n  "confidence": 0.96,\n  "skin_tone": "medio_dourado",\n  "age_range": "25-34",\n  "colors": ["castanho","cobre"]\n}',cls:'json'}},
+  {nodes:['n5'], wires:['w45'], delay:400, log:{node:'Extrair features',body:'msg.profile = {\n  hair: "afro",\n  skin: "medio",\n  age: "25-34"\n}',cls:'json'}},
+  {nodes:['n6'], wires:['w56'], delay:500, log:{node:'Match catálogo',body:'Buscando produtos...\n→ linha: "Plant Natura"\n→ beneficio: "hidratação afro"\n→ 5 produtos encontrados',cls:''}},
+  {nodes:['n7'], wires:['w67'], delay:350, log:{node:'Format card',body:'Montando FB Generic Template:\ntitle: "Shampoo Curls Intenso"\nsubtitle: "Ideal para cabelo afro"\nbuttons: ["Comprar","Ver mais"]',cls:'out'}},
+  {nodes:['n8'], wires:['w78'], delay:300, log:{node:'FB Reply',body:'HTTP 200 OK\nMensagem enviada para user_123\ncard com 5 produtos retornado ✓',cls:'out'}},
+];
+
+const TEXT_FLOW = [
+  {nodes:['n1'], wires:[], delay:400, log:{node:'FB Webhook',body:'POST /webhook\n{"type":"text","text":"quero perfume","from":"user_456"}',cls:'json'}},
+  {nodes:['n2'], wires:['w12'], delay:350, log:{node:'Normalizar msg',body:'msg.type = "text"\nmsg.text = "quero perfume"\nmsg.userId = "user_456"',cls:'json'}},
+  {nodes:['n3'], wires:['w23'], delay:350, log:{node:'Switch foto/txt?',body:'msg.type === "text" → saída 2\nroteando para Watson Conversation...',cls:''}},
+  {nodes:['n9'], wires:['w39'], delay:700, log:{node:'Watson Conversation',body:'{\n  "intent": "comprar_produto",\n  "confidence": 0.94,\n  "entity": "perfume",\n  "sentiment": "positivo"\n}',cls:'json'}},
+  {nodes:['n10'], wires:['w910'], delay:400, log:{node:'Parse intent',body:'intent = "comprar_produto"\ncategoria = "fragrância"\ngênero = null (perguntar)\n→ necessita clarificação',cls:'json'}},
+  {nodes:['n11'], wires:['w1011'], delay:500, log:{node:'Recomendar',body:'query: categoria="perfume"\n→ "Kaiak Oceano" R$89\n→ "Essencial Oud" R$145\n→ "Luna" R$79\n3 produtos encontrados',cls:''}},
+  {nodes:['n12'], wires:['w1112'], delay:350, log:{node:'Format msg',body:'Montando resposta:\n"Encontrei 3 perfumes para você!"\n+ quick_replies: ["feminino","masculino"]',cls:'out'}},
+  {nodes:['n13'], wires:['w1213'], delay:300, log:{node:'FB Reply',body:'HTTP 200 OK\nMensagem enviada para user_456\nLista de perfumes retornada ✓',cls:'out'}},
+];
+
+function setStatus(txt){document.getElementById('statusTxt').textContent=txt}
+
+function logEntry(step){
+  const log=document.getElementById('debugLog');
+  if(log.children.length===1&&log.children[0].style.color==='rgb(85, 85, 85)')log.innerHTML='';
+  const now=new Date();
+  const ts=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}.${String(now.getMilliseconds()).padStart(3,'0')}`;
+  const el=document.createElement('div');
+  el.className='log-entry';
+  el.innerHTML=`<div class="log-time">${ts}</div><div class="log-node">[${step.log.node}]</div><div class="log-body ${step.log.cls}">${step.log.body}</div>`;
+  log.appendChild(el);
+  log.scrollTop=log.scrollHeight;
+}
+
+function activateNodes(ids){
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.classList.add('active');setTimeout(()=>{el.classList.remove('active');el.classList.add('done')},600);}
+  });
+}
+
+function activateWires(ids,cls){
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.classList.add('lit');setTimeout(()=>el.classList.remove('lit'),600);}
+  });
+}
+
+function resetAll(){
+  document.querySelectorAll('.nr-node').forEach(n=>{n.classList.remove('active','done')});
+  document.querySelectorAll('.wire').forEach(w=>{w.classList.remove('lit')});
+}
+
+async function runFlow(type){
+  if(running)return;
+  running=true;
+  document.getElementById('btnPhoto').disabled=true;
+  document.getElementById('btnText').disabled=true;
+  resetAll();
+  clearLog();
+
+  const flow=type==='photo'?PHOTO_FLOW:TEXT_FLOW;
+  setStatus(type==='photo'?'📷 Processando foto...':'💬 Processando texto...');
+
+  for(const step of flow){
+    activateNodes(step.nodes);
+    activateWires(step.wires, type);
+    logEntry(step);
+    await sleep(step.delay);
+  }
+
+  setStatus('✓ Resposta enviada ao usuário!');
+  setTimeout(()=>{
+    setStatus('pronto para simulação...');
+    resetAll();
+    running=false;
+    document.getElementById('btnPhoto').disabled=false;
+    document.getElementById('btnText').disabled=false;
+  },2000);
+}
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+function clearLog(){document.getElementById('debugLog').innerHTML='<div style="color:#555;font-size:11px;padding:6px">Log limpo.</div>'}
+
+const nodeInfo={
+  1:{name:'FB Webhook',type:'http in',desc:'Recebe requisições POST do Facebook Messenger via webhook. Extrai payload com tipo de mensagem e user ID.'},
+  2:{name:'Normalizar msg',type:'function',desc:'Padroniza o payload para o schema interno do Iara. Define msg.type (image/text), msg.userId, msg.channel.'},
+  3:{name:'Switch foto/txt?',type:'switch',desc:'Roteia a mensagem: saída 1 se msg.type==="image" → Watson VR. Saída 2 se msg.type==="text" → Watson Conversation.'},
+  4:{name:'Watson VR',type:'IBM Watson',desc:'Chama IBM Watson Visual Recognition com a URL da imagem. Retorna classificações de cabelo, pele, idade e cores com % de confiança.'},
+  5:{name:'Extrair features',type:'function',desc:'Transforma a resposta do Watson VR em um perfil estruturado: {hair, skin, age, colors} para uso no recommendation engine.'},
+  6:{name:'Match catálogo',type:'function',desc:'Cruza o perfil visual com o catálogo JSON da Natura. Filtra por linha, benefícios e recommendedFor. Retorna até 5 produtos rankeados.'},
+  7:{name:'Format card',type:'template',desc:'Monta o payload de resposta no formato FB Generic Template: cards com imagem, título, subtítulo e botões de ação.'},
+  8:{name:'FB Reply',type:'http response',desc:'Envia a resposta para o Facebook Messenger via Send API. Retorna HTTP 200 para confirmar entrega.'},
+  9:{name:'Watson Conv',type:'IBM Watson',desc:'Processa texto em português via Watson Conversation (NLU). Detecta intent (comprar_produto), entity (perfume) e sentiment.'},
+  10:{name:'Parse intent',type:'function',desc:'Extrai intent e entities da resposta do Watson. Decide se há informação suficiente para recomendar ou se precisa pedir mais detalhes.'},
+  11:{name:'Recomendar',type:'function',desc:'Busca produtos no catálogo Natura baseado na intent e entity identificadas. Ordena por bestseller e relevância.'},
+  12:{name:'Format msg',type:'template',desc:'Monta resposta textual com lista de produtos e quick replies para refinamento (ex: feminino/masculino).'},
+  13:{name:'FB Reply',type:'http response',desc:'Envia a resposta textual para o usuário no Facebook Messenger.'},
+};
+
+function inspect(id){
+  const info=nodeInfo[id];
+  if(!info)return;
+  const log=document.getElementById('debugLog');
+  const el=document.createElement('div');
+  el.className='log-entry';
+  el.innerHTML=`<div class="log-time">INSPEÇÃO</div><div class="log-node">[${info.name}] · ${info.type}</div><div class="log-body">${info.desc}</div>`;
+  if(log.children.length===1&&log.children[0].style.color==='rgb(85, 85, 85)')log.innerHTML='';
+  log.appendChild(el);
+  log.scrollTop=log.scrollHeight;
+  const node=document.getElementById('n'+id);
+  if(node){node.classList.add('active');setTimeout(()=>node.classList.remove('active'),600);}
+}
+</script>
+
+<!-- MOBILE MENU -->
+<div class="mob-veil" id="mobVeil">
+  <div class="mob-veil-bg"></div>
+  <div class="mob-panel">
+    <div class="mob-ph">
+      <a href="index.html"><span class="the">the</span>JEN NOTES</a>
+      <button class="mob-pclose" id="mobClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="mob-pb">
+      <a href="index.html">Home</a>
+      <a href="index.html#conquistas">Conquistas</a>
+      <a href="index.html#competencias">Competências</a>
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#contato">Contato</a>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-traj">Trajetória <span class="mob-chev">›</span></button>
+      <div class="mob-acc-body" id="acc-traj">
+        <a href="experiencia.html#carrefour">Carrefour</a>
+        <a href="experiencia.html#creditas">Creditas</a>
+      </div>
+      <div class="mob-sep"></div>
+      <button class="mob-acc-btn" data-target="acc-cases">Cases <span class="mob-chev">›</span></button>
+      <div class="mob-acc-body" id="acc-cases">
+        <a href="cases.html">Projetos</a>
+        <a href="cases-fiap.html">FIAP × Natura</a>
+      </div>
+    </div>
+    <div class="mob-pf">
+      <a class="mpwa" href="https://wa.me/5511988432930?text=Oi%20Jennifer!" rel="noopener">Chat</a>
+      <a class="mpcv" href="index.html#secao-trajetoria" data-no-translate>Trajetória completa</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var veil=document.getElementById('mobVeil');
+  var btn=document.querySelector('.mob-hamburger');
+  if(!veil||!btn)return;
+  function openD(){veil.classList.add('open');btn.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeD(){veil.classList.remove('open');btn.classList.remove('is-open');document.body.style.overflow='';}
+  btn.addEventListener('click',openD);
+  document.getElementById('mobClose').addEventListener('click',closeD);
+  veil.querySelector('.mob-veil-bg').addEventListener('click',closeD);
+  veil.querySelectorAll('.mob-pb > a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-body a').forEach(function(a){a.addEventListener('click',closeD);});
+  veil.querySelectorAll('.mob-acc-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var body=document.getElementById(this.getAttribute('data-target'));
+      var isOpen=this.classList.contains('open');
+      this.classList.toggle('open',!isOpen);
+      if(!isOpen){body.style.maxHeight=body.scrollHeight+'px';body.classList.add('open');}
+      else{body.style.maxHeight='';body.classList.remove('open');}
+    });
+  });
+})();
+</script>
+  <script src="carousel-nav.js?v=20260805-c3"></script>
+</body>
+</html>
+
+
+
+
+
